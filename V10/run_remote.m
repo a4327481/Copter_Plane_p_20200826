@@ -34,8 +34,8 @@ dead=0.05;
             target_yaw_rate=algo_remote_ct_st.yaw*20000;          
             climb_rate_cms = deadzonef(algo_remote_ct_st.throttle-0.5,dead,0.5)*800;            
         case 4
-            nav_pitch_cd=algo_remote_ct_st.roll*4500;
-            latAccDem=-algo_remote_ct_st.pitch*9.8;
+            latAccDem=algo_remote_ct_st.roll*9.8;
+            nav_pitch_cd=algo_remote_ct_st.pitch*2000;
             throttle_dem=algo_remote_ct_st.throttle;
         case 5
             latAccDem=algo_remote_ct_st.roll*9.8;
