@@ -254,7 +254,7 @@ switch mode
                     AB = get_distance_NE(next_WP,current_loc);
                     AB_length = norm(AB,2);
                     if((AB_length<L1_radius))
-                        if((loc.num(WP_i+2,1)~=99))       
+                        if((loc.lat(WP_i+2,1)~=0&&loc.lon(WP_i+2,1)~=0))       
                             WP_i=WP_i+1;      
                         else               
                             WP_i=2;

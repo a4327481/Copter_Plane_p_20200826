@@ -39,6 +39,7 @@ global HD
  pitch=Curr_sate.pitchd/HD;
  roll=Curr_sate.rolld/HD;
  yaw=Curr_sate.yawd/HD;
+ 
  if(mode==10)
     PathModeOut_sl.headingCmd               =Curr_sate.PathModeOut.headingCmd;
     PathModeOut_sl.groundspeedCmd           =Curr_sate.PathModeOut.groundspeedCmd;

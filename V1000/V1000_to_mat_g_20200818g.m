@@ -858,6 +858,38 @@ SL.OUT_FLIGHTPERF.BESTPOS = BESTPOS; % create struct
 temp = reshape([data(find(mod(Count,4)==0),40:40)'],1,[]);
 numSv=double(typecast(uint8(temp),'uint8')')/1*1.0000000000;
 SL.OUT_FLIGHTPERF.numSv = numSv; % create struct
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% /*-----------------------RefModel_SystemArchitecture_U.IN_MAVLINK.------------------------- */
+% /* |@@SL.mavlink_mission_item_def@@+------------+-------------+------------+--------------| */
+temp = reshape([data(find(mod(Count,8)==3),197:198)'],1,[]);
+seq=double(typecast(uint8(temp),'uint16')')/1*1.0000000000;
+SL.mavlink_mission_item_def.seq = seq; % create struct
+temp = reshape([data(find(mod(Count,8)==3),199:202)'],1,[]);
+x=double(typecast(uint8(temp),'single')')/1*1.0000000000;
+SL.mavlink_mission_item_def.x = x; % create struct
+temp = reshape([data(find(mod(Count,8)==3),203:206)'],1,[]);
+y=double(typecast(uint8(temp),'single')')/1*1.0000000000;
+SL.mavlink_mission_item_def.y = y; % create struct
+temp = reshape([data(find(mod(Count,8)==3),207:208)'],1,[]);
+z=double(typecast(uint8(temp),'int16')')/32768*5000.0000000000;
+SL.mavlink_mission_item_def.z = z; % create struct
+% % 从飞行log中解析航点
+% [mavPathPoints,homeLLA] = getPathFromFlightData(SL.mavlink_mission_item_def);
+% % 绘制航点
+% figure;
+% subplot(121)
+% plot(mavPathPoints(:,2),mavPathPoints(:,1));hold on;
+% plot(homeLLA(:,2),homeLLA(:,1),'ro');hold on;
+% grid on;
+% xlabel('lon')
+% ylabel('lat')
+% axis equal
+% subplot(122)
+% plot3(mavPathPoints(:,2),mavPathPoints(:,1),mavPathPoints(:,3));
+% grid on;
+% xlabel('lon')
+% ylabel('lat')
+% zlabel('height')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 temp = reshape([data(find(mod(Count,4)==3),121:124)'],1,[]);
 task_1ms_total_cnt=double(typecast(uint8(temp),'uint32')')/1*1.0000000000;
