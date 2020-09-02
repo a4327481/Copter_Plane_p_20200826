@@ -718,9 +718,9 @@ TempName.Average_Current = Average_Current*(-0.01); % create struct
         temp=reshape([data(index_83,197:198)'],1,[]);
         algo_loc_num=double(typecast(uint8(temp),'int16')');  
         temp=reshape([data(index_83,199:202)'],1,[]);
-        algo_loc_lat=double(typecast(uint8(temp),'single')')/1e7;   
+        algo_loc_lat=double(typecast(uint8(temp),'single')');   
         temp=reshape([data(index_83,203:206)'],1,[]);
-        algo_loc_lon=double(typecast(uint8(temp),'single')')/1e7;         
+        algo_loc_lon=double(typecast(uint8(temp),'single')');         
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %out taskmode
         temp=reshape([data(index_160,229:230)'],1,[]);
