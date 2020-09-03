@@ -18,7 +18,7 @@ global p_plane_cp
          else
              temp_yaw_rate=get_weathervane_yaw_rate_cds();
          end   
-         vel_forward_pct_out = forward_throttle_pct();%%tail xiu zheng
+         vel_forward_pct_out = forward_throttle_pctg();%%tail xiu zheng
          update_vel_controller_xy();
          update_z_controller();
          input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate+temp_yaw_rate);

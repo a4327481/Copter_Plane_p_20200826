@@ -12,8 +12,17 @@ global throttle_dem
 global tail_tilt
 global mode
 global algo_remote_ct_st
+global pwm_tail
 dead=0.05;
-            mode=algo_remote_ct_st.mode;
+            if(algo_remote_ct_st.isRemoteConnected)
+                mode=algo_remote_ct_st.mode;
+            else
+                if(algo_remote_ct_st.mode==1||algo_remote_ct_st.mode==2||algo_remote_ct_st.mode==3||algo_remote_ct_st.mode==7)
+                    mode=3;
+                elseif((algo_remote_ct_st.mode==4||algo_remote_ct_st.mode==5||algo_remote_ct_st.mode==6||algo_remote_ct_st.mode==8))
+                    mode=8;
+                end               
+            end
             algo_remote_ct_st.roll = deadzonef(algo_remote_ct_st.roll,dead,1);
             algo_remote_ct_st.pitch = deadzonef(algo_remote_ct_st.pitch,dead,1);
             algo_remote_ct_st.yaw = deadzonef(algo_remote_ct_st.yaw,dead,1);           
@@ -48,6 +57,7 @@ dead=0.05;
             target_yaw_rate=algo_remote_ct_st.yaw*20000;
             climb_rate_cms = deadzonef(algo_remote_ct_st.throttle-0.5,dead,0.5)*800;                      
             tail_tilt=algo_remote_ct_st.tilt_anglein;
+            pwm_tail=algo_remote_ct_st.tilt_pwm;
         case 8
             climb_rate_cms=algo_remote_ct_st.pitch*400;
     end

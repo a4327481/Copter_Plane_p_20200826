@@ -1,7 +1,6 @@
 %mode_Multicopter
-load bus_comper.mat
-load IOBusInfo_V1000_20200826.mat
-load IOBusInfo_byc_202008242.mat
+load IOBusInfo_byc_20200903.mat
+load IOBusInfo_V1000_20200903.mat
 pianzhuanjiao
 quad_tail_4a1=0;
 plane_mode=ENUM_plane_mode.V1000;
@@ -269,9 +268,24 @@ aspeed_c2ps=13;
 %          4,      40.01*1e7,  100.02*1e7;
 %          5,      40.01*1e7,  100.01*1e7;
 %          99,     0*1e7,      0*1e7;    ];
-    loc.num=[0     1     2     3     4      5	99  99  99  99  99    ];
-    loc.lat=[4.0000    4.0010    4.0020    4.0020    4.0010  4.0015     4.0010  0   0   0   0]*1e8;
-    loc.lon=[1.0000    1.0001    1.0001    1.0002    1.0002  1.00025    1.0001  0   0   0	0]*1e9;
+    loc.num=1:20;
+
+    loc.lat=[
+2.9112732e+01
+2.9113876e+01
+2.9113876e+01
+2.9114450e+01
+2.9114450e+01
+zeros(15,1)
+]*1e7;
+    loc.lon=[
+1.0490368e+02
+1.0490256e+02
+1.0490623e+02
+1.0490623e+02
+1.0490256e+02
+zeros(15,1)
+]*1e7;
     
     mode_L1=0;
     roll_target_pilot=0;

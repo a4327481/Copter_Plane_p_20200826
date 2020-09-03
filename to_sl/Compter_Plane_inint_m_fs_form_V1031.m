@@ -1,7 +1,7 @@
 %mode_Multicopter
-load bus_comper.mat
-load IOBusInfo_V1000_20200826.mat
-load IOBusInfo_byc_202008242.mat
+% load bus_comper.mat
+load IOBusInfo_byc_20200903.mat
+load IOBusInfo_V1000_20200903.mat
 pianzhuanjiao
 m_kg=5;
 
@@ -197,12 +197,15 @@ PathModeOut_sl.turnCenterLL=[0 0];
 PathModeOut_sl.prePathPoint_LLA=[0 0 0];
 PathModeOut_sl.curPathPoint_LLA=[0 0 0];
 
+algo_remote_ct_st.isRemoteConnected=0;
 algo_remote_ct_st.mode=0;
 algo_remote_ct_st.roll=0;
 algo_remote_ct_st.pitch=0;
 algo_remote_ct_st.yaw=0;
 algo_remote_ct_st.throttle=0; 
 algo_remote_ct_st.tilt_anglein=0;
+algo_remote_ct_st.tilt_pwm=0;
+
 
 algo_dbg_param.headingCmd=0;
 algo_dbg_param.groundspeedCmd=0;
