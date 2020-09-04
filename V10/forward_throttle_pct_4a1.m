@@ -21,7 +21,7 @@ global dt
     end
      
     vel_forward_integrator =vel_forward_integrator + fwd_vel_error * dt * vel_forward_gain ;
-    vel_forward_integrator = constrain_value(vel_forward_integrator, 0, 0.4);
+    vel_forward_integrator = constrain_value(vel_forward_integrator, 0, 0.6);
     vel_forward_pct_out=vel_forward_integrator;
 end
 

@@ -56,8 +56,8 @@ dead=0.05;
             pitch_target=algo_remote_ct_st.pitch*4500;
             target_yaw_rate=algo_remote_ct_st.yaw*20000;
             climb_rate_cms = deadzonef(algo_remote_ct_st.throttle-0.5,dead,0.5)*800;                      
-            tail_tilt=algo_remote_ct_st.tilt_anglein;
-            pwm_tail=algo_remote_ct_st.tilt_pwm;
+            tail_tilt=algo_remote_ct_st.tail_anglein;
+            pwm_tail=algo_remote_ct_st.tail_throttle_pwm;
         case 8
             climb_rate_cms=algo_remote_ct_st.pitch*400;
     end
