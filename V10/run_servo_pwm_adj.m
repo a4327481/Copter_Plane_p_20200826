@@ -6,8 +6,12 @@ global k_rudder
 global k_aileron
 global k_aileronL
 global k_aileronR
+global mode
+if(mode==4||mode==5||mode==6||mode==8)
 k_rudder=constrain_value(algo_remote_ct_st.yaw*4500+k_rudder,-4500,4500);
+end
 k_aileronL=-k_aileron;
 k_aileronR=k_aileron;
+
 end
 
