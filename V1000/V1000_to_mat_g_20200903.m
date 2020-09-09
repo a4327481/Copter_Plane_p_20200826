@@ -1363,7 +1363,7 @@ data = [];
        head=[head ,' ',data_ck_txt{i}];
    end 
    head=[head ,'\n'];
-data_ck=data(:,1:i);
+data_ck=data(1:2:end,1:i);
 fid=fopen([PathName,'\\',FileName,'V1000.dat'],'w');
 fprintf(fid,head);
 %     [count,num]=size(data_ck);

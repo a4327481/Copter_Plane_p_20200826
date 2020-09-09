@@ -14,12 +14,12 @@ global mode
 global algo_remote_ct_st
 global pwm_tail
 dead=0.05;
-            if(algo_remote_ct_st.isRemoteConnected)
+            if(algo_remote_ct_st.isRemoteConnected||algo_remote_ct_st.mode==9||algo_remote_ct_st.mode==10)
                 mode=algo_remote_ct_st.mode;
             else
                 if(algo_remote_ct_st.mode==1||algo_remote_ct_st.mode==2||algo_remote_ct_st.mode==3||algo_remote_ct_st.mode==7)
                     mode=3;
-                elseif((algo_remote_ct_st.mode==4||algo_remote_ct_st.mode==5||algo_remote_ct_st.mode==6||algo_remote_ct_st.mode==8))
+                elseif((algo_remote_ct_st.mode==0||algo_remote_ct_st.mode==4||algo_remote_ct_st.mode==5||algo_remote_ct_st.mode==6||algo_remote_ct_st.mode==8))
                     mode=8;
                 end               
             end
