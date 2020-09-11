@@ -200,7 +200,7 @@ PathModeOut_sl.turnCenterLL=[0 0];
 PathModeOut_sl.prePathPoint_LLA=[0 0 0];
 PathModeOut_sl.curPathPoint_LLA=[0 0 0];
 
-algo_remote_ct_st.isRemoteConnected=0;
+algo_remote_ct_st.isRemoteConnected=1;
 algo_remote_ct_st.mode=0;
 algo_remote_ct_st.roll=0;
 algo_remote_ct_st.pitch=0;

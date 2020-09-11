@@ -151,6 +151,9 @@ switch mode
         if(mode_state~=1)
             attitude_target_quat=from_rotation_matrix(rot_body_to_ned);%20200225  
             mode_state=1;
+            k_aileron=0;
+            k_elevator=0;
+            k_rudder=0;
         end                
         set_throttle_out(throttle_in, 1, POSCONTROL_THROTTLE_CUTOFF_FREQ);
         input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate);
@@ -160,7 +163,10 @@ switch mode
         if(mode_state~=2)
             pos_target(3) = curr_alt;
             vel_desired(3)=0;
-            mode_state=2;            
+            mode_state=2;    
+            k_aileron=0;
+            k_elevator=0;
+            k_rudder=0;
         end
          set_alt_target_from_climb_rate_ff(climb_rate_cms, dt, 0)
          update_z_controller();
@@ -175,6 +181,9 @@ switch mode
             pos_target(3) = curr_alt;
             vel_desired(3)=0;
             mode_state=3;
+            k_aileron=0;
+            k_elevator=0;
+            k_rudder=0;
         else
 %             pos_target(1:2)=[0 0];
             curr_pos(1:2)=get_vector_xy_from_origin_NE( current_loc,loc_origin)*100; 

@@ -1,31 +1,31 @@
 Model {
-  Name			  "Copter_Plane_h3zh_sl_4a1"
+  Name			  "Copter_Plane_h3zh_sl_4a1y"
   Version		  10.1
   SavedCharacterEncoding  "GBK"
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.18"
+    ComputedModelVersion    "1.19"
     NumModelReferences	    0
     NumTestPointedSignals   9
     TestPointedSignal {
       SignalName	      ""
-      FullBlockPath	      "Copter_Plane_h3zh_sl_4a1/Data Store Read138"
+      FullBlockPath	      "Copter_Plane_h3zh_sl_4a1y/Data Store Read138"
       LogSignal		      1
       MaxPoints		      5000
       Decimation	      2
     }
     TestPointedSignal {
       SignalName	      "net"
-      FullBlockPath	      "Copter_Plane_h3zh_sl_4a1/Demux5"
+      FullBlockPath	      "Copter_Plane_h3zh_sl_4a1y/Demux5"
       LogSignal		      1
       MaxPoints		      5000
       Decimation	      2
     }
     TestPointedSignal {
       SignalName	      ""
-      FullBlockPath	      "Copter_Plane_h3zh_sl_4a1/Demux5"
+      FullBlockPath	      "Copter_Plane_h3zh_sl_4a1y/Demux5"
       PortIndex		      2
       LogSignal		      1
       MaxPoints		      5000
@@ -33,14 +33,14 @@ Model {
     }
     TestPointedSignal {
       SignalName	      "pre"
-      FullBlockPath	      "Copter_Plane_h3zh_sl_4a1/Demux6"
+      FullBlockPath	      "Copter_Plane_h3zh_sl_4a1y/Demux6"
       LogSignal		      1
       MaxPoints		      5000
       Decimation	      2
     }
     TestPointedSignal {
       SignalName	      ""
-      FullBlockPath	      "Copter_Plane_h3zh_sl_4a1/Demux6"
+      FullBlockPath	      "Copter_Plane_h3zh_sl_4a1y/Demux6"
       PortIndex		      2
       LogSignal		      1
       MaxPoints		      5000
@@ -48,14 +48,14 @@ Model {
     }
     TestPointedSignal {
       SignalName	      ""
-      FullBlockPath	      "Copter_Plane_h3zh_sl_4a1/Demux7"
+      FullBlockPath	      "Copter_Plane_h3zh_sl_4a1y/Demux7"
       LogSignal		      1
       MaxPoints		      5000
       Decimation	      2
     }
     TestPointedSignal {
       SignalName	      "cur"
-      FullBlockPath	      "Copter_Plane_h3zh_sl_4a1/Demux7"
+      FullBlockPath	      "Copter_Plane_h3zh_sl_4a1y/Demux7"
       PortIndex		      2
       LogSignal		      1
       MaxPoints		      5000
@@ -63,14 +63,14 @@ Model {
     }
     TestPointedSignal {
       SignalName	      "cur"
-      FullBlockPath	      "Copter_Plane_h3zh_sl_4a1/Demux8"
+      FullBlockPath	      "Copter_Plane_h3zh_sl_4a1y/Demux8"
       LogSignal		      1
       MaxPoints		      5000
       Decimation	      2
     }
     TestPointedSignal {
       SignalName	      "cur"
-      FullBlockPath	      "Copter_Plane_h3zh_sl_4a1/Demux8"
+      FullBlockPath	      "Copter_Plane_h3zh_sl_4a1y/Demux8"
       PortIndex		      2
       LogSignal		      1
       MaxPoints		      5000
@@ -158,27 +158,14 @@ Model {
 	LoadSaveID		"0"
 	Extents			[1820.0, 786.0]
 	ZoomFactor		[0.3]
-	Offset			[-3009.6530958800349, -1640.7490178481996]
-	SceneRectInView		[-3009.6530958800349, -1640.7490178481996, 6066.666666666667, 2620.0]
+	Offset			[-3059.6530958800349, -1640.7490178481996]
+	SceneRectInView		[-3059.6530958800349, -1640.7490178481996, 6066.666666666667, 2620.0]
       }
       Array {
 	Type			"Simulink.DockComponentInfo"
 	Dimension		2
 	Object {
 	  $ObjectID		  7
-	  Type			  "GLUE2:SpreadSheet"
-	  ID			  "ModelData"
-	  Visible		  [1]
-	  CreateCallback	  "DataView.createSpreadSheetComponent"
-	  UserData		  ""
-	  Floating		  [0]
-	  DockPosition		  "Bottom"
-	  Width			  [1916]
-	  Height		  [215]
-	  Minimized		  "On"
-	}
-	Object {
-	  $ObjectID		  8
 	  Type			  "GLUE2:PropertyInspector"
 	  ID			  "Property Inspector"
 	  Visible		  [1]
@@ -188,6 +175,19 @@ Model {
 	  DockPosition		  "Right"
 	  Width			  [640]
 	  Height		  [480]
+	  Minimized		  "On"
+	}
+	Object {
+	  $ObjectID		  8
+	  Type			  "GLUE2:SpreadSheet"
+	  ID			  "ModelData"
+	  Visible		  [1]
+	  CreateCallback	  "DataView.createSpreadSheetComponent"
+	  UserData		  ""
+	  Floating		  [0]
+	  DockPosition		  "Bottom"
+	  Width			  [1916]
+	  Height		  [215]
 	  Minimized		  "On"
 	}
 	PropName		"DockComponentsInfo"
@@ -219,9 +219,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "a4327"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Aug 26 18:49:53 2020"
-  RTWModifiedTimeStamp	  520366846
-  ModelVersionFormat	  "1.%<AutoIncrement:18>"
+  LastModifiedDate	  "Thu Sep 10 11:02:18 2020"
+  RTWModifiedTimeStamp	  521636450
+  ModelVersionFormat	  "1.%<AutoIncrement:19>"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
   LibraryLinkDisplay	  "disabled"
@@ -281,12 +281,12 @@ Model {
     $PropName		    "DataLoggingOverride"
     $ObjectID		    9
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
-    model_		    "Copter_Plane_h3zh_sl_4a1"
+    model_		    "Copter_Plane_h3zh_sl_4a1y"
     overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
       Dimension		      1
-      Cell		      "Copter_Plane_h3zh_sl_4a1"
+      Cell		      "Copter_Plane_h3zh_sl_4a1y"
       PropName		      "logAsSpecifiedByModels_"
     }
     Array {
@@ -16915,7 +16915,7 @@ Model {
 	  Description		  ""
 	  Components		  []
 	  StartTime		  "ts"
-	  StopTime		  "ts+100"
+	  StopTime		  "ts+500"
 	  AbsTol		  "auto"
 	  AutoScaleAbsTol	  on
 	  FixedStep		  "dt"
@@ -18407,7 +18407,7 @@ Model {
     }
   }
   System {
-    Name		    "Copter_Plane_h3zh_sl_4a1"
+    Name		    "Copter_Plane_h3zh_sl_4a1y"
     Location		    [-8, -8, 1928, 1048]
     Open		    on
     PortBlocksUseCompactNotation off
@@ -38201,7 +38201,7 @@ Model {
 Stateflow {
   machine {
     id			    1
-    name		    "Copter_Plane_h3zh_sl_4a1"
+    name		    "Copter_Plane_h3zh_sl_4a1y"
     sfVersion		    80000032
     firstTarget		    451
   }
@@ -38614,9 +38614,6 @@ Stateflow {
     screen		    [1 1 3600 1200 1.180555555555556]
     treeNode		    [0 23 0 0]
     viewObj		    22
-    visible		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    715
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
