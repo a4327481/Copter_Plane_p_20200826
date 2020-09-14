@@ -117,15 +117,15 @@ fp=fopen([PathName,'\\',FileName],'r');
         temp=reshape([data(:,3:6)'],1,[]);
         ax=typecast(uint8(temp),'single')';
         temp=reshape([data(:,7:10)'],1,[]);
-        ay=-typecast(uint8(temp),'single')';
+        ay=typecast(uint8(temp),'single')';
         temp=reshape([data(:,11:14)'],1,[]);
-        az=-typecast(uint8(temp),'single')';      
+        az=typecast(uint8(temp),'single')';      
         temp=reshape([data(:,15:18)'],1,[]);
         gx=typecast(uint8(temp),'single')'*HD;     
         temp=reshape([data(:,19:22)'],1,[]);
-        gy=-typecast(uint8(temp),'single')'*HD;   
+        gy=typecast(uint8(temp),'single')'*HD;   
         temp=reshape([data(:,23:26)'],1,[]);
-        gz=-typecast(uint8(temp),'single')'*HD;
+        gz=typecast(uint8(temp),'single')'*HD;
         
 
         
@@ -560,15 +560,15 @@ fp=fopen([PathName,'\\',FileName],'r');
         temp=reshape([data(index_20,159:160)'],1,[]);
         gx_f=double(typecast(uint8(temp),'int16')')/32768*17.5*HD; 
         temp=reshape([data(index_20,161:162)'],1,[]);
-        gy_f=double(typecast(uint8(temp),'int16')')/32768*-17.5*HD;  
+        gy_f=double(typecast(uint8(temp),'int16')')/32768*17.5*HD;  
         temp=reshape([data(index_20,163:164)'],1,[]);
-        gz_f=double(typecast(uint8(temp),'int16')')/32768*-17.5*HD; 
+        gz_f=double(typecast(uint8(temp),'int16')')/32768*17.5*HD; 
         temp=reshape([data(index_21,145:146)'],1,[]);
         ax_f=double(typecast(uint8(temp),'int16')')/32768*80;%%80
         temp=reshape([data(index_21,147:148)'],1,[]);
-        ay_f=double(typecast(uint8(temp),'int16')')/32768*-80;        
+        ay_f=double(typecast(uint8(temp),'int16')')/32768*80;        
         temp=reshape([data(index_21,149:150)'],1,[]);
-        az_f=double(typecast(uint8(temp),'int16')')/32768*-80; 
+        az_f=double(typecast(uint8(temp),'int16')')/32768*80; 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %MAg_YAW
         temp=reshape([data(index_40,209:210)'],1,[]);
