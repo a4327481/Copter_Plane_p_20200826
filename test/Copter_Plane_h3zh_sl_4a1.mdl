@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.29"
+    ComputedModelVersion    "1.30"
     NumModelReferences	    0
     NumTestPointedSignals   9
     TestPointedSignal {
@@ -157,28 +157,15 @@ Model {
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
 	Extents			[1820.0, 786.0]
-	ZoomFactor		[1.25]
-	Offset			[536.71558534380983, -1254.1725897407914]
-	SceneRectInView		[536.71558534380983, -1254.1725897407914, 1456.0, 628.8]
+	ZoomFactor		[0.8]
+	Offset			[-1735.1820197050383, -841.67414282316213]
+	SceneRectInView		[-1735.1820197050383, -841.67414282316213, 2275.0, 982.5]
       }
       Array {
 	Type			"Simulink.DockComponentInfo"
 	Dimension		2
 	Object {
 	  $ObjectID		  7
-	  Type			  "GLUE2:PropertyInspector"
-	  ID			  "Property Inspector"
-	  Visible		  [1]
-	  CreateCallback	  ""
-	  UserData		  ""
-	  Floating		  [0]
-	  DockPosition		  "Right"
-	  Width			  [640]
-	  Height		  [480]
-	  Minimized		  "On"
-	}
-	Object {
-	  $ObjectID		  8
 	  Type			  "GLUE2:SpreadSheet"
 	  ID			  "ModelData"
 	  Visible		  [1]
@@ -188,6 +175,19 @@ Model {
 	  DockPosition		  "Bottom"
 	  Width			  [1916]
 	  Height		  [215]
+	  Minimized		  "On"
+	}
+	Object {
+	  $ObjectID		  8
+	  Type			  "GLUE2:PropertyInspector"
+	  ID			  "Property Inspector"
+	  Visible		  [1]
+	  CreateCallback	  ""
+	  UserData		  ""
+	  Floating		  [0]
+	  DockPosition		  "Right"
+	  Width			  [640]
+	  Height		  [480]
 	  Minimized		  "On"
 	}
 	PropName		"DockComponentsInfo"
@@ -219,9 +219,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "a4327"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Sep 10 11:00:16 2020"
-  RTWModifiedTimeStamp	  521635807
-  ModelVersionFormat	  "1.%<AutoIncrement:29>"
+  LastModifiedDate	  "Tue Sep 15 12:13:39 2020"
+  RTWModifiedTimeStamp	  522072817
+  ModelVersionFormat	  "1.%<AutoIncrement:30>"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
   LibraryLinkDisplay	  "disabled"
@@ -16915,7 +16915,7 @@ Model {
 	  Description		  ""
 	  Components		  []
 	  StartTime		  "ts"
-	  StopTime		  "ts+500"
+	  StopTime		  "ts+350"
 	  AbsTol		  "auto"
 	  AutoScaleAbsTol	  on
 	  FixedStep		  "dt"
@@ -18423,7 +18423,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "125"
+    ZoomFactor		    "80"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "3546"
     SimulinkSubDomain	    "Simulink"
@@ -25639,21 +25639,21 @@ Model {
       ScopeSpecificationString "Simulink.scopes.TimeScopeBlockCfg('CurrentConfiguration', extmgr.ConfigurationSet(extm"
       "gr.Configuration('Core','General UI',true),extmgr.Configuration('Core','Source UI',true),extmgr.Configuration('S"
       "ources','WiredSimulink',true,'DataLoggingVariableName','ScopeData2'),extmgr.Configuration('Visuals','Time Domain"
-      "',true,'SerializedDisplays',{struct('MinYLimReal','-0.43636','MaxYLimReal','0.50648','YLabelReal','','MinYLimMag"
-      "','0.00000','MaxYLimMag','0.50648','LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'Axes"
+      "',true,'SerializedDisplays',{struct('MinYLimReal','-0.58983','MaxYLimReal','0.64954','YLabelReal','','MinYLimMag"
+      "','0.00000','MaxYLimMag','0.64954','LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'Axes"
       "Color',[0 0 0],'AxesTickColor',[0.686274509803922 0.686274509803922 0.686274509803922],'ColorOrder',[1 1 0.06666"
       "66666666667;0.0745098039215686 0.623529411764706 1;1 0.411764705882353 0.16078431372549;0.392156862745098 0.8313"
       "72549019608 0.0745098039215686;0.717647058823529 0.274509803921569 1;0.0588235294117647 1 1;1 0.0745098039215686"
       " 0.650980392156863],'Title','%<SignalLabel>','LinePropertiesCache',{{}},'UserDefinedChannelNames',{{}},'NumLines"
       "',2,'LineNames',{{'algo_roll_in','Data Store Read26'}},'ShowContent',true,'Placement',1)},'DisplayPropertyDefaul"
-      "ts',struct('MinYLimReal','-0.43636','MaxYLimReal','0.50648','YLabelReal','','MinYLimMag','0.00000','MaxYLimMag',"
-      "'0.50648','LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTickC"
+      "ts',struct('MinYLimReal','-0.58983','MaxYLimReal','0.64954','YLabelReal','','MinYLimMag','0.00000','MaxYLimMag',"
+      "'0.64954','LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTickC"
       "olor',[0.686274509803922 0.686274509803922 0.686274509803922],'ColorOrder',[0.0745098039215686 0.623529411764706"
       " 1;1 0.411764705882353 0.16078431372549;1 1 0.0666666666666667;0.717647058823529 0.274509803921569 1;0.392156862"
       "745098 0.831372549019608 0.0745098039215686;0.0588235294117647 1 1;1 0.0745098039215686 0.650980392156863])),ext"
       "mgr.Configuration('Tools','Plot Navigation',true,'PreviousAutoscale','XY','OnceAtStop',false,'PreviousZoomMode',"
       "'ZoomX'),extmgr.Configuration('Tools','Measurements',true,'Version','2020a')),'Version','2020a','Position',[1 1 "
-      "1004 667],'WindowStyle','docked')"
+      "1920 912],'WindowStyle','docked')"
       NumInputPorts	      "2"
       Floating		      off
     }
@@ -26818,21 +26818,21 @@ Model {
       ScopeSpecificationString "Simulink.scopes.TimeScopeBlockCfg('CurrentConfiguration', extmgr.ConfigurationSet(extm"
       "gr.Configuration('Core','General UI',true),extmgr.Configuration('Core','Source UI',true),extmgr.Configuration('S"
       "ources','WiredSimulink',true,'DataLoggingVariableName','ScopeData1'),extmgr.Configuration('Visuals','Time Domain"
-      "',true,'SerializedDisplays',{struct('MinYLimReal','-5625.00000','MaxYLimReal','5625.00000','YLabelReal','','MinY"
-      "LimMag','  0.00000','MaxYLimMag','5625.00000','LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',"
-      "false,'AxesColor',[0 0 0],'AxesTickColor',[0.686274509803922 0.686274509803922 0.686274509803922],'ColorOrder',["
-      "1 1 0.0666666666666667;0.0745098039215686 0.623529411764706 1;1 0.411764705882353 0.16078431372549;0.39215686274"
-      "5098 0.831372549019608 0.0745098039215686;0.717647058823529 0.274509803921569 1;0.0588235294117647 1 1;1 0.07450"
-      "98039215686 0.650980392156863],'Title','%<SignalLabel>','LinePropertiesCache',{{}},'UserDefinedChannelNames',{{}"
-      "},'NumLines',2,'LineNames',{{'Gain61','Data Store Read94'}},'ShowContent',true,'Placement',1)},'DisplayPropertyD"
-      "efaults',struct('MinYLimReal','-5625.00000','MaxYLimReal','5625.00000','YLabelReal','','MinYLimMag','  0.00000',"
-      "'MaxYLimMag','5625.00000','LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'AxesColor',[0"
-      " 0 0],'AxesTickColor',[0.686274509803922 0.686274509803922 0.686274509803922],'ColorOrder',[0.0745098039215686 0"
-      ".623529411764706 1;1 0.411764705882353 0.16078431372549;1 1 0.0666666666666667;0.717647058823529 0.2745098039215"
-      "69 1;0.392156862745098 0.831372549019608 0.0745098039215686;0.0588235294117647 1 1;1 0.0745098039215686 0.650980"
-      "392156863])),extmgr.Configuration('Tools','Plot Navigation',true,'PreviousAutoscale','XY','OnceAtStop',false,'Pr"
-      "eviousZoomMode','ZoomX'),extmgr.Configuration('Tools','Measurements',true,'Version','2020a')),'Version','2020a',"
-      "'Position',[1 41 1920 962])"
+      "',true,'SerializedDisplays',{struct('MinYLimReal','-1.00000','MaxYLimReal','1.00000','YLabelReal','','MinYLimMag"
+      "','0.00000','MaxYLimMag','1.00000','LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'Axes"
+      "Color',[0 0 0],'AxesTickColor',[0.686274509803922 0.686274509803922 0.686274509803922],'ColorOrder',[1 1 0.06666"
+      "66666666667;0.0745098039215686 0.623529411764706 1;1 0.411764705882353 0.16078431372549;0.392156862745098 0.8313"
+      "72549019608 0.0745098039215686;0.717647058823529 0.274509803921569 1;0.0588235294117647 1 1;1 0.0745098039215686"
+      " 0.650980392156863],'Title','%<SignalLabel>','LinePropertiesCache',{{}},'UserDefinedChannelNames',{{}},'NumLines"
+      "',2,'LineNames',{{'Gain61','Data Store Read94'}},'ShowContent',true,'Placement',1)},'DisplayPropertyDefaults',st"
+      "ruct('MinYLimReal','-1.00000','MaxYLimReal','1.00000','YLabelReal','','MinYLimMag','0.00000','MaxYLimMag','1.000"
+      "00','LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTickColor',"
+      "[0.686274509803922 0.686274509803922 0.686274509803922],'ColorOrder',[0.0745098039215686 0.623529411764706 1;1 0"
+      ".411764705882353 0.16078431372549;1 1 0.0666666666666667;0.717647058823529 0.274509803921569 1;0.392156862745098"
+      " 0.831372549019608 0.0745098039215686;0.0588235294117647 1 1;1 0.0745098039215686 0.650980392156863])),extmgr.Co"
+      "nfiguration('Tools','Plot Navigation',true,'PreviousAutoscale','XY','OnceAtStop',false,'PreviousZoomMode','ZoomX"
+      "'),extmgr.Configuration('Tools','Measurements',true,'Version','2020a')),'Version','2020a','Position',[1 41 1920 "
+      "962])"
       NumInputPorts	      "2"
       Floating		      off
     }
@@ -38776,6 +38776,9 @@ Stateflow {
     screen		    [1 1 3600 1200 1.180555555555556]
     treeNode		    [0 23 0 0]
     viewObj		    22
+    visible		    1
+    subviewS {
+    }
     ssIdHighWaterMark	    720
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
@@ -38805,9 +38808,9 @@ Stateflow {
       script		      "function copter_plane_run\nglobal plane_mode\n%     switch plane_mode\n%         case ENUM_plane_"
       "mode.V1000\n%             run_V1000();\n%         case ENUM_plane_mode.V10\n%             run_V10();\n%         "
       "case ENUM_plane_mode.V10s\n%             run_V10s();\n%         otherwise\n%             run_V10();\n%     end \n"
-      "run_remote();\n% load_Curr_sate();\n% loc_run();\n    switch plane_mode\n        case ENUM_plane_mode.V1000\n   "
-      "         run_V1000();\n        case ENUM_plane_mode.V10\n            run_V10();\n        case ENUM_plane_mode.V1"
-      "0s\n            run_V10s();\n        otherwise\n            run_V10();\n    end \nrun_servo_pwm_adj();\nend\n\n"
+      "% run_remote();\n% load_Curr_sate();\n% loc_run();\n    switch plane_mode\n        case ENUM_plane_mode.V1000\n "
+      "           run_V1000();\n        case ENUM_plane_mode.V10\n            run_V10();\n        case ENUM_plane_mode."
+      "V10s\n            run_V10s();\n        otherwise\n            run_V10();\n    end \nrun_servo_pwm_adj();\nend\n\n"
       editorLayout	      "100 M4x1[10 5 700 500]"
     }
   }
