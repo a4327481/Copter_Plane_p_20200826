@@ -1419,7 +1419,7 @@ for i=1:length(data_ublox_txt)
          head=[head ,' ',data_ublox_txt{i}];
         end 
         head=[head ,'\n'];
-data_ck=data_2(:,1:i);
+data_ck=data_2(1:2:end,1:i);
 fid=fopen([PathName,'\\',FileName,'V1000_UBLOX.dat'],'w');
 fprintf(fid,head);
 %     [count,num]=size(data_ck);
