@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.30"
+    ComputedModelVersion    "1.31"
     NumModelReferences	    0
     NumTestPointedSignals   9
     TestPointedSignal {
@@ -157,9 +157,9 @@ Model {
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
 	Extents			[1820.0, 786.0]
-	ZoomFactor		[0.8]
-	Offset			[-1735.1820197050383, -841.67414282316213]
-	SceneRectInView		[-1735.1820197050383, -841.67414282316213, 2275.0, 982.5]
+	ZoomFactor		[0.5]
+	Offset			[-2049.8741009972173, -1273.1292594801741]
+	SceneRectInView		[-2049.8741009972173, -1273.1292594801741, 3640.0, 1572.0]
       }
       Array {
 	Type			"Simulink.DockComponentInfo"
@@ -219,9 +219,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "a4327"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Sep 15 12:13:39 2020"
-  RTWModifiedTimeStamp	  522072817
-  ModelVersionFormat	  "1.%<AutoIncrement:30>"
+  LastModifiedDate	  "Fri Sep 18 11:37:15 2020"
+  RTWModifiedTimeStamp	  522329831
+  ModelVersionFormat	  "1.%<AutoIncrement:31>"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
   LibraryLinkDisplay	  "disabled"
@@ -16915,7 +16915,7 @@ Model {
 	  Description		  ""
 	  Components		  []
 	  StartTime		  "ts"
-	  StopTime		  "ts+350"
+	  StopTime		  "ts+500"
 	  AbsTol		  "auto"
 	  AutoScaleAbsTol	  on
 	  FixedStep		  "dt"
@@ -18423,7 +18423,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "80"
+    ZoomFactor		    "50"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "3546"
     SimulinkSubDomain	    "Simulink"
@@ -25639,21 +25639,21 @@ Model {
       ScopeSpecificationString "Simulink.scopes.TimeScopeBlockCfg('CurrentConfiguration', extmgr.ConfigurationSet(extm"
       "gr.Configuration('Core','General UI',true),extmgr.Configuration('Core','Source UI',true),extmgr.Configuration('S"
       "ources','WiredSimulink',true,'DataLoggingVariableName','ScopeData2'),extmgr.Configuration('Visuals','Time Domain"
-      "',true,'SerializedDisplays',{struct('MinYLimReal','-0.58983','MaxYLimReal','0.64954','YLabelReal','','MinYLimMag"
-      "','0.00000','MaxYLimMag','0.64954','LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'Axes"
+      "',true,'SerializedDisplays',{struct('MinYLimReal','-0.47037','MaxYLimReal','0.37751','YLabelReal','','MinYLimMag"
+      "','0.00000','MaxYLimMag','0.47037','LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'Axes"
       "Color',[0 0 0],'AxesTickColor',[0.686274509803922 0.686274509803922 0.686274509803922],'ColorOrder',[1 1 0.06666"
       "66666666667;0.0745098039215686 0.623529411764706 1;1 0.411764705882353 0.16078431372549;0.392156862745098 0.8313"
       "72549019608 0.0745098039215686;0.717647058823529 0.274509803921569 1;0.0588235294117647 1 1;1 0.0745098039215686"
       " 0.650980392156863],'Title','%<SignalLabel>','LinePropertiesCache',{{}},'UserDefinedChannelNames',{{}},'NumLines"
       "',2,'LineNames',{{'algo_roll_in','Data Store Read26'}},'ShowContent',true,'Placement',1)},'DisplayPropertyDefaul"
-      "ts',struct('MinYLimReal','-0.58983','MaxYLimReal','0.64954','YLabelReal','','MinYLimMag','0.00000','MaxYLimMag',"
-      "'0.64954','LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTickC"
+      "ts',struct('MinYLimReal','-0.47037','MaxYLimReal','0.37751','YLabelReal','','MinYLimMag','0.00000','MaxYLimMag',"
+      "'0.47037','LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTickC"
       "olor',[0.686274509803922 0.686274509803922 0.686274509803922],'ColorOrder',[0.0745098039215686 0.623529411764706"
       " 1;1 0.411764705882353 0.16078431372549;1 1 0.0666666666666667;0.717647058823529 0.274509803921569 1;0.392156862"
       "745098 0.831372549019608 0.0745098039215686;0.0588235294117647 1 1;1 0.0745098039215686 0.650980392156863])),ext"
       "mgr.Configuration('Tools','Plot Navigation',true,'PreviousAutoscale','XY','OnceAtStop',false,'PreviousZoomMode',"
       "'ZoomX'),extmgr.Configuration('Tools','Measurements',true,'Version','2020a')),'Version','2020a','Position',[1 1 "
-      "1920 912],'WindowStyle','docked')"
+      "1540 740],'WindowStyle','docked')"
       NumInputPorts	      "2"
       Floating		      off
     }
@@ -25883,7 +25883,7 @@ Model {
       "45098 0.831372549019608 0.0745098039215686;0.0588235294117647 1 1;1 0.0745098039215686 0.650980392156863])),extm"
       "gr.Configuration('Tools','Plot Navigation',true,'PreviousAutoscale','XY','OnceAtStop',false,'PreviousZoomMode','"
       "ZoomY'),extmgr.Configuration('Tools','Measurements',true,'Version','2020a')),'Version','2020a','Position',[1 1 1"
-      "004 667],'WindowStyle','docked')"
+      "920 912],'WindowStyle','docked')"
       NumInputPorts	      "2"
       Floating		      off
     }
@@ -38808,9 +38808,9 @@ Stateflow {
       script		      "function copter_plane_run\nglobal plane_mode\n%     switch plane_mode\n%         case ENUM_plane_"
       "mode.V1000\n%             run_V1000();\n%         case ENUM_plane_mode.V10\n%             run_V10();\n%         "
       "case ENUM_plane_mode.V10s\n%             run_V10s();\n%         otherwise\n%             run_V10();\n%     end \n"
-      "% run_remote();\n% load_Curr_sate();\n% loc_run();\n    switch plane_mode\n        case ENUM_plane_mode.V1000\n "
-      "           run_V1000();\n        case ENUM_plane_mode.V10\n            run_V10();\n        case ENUM_plane_mode."
-      "V10s\n            run_V10s();\n        otherwise\n            run_V10();\n    end \nrun_servo_pwm_adj();\nend\n\n"
+      "run_remote();\nload_Curr_sate();\nloc_run();\n    switch plane_mode\n        case ENUM_plane_mode.V1000\n       "
+      "     run_V1000();\n        case ENUM_plane_mode.V10\n            run_V10();\n        case ENUM_plane_mode.V10s\n"
+      "            run_V10s();\n        otherwise\n            run_V10();\n    end \nrun_servo_pwm_adj();\nend\n\n"
       editorLayout	      "100 M4x1[10 5 700 500]"
     }
   }
