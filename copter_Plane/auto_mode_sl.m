@@ -67,6 +67,8 @@ persistent PathMode
 persistent uavMode %0:comper 1:plane
 persistent Rotor2Fix_delay
 persistent Rotor2Fix_delay_flag
+persistent Fix2Rotor_delay
+persistent Fix2Rotor_delay_flag
 persistent TakeOffMode_delay
 persistent TakeOffMode_delay_flag
 
@@ -131,7 +133,13 @@ global vel_forward_integrator
   if isempty(Rotor2Fix_delay_flag)
         Rotor2Fix_delay_flag = 0;
   end
-  
+  if isempty(Fix2Rotor_delay)
+        Fix2Rotor_delay = 0;  
+  end
+  if isempty(Fix2Rotor_delay_flag)
+        Fix2Rotor_delay_flag = 0;
+  end  
+
   if isempty(TakeOffMode_delay)
         TakeOffMode_delay = 0;  
   end
@@ -487,46 +495,65 @@ global vel_forward_integrator
             case    ENUM_FlightTaskMode.Fix2Rotor_Mode
                  if(PathMode~=ENUM_FlightTaskMode.Fix2Rotor_Mode)
                     PathMode=ENUM_FlightTaskMode.Fix2Rotor_Mode;
-                    uavMode=0;
+                    uavMode=1;
                     pos_target(3) = curr_alt;
+                    k_throttle=0;
                     vel_desired(3)=0;
                     attitude_target_quat=from_rotation_matrix(rot_body_to_ned);%20200225
                     target_yaw_rate=0;  
-                    tail_tilt=tail_tilt_p2c;
                     roll_target=0;
                     pitch_target=pitch_target_p2c;
-                end
-                 update_z_controller();
-                 tail_tilt_temp=constrain_value(tail_tilt,-3000,700);
-                 pitch_target_temp=pitch_target+p_tilt_pitch_target*tail_tilt_temp;
-                 input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate);
-                 rate_controller_run();
-            
-                 tail_error=-tail_tilt;
-                 if(abs(tail_error)>100)
-                     throttle_filter=0;
-                     throttle_in=0;
+                    Fix2Rotor_delay_flag=0;
+                    Fix2Rotor_delay=0;
                  end
-                 tail_error=constrain_value(tail_error,-tail_tilt_rate*dt,tail_tilt_rate*dt);
-                 tail_tilt=tail_tilt+tail_error;
-
-                 if(aspeed>aspeed_c2p)
-                    nav_pitch_cd=pitch_target;
-                    nav_roll_cd=roll_target;
-                    stabilize()
-                    k_aileron=k_aileron*p_plane_c2p;
-                    k_elevator=k_elevator*p_plane_c2p;
-                    k_rudder=k_rudder*p_plane_c2p;
-                    yaw_in=constrain_value(yaw_in,-yaw_max_c2p,yaw_max_c2p);
-                    POSCONTROL_ACC_Z_FILT_HZ=POSCONTROL_ACC_Z_FILT_HZ_inint;
-                    AP_MotorsMulticopter_output();
-                 else          
-                     POSCONTROL_ACC_Z_FILT_HZ=POSCONTROL_ACC_Z_FILT_HZ_inint;
-                     k_aileron=0;
-                     k_elevator=0;
-                     k_rudder=0;
-                     AP_MotorsMulticopter_output();
-                 end
+                 if(uavMode==1)
+                     if(Fix2Rotor_delay_flag==0)
+                         nav_pitch_cd=pitch_target;
+                         nav_roll_cd=roll_target;
+                         stabilize()
+                         output_to_motors_plane();
+                         Fix2Rotor_delay=Fix2Rotor_delay+dt;
+                         if(Fix2Rotor_delay>0.3)
+                             Fix2Rotor_delay_flag=1;
+                             Fix2Rotor_delay=0;
+                         end
+                     else
+                         Fix2Rotor_delay_flag=1;
+                         tail_tilt=tail_tilt_p2c;
+                         Fix2Rotor_delay=Fix2Rotor_delay+dt;
+                         throttle_filter=0;
+                         throttle_in=0;
+                         set_throttle_out(throttle_in, 1, POSCONTROL_THROTTLE_CUTOFF_FREQ);
+                          if(Fix2Rotor_delay>0.3)
+                             uavMode=0;
+                             Fix2Rotor_delay=0;
+                         end                              
+                     end     
+                 else
+                     update_z_controller();
+                     input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate);
+                     rate_controller_run();
+                     tail_error=-tail_tilt;
+                     tail_error=constrain_value(tail_error,-tail_tilt_rate*dt,tail_tilt_rate*dt);
+                     tail_tilt=tail_tilt+tail_error;
+                     if(aspeed>aspeed_c2p)
+                         nav_pitch_cd=pitch_target;
+                         nav_roll_cd=roll_target;
+                         stabilize()
+                         k_aileron=k_aileron*p_plane_c2p;
+                         k_elevator=k_elevator*p_plane_c2p;
+                         k_rudder=k_rudder*p_plane_c2p;
+                         yaw_in=constrain_value(yaw_in,-yaw_max_c2p,yaw_max_c2p);
+                         POSCONTROL_ACC_Z_FILT_HZ=POSCONTROL_ACC_Z_FILT_HZ_inint;
+                         AP_MotorsMulticopter_output();
+                     else
+                         POSCONTROL_ACC_Z_FILT_HZ=POSCONTROL_ACC_Z_FILT_HZ_inint;
+                         k_aileron=0;
+                         k_elevator=0;
+                         k_rudder=0;
+                         AP_MotorsMulticopter_output();
+                     end
+                 end             
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
             case    ENUM_FlightTaskMode.PathFollowMode               
                 if(PathMode~=ENUM_FlightTaskMode.PathFollowMode)

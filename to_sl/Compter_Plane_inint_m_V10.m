@@ -1,6 +1,6 @@
 %mode_Multicopter
 load IOBusInfo_byc_20200903.mat
-load IOBusInfo_V1000_20200903.mat
+load IOBusInfo_V1000.mat
 pianzhuanjiao
 quad_tail_4a1=0;
 plane_mode=ENUM_plane_mode.V1000;
@@ -59,7 +59,7 @@ vel_forward_integrator=0;
 PathModeOut_sl.headingCmd=0;
 PathModeOut_sl.groundspeedCmd=0;
 PathModeOut_sl.heightCmd=10000;
-PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.LandMode;
+PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.Fix2Rotor_Mode;
 PathModeOut_sl.flightControlMode=ENUM_FlightControlMode.SpotHoverMode;
 PathModeOut_sl.maxClimbSpeed=100;
 PathModeOut_sl.turnCenterLL=[40,100]*1e7;
@@ -67,12 +67,15 @@ PathModeOut_sl.prePathPoint_LLA=[40,100 ,0]*1e7;
 PathModeOut_sl.curPathPoint_LLA=[40,100.01, 0]*1e7;
 PathModeOut_sl.rollCmd=0.1;
 
+
+algo_remote_ct_st.isRemoteConnected=1;
 algo_remote_ct_st.mode=0;
 algo_remote_ct_st.roll=0;
 algo_remote_ct_st.pitch=0;
 algo_remote_ct_st.yaw=0;
 algo_remote_ct_st.throttle=0; 
-algo_remote_ct_st.tilt_anglein=0;
+algo_remote_ct_st.tail_anglein=0;
+algo_remote_ct_st.tail_throttle_pwm=0;
 
 algo_dbg_param.headingCmd=0;
 algo_dbg_param.groundspeedCmd=0;
@@ -179,6 +182,8 @@ aspeed_c2ps=13;
     inverted_flight=0;
     k_rudder=0;
     k_aileron=0;
+    k_aileronL=0;
+    k_aileronR=0;
     k_throttle=0.0;
     k_elevator=0;
     POSCONTROL_ACC_Z_FILT_HZ_c2p=1;
