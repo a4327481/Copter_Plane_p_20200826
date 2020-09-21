@@ -41,6 +41,7 @@ global nav_pitch_cd
 global nav_roll_cd
 global yaw_in
 global p_plane_c2p
+global p_plane_p2c
 global yaw_max_c2p
 global pitch_target_p2c
 global pitch_target_c2p
@@ -517,16 +518,21 @@ global vel_forward_integrator
                              Fix2Rotor_delay_flag=1;
                              Fix2Rotor_delay=0;
                          end
-                     else
+                     else                                                
                          Fix2Rotor_delay_flag=1;
-                         tail_tilt=tail_tilt_p2c;
-                         Fix2Rotor_delay=Fix2Rotor_delay+dt;
+                         nav_pitch_cd=pitch_target;
+                         nav_roll_cd=roll_target;
+                         stabilize()                        
                          throttle_filter=0;
                          throttle_in=0;
                          set_throttle_out(throttle_in, 1, POSCONTROL_THROTTLE_CUTOFF_FREQ);
+                         AP_MotorsMulticopter_output();
+                         tail_tilt=tail_tilt_p2c;
+                         Fix2Rotor_delay=Fix2Rotor_delay+dt;
                           if(Fix2Rotor_delay>0.3)
                              uavMode=0;
                              Fix2Rotor_delay=0;
+                             pos_target(3) = curr_alt;
                          end                              
                      end     
                  else
@@ -540,9 +546,9 @@ global vel_forward_integrator
                          nav_pitch_cd=pitch_target;
                          nav_roll_cd=roll_target;
                          stabilize()
-                         k_aileron=k_aileron*p_plane_c2p;
-                         k_elevator=k_elevator*p_plane_c2p;
-                         k_rudder=k_rudder*p_plane_c2p;
+                         k_aileron=k_aileron*p_plane_p2c;
+                         k_elevator=k_elevator*p_plane_p2c;
+                         k_rudder=k_rudder*p_plane_p2c;
                          yaw_in=constrain_value(yaw_in,-yaw_max_c2p,yaw_max_c2p);
                          POSCONTROL_ACC_Z_FILT_HZ=POSCONTROL_ACC_Z_FILT_HZ_inint;
                          AP_MotorsMulticopter_output();

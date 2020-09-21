@@ -128,6 +128,7 @@ m_kg=5;
  throttle_ground                        = 0.55                        ;
  yaw_in_max                             = 1.00                        ;
  pitch_target_c2p                       = 000                         ;
+ p_plane_p2c                            = 0.6                         ; 
 
     take_off_land=0;
     ff_throttle=0;

@@ -141,6 +141,7 @@ aspeed_c2ps=13;
     disable_integrator_yaw=0;
     aspeed_c2p=8;
     p_plane_c2p=0.1;
+    p_plane_p2c=0.1;
     yaw_max_c2p=0.3;
     desired_rate_pitch=0;
     desired_rate_roll=0;
