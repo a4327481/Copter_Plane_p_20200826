@@ -1159,9 +1159,9 @@ SL.SystemInfo.task_100ms_total_cnt = task_100ms_total_cnt; % create struct
         'gx_f';
         'gy_f';
         'gz_f';   
-        'gx_f1';
-        'gy_f1';
-        'gz_f1';  
+%         'gx_f1';
+%         'gy_f1';
+%         'gz_f1';  
         'algo_servo_out_0';
         'algo_servo_out_1';
         'algo_servo_out_2';
