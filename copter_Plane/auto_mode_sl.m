@@ -205,6 +205,7 @@ global vel_forward_integrator
         ATC_RAT_RLL_I=ATC_RAT_RLL_I_inint;
         ATC_RAT_YAW_I=ATC_RAT_YAW_I_inint;    
     end
+    
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         switch PathModeOut_sl.flightTaskMode
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -529,7 +530,7 @@ global vel_forward_integrator
                          AP_MotorsMulticopter_output();
                          tail_tilt=tail_tilt_p2c;
                          Fix2Rotor_delay=Fix2Rotor_delay+dt;
-                          if(Fix2Rotor_delay>0.3)
+                          if(Fix2Rotor_delay>0.2)
                              uavMode=0;
                              Fix2Rotor_delay=0;
                              pos_target(3) = curr_alt;
