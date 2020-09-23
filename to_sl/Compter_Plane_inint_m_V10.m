@@ -59,7 +59,7 @@ vel_forward_integrator=0;
 PathModeOut_sl.headingCmd=0;
 PathModeOut_sl.groundspeedCmd=0;
 PathModeOut_sl.heightCmd=10000;
-PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.Fix2Rotor_Mode;
+PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.HoverAdjustMode;
 PathModeOut_sl.flightControlMode=ENUM_FlightControlMode.SpotHoverMode;
 PathModeOut_sl.maxClimbSpeed=100;
 PathModeOut_sl.turnCenterLL=[40,100]*1e7;
@@ -80,7 +80,7 @@ algo_remote_ct_st.tail_throttle_pwm=0;
 algo_dbg_param.headingCmd=0;
 algo_dbg_param.groundspeedCmd=0;
 algo_dbg_param.heightCmd=0;
-algo_dbg_param.flightTaskMode=ENUM_FlightTaskMode.Rotor2Fix_Mode;
+algo_dbg_param.flightTaskMode=ENUM_FlightTaskMode.HoverAdjustMode;
 algo_dbg_param.maxClimbSpeed=0; 
 
  Curr_sate.accel_x=0;
@@ -114,7 +114,8 @@ tail_tilt_c2p=-2800;
 tail_tilt_p2c=-1300;
 tail_tilt_rate=1500;
 aspeed_c2ps=13;
- 
+POSCONTROL_THROTTLE_CUTOFF_FREQ_p2c=0.2;
+
  vel_forward_last_pct=0;
  vel_forward_gain=1;
  vel_forward_min_pitch=-5;

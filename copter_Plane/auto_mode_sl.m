@@ -72,6 +72,7 @@ persistent Fix2Rotor_delay
 persistent Fix2Rotor_delay_flag
 persistent TakeOffMode_delay
 persistent TakeOffMode_delay_flag
+persistent POSCONTROL_THROTTLE_CUTOFF_FREQ_inint
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global disable_integrator_pitch
@@ -83,6 +84,7 @@ global K_FF_yaw
 global roll_ff_pitch_inint
 global K_FF_yaw_inint
 global POSCONTROL_ACC_Z_FILT_HZ_inint
+global POSCONTROL_THROTTLE_CUTOFF_FREQ_p2c
 %%%%%%%%%%%%%%%%%%%%%% I %%%%%%%%%%%%%%%%%%%%%
 global POSCONTROL_ACC_Z_I_inint
 global     POSCONTROL_ACC_Z_I
@@ -103,6 +105,7 @@ global     rate_roll_pid_reset_filter
 global ATC_RAT_YAW_I_inint
 global     ATC_RAT_YAW_I
 global     rate_yaw_pid_reset_filter
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global throttle_filter;
 global throttle_in;
@@ -126,7 +129,7 @@ global vel_forward_integrator
     end      
     if isempty(PathMode)
         PathMode = ENUM_FlightTaskMode.NoneFlightTaskMode;
-    end
+    end  
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
   if isempty(Rotor2Fix_delay)
         Rotor2Fix_delay = 0;  
@@ -146,6 +149,9 @@ global vel_forward_integrator
   end
   if isempty(TakeOffMode_delay_flag)
         TakeOffMode_delay_flag = 0;  
+  end
+  if isempty(POSCONTROL_THROTTLE_CUTOFF_FREQ_inint)
+        POSCONTROL_THROTTLE_CUTOFF_FREQ_inint = POSCONTROL_THROTTLE_CUTOFF_FREQ;  
   end
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
        error_pos=8;
@@ -173,6 +179,11 @@ global vel_forward_integrator
     else
       take_off_land=0;
     end
+    
+   if(PathModeOut_sl.flightTaskMode~=ENUM_FlightTaskMode.Fix2Rotor_Mode)
+      POSCONTROL_THROTTLE_CUTOFF_FREQ=POSCONTROL_THROTTLE_CUTOFF_FREQ_inint;
+    end
+    
     
     if( uavMode==1)%% mode =1,mode=plane , disable plane I,vel_forward_integrator=0;
         disable_integrator_pitch=0;
@@ -205,7 +216,6 @@ global vel_forward_integrator
         ATC_RAT_RLL_I=ATC_RAT_RLL_I_inint;
         ATC_RAT_YAW_I=ATC_RAT_YAW_I_inint;    
     end
-    
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         switch PathModeOut_sl.flightTaskMode
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -507,6 +517,7 @@ global vel_forward_integrator
                     pitch_target=pitch_target_p2c;
                     Fix2Rotor_delay_flag=0;
                     Fix2Rotor_delay=0;
+                    POSCONTROL_THROTTLE_CUTOFF_FREQ=POSCONTROL_THROTTLE_CUTOFF_FREQ_p2c;
                  end
                  if(uavMode==1)
                      if(Fix2Rotor_delay_flag==0)
@@ -526,7 +537,7 @@ global vel_forward_integrator
                          stabilize()                        
                          throttle_filter=0;
                          throttle_in=0;
-                         set_throttle_out(throttle_in, 1, POSCONTROL_THROTTLE_CUTOFF_FREQ);
+                         set_throttle_out(throttle_in, 1, 10);
                          AP_MotorsMulticopter_output();
                          tail_tilt=tail_tilt_p2c;
                          Fix2Rotor_delay=Fix2Rotor_delay+dt;
@@ -537,7 +548,6 @@ global vel_forward_integrator
                          end                              
                      end     
                  else
-                     update_z_controller();
                      input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate);
                      rate_controller_run();
                      tail_error=-tail_tilt;
@@ -552,9 +562,13 @@ global vel_forward_integrator
                          k_rudder=k_rudder*p_plane_p2c;
                          yaw_in=constrain_value(yaw_in,-yaw_max_c2p,yaw_max_c2p);
                          POSCONTROL_ACC_Z_FILT_HZ=POSCONTROL_ACC_Z_FILT_HZ_inint;
+                         POSCONTROL_THROTTLE_CUTOFF_FREQ=POSCONTROL_THROTTLE_CUTOFF_FREQ_p2c;
+                         update_z_controller();
                          AP_MotorsMulticopter_output();
                      else
                          POSCONTROL_ACC_Z_FILT_HZ=POSCONTROL_ACC_Z_FILT_HZ_inint;
+                         POSCONTROL_THROTTLE_CUTOFF_FREQ=POSCONTROL_THROTTLE_CUTOFF_FREQ_inint;
+                         update_z_controller();
                          k_aileron=0;
                          k_elevator=0;
                          k_rudder=0;
