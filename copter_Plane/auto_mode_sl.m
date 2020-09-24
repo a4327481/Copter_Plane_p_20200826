@@ -73,7 +73,7 @@ persistent Fix2Rotor_delay_flag
 persistent TakeOffMode_delay
 persistent TakeOffMode_delay_flag
 persistent POSCONTROL_THROTTLE_CUTOFF_FREQ_inint
-
+global Fix2Rotor_delay_s
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global disable_integrator_pitch
 global disable_integrator_roll
@@ -526,7 +526,7 @@ global vel_forward_integrator
                          stabilize()
                          output_to_motors_plane();
                          Fix2Rotor_delay=Fix2Rotor_delay+dt;
-                         if(Fix2Rotor_delay>0.3)
+                         if(Fix2Rotor_delay>Fix2Rotor_delay_s)
                              Fix2Rotor_delay_flag=1;
                              Fix2Rotor_delay=0;
                          end

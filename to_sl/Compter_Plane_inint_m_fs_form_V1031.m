@@ -130,6 +130,7 @@ m_kg=5;
  pitch_target_c2p                       = 000                         ;
  p_plane_p2c                            = 0.6                         ; 
  POSCONTROL_THROTTLE_CUTOFF_FREQ_p2c    = 0.2                         ;
+ Fix2Rotor_delay_s                      = 0.8                         ;
 
     take_off_land=0;
     ff_throttle=0;

@@ -116,7 +116,7 @@ function output_armed_stabilizing()
     % todo: make _yaw_headroom 0 to 1
     yaw_allowed = yaw_headroom / 1000.0;
     yaw_allowed = thrust_boost_ratio*0.5 + (1.0- thrust_boost_ratio) * yaw_allowed;
-    yaw_allowed = max(min(throttle_thrust_best_rpy+rp_low, 1.0 - (throttle_thrust_best_rpy + rp_high)), yaw_allowed)/2.5599;
+    yaw_allowed = max(min(throttle_thrust_best_rpy+rp_low, 1.0 - (throttle_thrust_best_rpy + rp_high))/max(abs(yaw_factor)), yaw_allowed);
     if (abs(yaw_thrust) > yaw_allowed)  
         % not all commanded yaw can be used
         yaw_thrust = constrain_value(yaw_thrust, -yaw_allowed, yaw_allowed);
