@@ -142,8 +142,8 @@ global     rate_yaw_pid_reset_filter
   updata_cl();
   rc=1/(2*pi*arspeed_filt);
   alpha=dt/(dt+rc);
-%   arspeed_temp=arspeed_temp+(aspeed-arspeed_temp)*alpha;
-%   aspeed=arspeed_temp;
+  arspeed_temp=arspeed_temp+(aspeed-arspeed_temp)*alpha;
+  aspeed=arspeed_temp;
   
 
 switch mode
