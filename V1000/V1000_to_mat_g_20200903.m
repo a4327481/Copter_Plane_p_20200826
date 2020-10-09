@@ -384,7 +384,7 @@ fp=fopen([PathName,'\\',FileName],'r');
         temp=reshape([data(index_21,93:94)'],1,[]);
         algo_climb_rate_cms=double(typecast(uint8(temp),'int16')')/32768*5;
         temp=reshape([data(index_21,95:96)'],1,[]);
-        algo_throttle_filter=double(typecast(uint8(temp),'int16')')/32768*2;
+        algo_throttle_filter=double(typecast(uint8(temp),'int16')')/32768*20;
         temp=reshape([data(index_21,97:98)'],1,[]);
         algo_vel_desired_2=double(typecast(uint8(temp),'int16')')/32768*10; 
         temp=reshape([data(index_21,99)'],1,[]);
@@ -405,7 +405,7 @@ fp=fopen([PathName,'\\',FileName],'r');
         temp=reshape([data(index_20,139:140)'],1,[]);
         algo_k_elevator=double(typecast(uint8(temp),'int16')')/32768*45;
         temp=reshape([data(index_20,141:142)'],1,[]);
-        algo_k_throttle=double(typecast(uint8(temp),'int16')')/32768*1; 
+        algo_k_throttle=double(typecast(uint8(temp),'int16')')/32768*10; 
         temp=reshape([data(index_20,143:144)'],1,[]);
         algo_k_aileron=double(typecast(uint8(temp),'int16')')/32768*45; 
         temp=reshape([data(index_21,137:138)'],1,[]);
@@ -889,7 +889,7 @@ SL.SystemInfo.task_100ms_total_cnt = task_100ms_total_cnt; % create struct
 %  plot(task_1ms_total_cnt./task_4ms_total_cnt)
 %  plot(task_1ms_total_cnt./task_12ms_total_cnt)
 %  plot(task_1ms_total_cnt./task_100ms_total_cnt)
-%  plot(diff(save_time))
+%  plot(save_time(2:end),diff(save_time))
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
