@@ -686,6 +686,8 @@ TempName.Average_Current = Average_Current*(-0.01); % create struct
         EAS_Algo=double(typecast(uint8(temp),'int16')')/32768*50;
         temp=reshape([data(index_20,185:186)'],1,[]);
         EAS2TAS_Algo=double(typecast(uint8(temp),'int16')')/32768*2;
+        temp=reshape([data(index_20,187:188)'],1,[]);
+        airspeed_temperature=double(typecast(uint8(temp),'int16')')/32768*200;
         temp=reshape([data(index_20,189:190)'],1,[]);
         airspeed_used=double(typecast(uint8(temp),'int16')')/32768*100;
         temp=reshape([data(index_20,191:192)'],1,[]);
@@ -1204,6 +1206,7 @@ SL.SystemInfo.task_100ms_total_cnt = task_100ms_total_cnt; % create struct
         'true_airspeed';
         'EAS_Algo';
         'EAS2TAS_Algo';
+        'airspeed_temperature';
         'airspeed_used';
         'diff_press_pa_raw';
         'diff_offset';
