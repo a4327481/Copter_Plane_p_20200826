@@ -73,7 +73,12 @@ persistent Fix2Rotor_delay_flag
 persistent TakeOffMode_delay
 persistent TakeOffMode_delay_flag
 persistent POSCONTROL_THROTTLE_CUTOFF_FREQ_inint
+persistent gains_D_pitch_inint
+persistent gains_D_roll_inint
 global Fix2Rotor_delay_s
+global gains_D_pitch
+global gains_D_roll
+global p_k_elevator_c2p
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global disable_integrator_pitch
 global disable_integrator_roll
@@ -153,6 +158,13 @@ global vel_forward_integrator
   if isempty(POSCONTROL_THROTTLE_CUTOFF_FREQ_inint)
         POSCONTROL_THROTTLE_CUTOFF_FREQ_inint = POSCONTROL_THROTTLE_CUTOFF_FREQ;  
   end
+  if isempty(gains_D_pitch_inint)
+        gains_D_pitch_inint = gains_D_pitch;  
+  end 
+   if isempty(gains_D_roll_inint)
+        gains_D_roll_inint = gains_D_roll;  
+  end  
+
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
        error_pos=8;
 %     if(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.HoverAdjustMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.TakeOffMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.LandMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.GoHomeMode)
@@ -192,6 +204,8 @@ global vel_forward_integrator
         roll_ff_pitch=roll_ff_pitch_inint;
         K_FF_yaw=K_FF_yaw_inint;
         vel_forward_integrator=0;
+        gains_D_pitch = gains_D_pitch_inint;  
+        gains_D_roll  = gains_D_roll_inint; 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         POSCONTROL_ACC_Z_I=0;
         POSCONTROL_VEL_XY_I=0;
@@ -208,7 +222,9 @@ global vel_forward_integrator
         disable_integrator_roll=1;
         disable_integrator_yaw=1;
         roll_ff_pitch=0;
-        K_FF_yaw=0;      
+        K_FF_yaw=0;  
+        gains_D_pitch=0;
+        gains_D_roll=0;    
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         POSCONTROL_ACC_Z_I=POSCONTROL_ACC_Z_I_inint;
         POSCONTROL_VEL_XY_I=POSCONTROL_VEL_XY_I_inint;
@@ -421,13 +437,12 @@ global vel_forward_integrator
                             last_throttle_dem=throttle_cruise * 0.01+k_throttle_c2p;
                             stabilize()
                             output_to_motors_plane();
-                     else
+                            k_elevator=k_elevator*p_k_elevator_c2p;
+                      else
                              inint_hgt=1;
                              hgt_dem_cm=height*100;
                              %%%%
                              pitch_target=0;
-                             tail_tilt_temp=tail_tilt_c2p;
-                             pitch_target_temp=pitch_target+p_tilt_pitch_target*tail_tilt_temp;
                              pitch_target_temp=0;
                              input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target_temp,   target_yaw_rate);
                              rate_controller_run();

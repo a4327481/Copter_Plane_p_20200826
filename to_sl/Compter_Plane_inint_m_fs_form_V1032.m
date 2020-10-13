@@ -133,6 +133,7 @@ m_kg=5;
  p_plane_p2c                            = 1                             ; 
  POSCONTROL_THROTTLE_CUTOFF_FREQ_p2c    = 0.05                         ;   
  Fix2Rotor_delay_s                      = 0.8                         ;
+ p_k_elevator_c2p                       = 1.0                         ;
  
     take_off_land=0;                        
     ff_throttle=0;
