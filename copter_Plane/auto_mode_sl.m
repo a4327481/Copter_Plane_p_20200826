@@ -72,9 +72,7 @@ persistent Fix2Rotor_delay
 persistent Fix2Rotor_delay_flag
 persistent TakeOffMode_delay
 persistent TakeOffMode_delay_flag
-persistent POSCONTROL_THROTTLE_CUTOFF_FREQ_inint
-persistent gains_D_pitch_inint
-persistent gains_D_roll_inint
+
 global Fix2Rotor_delay_s
 global gains_D_pitch
 global gains_D_roll
@@ -110,6 +108,10 @@ global     rate_roll_pid_reset_filter
 global ATC_RAT_YAW_I_inint
 global     ATC_RAT_YAW_I
 global     rate_yaw_pid_reset_filter
+
+global POSCONTROL_THROTTLE_CUTOFF_FREQ_inint
+global gains_D_pitch_inint
+global gains_D_roll_inint
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global throttle_filter;
@@ -155,15 +157,6 @@ global vel_forward_integrator
   if isempty(TakeOffMode_delay_flag)
         TakeOffMode_delay_flag = 0;  
   end
-  if isempty(POSCONTROL_THROTTLE_CUTOFF_FREQ_inint)
-        POSCONTROL_THROTTLE_CUTOFF_FREQ_inint = POSCONTROL_THROTTLE_CUTOFF_FREQ;  
-  end
-  if isempty(gains_D_pitch_inint)
-        gains_D_pitch_inint = gains_D_pitch;  
-  end 
-   if isempty(gains_D_roll_inint)
-        gains_D_roll_inint = gains_D_roll;  
-  end  
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
        error_pos=8;
