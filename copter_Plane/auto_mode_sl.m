@@ -479,7 +479,7 @@ global vel_forward_integrator
                          if(pitch_target>0)
                              pitch_target=0;
                          end
-                         pitch_target_temp=pitch_target+p_tilt_pitch_target*tail_tilt_temp;
+                         pitch_target_temp=p_tilt_pitch_target*tail_tilt_temp;
                          update_z_controller();
                          input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target_temp,   target_yaw_rate);
                          rate_controller_run();
@@ -499,7 +499,7 @@ global vel_forward_integrator
                          if(pitch_target>0)
                              pitch_target=0;
                          end
-                         pitch_target_temp=pitch_target+p_tilt_pitch_target*tail_tilt_temp;
+                         pitch_target_temp=p_tilt_pitch_target*tail_tilt_temp;
                          update_z_controller();
                          input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target_temp,   target_yaw_rate);
                          rate_controller_run();
