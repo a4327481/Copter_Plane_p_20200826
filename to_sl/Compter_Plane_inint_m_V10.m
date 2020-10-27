@@ -123,13 +123,17 @@ POSCONTROL_THROTTLE_CUTOFF_FREQ_p2c=0.2;
  
  aspeed_cp=30;
  p_plane_cp=0.4;
- thr_out_min=0.20;
  pitch_target_p2c                       = 500                         ;
  k_throttle_c2p                         = 0.2                         ;
  throttle_off_rate                      = 1                           ;  
  ff_throttle=0;
   throttle_ground=0.55;
   yaw_in_max=0.1;
+   thr_out_min_c2p                        = 0.3                          ;              
+   thr_out_min=0;
+   thr_out_min_inint                      = 0.2                          ;                          
+  
+  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     mode=0;
     mode_state=0;

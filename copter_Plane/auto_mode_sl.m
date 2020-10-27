@@ -126,6 +126,9 @@ global pwm_out
 global latAccDem
 global take_off_land
 global vel_forward_integrator
+global thr_out_min_inint
+global thr_out_min_c2p
+global thr_out_min
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     if isempty(uavMode)
         uavMode = 0;
@@ -185,6 +188,12 @@ global vel_forward_integrator
       take_off_land=0;
     end
     
+    if(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.Rotor2Fix_Mode)
+      thr_out_min=thr_out_min_c2p;
+    else
+      thr_out_min=thr_out_min_inint;
+    end
+
    if(PathModeOut_sl.flightTaskMode~=ENUM_FlightTaskMode.Fix2Rotor_Mode)
       POSCONTROL_THROTTLE_CUTOFF_FREQ=POSCONTROL_THROTTLE_CUTOFF_FREQ_inint;
     end
