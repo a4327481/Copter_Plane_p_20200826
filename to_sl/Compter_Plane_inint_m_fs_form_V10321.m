@@ -77,7 +77,7 @@ m_kg=5;
  vertAccLim                             = 3.5                          ;
  spdCompFiltOmega                       = 2                            ;
  rollComp                               = 20                           ;
- spdWeight                              = 0.9                          ;
+ spdWeight_inint                        = 0.9                          ;
  ptchDamp                               = 0.7                          ;
  maxSinkRate                            = 7                            ;
  throttle_cruise                        = 40                           ;
@@ -135,8 +135,8 @@ m_kg=5;
  Fix2Rotor_delay_s                      = 0.8                          ;
  p_k_elevator_c2p                       = 2                            ;
  thr_out_min_c2p                        = 0.5                          ;              
- 
- 
+
+    spdWeight=0;
     thr_out_min=0;
     take_off_land=0;                        
     ff_throttle=0;

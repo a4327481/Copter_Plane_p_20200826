@@ -59,7 +59,7 @@ vel_forward_integrator=0;
 PathModeOut_sl.headingCmd=0;
 PathModeOut_sl.groundspeedCmd=0;
 PathModeOut_sl.heightCmd=10000;
-PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.Fix2Rotor_Mode;
+PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.HoverAdjustMode;
 PathModeOut_sl.flightControlMode=ENUM_FlightControlMode.SpotHoverMode;
 PathModeOut_sl.maxClimbSpeed=100;
 PathModeOut_sl.turnCenterLL=[40,100]*1e7;
@@ -129,9 +129,13 @@ POSCONTROL_THROTTLE_CUTOFF_FREQ_p2c=0.2;
  ff_throttle=0;
   throttle_ground=0.55;
   yaw_in_max=0.1;
-   thr_out_min_c2p                        = 0.3                          ;              
+   thr_out_min_c2p                        = 0.7                          ;              
    thr_out_min=0;
-   thr_out_min_inint                      = 0.2                          ;                          
+   thr_out_min_inint                      = 0.3                          ;  
+   spdWeight_inint                        = 0.9;
+   POSCONTROL_THROTTLE_CUTOFF_FREQ_inint  = 2.0;
+   gains_D_pitch_inint                    = 0.1;
+   gains_D_roll_inint                     = 0.05;
   
   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1036,7 +1040,7 @@ rollComp=0;
     % @Increment: 0.1
     % @User: Advanced
 %     AP_GROUPINFO("SPDWEIGHT", 9, AP_TECS, _spdWeight, 1.0f),
-spdWeight=1;
+spdWeight=0;
     % @Param: PTCH_DAMP
     % @DisplayName: Controller pitch damping
     % @Description: Damping gain for pitch control from TECS control.  Increasing may correct for oscillations in speed and height, but too much may cause additional oscillation and degraded control.

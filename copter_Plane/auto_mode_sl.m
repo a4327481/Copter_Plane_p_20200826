@@ -129,6 +129,8 @@ global vel_forward_integrator
 global thr_out_min_inint
 global thr_out_min_c2p
 global thr_out_min
+global spdWeight
+global spdWeight_inint
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     if isempty(uavMode)
         uavMode = 0;
@@ -182,6 +184,7 @@ global thr_out_min
 %         rate_roll_pid_reset_filter=1;
 %         rate_yaw_pid_reset_filter=1;
 %     end
+    spdWeight=spdWeight_inint;
     if(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.TakeOffMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.LandMode)
       take_off_land=1;
     else
@@ -234,6 +237,7 @@ global thr_out_min
         ATC_RAT_RLL_I=ATC_RAT_RLL_I_inint;
         ATC_RAT_YAW_I=ATC_RAT_YAW_I_inint;    
     end
+    
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         switch PathModeOut_sl.flightTaskMode
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
