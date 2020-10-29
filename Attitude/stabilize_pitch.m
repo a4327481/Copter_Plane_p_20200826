@@ -19,7 +19,7 @@ global curr_vel
 %         return;
 %     end
 if((curr_vel(1)^2+curr_vel(2)^2)^0.5>800)
-  theta=atand(-curr_vel(3)/(curr_vel(1)^2+curr_vel(2)^2)^0.5)*100;
+  theta=atand(curr_vel(3)/(curr_vel(1)^2+curr_vel(2)^2)^0.5)*100;
   if(nav_pitch_cd-theta>900)
       nav_pitch_cd=theta+900;
   end
