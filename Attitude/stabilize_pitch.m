@@ -20,8 +20,8 @@ global curr_vel
 %     end
 if((curr_vel(1)^2+curr_vel(2)^2)^0.5>800)
   theta=atand(curr_vel(3)/(curr_vel(1)^2+curr_vel(2)^2)^0.5)*100;
-  if(nav_pitch_cd-theta>900)
-      nav_pitch_cd=theta+900;
+  if(pitch*HD*100-theta>1400)
+      nav_pitch_cd=theta+1400;
   end
 end
   demanded_pitch = nav_pitch_cd  + k_throttle * kff_throttle_to_pitch;

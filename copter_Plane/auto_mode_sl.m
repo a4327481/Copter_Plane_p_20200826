@@ -131,6 +131,7 @@ global thr_out_min_c2p
 global thr_out_min
 global spdWeight
 global spdWeight_inint
+global integTHR_state
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     if isempty(uavMode)
         uavMode = 0;
@@ -386,7 +387,16 @@ global spdWeight_inint
                 if(PathModeOut_sl.rollCmd==0)
                     latAccDem=0;
                 end
-                plane_run();                 
+%                 if(PathModeOut_sl.flightControlMode==ENUM_FlightControlMode.HoverSliderMode)
+%                     integTHR_state=0;
+%                     spdWeight=0;
+%                     plane_run();  
+%                     throttle_dem=0;
+%                     k_throttle=0;              
+%                 else
+%                     plane_run();  
+%                 end
+                plane_run(); 
                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             case    ENUM_FlightTaskMode.AirStandByMode
                 if(PathMode~=ENUM_FlightTaskMode.HoverUpMode)
