@@ -127,15 +127,15 @@ for j=1:len_finf
         temp=reshape([data(:,3:6)'],1,[]);
         ax=typecast(uint8(temp),'single')';
         temp=reshape([data(:,7:10)'],1,[]);
-        ay=-typecast(uint8(temp),'single')';
+        ay=typecast(uint8(temp),'single')';
         temp=reshape([data(:,11:14)'],1,[]);
-        az=-typecast(uint8(temp),'single')';      
+        az=typecast(uint8(temp),'single')';      
         temp=reshape([data(:,15:18)'],1,[]);
         gx=typecast(uint8(temp),'single')'*HD;     
         temp=reshape([data(:,19:22)'],1,[]);
-        gy=-typecast(uint8(temp),'single')'*HD;   
+        gy=typecast(uint8(temp),'single')'*HD;   
         temp=reshape([data(:,23:26)'],1,[]);
-        gz=-typecast(uint8(temp),'single')'*HD;
+        gz=typecast(uint8(temp),'single')'*HD;
         
 
         
