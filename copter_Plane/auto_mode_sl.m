@@ -453,7 +453,7 @@ global integTHR_state
                             last_throttle_dem=throttle_cruise * 0.01+k_throttle_c2p;
                             stabilize()
                             output_to_motors_plane();
-                            k_elevator=k_elevator*p_k_elevator_c2p;
+                            k_elevator=k_elevator+p_k_elevator_c2p;
                       else
                              inint_hgt=1;
                              hgt_dem_cm=height*100;
