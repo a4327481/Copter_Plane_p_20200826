@@ -264,6 +264,8 @@ fp=fopen([PathName,'\\',FileName],'r');
         ublox_numSV=typecast(uint8(temp),'uint8')';
         ublox_V=hypot(ublox_velN,ublox_velE);
         ublox_theta=-atan2d(ublox_velD,ublox_V);
+        ublox_theta1=-atan2d(ublox_velD,19);
+      
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %algo
 
@@ -1043,6 +1045,7 @@ SL.SystemInfo.task_100ms_total_cnt = task_100ms_total_cnt; % create struct
         'ublox_numSV';
         'ublox_V';
         'ublox_theta';
+        'ublox_theta1';
         'ublox_cod';
         };
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
