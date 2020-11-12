@@ -70,6 +70,9 @@ persistent Rotor2Fix_delay_flag
 persistent TakeOffMode_delay
 persistent TakeOffMode_delay_flag
 
+global gains_D_pitch
+global gains_D_roll
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global disable_integrator_pitch
 global disable_integrator_roll
@@ -100,6 +103,9 @@ global     rate_roll_pid_reset_filter
 global ATC_RAT_YAW_I_inint
 global     ATC_RAT_YAW_I
 global     rate_yaw_pid_reset_filter
+
+global gains_D_pitch_inint
+global gains_D_roll_inint
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global throttle_filter;
 global throttle_in;
@@ -171,13 +177,35 @@ global vel_forward_integrator
         disable_integrator_yaw=0;
         roll_ff_pitch=roll_ff_pitch_inint;
         K_FF_yaw=K_FF_yaw_inint;
+        gains_D_pitch = gains_D_pitch_inint;  
+        gains_D_roll  = gains_D_roll_inint; 
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         vel_forward_integrator=0;
-    else
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        POSCONTROL_ACC_Z_I=0;
+        POSCONTROL_VEL_XY_I=0;
+        ATC_RAT_PIT_I=0;
+        ATC_RAT_RLL_I=0;
+        ATC_RAT_YAW_I=0;
+        pid_accel_z_reset_filter=1;
+        pid_vel_xy_reset_filter=1;
+        rate_pitch_pid_reset_filter=1;
+        rate_roll_pid_reset_filter=1;
+        rate_yaw_pid_reset_filter=1;
+    else       
         disable_integrator_pitch=1;
         disable_integrator_roll=1;
         disable_integrator_yaw=1;
         roll_ff_pitch=0;
-        K_FF_yaw=0;      
+        K_FF_yaw=0;  
+        gains_D_pitch=0;
+        gains_D_roll=0;   
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        POSCONTROL_ACC_Z_I=POSCONTROL_ACC_Z_I_inint;
+        POSCONTROL_VEL_XY_I=POSCONTROL_VEL_XY_I_inint;
+        ATC_RAT_PIT_I=ATC_RAT_PIT_I_inint;
+        ATC_RAT_RLL_I=ATC_RAT_RLL_I_inint;
+        ATC_RAT_YAW_I=ATC_RAT_YAW_I_inint;    
     end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         switch PathModeOut_sl.flightTaskMode

@@ -136,11 +136,13 @@ m_kg=5;
  p_k_elevator_c2p                       = 2                            ;
  thr_out_min_c2p                        = 0.5                          ;              
 
-    spdWeight=0;
     thr_out_min=0;
     take_off_land=0;                        
     ff_throttle=0;
     GRAVITY_MSS=9.80665;
+    disable_integrator_pitch=0;
+    disable_integrator_roll=0;
+    disable_integrator_yaw=0;
     ATC_RAT_PIT_I   = 0.0;
     ATC_RAT_RLL_I    =0.0;
     ATC_RAT_YAW_I    =0.0;
@@ -149,10 +151,9 @@ m_kg=5;
     POSCONTROL_ACC_Z_I=0.0;    % vertical acceleration controller I gain default
     POSCONTROL_ACC_Z_FILT_HZ=0;    % vertical acceleration controller input filter default
     POSCONTROL_VEL_XY_I=0; % horizontal velocity controller I gain default
-    disable_integrator_pitch=0;
-    disable_integrator_roll=0;
-    disable_integrator_yaw=0;
-    
+
+    spdWeight=0;
+
     POSCONTROL_THROTTLE_CUTOFF_FREQ=0;
     gains_D_pitch=0;
     gains_D_roll=0;
