@@ -146,25 +146,25 @@ global vel_forward_integrator
   end
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
        error_pos=8;
-    if(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.HoverAdjustMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.TakeOffMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.LandMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.GoHomeMode)
-%if(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.HoverAdjustMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.TakeOffMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.LandMode)
-        POSCONTROL_ACC_Z_I=POSCONTROL_ACC_Z_I_inint;
-        POSCONTROL_VEL_XY_I=POSCONTROL_VEL_XY_I_inint;
-        ATC_RAT_PIT_I=ATC_RAT_PIT_I_inint;
-        ATC_RAT_RLL_I=ATC_RAT_RLL_I_inint;
-        ATC_RAT_YAW_I=ATC_RAT_YAW_I_inint;    
-    else
-        POSCONTROL_ACC_Z_I=0;
-        POSCONTROL_VEL_XY_I=0;
-        ATC_RAT_PIT_I=0;
-        ATC_RAT_RLL_I=0;
-        ATC_RAT_YAW_I=0;
-        pid_accel_z_reset_filter=1;
-        pid_vel_xy_reset_filter=1;
-        rate_pitch_pid_reset_filter=1;
-        rate_roll_pid_reset_filter=1;
-        rate_yaw_pid_reset_filter=1;
-    end
+%     if(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.HoverAdjustMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.TakeOffMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.LandMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.GoHomeMode)
+% %if(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.HoverAdjustMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.TakeOffMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.LandMode)
+%         POSCONTROL_ACC_Z_I=POSCONTROL_ACC_Z_I_inint;
+%         POSCONTROL_VEL_XY_I=POSCONTROL_VEL_XY_I_inint;
+%         ATC_RAT_PIT_I=ATC_RAT_PIT_I_inint;
+%         ATC_RAT_RLL_I=ATC_RAT_RLL_I_inint;
+%         ATC_RAT_YAW_I=ATC_RAT_YAW_I_inint;    
+%     else
+%         POSCONTROL_ACC_Z_I=0;
+%         POSCONTROL_VEL_XY_I=0;
+%         ATC_RAT_PIT_I=0;
+%         ATC_RAT_RLL_I=0;
+%         ATC_RAT_YAW_I=0;
+%         pid_accel_z_reset_filter=1;
+%         pid_vel_xy_reset_filter=1;
+%         rate_pitch_pid_reset_filter=1;
+%         rate_roll_pid_reset_filter=1;
+%         rate_yaw_pid_reset_filter=1;
+%     end
     if(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.TakeOffMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.LandMode)
       take_off_land=1;
     else
