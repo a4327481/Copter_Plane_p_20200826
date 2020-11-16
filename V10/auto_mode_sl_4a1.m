@@ -355,7 +355,35 @@ global vel_forward_integrator
                 if(PathModeOut_sl.rollCmd==0)
                     latAccDem=0;
                 end
-                plane_run_4a1();                 
+                plane_run_4a1();     
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                   
+            case    ENUM_FlightTaskMode.CalibBeforePath
+                if(PathMode~=ENUM_FlightTaskMode.CalibBeforePath)
+                    PathMode=ENUM_FlightTaskMode.CalibBeforePath;
+                    uavMode=1;
+                    inint_hgt=1;
+                    hgt_dem_cm=height*100;
+%                      center_WP=current_loc;                     
+                end 
+                 if (PathModeOut_sl.heightCmd-hgt_dem_cm)>error_pos         
+                     climb_rate_cms=PathModeOut_sl.maxClimbSpeed;
+                     hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;
+                 elseif (PathModeOut_sl.heightCmd-hgt_dem_cm)<-error_pos
+                     climb_rate_cms=-PathModeOut_sl.maxClimbSpeed;
+                     hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;                
+                 else
+                     climb_rate_cms=0;
+                     hgt_dem_cm=PathModeOut_sl.heightCmd;
+                 end 
+                center_WP=PathModeOut_sl.turnCenterLL(1:2);
+               if(PathModeOut_sl.rollCmd>=0)               
+                   loiter_direction=1;
+               else
+                   loiter_direction=-1;           
+               end
+                update_loiter( center_WP,   radius,   loiter_direction) 
+
+                plane_run_4a1();           
                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             case    ENUM_FlightTaskMode.AirStandByMode
                 if(PathMode~=ENUM_FlightTaskMode.HoverUpMode)
