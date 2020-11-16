@@ -388,15 +388,15 @@ global integTHR_state
                 if(PathModeOut_sl.rollCmd==0)
                     latAccDem=0;
                 end
-%                 if(PathModeOut_sl.flightControlMode==ENUM_FlightControlMode.HoverSliderMode)
-%                     integTHR_state=0;
-%                     spdWeight=2;
-%                     plane_run();  
-%                     throttle_dem=0;
-%                     k_throttle=0;              
-%                 else
-%                     plane_run();  
-%                 end
+                if(PathModeOut_sl.flightControlMode==ENUM_FlightControlMode.HoverSliderMode)
+                    integTHR_state=0;
+                    spdWeight=2;
+                    plane_run();  
+                    throttle_dem=0;
+                    k_throttle=0;              
+                else
+                    plane_run();  
+                end
                 plane_run(); 
                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             case    ENUM_FlightTaskMode.AirStandByMode
