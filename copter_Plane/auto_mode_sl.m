@@ -397,7 +397,6 @@ global integTHR_state
                 else
                     plane_run();  
                 end
-                plane_run(); 
                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             case    ENUM_FlightTaskMode.AirStandByMode
                 if(PathMode~=ENUM_FlightTaskMode.HoverUpMode)
