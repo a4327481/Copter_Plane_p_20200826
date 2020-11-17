@@ -390,10 +390,8 @@ global integTHR_state
                 end
                 if(PathModeOut_sl.flightControlMode==ENUM_FlightControlMode.HoverSliderMode)
                     integTHR_state=0;
-                    spdWeight=2;
-                    plane_run();  
-                    throttle_dem=0;
-                    k_throttle=0;              
+                    spdWeight=2; 
+                    plane_run();                             
                 else
                     plane_run();  
                 end

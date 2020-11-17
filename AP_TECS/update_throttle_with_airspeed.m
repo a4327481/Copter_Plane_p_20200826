@@ -28,6 +28,7 @@ global integGain
 global integTHR_state
 global p_ff_throttle
 global ff_throttle
+global spdWeight
  % calculate throttle demand - airspeed enabled case
  
  
@@ -98,6 +99,9 @@ global ff_throttle
         throttle_dem = throttle_dem + integTHR_state;
     % Constrain throttle demand
     throttle_dem = constrain_value(throttle_dem, THRminf, THRmaxf);
+    if(spdWeight==2)
+        throttle_dem=0;
+    end
  
 end
 
