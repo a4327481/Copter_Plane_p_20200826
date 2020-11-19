@@ -59,7 +59,7 @@ vel_forward_integrator=0;
 PathModeOut_sl.headingCmd=0;
 PathModeOut_sl.groundspeedCmd=0;
 PathModeOut_sl.heightCmd=10000;
-PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.HoverDownMode;
+PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.HoverAdjustMode;
 PathModeOut_sl.flightControlMode=ENUM_FlightControlMode.HoverSliderMode;
 PathModeOut_sl.maxClimbSpeed=100;
 PathModeOut_sl.turnCenterLL=[40,100]*1e7;
@@ -169,7 +169,6 @@ POSCONTROL_THROTTLE_CUTOFF_FREQ_p2c=0.2;
 
     pwm_max=2000;
     pwm_min=1000;
-    pwm_out=[1000 1000 1000 1000]+throttle_hover*1000;
     highest_airspeed=35;
     scaling_speed=17;
     airspeed_max=25;
@@ -240,18 +239,19 @@ POSCONTROL_THROTTLE_CUTOFF_FREQ_p2c=0.2;
 
     HD=180/pi;
 
-    pitch=0;
-    roll=0;
+    pitch=-40/HD;
+    roll=10/HD;
     yaw=0;
     wy=0;
     wx=0;
     wz=0;
-    
+        pwm_out=[1000 1000 1000 1000]+throttle_hover*1000+[400 400 -400 -400];
+
      curr_vel=[0 0 0];
      curr_pos=[0 0 ];
 
     gyro_x=0;
-    gyro_y=0;
+    gyro_y=300/HD;
     gyro_z=0;
 
     accel_x=0;
@@ -443,15 +443,15 @@ ATC_ACCEL_Y_MAX = 36397.976562;
 ATC_RAT_PIT_D =   0.00;
 ATC_RAT_PIT_FF =  0.000000;
 ATC_RAT_PIT_FILT =20.000000;
-ATC_RAT_PIT_I   = 0.0;
-ATC_RAT_PIT_I_inint=0.1;
-ATC_RAT_PIT_IMAX =0.1;
+ATC_RAT_PIT_I   = 0.2;
+ATC_RAT_PIT_I_inint=0.2;
+ATC_RAT_PIT_IMAX =0.3;
 ATC_RAT_PIT_P   = 0.20;
 
 ATC_RAT_RLL_D  =  0;
 ATC_RAT_RLL_FF =  0.000000;
 ATC_RAT_RLL_FILT= 20.000000;
-ATC_RAT_RLL_I    =0.0;
+ATC_RAT_RLL_I    =0.2;
 ATC_RAT_RLL_I_inint=0;
 ATC_RAT_RLL_IMAX =0.0;
 ATC_RAT_RLL_P    =0.1;

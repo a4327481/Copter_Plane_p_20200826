@@ -806,46 +806,46 @@ fp=fopen([PathName,'\\',FileName],'r');
         algo_curGroundSpeed=double(typecast(uint8(temp),'int16')')/32768*10000;       
         temp=reshape([data(13:16:end,233:234)'],1,[]);
         algo_curAccZ=double(typecast(uint8(temp),'int16')')/32768*10000;   
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% /* |@@IN_SENSOR.um482@@+-------------------------------+-------------+--------------| */
-temp = reshape([data(1:1:end,239:242)'],1,[]);
-Lon=double(typecast(uint8(temp),'uint32')')/10000000*1.0000000000;
-IN_SENSOR.um482.Lon = Lon; % create struct
-temp = reshape([data(1:1:end,257:260)'],1,[]);
-Lat=double(typecast(uint8(temp),'uint32')')/10000000*1.0000000000;
-IN_SENSOR.um482.Lat = Lat; % create struct
-temp = reshape([data(1:1:end,261:264)'],1,[]);
-height_sl=double(typecast(uint8(temp),'single')')/1*1.0000000000;
-IN_SENSOR.um482.height = height_sl; % create struct
-temp = reshape([data(1:1:end,265:268)'],1,[]);
-velN=double(typecast(uint8(temp),'single')')/1*1.0000000000;
-IN_SENSOR.um482.velN = velN; % create struct
-temp = reshape([data(1:1:end,269:272)'],1,[]);
-velE=double(typecast(uint8(temp),'single')')/1*1.0000000000;
-IN_SENSOR.um482.velE = velE; % create struct
-temp = reshape([data(1:1:end,273:276)'],1,[]);
-velD=double(typecast(uint8(temp),'single')')/1*1.0000000000;
-IN_SENSOR.um482.velD = velD; % create struct
-temp = reshape([data(1:1:end,277:280)'],1,[]);
-delta_lon=double(typecast(uint8(temp),'single')')/1*1.0000000000;
-IN_SENSOR.um482.delta_lon = delta_lon; % create struct
-temp = reshape([data(1:1:end,281:284)'],1,[]);
-delta_lat=double(typecast(uint8(temp),'single')')/1*1.0000000000;
-IN_SENSOR.um482.delta_lat = delta_lat; % create struct
-temp = reshape([data(1:1:end,285:288)'],1,[]);
-delta_height=double(typecast(uint8(temp),'single')')/1*1.0000000000;
-IN_SENSOR.um482.delta_height = delta_height; % create struct
-temp = reshape([data(1:1:end,237:238)'],1,[]);
-pDop=double(typecast(uint8(temp),'int16')')/32768*100.0000000000;
-IN_SENSOR.um482.pDop = pDop; % create struct
-temp = reshape([data(1:1:end,39:39)'],1,[]);
-POSTYPE=double(typecast(uint8(temp),'uint8')')/1*1.0000000000;
-IN_SENSOR.um482.POSTYPE = POSTYPE; % create struct
-temp = reshape([data(1:1:end,40:40)'],1,[]);
-numSv=double(typecast(uint8(temp),'uint8')')/1*1.0000000000;
-IN_SENSOR.um482.numSv = numSv; % create struct
-
-        
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % /* |@@IN_SENSOR.um482@@+-------------------------------+-------------+--------------| */
+% temp = reshape([data(1:1:end,239:242)'],1,[]);
+% Lon=double(typecast(uint8(temp),'uint32')')/10000000*1.0000000000;
+% IN_SENSOR.um482.Lon = Lon; % create struct
+% temp = reshape([data(1:1:end,257:260)'],1,[]);
+% Lat=double(typecast(uint8(temp),'uint32')')/10000000*1.0000000000;
+% IN_SENSOR.um482.Lat = Lat; % create struct
+% temp = reshape([data(1:1:end,261:264)'],1,[]);
+% height_sl=double(typecast(uint8(temp),'single')')/1*1.0000000000;
+% IN_SENSOR.um482.height = height_sl; % create struct
+% temp = reshape([data(1:1:end,265:268)'],1,[]);
+% velN=double(typecast(uint8(temp),'single')')/1*1.0000000000;
+% IN_SENSOR.um482.velN = velN; % create struct
+% temp = reshape([data(1:1:end,269:272)'],1,[]);
+% velE=double(typecast(uint8(temp),'single')')/1*1.0000000000;
+% IN_SENSOR.um482.velE = velE; % create struct
+% temp = reshape([data(1:1:end,273:276)'],1,[]);
+% velD=double(typecast(uint8(temp),'single')')/1*1.0000000000;
+% IN_SENSOR.um482.velD = velD; % create struct
+% temp = reshape([data(1:1:end,277:280)'],1,[]);
+% delta_lon=double(typecast(uint8(temp),'single')')/1*1.0000000000;
+% IN_SENSOR.um482.delta_lon = delta_lon; % create struct
+% temp = reshape([data(1:1:end,281:284)'],1,[]);
+% delta_lat=double(typecast(uint8(temp),'single')')/1*1.0000000000;
+% IN_SENSOR.um482.delta_lat = delta_lat; % create struct
+% temp = reshape([data(1:1:end,285:288)'],1,[]);
+% delta_height=double(typecast(uint8(temp),'single')')/1*1.0000000000;
+% IN_SENSOR.um482.delta_height = delta_height; % create struct
+% temp = reshape([data(1:1:end,237:238)'],1,[]);
+% pDop=double(typecast(uint8(temp),'int16')')/32768*100.0000000000;
+% IN_SENSOR.um482.pDop = pDop; % create struct
+% temp = reshape([data(1:1:end,39:39)'],1,[]);
+% POSTYPE=double(typecast(uint8(temp),'uint8')')/1*1.0000000000;
+% IN_SENSOR.um482.POSTYPE = POSTYPE; % create struct
+% temp = reshape([data(1:1:end,40:40)'],1,[]);
+% numSv=double(typecast(uint8(temp),'uint8')')/1*1.0000000000;
+% IN_SENSOR.um482.numSv = numSv; % create struct
+% 
+%         
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         len=length(algo_yaw);
         algo_yaw1=algo_yaw;
