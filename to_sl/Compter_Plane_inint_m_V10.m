@@ -251,7 +251,7 @@ POSCONTROL_THROTTLE_CUTOFF_FREQ_p2c=0.2;
      curr_pos=[0 0 ];
 
     gyro_x=0;
-    gyro_y=300/HD;
+    gyro_y=0/HD;
     gyro_z=0;
 
     accel_x=0;
