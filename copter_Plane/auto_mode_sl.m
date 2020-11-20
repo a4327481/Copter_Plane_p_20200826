@@ -373,16 +373,6 @@ global integTHR_state
                     hgt_dem_cm=height*100;
 %                      center_WP=current_loc;                     
                 end 
-                 if (PathModeOut_sl.heightCmd-hgt_dem_cm)>error_pos         
-                     climb_rate_cms=PathModeOut_sl.maxClimbSpeed;
-                     hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;
-                 elseif (PathModeOut_sl.heightCmd-hgt_dem_cm)<-error_pos
-                     climb_rate_cms=-PathModeOut_sl.maxClimbSpeed;
-                     hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;                
-                 else
-                     climb_rate_cms=0;
-                     hgt_dem_cm=PathModeOut_sl.heightCmd;
-                 end 
                 center_WP=PathModeOut_sl.turnCenterLL(1:2);
                 update_loiter( center_WP,   radius,   loiter_direction) 
                 if(PathModeOut_sl.rollCmd==0)
@@ -391,9 +381,21 @@ global integTHR_state
                 if(PathModeOut_sl.flightControlMode==ENUM_FlightControlMode.HoverSliderMode)
                     integTHR_state=0;
                     spdWeight=2; 
-                    plane_run();                             
-                else
-                    plane_run();  
+                    plane_run();
+                    inint_hgt=1;
+                    hgt_dem_cm=height*100;                    
+                else                    
+                    if (PathModeOut_sl.heightCmd-hgt_dem_cm)>error_pos
+                        climb_rate_cms=PathModeOut_sl.maxClimbSpeed;
+                        hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;
+                    elseif (PathModeOut_sl.heightCmd-hgt_dem_cm)<-error_pos
+                        climb_rate_cms=-PathModeOut_sl.maxClimbSpeed;
+                        hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;
+                    else
+                        climb_rate_cms=0;
+                        hgt_dem_cm=PathModeOut_sl.heightCmd;
+                    end
+                    plane_run();
                 end
                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             case    ENUM_FlightTaskMode.AirStandByMode
