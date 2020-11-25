@@ -894,7 +894,18 @@ SL.SystemInfo.task_100ms_total_cnt = task_100ms_total_cnt; % create struct
 %  plot(task_1ms_total_cnt./task_12ms_total_cnt)
 %  plot(task_1ms_total_cnt./task_100ms_total_cnt)
 %  plot(save_time(2:end),diff(save_time))
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% /*-----------------------GlobalWindEst      ----------------------------------------------| */ 
+% /* |@@SL.GlobalWindEst@@------------------------+-------------+------------+--------------| */20200602
+temp = reshape([data(find(mod(Count,16)==0),246:246)'],1,[]);
+oneCircleComplete=double(typecast(uint8(temp),'uint8')')/1*1.0000000000;
+SL.GlobalWindEst.oneCircleComplete = oneCircleComplete; % create struct
+temp = reshape([data(find(mod(Count,16)==3),245:246)'],1,[]);
+windSpeed_ms=double(typecast(uint8(temp),'int16')')/32768*50.0000000000;
+SL.GlobalWindEst.windSpeed_ms = windSpeed_ms; % create struct
+temp = reshape([data(find(mod(Count,16)==12),245:246)'],1,[]);
+windHeading_rad=double(typecast(uint8(temp),'int16')')/32768*6.3000000000*57.3;
+SL.GlobalWindEst.windHeading_rad = windHeading_rad; % create struct
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         len=length(algo_yaw);
@@ -1351,8 +1362,12 @@ SL.SystemInfo.task_100ms_total_cnt = task_100ms_total_cnt; % create struct
        'algo_curLLA_1';    
        'algo_curLLA_2';    
        'algo_curGroundSpeed';    
-       'algo_curAccZ';           
+       'algo_curAccZ';  
+       'oneCircleComplete';
+       'windSpeed_ms';
+       'windHeading_rad';
     };
+
     data_um482={
     'time_um482';
     'SL.OUT_FLIGHTPERF.Lon'; 
