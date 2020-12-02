@@ -101,6 +101,7 @@ global spdWeight
     throttle_dem = constrain_value(throttle_dem, THRminf, THRmaxf);
     if(spdWeight==2)
         throttle_dem=0;
+        last_throttle_dem=throttle_dem;
     end
  
 end
