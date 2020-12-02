@@ -383,7 +383,8 @@ global integTHR_state
                     spdWeight=2; 
                     plane_run();
                     inint_hgt=1;
-                    hgt_dem_cm=height*100;                    
+                    hgt_dem_cm=height*100; 
+                    
                 else                    
                     if (PathModeOut_sl.heightCmd-hgt_dem_cm)>error_pos
                         climb_rate_cms=PathModeOut_sl.maxClimbSpeed;
