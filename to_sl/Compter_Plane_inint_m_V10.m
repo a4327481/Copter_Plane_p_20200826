@@ -3,7 +3,7 @@ load IOBusInfo_byc_20200903.mat
 load IOBusInfo_V1000.mat
 pianzhuanjiao
 quad_tail_4a1=0;
-plane_mode=ENUM_plane_mode.V1000;
+plane_mode=ENUM_plane_mode.V10;
 
 m_kg_V1000=5;
 Jx=186222*1e-6;
@@ -59,8 +59,8 @@ vel_forward_integrator=0;
 PathModeOut_sl.headingCmd=0;
 PathModeOut_sl.groundspeedCmd=0;
 PathModeOut_sl.heightCmd=10000;
-PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.HoverAdjustMode;
-PathModeOut_sl.flightControlMode=ENUM_FlightControlMode.HoverSliderMode;
+PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.HoverDownMode;
+PathModeOut_sl.flightControlMode=ENUM_FlightControlMode.CircleHoverMode;
 PathModeOut_sl.maxClimbSpeed=100;
 PathModeOut_sl.turnCenterLL=[40,100]*1e7;
 PathModeOut_sl.prePathPoint_LLA=[40,100 ,0]*1e7;
