@@ -7,11 +7,12 @@ global leash
 global POSCONTROL_SPEED
 global POSCONTROL_ACCEL_XY
 global POSCONTROL_POS_XY_P
- 
-    if ( recalc_leash_xy)  
-            leash = calc_leash_length(POSCONTROL_SPEED, POSCONTROL_ACCEL_XY,POSCONTROL_POS_XY_P);
-            recalc_leash_xy = 0;
-    end
+
+    leash = calc_leash_length(POSCONTROL_SPEED, POSCONTROL_ACCEL_XY,POSCONTROL_POS_XY_P);
+%     if ( recalc_leash_xy)  
+%             leash = calc_leash_length(POSCONTROL_SPEED, POSCONTROL_ACCEL_XY,POSCONTROL_POS_XY_P);
+%             recalc_leash_xy = 0;
+%     end
  
 end
 
