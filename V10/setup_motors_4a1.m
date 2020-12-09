@@ -1,4 +1,4 @@
-function setup_motors_V10() 
+function setup_motors_4a1() 
     % MOTOR_FRAME_TYPE_H:
     % H frame set-up - same as X but motors spin in opposite directiSons
     global AP_MOTORS_MATRIX_YAW_FACTOR_CW
