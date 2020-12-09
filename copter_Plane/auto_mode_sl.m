@@ -132,6 +132,8 @@ global thr_out_min
 global spdWeight
 global spdWeight_inint
 global integTHR_state
+global heading_hold
+global HD
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     if isempty(uavMode)
         uavMode = 0;
@@ -626,8 +628,12 @@ global integTHR_state
                      hgt_dem_cm=PathModeOut_sl.heightCmd;
                  end                    
                      prev_WP=PathModeOut_sl.prePathPoint_LLA(1:2);
-                     next_WP=PathModeOut_sl.curPathPoint_LLA(1:2);        
-                    update_waypoint( prev_WP,  next_WP,  dist_min)
+                     next_WP=PathModeOut_sl.curPathPoint_LLA(1:2);
+                    if(heading_hold) 
+                        update_heading_hold(PathModeOut_sl.headingCmd*HD*100)
+                    else                       
+                        update_waypoint( prev_WP,  next_WP,  dist_min)
+                    end
                     plane_run();
        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%             
             case    ENUM_FlightTaskMode.GoHomeMode 
@@ -656,8 +662,12 @@ global integTHR_state
                          hgt_dem_cm=PathModeOut_sl.heightCmd;
                      end                    
                          prev_WP=center_WP;
-                         next_WP=PathModeOut_sl.curPathPoint_LLA(1:2);        
-                        update_waypoint( prev_WP,  next_WP,  dist_min)
+                         next_WP=PathModeOut_sl.curPathPoint_LLA(1:2);                                        
+                         if(heading_hold||(PathModeOut_sl.flightControlMode==ENUM_FlightControlMode.HeadingTrackMode))                        
+                             update_heading_hold(PathModeOut_sl.headingCmd*HD*100);                  
+                         else                          
+                             update_waypoint( prev_WP,  next_WP,  dist_min);                
+                         end                         
                         plane_run();
                   case 0
                     pos_target(1:2)=[0 0]; 

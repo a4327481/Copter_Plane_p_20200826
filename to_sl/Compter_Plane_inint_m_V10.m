@@ -52,14 +52,15 @@ Qu=asind(Kd*sind(Qd)*Ld/(Ku*Lu));
 Kc=(Ku*Lux)/(Ldx*Kd);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %sl
+heading_hold=1;
 pwm_tail=1000;
 take_off_land=0;
 vel_forward_integrator=0;
 
-PathModeOut_sl.headingCmd=0;
+PathModeOut_sl.headingCmd=pi/2;
 PathModeOut_sl.groundspeedCmd=0;
 PathModeOut_sl.heightCmd=10000;
-PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.HoverDownMode;
+PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.PathFollowMode;
 PathModeOut_sl.flightControlMode=ENUM_FlightControlMode.CircleHoverMode;
 PathModeOut_sl.maxClimbSpeed=100;
 PathModeOut_sl.turnCenterLL=[40,100]*1e7;
