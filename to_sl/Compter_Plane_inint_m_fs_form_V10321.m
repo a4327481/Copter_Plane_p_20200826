@@ -134,7 +134,8 @@ m_kg=5;
  POSCONTROL_THROTTLE_CUTOFF_FREQ_p2c    = 0.05                          ;   
  Fix2Rotor_delay_s                      = 0.8                          ;
  p_k_elevator_c2p                       = 2                            ;
- thr_out_min_c2p                        = 0.5                          ;              
+ thr_out_min_c2p                        = 0.5                          ;   
+ heading_hold                           = 0                            ;
 
     thr_out_min=0;
     take_off_land=0;                        
