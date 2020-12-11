@@ -244,6 +244,7 @@ algo_dbg_param.maxClimbSpeed=0;
  Curr_sate.pitchd=0;
  Curr_sate.rolld=0;
  Curr_sate.yawd=0;
+ Curr_sate.NAV_alt=0;
  
  Sevro_pwm.k_aileron=0;
  Sevro_pwm.k_elevator=0;

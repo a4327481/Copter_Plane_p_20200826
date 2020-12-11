@@ -31,10 +31,10 @@ global HD
  aspeed=Curr_sate.EAS_Algo;
  EAS2TAS=Curr_sate.EAS2TAS_Algo;
  groundspeed_vector=Curr_sate.curVelNED(1:2);
- height=Curr_sate.curLLA(3);
  Vz=Curr_sate.curVelNED(3);
  curr_vel=[Curr_sate.curVelNED(1) Curr_sate.curVelNED(2) -Curr_sate.curVelNED(3)]*100;
- curr_alt=Curr_sate.curLLA(3)*100;
+%  curr_alt=Curr_sate.curLLA(3)*100;
+%  height=Curr_sate.curLLA(3);
  current_loc=Curr_sate.curLLA(1:2)*1e7;
  pitch=Curr_sate.pitchd/HD;
  roll=Curr_sate.rolld/HD;
@@ -51,13 +51,16 @@ global HD
     PathModeOut_sl.prePathPoint_LLA         =Curr_sate.PathModeOut.prePathPoint_LLA*1e7;
     PathModeOut_sl.curPathPoint_LLA         =Curr_sate.PathModeOut.curPathPoint_LLA*1e7;
     PathModeOut_sl.rollCmd                  =Curr_sate.PathModeOut.rollCmd;   
+    curr_alt=Curr_sate.curLLA(3)*100;
+    height=Curr_sate.curLLA(3);
  else
     PathModeOut_sl.headingCmd               =algo_dbg_param.headingCmd;
     PathModeOut_sl.groundspeedCmd           =algo_dbg_param.groundspeedCmd;
     PathModeOut_sl.heightCmd                =algo_dbg_param.heightCmd;
     PathModeOut_sl.flightTaskMode           =algo_dbg_param.flightTaskMode;
     PathModeOut_sl.maxClimbSpeed            =algo_dbg_param.maxClimbSpeed;  
- 
+    curr_alt=Curr_sate.NAV_alt*100;
+    height=Curr_sate.NAV_alt;
  end
  
 end
