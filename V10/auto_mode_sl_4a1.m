@@ -122,8 +122,11 @@ global vel_forward_integrator
 
 global spdWeight
 global integTHR_state
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+global k_flap
+global k_flap_TakeOff
+global k_flap_Land
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     if isempty(uavMode)
         uavMode = 0;
     end  
@@ -175,6 +178,13 @@ global integTHR_state
       take_off_land=0;
     end
     
+    if(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.TakeOffMode)
+        k_flap=k_flap_TakeOff;
+    elseif(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.LandMode)
+        k_flap=k_flap_Land;
+    else
+        k_flap=0;
+    end
     if( uavMode==1)%% mode =1,mode=plane , disable plane I,vel_forward_integrator=0;
         disable_integrator_pitch=0;
         disable_integrator_roll=0;
