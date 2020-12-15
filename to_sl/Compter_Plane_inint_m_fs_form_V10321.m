@@ -136,7 +136,10 @@ m_kg=5;
  p_k_elevator_c2p                       = 2                            ;
  thr_out_min_c2p                        = 0.5                          ;   
  heading_hold                           = 0                            ;
-
+ k_flap_TakeOff                         = 0                            ;
+ k_flap_Land                            = 0                            ;
+ 
+    k_flap=0;
     thr_out_min=0;
     take_off_land=0;                        
     ff_throttle=0;

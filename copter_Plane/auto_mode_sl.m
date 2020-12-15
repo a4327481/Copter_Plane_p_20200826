@@ -134,6 +134,10 @@ global spdWeight_inint
 global integTHR_state
 global heading_hold
 global HD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+global k_flap
+global k_flap_TakeOff
+global k_flap_Land
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     if isempty(uavMode)
         uavMode = 0;
@@ -203,7 +207,14 @@ global HD
    if(PathModeOut_sl.flightTaskMode~=ENUM_FlightTaskMode.Fix2Rotor_Mode)
       POSCONTROL_THROTTLE_CUTOFF_FREQ=POSCONTROL_THROTTLE_CUTOFF_FREQ_inint;
     end
-    
+      
+    if(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.TakeOffMode)
+        k_flap=k_flap_TakeOff;
+    elseif(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.LandMode)
+        k_flap=k_flap_Land;
+    else
+        k_flap=0;
+    end
     
     if( uavMode==1)%% mode =1,mode=plane , disable plane I,vel_forward_integrator=0;
         disable_integrator_pitch=0;

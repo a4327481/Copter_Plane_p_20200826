@@ -50,6 +50,9 @@ Kx=(Ku-Kd)/(Ku+Kd);
 Qd=10;
 Qu=asind(Kd*sind(Qd)*Ld/(Ku*Lu));
 Kc=(Ku*Lux)/(Ldx*Kd);
+ k_flap_TakeOff                         = 5                            ;
+ k_flap_Land                            = -5                            ; 
+ k_flap=0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %sl
 heading_hold=1;
@@ -60,7 +63,7 @@ vel_forward_integrator=0;
 PathModeOut_sl.headingCmd=pi/2;
 PathModeOut_sl.groundspeedCmd=0;
 PathModeOut_sl.heightCmd=10000;
-PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.PathFollowMode;
+PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.GoHomeMode;
 PathModeOut_sl.flightControlMode=ENUM_FlightControlMode.CircleHoverMode;
 PathModeOut_sl.maxClimbSpeed=100;
 PathModeOut_sl.turnCenterLL=[40,100]*1e7;
