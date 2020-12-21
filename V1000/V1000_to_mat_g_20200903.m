@@ -1371,6 +1371,7 @@ SL.GlobalWindEst.windHeading_rad = windHeading_rad; % create struct
        'windHeading_rad';
     };
 
+    SL.OUT_FLIGHTPERF.cod=atan2d(SL.OUT_FLIGHTPERF.velE,SL.OUT_FLIGHTPERF.velN);
     data_um482={
     'time_um482';
     'SL.OUT_FLIGHTPERF.Lon'; 
@@ -1385,6 +1386,7 @@ SL.GlobalWindEst.windHeading_rad = windHeading_rad; % create struct
     'SL.OUT_FLIGHTPERF.pDop'; 
     'SL.OUT_FLIGHTPERF.BESTPOS'; 
     'SL.OUT_FLIGHTPERF.numSv';
+    'SL.OUT_FLIGHTPERF.cod';
 };
 
   % --------------------------------------------------algo-------------------
