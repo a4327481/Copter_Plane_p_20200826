@@ -410,6 +410,8 @@ fp=fopen([PathName,'\\',FileName],'r');
         algo_k_throttle=double(typecast(uint8(temp),'int16')')/32768*10; 
         temp=reshape([data(index_20,143:144)'],1,[]);
         algo_k_aileron=double(typecast(uint8(temp),'int16')')/32768*45; 
+        temp = reshape([data(find(mod(Count,2)==1),161:162)'],1,[]);
+        algo_k_flap=double(typecast(uint8(temp),'int16')')/32768*45.0000000000;
         temp=reshape([data(index_21,137:138)'],1,[]);
         algo_servo_out_0=double(typecast(uint8(temp),'int16')'); 
         temp=reshape([data(index_21,139:140)'],1,[]);
@@ -1169,6 +1171,7 @@ SL.GlobalWindEst.windHeading_rad = windHeading_rad; % create struct
         'algo_k_elevator';
         'algo_k_throttle'; 
         'algo_k_aileron'; 
+        'algo_k_flap';
         'ax_f';
         'ay_f';
         'az_f';
