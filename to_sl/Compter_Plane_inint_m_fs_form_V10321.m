@@ -114,7 +114,7 @@ m_kg=5;
  cutoff_freq_a                          = 25                           ;
  cutoff_freq_g                          = 35                           ; 
  p_ff_throttle                          = 0.5                          ;
- vel_forward_gain                       = 0.5                          ;
+ vel_forward_gain                       = 0.8                          ;
  vel_forward_min_pitch                  = -4                           ; 
  aspeed_cp                              = 30                           ;
  p_plane_cp                             = 0.4                          ;
@@ -137,7 +137,7 @@ m_kg=5;
  thr_out_min_c2p                        = 0.5                          ;   
  heading_hold                           = 0                            ;
  k_flap_TakeOff                         = -3500                        ;
- k_flap_Land                            = 3500                         ;
+ k_flap_Land                            = 2000                         ;
  
     k_flap=0;
     thr_out_min=0;
