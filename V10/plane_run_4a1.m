@@ -6,6 +6,9 @@ global aerodynamic_load_factor
 global center_WP
 global radius
 global loiter_direction
+global k_aileron
+global k_flap
+global p_flap_plane
         update_50hz();
         update_pitch_throttle(  hgt_dem_cm,EAS_dem_cm,aerodynamic_load_factor)
         calc_nav_pitch();
@@ -13,5 +16,7 @@ global loiter_direction
         calc_throttle()
         stabilize()
         output_to_motors_plane_4a1();
+        k_flap=k_aileron*p_flap_plane;
+        
 end
 

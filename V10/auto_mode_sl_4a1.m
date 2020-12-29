@@ -67,8 +67,11 @@ persistent PathMode
 persistent uavMode %0:comper 1:plane
 persistent Rotor2Fix_delay
 persistent Rotor2Fix_delay_flag
+persistent Fix2Rotor_delay
+persistent Fix2Rotor_delay_flag
 persistent TakeOffMode_delay
 persistent TakeOffMode_delay_flag
+
 
 global gains_D_pitch
 global gains_D_roll
@@ -145,6 +148,12 @@ global k_flap_Land
         Rotor2Fix_delay_flag = 0;
   end
   
+  if isempty(Fix2Rotor_delay)
+        Fix2Rotor_delay = 0;  
+  end
+  if isempty(Fix2Rotor_delay_flag)
+        Fix2Rotor_delay_flag = 0;
+  end
   if isempty(TakeOffMode_delay)
         TakeOffMode_delay = 0;  
   end
@@ -547,27 +556,44 @@ global k_flap_Land
                     k_throttle=0;
                     throttle_filter=0;
                     throttle_in=0;
-                end
-                 update_z_controller();
-                 input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate);
-                 rate_controller_run();
-                 if(aspeed>aspeed_c2p)
+                    Fix2Rotor_delay=0;
+                    Fix2Rotor_delay_flag=0;
+                 end
+                if(Fix2Rotor_delay_flag==0)
+                    if(Fix2Rotor_delay>=0.250)
+                        Fix2Rotor_delay_flag=1;
+                    else
+                        Fix2Rotor_delay=Fix2Rotor_delay+dt; 
+                        Fix2Rotor_delay_flag=0;
+                    end
                     nav_pitch_cd=pitch_target;
                     nav_roll_cd=roll_target;
                     stabilize()
-                    k_aileron=k_aileron*p_plane_c2p;
-                    k_elevator=k_elevator*p_plane_c2p;
-                    k_rudder=k_rudder*p_plane_c2p;
-                    yaw_in=constrain_value(yaw_in,-yaw_max_c2p,yaw_max_c2p);
-                    POSCONTROL_ACC_Z_FILT_HZ=POSCONTROL_ACC_Z_FILT_HZ_inint;
-                    AP_MotorsMulticopter_output_4a1();
-                 else          
-                     POSCONTROL_ACC_Z_FILT_HZ=POSCONTROL_ACC_Z_FILT_HZ_inint;
-                     k_aileron=0;
-                     k_elevator=0;
-                     k_rudder=0;
-                     AP_MotorsMulticopter_output_4a1();
-                 end
+                    output_to_motors_plane_4a1();
+                    pwm_out=[1050 1050 1050 1050]';                  
+                else
+                    update_z_controller();
+                    input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate);
+                    rate_controller_run();
+                    if(aspeed>aspeed_c2p)
+                        nav_pitch_cd=pitch_target;
+                        nav_roll_cd=roll_target;
+                        stabilize()
+                        k_aileron=k_aileron*p_plane_c2p;
+                        k_elevator=k_elevator*p_plane_c2p;
+                        k_rudder=k_rudder*p_plane_c2p;
+                        yaw_in=constrain_value(yaw_in,-yaw_max_c2p,yaw_max_c2p);
+                        POSCONTROL_ACC_Z_FILT_HZ=POSCONTROL_ACC_Z_FILT_HZ_inint;
+                        AP_MotorsMulticopter_output_4a1();
+                    else
+                        POSCONTROL_ACC_Z_FILT_HZ=POSCONTROL_ACC_Z_FILT_HZ_inint;
+                        k_aileron=0;
+                        k_elevator=0;
+                        k_rudder=0;
+                        AP_MotorsMulticopter_output_4a1();
+                    end
+                end
+
   
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
             case    ENUM_FlightTaskMode.PathFollowMode               

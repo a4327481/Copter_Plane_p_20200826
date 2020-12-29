@@ -138,6 +138,7 @@ m_kg=5;
  heading_hold                           = 0                            ;
  k_flap_TakeOff                         = -3500                        ;
  k_flap_Land                            = 2000                         ;
+ p_flap_plane                           = 0                            ;
  
     k_flap=0;
     thr_out_min=0;

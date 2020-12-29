@@ -17,6 +17,9 @@ global tail_tilt_c2p
         pwm_tail=constrain_value(pwm_out_temp,pwm_tail-thrust_dt,pwm_tail+thrust_dt);
         pwm_tail=constrain_value(pwm_tail,pwm_min,pwm_max);
     for i=1:4
+        if(thrust_rpyt_out(i)<=0.05)
+           thrust_rpyt_out(i)=0.05;             
+        end
         pwm_out_temp=pwm_min+(pwm_max-pwm_min)*thrust_rpyt_out(i);
         pwm_out(i)=constrain_value(pwm_out_temp,pwm_out(i)-thrust_dt,pwm_out(i)+thrust_dt);
         pwm_out(i)=constrain_value(pwm_out(i),pwm_min,pwm_max);
