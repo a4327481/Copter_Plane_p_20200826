@@ -20,7 +20,7 @@ global k_throttle
             k_throttle=0.9;
         end
         output_to_motors_plane_4a1();
-        k_flap=k_aileron*p_flap_plane;
+%         k_flap=k_aileron*p_flap_plane;
        
 end
 
