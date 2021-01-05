@@ -869,6 +869,12 @@ SL.OUT_FLIGHTPERF.BESTPOS = BESTPOS; % create struct
 temp = reshape([data(find(mod(Count,4)==0),40:40)'],1,[]);
 numSv=double(typecast(uint8(temp),'uint8')')/1*1.0000000000;
 SL.OUT_FLIGHTPERF.numSv = numSv; % create struct
+temp = reshape([data(find(mod(Count,8)==5),207:207)'],1,[]);
+um482_solSVs0=double(typecast(uint8(temp),'uint8')')/1*1.0000000000;
+um482_solSVs  =[um482_solSVs0; um482_solSVs0];
+um482_solSVs  (1:2:end)=um482_solSVs0;
+um482_solSVs  (2:2:end)=um482_solSVs0;
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 temp = reshape([data(find(mod(Count,4)==3),121:124)'],1,[]);
 task_1ms_total_cnt=double(typecast(uint8(temp),'uint32')')/1*1.0000000000;
@@ -908,6 +914,54 @@ SL.GlobalWindEst.windSpeed_ms = windSpeed_ms; % create struct
 temp = reshape([data(find(mod(Count,16)==12),245:246)'],1,[]);
 windHeading_rad=double(typecast(uint8(temp),'int16')')/32768*6.3000000000*57.3;
 SL.GlobalWindEst.windHeading_rad = windHeading_rad; % create struct
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% /* |-----------+--------------------------------+-------------+------------+--------------| */
+temp = reshape([data(find(mod(Count,2)==1),155:155)'],1,[]);
+mag_retry_count0=double(typecast(uint8(temp),'uint8')')/1*1.0000000000;
+TempName.mag_retry_count0 = mag_retry_count0; % create struct
+temp = reshape([data(find(mod(Count,2)==1),156:156)'],1,[]);
+mag_retry_count1=double(typecast(uint8(temp),'uint8')')/1*1.0000000000;
+TempName.mag_retry_count1 = mag_retry_count1; % create struct
+temp = reshape([data(find(mod(Count,2)==1),157:157)'],1,[]);
+mag_retry_count2=double(typecast(uint8(temp),'uint8')')/1*1.0000000000;
+TempName.mag_retry_count2 = mag_retry_count2; % create struct
+temp = reshape([data(find(mod(Count,2)==1),158:158)'],1,[]);
+cnt_fs0=double(typecast(uint8(temp),'uint8')')/1*1.0000000000;
+TempName.cnt_fs0 = cnt_fs0; % create struct
+temp = reshape([data(find(mod(Count,2)==1),159:159)'],1,[]);
+cnt_fs1=double(typecast(uint8(temp),'uint8')')/1*1.0000000000;
+TempName.cnt_fs1 = cnt_fs1; % create struct
+temp = reshape([data(find(mod(Count,2)==1),160:160)'],1,[]);
+cnt_fs2=double(typecast(uint8(temp),'uint8')')/1*1.0000000000;
+TempName.cnt_fs2 = cnt_fs2; % create struct
+temp = reshape([data(find(mod(Count,4)==3),287:288)'],1,[]);
+mag_systime0=double(typecast(uint8(temp),'uint16')')/1*1.0000000000;
+mag_systime  =[mag_systime0; mag_systime0];
+mag_systime  (1:2:end)=mag_systime0;
+mag_systime  (2:2:end)=mag_systime0;
+
+TempName.mag_systime = mag_systime; % create struct
+temp = reshape([data(find(mod(Count,2)==1),163:163)'],1,[]);
+air_retry_count=double(typecast(uint8(temp),'uint8')')/1*1.0000000000;
+TempName.air_retry_count = air_retry_count; % create struct
+temp = reshape([data(find(mod(Count,2)==1),173:173)'],1,[]);
+mag_reg_err_cnt_0=double(typecast(uint8(temp),'uint8')')/1*1.0000000000;
+TempName.mag_reg_err_cnt_0 = mag_reg_err_cnt_0; % create struct
+temp = reshape([data(find(mod(Count,2)==1),174:174)'],1,[]);
+mag_reg_err_cnt_1=double(typecast(uint8(temp),'uint8')')/1*1.0000000000;
+TempName.mag_reg_err_cnt_1 = mag_reg_err_cnt_1; % create struct
+temp = reshape([data(find(mod(Count,2)==1),175:175)'],1,[]);
+mag_reg_err_cnt_2=double(typecast(uint8(temp),'uint8')')/1*1.0000000000;
+TempName.mag_reg_err_cnt_2 = mag_reg_err_cnt_2; % create struct
+temp = reshape([data(find(mod(Count,2)==1),176:176)'],1,[]);
+mag_data_err_cnt_0=double(typecast(uint8(temp),'uint8')')/1*1.0000000000;
+TempName.mag_data_err_cnt_0 = mag_data_err_cnt_0; % create struct
+temp = reshape([data(find(mod(Count,2)==1),173:173)'],1,[]);
+mag_data_err_cnt_1=double(typecast(uint8(temp),'uint8')')/1*1.0000000000;
+TempName.mag_data_err_cnt_1 = mag_data_err_cnt_1; % create struct
+temp = reshape([data(find(mod(Count,2)==1),174:174)'],1,[]);
+mag_data_err_cnt_2=double(typecast(uint8(temp),'uint8')')/1*1.0000000000;
+TempName.mag_data_err_cnt_2 = mag_data_err_cnt_2; % create struct
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         len=length(algo_yaw);
@@ -942,6 +996,7 @@ SL.GlobalWindEst.windHeading_rad = windHeading_rad; % create struct
         time_sl_taskmode=save_time(1:16:end);
         time_sl_task_flight=save_time(1:16:end);
         time_um482=save_time(1:4:end);
+        time_count=save_time(1:2:end);
                
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1387,8 +1442,26 @@ SL.GlobalWindEst.windHeading_rad = windHeading_rad; % create struct
     'SL.OUT_FLIGHTPERF.BESTPOS'; 
     'SL.OUT_FLIGHTPERF.numSv';
     'SL.OUT_FLIGHTPERF.cod';
+    'um482_solSVs';
 };
 
+data_count={    
+'time_count'
+'mag_retry_count0'; % create struct
+'mag_retry_count1'; % create struct
+'mag_retry_count2'; % create struct
+'cnt_fs0'; % create struct
+'cnt_fs1'; % create struct
+'cnt_fs2'; % create struct
+'mag_systime'; % create struct
+'air_retry_count'; % create struct
+'mag_reg_err_cnt_0'; % create struct
+'mag_reg_err_cnt_1'; % create struct
+'mag_reg_err_cnt_2'; % create struct
+'mag_data_err_cnt_0'; % create struct
+'mag_data_err_cnt_1'; % create struct
+'mag_data_err_cnt_2'; % create struct
+};
   % --------------------------------------------------algo-------------------
 data = [];
    for i=1:length(data_ck_txt)
@@ -1399,7 +1472,7 @@ data = [];
        head=[head ,' ',data_ck_txt{i}];
    end 
    head=[head ,'\n'];
-data_ck=data(1:2:end,1:i);
+data_ck=data(1:50:end,1:i);
 fid=fopen([PathName,'\\',FileName,'V1000.dat'],'w');
 fprintf(fid,head);
 %     [count,num]=size(data_ck);
@@ -1793,3 +1866,25 @@ fprintf(fid,head);
 %     end
     fclose(fid); 
 save([PathName,'\\',FileName,'V1000_um482.dat'],'data_ck','-ascii','-append' )
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+data_17 = [];
+for i=1:length(data_count)
+        data_17(:,i)=eval(data_count{i,1});        
+end
+        head=[data_count{1}];
+        for i=2:length(data_count)
+         head=[head ,' ',data_count{i}];
+        end 
+        head=[head ,'\n'];
+data_ck=data_17(:,1:i);
+fid=fopen([PathName,'\\',FileName,'V1000_count.dat'],'w');
+fprintf(fid,head);
+%     [count,num]=size(data_ck);
+%     for i=1:count
+%         for j=1:num
+%             fprintf(fid,'%f ',data_ck(i,j));
+%         end
+%         fprintf(fid,'\n');
+%     end
+    fclose(fid); 
+save([PathName,'\\',FileName,'V1000_count.dat'],'data_ck','-ascii','-append' )
