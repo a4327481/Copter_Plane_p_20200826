@@ -16,8 +16,8 @@ global k_throttle
         calc_nav_roll()
         calc_throttle()
         stabilize()
-        if(k_throttle>=0.9)
-            k_throttle=0.9;
+        if(k_throttle>=0.8)
+            k_throttle=0.8;
         end
         output_to_motors_plane_4a1();
 %         k_flap=k_aileron*p_flap_plane;
