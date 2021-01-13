@@ -210,11 +210,11 @@ Kc=(Ku*Lux)/(Ldx*Kd);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %sl
 
-PathModeOut_sl.headingCmd=0;
+PathModeOut_sl.headingCmd=10000;
 PathModeOut_sl.groundspeedCmd=0;
-PathModeOut_sl.heightCmd=0.1;
-PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.Rotor2Fix_Mode;
-PathModeOut_sl.maxClimbSpeed=0;
+PathModeOut_sl.heightCmd=10000;
+PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.PathFollowMode;
+PathModeOut_sl.maxClimbSpeed=300;
 PathModeOut_sl.turnCenterLL=[0 0];
 PathModeOut_sl.prePathPoint_LLA=[0 0 0];
 PathModeOut_sl.curPathPoint_LLA=[0 0 0];
