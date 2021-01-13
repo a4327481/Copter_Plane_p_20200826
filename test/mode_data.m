@@ -102,13 +102,13 @@ Aero.Cm_H=Cm_data_all(:,2);
 Aero.Cm_L=Cm_data_all(:,3);
 Aero.Cm_F=Cm_data_all(:,4);
 Aero.Cm_sum=Cm_data_all(:,5);
-hold on
-plot(Aero.Cm_alpha,Aero.Cm_V);
-plot(Aero.Cm_alpha,Aero.Cm_H);
-plot(Aero.Cm_alpha,Aero.Cm_L);
-plot(Aero.Cm_alpha,Aero.Cm_F);
-plot(Aero.Cm_alpha,Aero.Cm_sum);
-legend('V','H','L','F','sum')
+% hold on
+% plot(Aero.Cm_alpha,Aero.Cm_V);
+% plot(Aero.Cm_alpha,Aero.Cm_H);
+% plot(Aero.Cm_alpha,Aero.Cm_L);
+% plot(Aero.Cm_alpha,Aero.Cm_F);
+% plot(Aero.Cm_alpha,Aero.Cm_sum);
+% legend('V','H','L','F','sum')
 
 
 Cm_data_elevator=[
@@ -118,8 +118,8 @@ Cm_H_elevator=Cm_data_elevator(:,2);
 Cm_sum_del_H =Cm_data_elevator(:,1);
 Aero.Cm_elevator=[-15 -10 -5 0 5 10];
 Aero.Cm_H_de=Cm_H_elevator-Cm_H_elevator(4);
-plot(Aero.Cm_elevator,Aero.Cm_H_de)
-legend('Cm_H_elevator')
+% plot(Aero.Cm_elevator,Aero.Cm_H_de)
+% legend('Cm_H_elevator')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Aero.beta=[0;3;6;9];

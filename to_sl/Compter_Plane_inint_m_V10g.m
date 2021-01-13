@@ -1,17 +1,45 @@
 %mode_Multicopter
-% load bus_comper.mat
-
 load IOBusInfo_byc_20200903.mat
 load IOBusInfo_V1000.mat
 pianzhuanjiao
-m_kg=5;
+quad_tail_4a1=0;
+plane_mode=ENUM_plane_mode.V10;
 
-% global POSCONTROL_POS_Z_P
-% global POSCONTROL_ACCEL_Z
-% global POSCONTROL_SPEED_DOWN
-% global POSCONTROL_SPEED_UP
-% global dt
+m_kg_V1000=5;
+Jx=186222*1e-6;
+Jy=164400*1e-6;
+Jz=336920*1e-6;
+% Jx=186222*1e-5;
+% Jy=164400*1e-5;
+% Jz=336920*1e-5;
+J_V1000=diag([Jx Jy Jz]);
 
+m_kg_V10=26;
+Jx_v10=4.17029;
+Jy_v10=8.07546;
+Jz_v10=4.01077;
+% Jx=186222*1e-5;
+% Jy=164400*1e-5;
+% Jz=336920*1e-5;
+J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
+    switch plane_mode
+        case ENUM_plane_mode.V1000
+            m_kg=m_kg_V1000;
+            J=J_V1000;
+        case ENUM_plane_mode.V10        
+            m_kg=m_kg_V10;
+            J=J_V10;          
+        case ENUM_plane_mode.V10s
+            m_kg=m_kg_V10;
+            J=J_V10;    
+        otherwise
+            m_kg=m_kg_V10;
+            J=J_V10;   
+    end 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%sl
     POSCONTROL_ACC_Z_DT=0.0025;    % vertical acceleration controller dt default
     gains_rmax_roll=0;   
     thrust_slew_time=0.3;%%%%%%%%%%%%%%%%”Õ√≈ ±º‰
@@ -207,14 +235,15 @@ Kx=(Ku-Kd)/(Ku+Kd);
 Qd=10;
 Qu=asind(Kd*sind(Qd)*Ld/(Ku*Lu));
 Kc=(Ku*Lux)/(Ldx*Kd);
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %sl
 
-PathModeOut_sl.headingCmd=0;
+PathModeOut_sl.headingCmd=10000;
 PathModeOut_sl.groundspeedCmd=0;
-PathModeOut_sl.heightCmd=0.1;
-PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.Rotor2Fix_Mode;
-PathModeOut_sl.maxClimbSpeed=0;
+PathModeOut_sl.heightCmd=10000;
+PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.PathFollowMode;
+PathModeOut_sl.maxClimbSpeed=300;
 PathModeOut_sl.turnCenterLL=[0 0];
 PathModeOut_sl.prePathPoint_LLA=[0 0 0];
 PathModeOut_sl.curPathPoint_LLA=[0 0 0];
@@ -622,6 +651,10 @@ climb_rate_cms=0;
     bearing_error=0;
     data_is_stale=0;
     reverse=0;
+
+
+
+
 
 
 
