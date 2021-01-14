@@ -146,6 +146,17 @@ Aero.Cn_dr=0.06623314/15;% rudder =[0 30]
 Aero.Cn_da=-0.065367069/15;
 Aero.Cl_da= 1.035848963/15;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Vehicle.Motor.commandToW2Gain=100;
+Vehicle.Rotor.lock           =7.976243528;
+Vehicle.Rotor.thetaTip       =13.48/HD;
+Vehicle.Rotor.radius         =0.3302;
+Vehicle.Rotor.area           =pi*Vehicle.Rotor.radius^2;
+Vehicle.Airframe.xy          =0.5;
+Vehicle.Airframe.h           =0 ;
+Vehicle.Rotor.Ct             =1 ;
+Vehicle.Rotor.Cq             =1 ;
+
 
 
 
