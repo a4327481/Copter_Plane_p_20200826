@@ -882,7 +882,7 @@ SL.SystemInfo.task_1ms_total_cnt = task_1ms_total_cnt; % create struct
 temp = reshape([data(find(mod(Count,4)==3),125:128)'],1,[]);
 task_4ms_total_cnt=double(typecast(uint8(temp),'uint32')')/1*1.0000000000;
 SL.SystemInfo.task_4ms_total_cnt = task_4ms_total_cnt; % create struct
-temp = reshape([data(find(mod(Count,4)==3),129:132)'],1,[]);
+temp = reshape([data(find(mod(Count,4)==3),35:38)'],1,[]);
 task_12ms_total_cnt=double(typecast(uint8(temp),'uint32')')/1*1.0000000000;
 SL.SystemInfo.task_12ms_total_cnt = task_12ms_total_cnt; % create struct
 temp = reshape([data(find(mod(Count,4)==3),133:136)'],1,[]);
@@ -896,7 +896,7 @@ plot(diff(task_12ms_total_cnt))
 a=diff(task_12ms_total_cnt);
 b=find(a==24);
 a(b)=[];
-plot(a(1:end-1000))
+plot(a(100:end-1000))
 plot((task_1ms_total_cnt),'*')
 plot((task_4ms_total_cnt),'*')
 plot((task_12ms_total_cnt),'*')

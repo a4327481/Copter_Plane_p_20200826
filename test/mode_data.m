@@ -146,19 +146,86 @@ Aero.Cn_dr=0.06623314/15;% rudder =[0 30]
 Aero.Cn_da=-0.065367069/15;
 Aero.Cl_da= 1.035848963/15;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+RPM_N_Nm_20_15_20m_s=[
+3009	5	0.39
+3308	10	0.68
+3599	15	0.94
+3866	20	1.18
+4124	25	1.41
+4371	30	1.63
+4588	35	1.84
+4818	40	2.04
+5040	45	2.24
+5250	50	2.43
+5455	55	2.62
+5653	60	2.81];
+Rotor_2015.w=RPM_N_Nm_20_15_20m_s(:,1)*2*pi/60;
+Rotor_2015.F=RPM_N_Nm_20_15_20m_s(:,2);
+Rotor_2015.M=RPM_N_Nm_20_15_20m_s(:,3);
+
+RPM_N_Nm_26_8_0m_s=[
+575	0.13	0.05
+876	0.33	0.11
+999	0.44	0.15
+1108	0.55	0.18
+1298	0.77	0.25
+1461	1	0.32
+1468	1.02	0.33
+1611	1.23	0.39
+1740	1.44	0.46
+1861	1.64	0.52
+1970	1.85	0.58
+2072	2.04	0.64
+2191	2.33	0.73
+2280	2.53	0.79
+2331	2.62	0.82
+2495	3.02	0.94
+2648	3.44	1.08
+2776	3.71	1.16
+2796	3.78	1.18
+2929	4.19	1.32
+3059	4.61	1.44
+3134	4.82	1.51
+3136	4.79	1.5
+3138	4.83	1.5
+3248	5.2	1.6
+3658	6.71	2.06
+4070	8.46	2.6
+4460	10.09	3.14
+4826	12.12	3.77
+5132	13.75	4.32
+5464	15.88	5.01];
+Rotor_2608.w=RPM_N_Nm_26_8_0m_s(:,1)*2*pi/60;
+Rotor_2608.F=RPM_N_Nm_26_8_0m_s(:,2);
+Rotor_2608.M=RPM_N_Nm_26_8_0m_s(:,3);
+
+Thr_RPM_N_Nm_26_8_0m_s_f=[
+35.9 	2607 	3119 	1.178 
+37.9 	2802 	3647 	1.361 
+41.1 	2998 	4167 	1.565 
+44.9 	3201 	4780 	1.785 
+48.7 	3399 	5406 	2.006 
+53.5 	3602 	6072 	2.269]; 
+
+Rotor_2608_f.Thr=Thr_RPM_N_Nm_26_8_0m_s_f(:,1)/100;
+Rotor_2608_f.w  =Thr_RPM_N_Nm_26_8_0m_s_f(:,2)*2*pi/60;
+Rotor_2608_f.F  =Thr_RPM_N_Nm_26_8_0m_s_f(:,3)*9.8/1000;
+Rotor_2608_f.M  =Thr_RPM_N_Nm_26_8_0m_s_f(:,4);
+Rotor_2608_f.rho= 1.225*288.15*103730/(273.15+14.9)/101325;
+Rotor_2608_f.radius=26*0.01*2.54/2;
+Rotor_2608_f.area=Rotor_2608_f.radius^2*pi;
+Rotor_2608_f.Ctf=Rotor_2608_f.F./(Rotor_2608_f.w.^2*Rotor_2608_f.rho*Rotor_2608_f.area*Rotor_2608_f.radius^2);
+Rotor_2608_f.Ct=mean(Rotor_2608_f.Ctf);
+Rotor_2608_f.Cqf=Rotor_2608_f.M./(Rotor_2608_f.w.^2*Rotor_2608_f.rho*Rotor_2608_f.area*Rotor_2608_f.radius^3);
+Rotor_2608_f.Cq=mean(Rotor_2608_f.Cqf);
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Vehicle.Motor.commandToW2Gain=100;
 Vehicle.Rotor.lock           =7.976243528;
 Vehicle.Rotor.thetaTip       =13.48/HD;
-Vehicle.Rotor.radius         =0.3302;
-Vehicle.Rotor.area           =pi*Vehicle.Rotor.radius^2;
+Vehicle.Rotor.radius         =Rotor_2608_f.radius;
+Vehicle.Rotor.area           =Rotor_2608_f.area;
 Vehicle.Airframe.xy          =0.5;
 Vehicle.Airframe.h           =0 ;
-Vehicle.Rotor.Ct             =1 ;
-Vehicle.Rotor.Cq             =1 ;
-
-
-
-
-
-
+Vehicle.Rotor.Ct             =Rotor_2608_f.Ct;
+Vehicle.Rotor.Cq             =Rotor_2608_f.Cq ;
