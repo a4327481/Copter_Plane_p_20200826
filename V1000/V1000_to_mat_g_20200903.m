@@ -889,18 +889,18 @@ temp = reshape([data(find(mod(Count,4)==3),133:136)'],1,[]);
 task_100ms_total_cnt=double(typecast(uint8(temp),'uint32')')/1*1.0000000000;
 SL.SystemInfo.task_100ms_total_cnt = task_100ms_total_cnt; % create struct
 len=length(task_1ms_total_cnt);
-hold on
-plot(diff(task_1ms_total_cnt))
-% plot(diff(task_4ms_total_cnt))
-plot(diff(task_12ms_total_cnt))
-a=diff(task_12ms_total_cnt);
-b=find(a==24);
-a(b)=[];
-plot(a(100:end-1000))
-plot((task_1ms_total_cnt),'*')
-plot((task_4ms_total_cnt),'*')
-plot((task_12ms_total_cnt),'*')
-plot(task_4ms_total_cnt./len)
+% hold on
+% plot(diff(task_1ms_total_cnt))
+% % plot(diff(task_4ms_total_cnt))
+% plot(diff(task_12ms_total_cnt))
+% a=diff(task_12ms_total_cnt);
+% b=find(a==24);
+% a(b)=[];
+% plot(a(100:end-1000))
+% plot((task_1ms_total_cnt),'*')
+% plot((task_4ms_total_cnt),'*')
+% plot((task_12ms_total_cnt),'*')
+% plot(task_4ms_total_cnt./len)
 %  hold on
 %  plot(task_1ms_total_cnt./task_4ms_total_cnt)
 %  plot(task_1ms_total_cnt./task_12ms_total_cnt)
@@ -1476,7 +1476,7 @@ data = [];
        head=[head ,' ',data_ck_txt{i}];
    end 
    head=[head ,'\n'];
-data_ck=data(1:1:end,1:i);
+data_ck=data(1:2:end,1:i);
 fid=fopen([PathName,'\\',FileName,'V1000.dat'],'w');
 fprintf(fid,head);
 %     [count,num]=size(data_ck);

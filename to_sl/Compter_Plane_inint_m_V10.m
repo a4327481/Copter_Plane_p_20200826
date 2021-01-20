@@ -1290,6 +1290,194 @@ loiter_bank_limit=0;
 %Modified to use PD control for circle tracking to enable loiter radius less than L1 length
 %Modified to enable period and damping of guidance loop to be set explicitly
 %Modified to provide explicit control over capture angle
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% // parameters for the motor class
+% const AP_Param::GroupInfo AP_MotorsMulticopter::var_info[] = {
+%     // 0 was used by TB_RATIO
+%     // 1,2,3 were used by throttle curve
+%     // 5 was SPIN_ARMED
+% 
+%     // @Param: YAW_HEADROOM
+%     // @DisplayName: Matrix Yaw Min
+%     // @Description: Yaw control is given at least this pwm in microseconds range
+%     // @Range: 0 500
+%     // @Units: PWM
+%     // @User: Advanced
+%     AP_GROUPINFO("YAW_HEADROOM", 6, AP_MotorsMulticopter, _yaw_headroom, AP_MOTORS_YAW_HEADROOM_DEFAULT),
+% 
+%     // 7 was THR_LOW_CMP
+% 
+%     // @Param: THST_EXPO
+%     // @DisplayName: Thrust Curve Expo
+%     // @Description: Motor thrust curve exponent (from 0 for linear to 1.0 for second order curve)
+%     // @Range: 0.25 0.8
+%     // @User: Advanced
+%     AP_GROUPINFO("THST_EXPO", 8, AP_MotorsMulticopter, _thrust_curve_expo, AP_MOTORS_THST_EXPO_DEFAULT),
+thrust_curve_expo=0.65;
+%     // @Param: SPIN_MAX
+%     // @DisplayName: Motor Spin maximum
+%     // @Description: Point at which the thrust saturates expressed as a number from 0 to 1 in the entire output range
+%     // @Values: 0.9:Low, 0.95:Default, 1.0:High
+%     // @User: Advanced
+%     AP_GROUPINFO("SPIN_MAX", 9, AP_MotorsMulticopter, _spin_max, AP_MOTORS_SPIN_MAX_DEFAULT),
+spin_max=0.95;
+%     // @Param: BAT_VOLT_MAX
+%     // @DisplayName: Battery voltage compensation maximum voltage
+%     // @Description: Battery voltage compensation maximum voltage (voltage above this will have no additional scaling effect on thrust).  Recommend 4.4 * cell count, 0 = Disabled
+%     // @Range: 6 35
+%     // @Units: V
+%     // @User: Advanced
+%     AP_GROUPINFO("BAT_VOLT_MAX", 10, AP_MotorsMulticopter, _batt_voltage_max, AP_MOTORS_BAT_VOLT_MAX_DEFAULT),
+batt_voltage_max=0;
+%     // @Param: BAT_VOLT_MIN
+%     // @DisplayName: Battery voltage compensation minimum voltage
+%     // @Description: Battery voltage compensation minimum voltage (voltage below this will have no additional scaling effect on thrust).  Recommend 3.5 * cell count, 0 = Disabled
+%     // @Range: 6 35
+%     // @Units: V
+%     // @User: Advanced
+%     AP_GROUPINFO("BAT_VOLT_MIN", 11, AP_MotorsMulticopter, _batt_voltage_min, AP_MOTORS_BAT_VOLT_MIN_DEFAULT),
+batt_voltage_min=0;
+%     // @Param: BAT_CURR_MAX
+%     // @DisplayName: Motor Current Max
+%     // @Description: Maximum current over which maximum throttle is limited (0 = Disabled)
+%     // @Range: 0 200
+%     // @Units: A
+%     // @User: Advanced
+%     AP_GROUPINFO("BAT_CURR_MAX", 12, AP_MotorsMulticopter, _batt_current_max, AP_MOTORS_BAT_CURR_MAX_DEFAULT),
+batt_current_max=0;
+%     // 13, 14 were used by THR_MIX_MIN, THR_MIX_MAX
+% 
+%     // @Param: PWM_TYPE
+%     // @DisplayName: Output PWM type
+%     // @Description: This selects the output PWM type, allowing for normal PWM continuous output, OneShot, brushed or DShot motor output
+%     // @Values: 0:Normal,1:OneShot,2:OneShot125,3:Brushed,4:DShot150,5:DShot300,6:DShot600,7:DShot1200
+%     // @User: Advanced
+%     // @RebootRequired: True
+%     AP_GROUPINFO("PWM_TYPE", 15, AP_MotorsMulticopter, _pwm_type, PWM_TYPE_NORMAL),
+% 
+%     // @Param: PWM_MIN
+%     // @DisplayName: PWM output miniumum
+%     // @Description: This sets the min PWM output value in microseconds that will ever be output to the motors, 0 = use input RC3_MIN
+%     // @Units: PWM
+%     // @Range: 0 2000
+%     // @User: Advanced
+%     AP_GROUPINFO("PWM_MIN", 16, AP_MotorsMulticopter, _pwm_min, 0),
+% 
+%     // @Param: PWM_MAX
+%     // @DisplayName: PWM output maximum
+%     // @Description: This sets the max PWM value in microseconds that will ever be output to the motors, 0 = use input RC3_MAX
+%     // @Units: PWM
+%     // @Range: 0 2000
+%     // @User: Advanced
+%     AP_GROUPINFO("PWM_MAX", 17, AP_MotorsMulticopter, _pwm_max, 0),
+% 
+%     // @Param: SPIN_MIN
+%     // @DisplayName: Motor Spin minimum
+%     // @Description: Point at which the thrust starts expressed as a number from 0 to 1 in the entire output range.  Should be higher than MOT_SPIN_ARM.
+%     // @Values: 0.0:Low, 0.15:Default, 0.3:High
+%     // @User: Advanced
+%     AP_GROUPINFO("SPIN_MIN", 18, AP_MotorsMulticopter, _spin_min, AP_MOTORS_SPIN_MIN_DEFAULT),
+spin_min=0.15;
+%     // @Param: SPIN_ARM
+%     // @DisplayName: Motor Spin armed
+%     // @Description: Point at which the motors start to spin expressed as a number from 0 to 1 in the entire output range.  Should be lower than MOT_SPIN_MIN.
+%     // @Values: 0.0:Low, 0.1:Default, 0.2:High
+%     // @User: Advanced
+%     AP_GROUPINFO("SPIN_ARM", 19, AP_MotorsMulticopter, _spin_arm, AP_MOTORS_SPIN_ARM_DEFAULT),
+spin_arm=0.1;
+%     // @Param: BAT_CURR_TC
+%     // @DisplayName: Motor Current Max Time Constant
+%     // @Description: Time constant used to limit the maximum current
+%     // @Range: 0 10
+%     // @Units: s
+%     // @User: Advanced
+%     AP_GROUPINFO("BAT_CURR_TC", 20, AP_MotorsMulticopter, _batt_current_time_constant, AP_MOTORS_BAT_CURR_TC_DEFAULT),
+batt_current_time_constant=5;
+%     // @Param: THST_HOVER
+%     // @DisplayName: Thrust Hover Value
+%     // @Description: Motor thrust needed to hover expressed as a number from 0 to 1
+%     // @Range: 0.2 0.8
+%     // @User: Advanced
+%     AP_GROUPINFO("THST_HOVER", 21, AP_MotorsMulticopter, _throttle_hover, AP_MOTORS_THST_HOVER_DEFAULT),
+% 
+%     // @Param: HOVER_LEARN
+%     // @DisplayName: Hover Value Learning
+%     // @Description: Enable/Disable automatic learning of hover throttle
+%     // @Values{Copter}: 0:Disabled, 1:Learn, 2:Learn and Save
+%     // @Values{Sub}: 0:Disabled
+%     // @Values{Plane}: 0:Disabled, 1:Learn, 2:Learn and Save
+%     // @User: Advanced
+%     AP_GROUPINFO("HOVER_LEARN", 22, AP_MotorsMulticopter, _throttle_hover_learn, HOVER_LEARN_AND_SAVE),
+% 
+%     // @Param: SAFE_DISARM
+%     // @DisplayName: Motor PWM output disabled when disarmed
+%     // @Description: Disables motor PWM output when disarmed
+%     // @Values: 0:PWM enabled while disarmed, 1:PWM disabled while disarmed
+%     // @User: Advanced
+%     AP_GROUPINFO("SAFE_DISARM", 23, AP_MotorsMulticopter, _disarm_disable_pwm, 0),
+disarm_disable_pwm=1;
+%     // @Param: YAW_SV_ANGLE
+%     // @DisplayName: Yaw Servo Max Lean Angle
+%     // @Description: Yaw servo's maximum lean angle
+%     // @Range: 5 80
+%     // @Units: deg
+%     // @Increment: 1
+%     // @User: Standard
+%     AP_GROUPINFO_FRAME("YAW_SV_ANGLE", 35, AP_MotorsMulticopter, _yaw_servo_angle_max_deg, 30, AP_PARAM_FRAME_TRICOPTER),
+% 
+%     // @Param: SPOOL_TIME
+%     // @DisplayName: Spool up time
+%     // @Description: Time in seconds to spool up the motors from zero to min throttle. 
+%     // @Range: 0 2
+%     // @Units: s
+%     // @Increment: 0.1
+%     // @User: Advanced
+%     AP_GROUPINFO("SPOOL_TIME", 36, AP_MotorsMulticopter, _spool_up_time, AP_MOTORS_SPOOL_UP_TIME_DEFAULT),
+spool_up_time=0.5;
+%     // @Param: BOOST_SCALE
+%     // @DisplayName: Motor boost scale
+%     // @Description: Booster motor output scaling factor vs main throttle.  The output to the BoostThrottle servo will be the main throttle times this scaling factor. A higher scaling factor will put more of the load on the booster motor. A value of 1 will set the BoostThrottle equal to the main throttle.
+%     // @Range: 0 5
+%     // @Increment: 0.1
+%     // @User: Advanced
+%     AP_GROUPINFO("BOOST_SCALE", 37, AP_MotorsMulticopter, _boost_scale, 0),
+boost_scale=0;
+%     // 38 RESERVED for BAT_POW_MAX
+%     
+%     // @Param: BAT_IDX
+%     // @DisplayName: Battery compensation index
+%     // @Description: Which battery monitor should be used for doing compensation
+%     // @Values: 0:First battery, 1:Second battery
+%     // @User: Advanced
+%     AP_GROUPINFO("BAT_IDX", 39, AP_MotorsMulticopter, _batt_idx, 0),
+% 
+%     // @Param: SLEW_UP_TIME
+%     // @DisplayName: Output slew time for increasing throttle
+%     // @Description: Time in seconds to slew output from zero to full. This is used to limit the rate at which output can change. Range is constrained between 0 and 0.5.
+%     // @Range: 0 .5
+%     // @Units: s
+%     // @Increment: 0.001
+%     // @User: Advanced
+%     AP_GROUPINFO("SLEW_UP_TIME", 40, AP_MotorsMulticopter, _slew_up_time, AP_MOTORS_SLEW_TIME_DEFAULT),
+slew_up_time=0.5;
+%     // @Param: SLEW_DN_TIME
+%     // @DisplayName: Output slew time for decreasing throttle
+%     // @Description: Time in seconds to slew output from full to zero. This is used to limit the rate at which output can change.  Range is constrained between 0 and 0.5.
+%     // @Range: 0 .5
+%     // @Units: s
+%     // @Increment: 0.001
+%     // @User: Advanced
+%     AP_GROUPINFO("SLEW_DN_TIME", 41, AP_MotorsMulticopter, _slew_dn_time, AP_MOTORS_SLEW_TIME_DEFAULT),
+slew_dn_time=0.5;
+%     // @Param: SAFE_TIME
+%     // @DisplayName: Time taken to disable and enable the motor PWM output when disarmed and armed.
+%     // @Description: Time taken to disable and enable the motor PWM output when disarmed and armed.
+%     // @Range: 0 5
+%     // @Units: s
+%     // @Increment: 0.001
+%     // @User: Advanced
+%     AP_GROUPINFO("SAFE_TIME", 42, AP_MotorsMulticopter, _safe_time, AP_MOTORS_SAFE_TIME_DEFAULT),
+safe_time=1;
+%     AP_GROUPEND
 
