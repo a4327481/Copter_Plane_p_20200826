@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "2.5"
+    ComputedModelVersion    "2.6"
     NumModelReferences	    0
     NumTestPointedSignals   9
     TestPointedSignal {
@@ -159,28 +159,15 @@ Model {
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
 	Extents			[1850.0, 786.0]
-	ZoomFactor		[1.25]
-	Offset			[443.82075741600579, 2228.5845500475057]
-	SceneRectInView		[443.82075741600579, 2228.5845500475057, 1480.0, 628.8]
+	ZoomFactor		[0.8]
+	Offset			[135.12075741600574, 1819.8345500475057]
+	SceneRectInView		[135.12075741600574, 1819.8345500475057, 2312.5, 982.5]
       }
       Array {
 	Type			"Simulink.DockComponentInfo"
 	Dimension		3
 	Object {
 	  $ObjectID		  7
-	  Type			  "GLUE2:SpreadSheet"
-	  ID			  "ModelData"
-	  Visible		  [1]
-	  CreateCallback	  "DataView.createSpreadSheetComponent"
-	  UserData		  ""
-	  Floating		  [0]
-	  DockPosition		  "Bottom"
-	  Width			  [1916]
-	  Height		  [215]
-	  Minimized		  "On"
-	}
-	Object {
-	  $ObjectID		  8
 	  Type			  "GLUE2:PropertyInspector"
 	  ID			  "Property Inspector"
 	  Visible		  [1]
@@ -190,6 +177,19 @@ Model {
 	  DockPosition		  "Right"
 	  Width			  [640]
 	  Height		  [480]
+	  Minimized		  "On"
+	}
+	Object {
+	  $ObjectID		  8
+	  Type			  "GLUE2:SpreadSheet"
+	  ID			  "ModelData"
+	  Visible		  [1]
+	  CreateCallback	  "DataView.createSpreadSheetComponent"
+	  UserData		  ""
+	  Floating		  [0]
+	  DockPosition		  "Bottom"
+	  Width			  [1916]
+	  Height		  [215]
 	  Minimized		  "On"
 	}
 	Object {
@@ -236,9 +236,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "a4327481"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Jan 11 18:26:36 2021"
-  RTWModifiedTimeStamp	  532289985
-  ModelVersionFormat	  "%<AutoIncrement:2.5>"
+  LastModifiedDate	  "Wed Jan 20 18:18:26 2021"
+  RTWModifiedTimeStamp	  533067340
+  ModelVersionFormat	  "%<AutoIncrement:2.6>"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
   LibraryLinkDisplay	  "disabled"
@@ -17422,7 +17422,7 @@ Model {
 	  Description		  ""
 	  Components		  []
 	  StartTime		  "ts"
-	  StopTime		  "ts+900"
+	  StopTime		  "ts+600"
 	  AbsTol		  "auto"
 	  AutoScaleAbsTol	  on
 	  FixedStep		  "dt"
@@ -26440,7 +26440,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "125"
+    ZoomFactor		    "80"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "3587"
     SimulinkSubDomain	    "Simulink"

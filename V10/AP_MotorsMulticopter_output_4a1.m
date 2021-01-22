@@ -1,5 +1,8 @@
 function   AP_MotorsMulticopter_output_4a1()
- 
+% global spool_desired 
+% global  throttle_thrust_max
+% spool_desired= DesiredSpoolState.THROTTLE_UNLIMITED;
+
     % update throttle filter
     update_throttle_filter();
 
@@ -8,7 +11,6 @@ function   AP_MotorsMulticopter_output_4a1()
 
     % run spool logic
 %     output_logic();
-
     % calculate thrust
     output_armed_stabilizing();
 

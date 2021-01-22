@@ -1,7 +1,7 @@
 %mode_Multicopter
 load IOBusInfo_byc_20200903.mat
 load IOBusInfo_V1000.mat
-pianzhuanjiao
+pianzhuanjiao();
 quad_tail_4a1=0;
 plane_mode=ENUM_plane_mode.V10;
 
@@ -63,7 +63,7 @@ vel_forward_integrator=0;
 PathModeOut_sl.headingCmd=pi/2;
 PathModeOut_sl.groundspeedCmd=0;
 PathModeOut_sl.heightCmd=10000;
-PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.PathFollowMode;
+PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.HoverAdjustMode;
 PathModeOut_sl.flightControlMode=ENUM_FlightControlMode.CircleHoverMode;
 PathModeOut_sl.maxClimbSpeed=100;
 PathModeOut_sl.turnCenterLL=[40,100]*1e7;
@@ -1314,7 +1314,7 @@ loiter_bank_limit=0;
 %     // @Range: 0.25 0.8
 %     // @User: Advanced
 %     AP_GROUPINFO("THST_EXPO", 8, AP_MotorsMulticopter, _thrust_curve_expo, AP_MOTORS_THST_EXPO_DEFAULT),
-thrust_curve_expo=0.65;
+thrust_curve_expo=0.25;
 %     // @Param: SPIN_MAX
 %     // @DisplayName: Motor Spin maximum
 %     // @Description: Point at which the thrust saturates expressed as a number from 0 to 1 in the entire output range
@@ -1460,7 +1460,7 @@ boost_scale=0;
 %     // @Increment: 0.001
 %     // @User: Advanced
 %     AP_GROUPINFO("SLEW_UP_TIME", 40, AP_MotorsMulticopter, _slew_up_time, AP_MOTORS_SLEW_TIME_DEFAULT),
-slew_up_time=0.5;
+slew_up_time=0;%0.5;
 %     // @Param: SLEW_DN_TIME
 %     // @DisplayName: Output slew time for decreasing throttle
 %     // @Description: Time in seconds to slew output from full to zero. This is used to limit the rate at which output can change.  Range is constrained between 0 and 0.5.
@@ -1469,7 +1469,7 @@ slew_up_time=0.5;
 %     // @Increment: 0.001
 %     // @User: Advanced
 %     AP_GROUPINFO("SLEW_DN_TIME", 41, AP_MotorsMulticopter, _slew_dn_time, AP_MOTORS_SLEW_TIME_DEFAULT),
-slew_dn_time=0.5;
+slew_dn_time=0;%0.5;
 %     // @Param: SAFE_TIME
 %     // @DisplayName: Time taken to disable and enable the motor PWM output when disarmed and armed.
 %     // @Description: Time taken to disable and enable the motor PWM output when disarmed and armed.
@@ -1481,3 +1481,22 @@ slew_dn_time=0.5;
 safe_time=1;
 %     AP_GROUPEND
 
+batt_voltage_resting_estimate=0;
+batt_voltage_filt=0;
+lift_max=1;
+disarm_safe_timer=0;
+spool_desired=DesiredSpoolState.SHUT_DOWN;
+spool_state=SpoolState.SHUT_DOWN;
+limit.roll = 0;
+limit.pitch = 0;
+limit.yaw = 0;
+limit.throttle_lower = 0;
+limit.throttle_upper = 0;
+spin_up_ratio=0;
+thrust_balanced=0;
+batt_current=0;
+batt_resistance=0;
+throttle_limit=0;
+batt_voltage=0;
+actuator=[0 0 0 0];
+mode_data();

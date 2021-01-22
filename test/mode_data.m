@@ -220,12 +220,12 @@ Rotor_2608_f.Cqf=Rotor_2608_f.M./(Rotor_2608_f.w.^2*Rotor_2608_f.rho*Rotor_2608_
 Rotor_2608_f.Cq=mean(Rotor_2608_f.Cqf);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Vehicle.Motor.commandToW2Gain=100;
+Vehicle.Motor.commandToWGain=5464;
 Vehicle.Rotor.lock           =7.976243528;
 Vehicle.Rotor.thetaTip       =13.48/HD;
 Vehicle.Rotor.radius         =Rotor_2608_f.radius;
 Vehicle.Rotor.area           =Rotor_2608_f.area;
+Vehicle.Rotor.Ct             =0.010389717;
+Vehicle.Rotor.Cq             =Rotor_2608_f.Cq ;
 Vehicle.Airframe.xy          =0.5;
 Vehicle.Airframe.h           =0 ;
-Vehicle.Rotor.Ct             =Rotor_2608_f.Ct;
-Vehicle.Rotor.Cq             =Rotor_2608_f.Cq ;
