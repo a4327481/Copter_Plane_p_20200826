@@ -13,6 +13,7 @@ global POSCONTROL_THROTTLE_CUTOFF_FREQ
 global inint
 global dt
 global height
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global pos_target
 global curr_alt
@@ -150,7 +151,6 @@ global     rate_yaw_pid_reset_filter
   aspeed=arspeed_temp;
   
   tail_tilt=0;
-  
 switch mode
     case 1 %copter Stabilize
         if(mode_state~=1)
