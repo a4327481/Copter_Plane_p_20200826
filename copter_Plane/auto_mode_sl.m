@@ -590,6 +590,8 @@ global k_flap_Land
                              uavMode=0;
                              Fix2Rotor_delay=0;
                              pos_target(3) = curr_alt;
+                             attitude_target_quat=from_rotation_matrix(rot_body_to_ned);%20200225
+
                          end                              
                      end     
                  else

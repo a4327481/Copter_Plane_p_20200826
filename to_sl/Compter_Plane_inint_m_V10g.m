@@ -1,26 +1,18 @@
 %mode_Multicopter
 load IOBusInfo_byc_20200903.mat
 load IOBusInfo_V1000.mat
-pianzhuanjiao
-quad_tail_4a1=0;
+mode_data();
 plane_mode=ENUM_plane_mode.V10;
-
 m_kg_V1000=5;
 Jx=186222*1e-6;
 Jy=164400*1e-6;
 Jz=336920*1e-6;
-% Jx=186222*1e-5;
-% Jy=164400*1e-5;
-% Jz=336920*1e-5;
 J_V1000=diag([Jx Jy Jz]);
 
 m_kg_V10=26;
 Jx_v10=4.17029;
 Jy_v10=8.07546;
 Jz_v10=4.01077;
-% Jx=186222*1e-5;
-% Jy=164400*1e-5;
-% Jz=336920*1e-5;
 J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
     switch plane_mode
         case ENUM_plane_mode.V1000
@@ -35,9 +27,7 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
         otherwise
             m_kg=m_kg_V10;
             J=J_V10;   
-    end 
-
-
+    end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %sl
     POSCONTROL_ACC_Z_DT=0.0025;    % vertical acceleration controller dt default
@@ -80,7 +70,7 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
  POSCONTROL_THROTTLE_CUTOFF_FREQ_inint  = 3                            ;
  gains_tau_pitch                        = 1                            ;
  gains_P_pitch                          = 1.2                          ;
- gains_D_pitch_inint                    = 0.35                         ;
+ gains_D_pitch_inint                    = 0.45                         ;
  gains_I_pitch                          = 0.02                         ;
  roll_ff_pitch_inint                    = 0.85                         ;
  gains_imax_pitch                       = 3000                         ;
@@ -96,7 +86,7 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
  K_FF_yaw_inint                         = 1                            ;
  imax_yaw                               = 1500                         ;
  current_tilt                           = 0                           ;
- throttle_hover                         = 0.5                          ;
+ throttle_hover                         = 0.25                          ;
  maxClimbRate                           = 5                            ;
  minSinkRate                            = 3                            ;
  timeConstant                           = 3                            ;
@@ -246,7 +236,7 @@ Kc=(Ku*Lux)/(Ldx*Kd);
 PathModeOut_sl.headingCmd=10000;
 PathModeOut_sl.groundspeedCmd=0;
 PathModeOut_sl.heightCmd=10000;
-PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.HoverAdjustMode;
+PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.CalibBeforePath;
 PathModeOut_sl.maxClimbSpeed=300;
 PathModeOut_sl.turnCenterLL=[40,100]*1e7;
 PathModeOut_sl.prePathPoint_LLA=[0 0 0];
@@ -317,7 +307,7 @@ algo_dbg_param.maxClimbSpeed=0;
 
     HD=180/pi;
     pitch=0;
-    roll=0;
+    roll=00/HD;
     yaw=0;
     wy=0;
     wx=0;
@@ -867,7 +857,6 @@ batt_resistance=0;
 throttle_limit=0;
 batt_voltage=0;
 actuator=[0 0 0 0];
-mode_data();
 
 
 
