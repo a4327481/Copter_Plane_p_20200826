@@ -611,11 +611,17 @@ global k_flap_Land
                          POSCONTROL_ACC_Z_FILT_HZ=POSCONTROL_ACC_Z_FILT_HZ_inint;
                          POSCONTROL_THROTTLE_CUTOFF_FREQ=POSCONTROL_THROTTLE_CUTOFF_FREQ_p2c;
                          update_z_controller();
+%                          throttle_in=0.3;
+%                          throttle_filter=0.3;
+%                          set_throttle_out(throttle_in, 0, 10);
                          AP_MotorsMulticopter_output();
                      else
                          POSCONTROL_ACC_Z_FILT_HZ=POSCONTROL_ACC_Z_FILT_HZ_inint;
                          POSCONTROL_THROTTLE_CUTOFF_FREQ=POSCONTROL_THROTTLE_CUTOFF_FREQ_inint;
                          update_z_controller();
+%                          throttle_in=0.3;
+%                          throttle_filter=0.3;  
+%                          set_throttle_out(throttle_in, 0, 10);
                          k_aileron=0;
                          k_elevator=0;
                          k_rudder=0;

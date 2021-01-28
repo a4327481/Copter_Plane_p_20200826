@@ -71,7 +71,7 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
  gains_tau_pitch                        = 1                            ;
  gains_P_pitch                          = 1.2                          ;
  gains_D_pitch_inint                    = 0.45                         ;
- gains_I_pitch                          = 0.02                         ;
+ gains_I_pitch                          = 0.20                         ;
  roll_ff_pitch_inint                    = 0.85                         ;
  gains_imax_pitch                       = 3000                         ;
  gains_tau_roll                         = 0.5                          ;
@@ -81,8 +81,8 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
  gains_imax_roll                        = 3000                         ;
  gains_FF_roll                          = 0                            ;
  K_A_yaw                                = 0.25                         ;
- K_I_yaw                                = 0.05                         ;
- K_D_yaw                                = 0.25                         ;
+ K_I_yaw                                = 0.15                         ;
+ K_D_yaw                                = 0.35                         ;
  K_FF_yaw_inint                         = 1                            ;
  imax_yaw                               = 1500                         ;
  current_tilt                           = 0                           ;
@@ -236,7 +236,7 @@ Kc=(Ku*Lux)/(Ldx*Kd);
 PathModeOut_sl.headingCmd=10000;
 PathModeOut_sl.groundspeedCmd=0;
 PathModeOut_sl.heightCmd=10000;
-PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.CalibBeforePath;
+PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.HoverAdjustMode;
 PathModeOut_sl.maxClimbSpeed=300;
 PathModeOut_sl.turnCenterLL=[40,100]*1e7;
 PathModeOut_sl.prePathPoint_LLA=[0 0 0];
@@ -345,21 +345,21 @@ algo_dbg_param.maxClimbSpeed=0;
     loc.num=1:20;
 
     loc.lat=[
-2.9112732e+01
-2.9113876e+01
-2.9113876e+01
-2.9114450e+01
-2.9114450e+01
-zeros(15,1)
-]*1e7;
+        40*1e7;
+        40.01*1e7;
+        40.02*1e7;
+        40.02*1e7;
+        40.01*1e7;
+        zeros(15,1)
+        ];
     loc.lon=[
-1.0490368e+02
-1.0490256e+02
-1.0490623e+02
-1.0490623e+02
-1.0490256e+02
-zeros(15,1)
-]*1e7;
+        100*1e7;
+        100.01*1e7;
+        100.01*1e7;
+        100.02*1e7;
+        100.02*1e7;
+        zeros(15,1)
+        ];
     
     mode_L1=0;
     roll_target_pilot=0;
