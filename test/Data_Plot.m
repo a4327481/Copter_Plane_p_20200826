@@ -1,4 +1,4 @@
-function varargout = Data_Plot(varargin)
+c;function varargout = Data_Plot(varargin)
 
 % DATA_PLOT M-file for Data_Plot.fig
 %      DATA_PLOT, by itself, creates a new DATA_PLOT or raises the existing
