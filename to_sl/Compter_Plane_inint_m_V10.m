@@ -4,6 +4,7 @@ load IOBusInfo_V1000.mat
 pianzhuanjiao();
 quad_tail_4a1=0;
 plane_mode=ENUM_plane_mode.V1000;
+sin_step_INIT();
 
 m_kg_V1000=5;
 Jx=186222*1e-6;

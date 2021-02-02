@@ -3,14 +3,9 @@
 
 load IOBusInfo_byc_20200903.mat
 load IOBusInfo_V1000.mat
-pianzhuanjiao
-m_kg=5;
+pianzhuanjiao();
+sin_step_INIT();
 
-% global POSCONTROL_POS_Z_P
-% global POSCONTROL_ACCEL_Z
-% global POSCONTROL_SPEED_DOWN
-% global POSCONTROL_SPEED_UP
-% global dt
 
     POSCONTROL_ACC_Z_DT=0.0025;    % vertical acceleration controller dt default
     gains_rmax_roll=0;   

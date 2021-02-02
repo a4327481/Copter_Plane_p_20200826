@@ -31,6 +31,14 @@ function output_armed_stabilizing()
  global thrust_boost
  global Kx
  rpy_scale=1;
+ global Test_w
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ roll_in=roll_in+Test_w.roll_in;
+ pitch_in=pitch_in+Test_w.pitch_in;
+ yaw_in=yaw_in+Test_w.yaw_in;
+ throttle_filter=throttle_filter+Test_w.throttle_in;
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
     % apply voltage and air pressure compensation
     compensation_gain = get_compensation_gain(); % compensation for battery voltage and altitude
     roll_thrust = roll_in * compensation_gain;
