@@ -3,7 +3,7 @@ load IOBusInfo_byc_20200903.mat
 load IOBusInfo_V1000.mat
 pianzhuanjiao();
 quad_tail_4a1=0;
-plane_mode=ENUM_plane_mode.V10;
+plane_mode=ENUM_plane_mode.V1000;
 
 m_kg_V1000=5;
 Jx=186222*1e-6;
@@ -1499,4 +1499,4 @@ batt_resistance=0;
 throttle_limit=0;
 batt_voltage=0;
 actuator=[0 0 0 0];
-mode_data();
+% mode_data();
