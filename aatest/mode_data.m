@@ -62,10 +62,10 @@ Aero.CC_beta=[
     6
     9];
 Aero.CC_dr=0.029836112/15;
-hold on
-plot(Aero.CL_alpha,Aero.CL)
-plot(Aero.CD_alpha,Aero.CD)
-plot(Aero.CD_alpha,Aero.CL./Aero.CD)
+% hold on
+% plot(Aero.CL_alpha,Aero.CL)
+% plot(Aero.CD_alpha,Aero.CD)
+% plot(Aero.CD_alpha,Aero.CL./Aero.CD)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Cm_data=[
@@ -180,6 +180,7 @@ Aero.Cn_dr=0.06623314/15;% rudder =[0 30]
 Aero.Cn_da=-0.065367069/15;
 Aero.Cl_da= 1.035848963/15;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%理论计算 巡航桨
 RPM_N_Nm_20_15_20m_s=[
 3009	5	0.39
 3308	10	0.68
@@ -197,6 +198,7 @@ Rotor_2015.w=RPM_N_Nm_20_15_20m_s(:,1)*2*pi/60;
 Rotor_2015.F=RPM_N_Nm_20_15_20m_s(:,2);
 Rotor_2015.M=RPM_N_Nm_20_15_20m_s(:,3);
 
+%理论计算悬停桨
 RPM_N_Nm_26_8_0m_s=[
 575	0.13	0.05
 876	0.33	0.11
@@ -230,9 +232,10 @@ RPM_N_Nm_26_8_0m_s=[
 5132	13.75	4.32
 5464	15.88	5.01];
 Rotor_2608.w=RPM_N_Nm_26_8_0m_s(:,1)*2*pi/60;
-Rotor_2608.F=RPM_N_Nm_26_8_0m_s(:,2);
+Rotor_2608.F=RPM_N_Nm_26_8_0m_s(:,2)*9.8;
 Rotor_2608.M=RPM_N_Nm_26_8_0m_s(:,3);
 
+%风洞测试悬停桨
 Thr_RPM_N_Nm_26_8_0m_s_f=[
 35.9 	2607 	3119 	1.178 
 37.9 	2802 	3647 	1.361 
