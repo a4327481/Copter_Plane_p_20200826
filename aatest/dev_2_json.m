@@ -27,7 +27,7 @@ opts = setvaropts(opts, ["name", "Var"], "WhitespaceRule", "preserve");
 opts = setvaropts(opts, ["name", "Var"], "EmptyFieldRule", "auto");
 
 % 导入数据
-datadev1 = readtable("E:\matlab_code\Copter_Plane_p_20200826\test\data_devg.m", opts);
+datadev1 = readtable("D:\matlab_code\Copter_Plane_p_20200826\aatest\data_devg1.m", opts);
 
 %% 转换为输出类型
 datadev1 = table2cell(datadev1);

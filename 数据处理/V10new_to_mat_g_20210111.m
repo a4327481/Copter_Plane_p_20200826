@@ -13,7 +13,7 @@ if FileName==0
 end
 
 V10Log = V10_decode_auto([PathName,'\\',FileName]);
-
+time_algo=V10Log.ALD1.algo_time*1e-6;
 parserData = fieldnames(V10Log);
 for i = 1:length(parserData)
     V10Log_parserData=V10Log.(parserData{i});
