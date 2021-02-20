@@ -266,3 +266,4 @@ Vehicle.Rotor.Ct             =0.010389717;
 Vehicle.Rotor.Cq             =Rotor_2608_f.Cq ;
 Vehicle.Airframe.xy          =0.5;
 Vehicle.Airframe.h           =0 ;
+Vehicle.theta                =5/HD;

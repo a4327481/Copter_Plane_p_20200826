@@ -9,6 +9,7 @@ global yaw_in
 roll_in=rate_target_to_motor_roll(  gyro_x,  rate_target_ang_vel(1));
 pitch_in=rate_target_to_motor_pitch( gyro_y,  rate_target_ang_vel(2));
 yaw_in=rate_target_to_motor_yaw(  gyro_z,   rate_target_ang_vel(3));
+yaw_in=0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % global dt
 % global thrust_slew_time
