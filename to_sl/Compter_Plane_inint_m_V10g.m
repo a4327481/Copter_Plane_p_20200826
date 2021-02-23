@@ -309,7 +309,7 @@ algo_dbg_param.maxClimbSpeed=0;
     HD=180/pi;
     pitch=0;
     roll=00/HD;
-    yaw=0;
+    yaw=0/HD;
     wy=0;
     wx=0;
     wz=0;
@@ -317,8 +317,8 @@ algo_dbg_param.maxClimbSpeed=0;
      curr_vel=[0 0 0];
      curr_pos=[0 0 ];
 
-    gyro_x=0;
-    gyro_y=400/HD;
+    gyro_x=100/HD;
+    gyro_y=300/HD;
     gyro_z=0;
 
     accel_x=0;

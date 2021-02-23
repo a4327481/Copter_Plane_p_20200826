@@ -8,15 +8,15 @@ function V10Log = V10_decode_auto(logFile)
 % logFile: .mat log file
 load(logFile);
 %% ARP1
-V10Log.ARP1.TimeUS = ARP1(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [10:10]   | 
-V10Log.ARP1.CNT = ARP1(:,3);                           %   2. | CNT     | CNT                            | [U32] | [10:10]   | 
-V10Log.ARP1.air_temp = ARP1(:,4);                      %   3. | tmp1    | air_temp                       | [F]   | [10:10]   | 
-V10Log.ARP1.air_diff_press_pa_raw = ARP1(:,5);         %   4. | prs1    | air_diff_press_pa_raw          | [F]   | [10:10]   | 
-V10Log.ARP1.indicated_airspeed = ARP1(:,6);            %   5. | isp1    | indicated_airspeed             | [F]   | [10:10]   | 
-V10Log.ARP1.true_airspeed = ARP1(:,7);                 %   6. | tsp1    | true_airspeed                  | [F]   | [10:10]   | 
-V10Log.ARP1.I2C_AirRetryCount_0(:,1) = ARP1(:,8);      %   7. | err1    | I2C_AirRetryCount[0][0]        | [U32] | [10:10]   | 
-V10Log.ARP1.I2C_AirRetryCount_0(:,2) = ARP1(:,9);      %   8. | err2    | I2C_AirRetryCount[0][1]        | [U32] | [10:10]   | 
-V10Log.ARP1.Sum = ARP1(:,10);                          %   9. | Sum     | Sum                            | [U8]  | [10:10]   | 
+% V10Log.ARP1.TimeUS = ARP1(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [10:10]   | 
+% V10Log.ARP1.CNT = ARP1(:,3);                           %   2. | CNT     | CNT                            | [U32] | [10:10]   | 
+% V10Log.ARP1.air_temp = ARP1(:,4);                      %   3. | tmp1    | air_temp                       | [F]   | [10:10]   | 
+% V10Log.ARP1.air_diff_press_pa_raw = ARP1(:,5);         %   4. | prs1    | air_diff_press_pa_raw          | [F]   | [10:10]   | 
+% V10Log.ARP1.indicated_airspeed = ARP1(:,6);            %   5. | isp1    | indicated_airspeed             | [F]   | [10:10]   | 
+% V10Log.ARP1.true_airspeed = ARP1(:,7);                 %   6. | tsp1    | true_airspeed                  | [F]   | [10:10]   | 
+% V10Log.ARP1.I2C_AirRetryCount_0(:,1) = ARP1(:,8);      %   7. | err1    | I2C_AirRetryCount[0][0]        | [U32] | [10:10]   | 
+% V10Log.ARP1.I2C_AirRetryCount_0(:,2) = ARP1(:,9);      %   8. | err2    | I2C_AirRetryCount[0][1]        | [U32] | [10:10]   | 
+% V10Log.ARP1.Sum = ARP1(:,10);                          %   9. | Sum     | Sum                            | [U8]  | [10:10]   | 
 %% ARP2
 V10Log.ARP2.TimeUS = ARP2(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [10:10]   | 
 V10Log.ARP2.CNT = ARP2(:,3);                           %   2. | CNT     | CNT                            | [U32] | [10:10]   | 
@@ -52,27 +52,27 @@ V10Log.MAG2.I2C_MagRetryCount_1(:,1) = MAG2(:,10);     %   9. | err1    | I2C_Ma
 V10Log.MAG2.I2C_MagRetryCount_1(:,2) = MAG2(:,11);     %  10. | err2    | I2C_MagRetryCount[1][1]        | [U32] | [10:10]   | 
 V10Log.MAG2.Sum = MAG2(:,12);                          %  11. | Sum     | Sum                            | [U8]  | [10:10]   | 
 %% BAR1
-V10Log.BAR1.TimeUS = BAR1(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [10:10]   | 
-V10Log.BAR1.CNT = BAR1(:,3);                           %   2. | CNT     | CNT                            | [U32] | [10:10]   | 
-V10Log.BAR1.TEMP = BAR1(:,4);                          %   3. | TEMP    | TEMP                           | [F]   | [10:10]   | 
-V10Log.BAR1.P = BAR1(:,5);                             %   4. | P       | P                              | [F]   | [10:10]   | 
-V10Log.BAR1.ground_pressure = BAR1(:,6);               %   5. | gP      | ground_pressure                | [F]   | [10:10]   | 
-V10Log.BAR1.ground_temperature = BAR1(:,7);            %   6. | gT      | ground_temperature             | [F]   | [10:10]   | 
-V10Log.BAR1.pressure = BAR1(:,8);                      %   7. | pres    | pressure                       | [F]   | [10:10]   | 
-V10Log.BAR1.altitude = BAR1(:,9);                      %   8. | alt     | altitude                       | [F]   | [10:10]   | 
-V10Log.BAR1.temperature = BAR1(:,10);                  %   9. | temp    | temperature                    | [F]   | [10:10]   | 
-V10Log.BAR1.Sum = BAR1(:,11);                          %  10. | Sum     | Sum                            | [U8]  | [10:10]   | 
-%% BAR2
-V10Log.BAR2.TimeUS = BAR2(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [10:10]   | 
-V10Log.BAR2.CNT = BAR2(:,3);                           %   2. | CNT     | CNT                            | [U32] | [10:10]   | 
-V10Log.BAR2.TEMP = BAR2(:,4);                          %   3. | TEMP    | TEMP                           | [F]   | [10:10]   | 
-V10Log.BAR2.P = BAR2(:,5);                             %   4. | P       | P                              | [F]   | [10:10]   | 
-V10Log.BAR2.ground_pressure = BAR2(:,6);               %   5. | gP      | ground_pressure                | [F]   | [10:10]   | 
-V10Log.BAR2.ground_temperature = BAR2(:,7);            %   6. | gT      | ground_temperature             | [F]   | [10:10]   | 
-V10Log.BAR2.pressure = BAR2(:,8);                      %   7. | pres    | pressure                       | [F]   | [10:10]   | 
-V10Log.BAR2.altitude = BAR2(:,9);                      %   8. | alt     | altitude                       | [F]   | [10:10]   | 
-V10Log.BAR2.temperature = BAR2(:,10);                  %   9. | temp    | temperature                    | [F]   | [10:10]   | 
-V10Log.BAR2.Sum = BAR2(:,11);                          %  10. | Sum     | Sum                            | [U8]  | [10:10]   | 
+% V10Log.BAR1.TimeUS = BAR1(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [10:10]   | 
+% V10Log.BAR1.CNT = BAR1(:,3);                           %   2. | CNT     | CNT                            | [U32] | [10:10]   | 
+% V10Log.BAR1.TEMP = BAR1(:,4);                          %   3. | TEMP    | TEMP                           | [F]   | [10:10]   | 
+% V10Log.BAR1.P = BAR1(:,5);                             %   4. | P       | P                              | [F]   | [10:10]   | 
+% V10Log.BAR1.ground_pressure = BAR1(:,6);               %   5. | gP      | ground_pressure                | [F]   | [10:10]   | 
+% V10Log.BAR1.ground_temperature = BAR1(:,7);            %   6. | gT      | ground_temperature             | [F]   | [10:10]   | 
+% V10Log.BAR1.pressure = BAR1(:,8);                      %   7. | pres    | pressure                       | [F]   | [10:10]   | 
+% V10Log.BAR1.altitude = BAR1(:,9);                      %   8. | alt     | altitude                       | [F]   | [10:10]   | 
+% V10Log.BAR1.temperature = BAR1(:,10);                  %   9. | temp    | temperature                    | [F]   | [10:10]   | 
+% V10Log.BAR1.Sum = BAR1(:,11);                          %  10. | Sum     | Sum                            | [U8]  | [10:10]   | 
+% %% BAR2
+% V10Log.BAR2.TimeUS = BAR2(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [10:10]   | 
+% V10Log.BAR2.CNT = BAR2(:,3);                           %   2. | CNT     | CNT                            | [U32] | [10:10]   | 
+% V10Log.BAR2.TEMP = BAR2(:,4);                          %   3. | TEMP    | TEMP                           | [F]   | [10:10]   | 
+% V10Log.BAR2.P = BAR2(:,5);                             %   4. | P       | P                              | [F]   | [10:10]   | 
+% V10Log.BAR2.ground_pressure = BAR2(:,6);               %   5. | gP      | ground_pressure                | [F]   | [10:10]   | 
+% V10Log.BAR2.ground_temperature = BAR2(:,7);            %   6. | gT      | ground_temperature             | [F]   | [10:10]   | 
+% V10Log.BAR2.pressure = BAR2(:,8);                      %   7. | pres    | pressure                       | [F]   | [10:10]   | 
+% V10Log.BAR2.altitude = BAR2(:,9);                      %   8. | alt     | altitude                       | [F]   | [10:10]   | 
+% V10Log.BAR2.temperature = BAR2(:,10);                  %   9. | temp    | temperature                    | [F]   | [10:10]   | 
+% V10Log.BAR2.Sum = BAR2(:,11);                          %  10. | Sum     | Sum                            | [U8]  | [10:10]   | 
 %% IMU1
 V10Log.IMU1.TimeUS = IMU1(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [1:1]     | 
 V10Log.IMU1.CNT = IMU1(:,3);                           %   2. | CNT     | CNT                            | [U32] | [1:1]     | 
