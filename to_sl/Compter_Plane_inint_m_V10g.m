@@ -317,8 +317,8 @@ algo_dbg_param.maxClimbSpeed=0;
      curr_vel=[0 0 0];
      curr_pos=[0 0 ];
 
-    gyro_x=100/HD;
-    gyro_y=300/HD;
+    gyro_x=200/HD;
+    gyro_y=200/HD;
     gyro_z=0;
 
     accel_x=0;
