@@ -39,9 +39,17 @@ clear opts
 len=size(datadev1,1);
 out=[];
 for i=1:len
+%     out.ParamDriver{1, i}.index     =i;
+%     out.ParamDriver{1, i}.nameFull  =datadev1{i, 1}  ;
+    out.ParamDriver{1, i}.n      =datadev1{i, 3}  ;
+    out.ParamDriver{1, i}.v     =datadev1{i, 2}  ;
+end
+savejson('',out,'ParamDriver.json');
+out=[];
+for i=1:len
     out.ParamDriver{1, i}.index     =i;
     out.ParamDriver{1, i}.nameFull  =datadev1{i, 1}  ;
     out.ParamDriver{1, i}.name      =datadev1{i, 3}  ;
-    out.ParamDriver{1, i}.value     =datadev1{i, 2}  ;
+%     out.ParamDriver{1, i}.value     =datadev1{i, 2}  ;
 end
-savejson('',out,'param_driverg.json');
+savejson('',out,'ParamDriver_Full.json');
