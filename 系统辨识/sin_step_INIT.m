@@ -7,7 +7,7 @@
     Test_w.Amp=0.05;
     Test_w.offset=0.05;
     Test_w.mode=ENUM_Test_mode.step_w;
-    Test_w.channel=ENUM_Test_channel.roll_in;
+    Test_w.channel=ENUM_Test_channel.roll_in_t;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     Test_w.roll_in=0;
     Test_w.pitch_in=0;
