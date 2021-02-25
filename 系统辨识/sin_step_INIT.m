@@ -1,13 +1,13 @@
     load  bus_test_w.mat
-    Test_w.start=0;
-    Test_w.ws=2;
-    Test_w.we=2;
-    Test_w.dw=1;
+    Test_w.start=1;
+    Test_w.ws=0.2;
+    Test_w.we=1;
+    Test_w.dw=0.2;
     Test_w.n=5;
-    Test_w.Amp=0.05;
-    Test_w.offset=0.05;
+    Test_w.Amp=0.15;
+    Test_w.offset=0.0;
     Test_w.mode=ENUM_Test_mode.step_w;
-    Test_w.channel=ENUM_Test_channel.roll_in_t;
+    Test_w.channel=ENUM_Test_channel.throttle_in_t;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     Test_w.roll_in=0;
     Test_w.pitch_in=0;

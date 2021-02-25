@@ -10,6 +10,7 @@ global k_throttle
 global pitch
 global HD
 global disable_integrator_pitch
+global Test_w
 % global curr_vel
 %     int8_t force_elevator = takeoff_tail_hold();
 %     if (force_elevator != 0)  
@@ -25,7 +26,7 @@ global disable_integrator_pitch
 %   end
 % end
   demanded_pitch = nav_pitch_cd  + k_throttle * kff_throttle_to_pitch;
-  k_elevator=get_servo_out_pitch(demanded_pitch - pitch*HD*100,  speed_scaler, disable_integrator_pitch);
+  k_elevator=get_servo_out_pitch(demanded_pitch - pitch*HD*100,  speed_scaler, disable_integrator_pitch)+ Test_w.k_elevator;
   
 %   set_output_scaled( k_elevator, get_servo_out_pitch(demanded_pitch - ahrs.pitch_sensor, 
 %                                                                                            speed_scaler, 

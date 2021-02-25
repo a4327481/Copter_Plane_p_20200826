@@ -15,10 +15,6 @@ k_rudder=constrain_value(algo_remote_ct_st.yaw*4500+k_rudder,-4500,4500);
 end
 k_aileronL=-k_aileron;
 k_aileronR=k_aileron;
-k_rudder=k_rudder+Test_w.k_rudder;
-k_aileron=k_aileron+Test_w.k_aileron;
-k_elevator=k_elevator+Test_w.k_elevator;
 k_flap=k_flap+Test_w.k_flap;
-
 end
 

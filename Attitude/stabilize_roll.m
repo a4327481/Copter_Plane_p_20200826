@@ -8,6 +8,7 @@ function  stabilize_roll(  speed_scaler)
  global k_aileron
  global HD
  global disable_integrator_roll
+ global Test_w
     if (inverted_flight)  
         % we want to fly upside down. We need to cope with wrap of
         % the roll_sensor interfering with wrap of nav_roll, which
@@ -19,7 +20,7 @@ function  stabilize_roll(  speed_scaler)
             nav_roll_cd=nav_roll_cd - 36000;
         end
     end
-    k_aileron=get_servo_out_roll(nav_roll_cd - roll*HD*100, speed_scaler, disable_integrator_roll);
+    k_aileron=get_servo_out_roll(nav_roll_cd - roll*HD*100, speed_scaler, disable_integrator_roll)+Test_w.k_aileron;
      
      
 %     SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, rollController.get_servo_out(nav_roll_cd - ahrs.roll_sensor, 

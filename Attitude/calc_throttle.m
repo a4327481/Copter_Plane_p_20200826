@@ -1,6 +1,7 @@
 function    calc_throttle()
  global throttle_dem
  global k_throttle
+ global Test_w
 %     if (aparm.throttle_cruise <= 1)  
 % %         user has asked for zero throttle - this may be done by a
 % %         mission which wants to turn off the engine for a parachute
@@ -17,7 +18,7 @@ function    calc_throttle()
 %             millis() - plane.guided_state.last_forced_throttle_ms < 3000)  
 %         commanded_throttle = plane.guided_state.forced_throttle;
 %     end
-k_throttle=throttle_dem;
+k_throttle=throttle_dem+Test_w.k_throttle;
 %     set_output_scaled(k_throttle, commanded_throttle);
 end
 

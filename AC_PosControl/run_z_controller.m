@@ -58,6 +58,7 @@ global POSCONTROL_VEL_ERROR_CUTOFF_FREQ
 global POSCONTROL_THROTTLE_CUTOFF_FREQ
 global thr_out_min
 global take_off_land
+global Test_w
  
  limit_pos_up=0;
  limit_pos_down=0;
@@ -190,6 +191,7 @@ global take_off_land
 
     thr_out = (p + i +  d) * 0.001 +throttle_hover;
     thr_out=constrain_value(thr_out,thr_out_min,1);
+    thr_out=thr_out+Test_w.throttle_in;
     % send throttle to attitude controller with angle boost
 %     _attitude_control.
 % set_throttle_out(throttle_hover, 1, POSCONTROL_THROTTLE_CUTOFF_FREQ);

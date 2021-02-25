@@ -36,7 +36,7 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
     thrust_slew_time=0.3;%%%%%%%%%%%%%%%%油门时间
     throttle_slewrate=100;%%%%%%%%%%%%%%%%TECS 油门变化率
     yaw_rate_max=50;
-    plane_mode=ENUM_plane_mode.V10;
+    plane_mode=ENUM_plane_mode.V1000;
     pwm_tail=1000;
     vel_forward_integrator=0;
     
@@ -237,7 +237,7 @@ Kc=(Ku*Lux)/(Ldx*Kd);
 PathModeOut_sl.headingCmd=10000;
 PathModeOut_sl.groundspeedCmd=0;
 PathModeOut_sl.heightCmd=10000;
-PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.HoverAdjustMode;
+PathModeOut_sl.flightTaskMode=ENUM_FlightTaskMode.GroundStandByMode;
 PathModeOut_sl.maxClimbSpeed=300;
 PathModeOut_sl.turnCenterLL=[40,100]*1e7;
 PathModeOut_sl.prePathPoint_LLA=[0 0 0];
