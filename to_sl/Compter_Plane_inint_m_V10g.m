@@ -159,7 +159,35 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
  k_flap_TakeOff                         = -3500                        ;
  k_flap_Land                            = 3500                         ;
  p_flap_plane                           = 0                            ;
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ rate_pitch_pid.kp                      =0.2;
+ rate_pitch_pid.ki                      =0.1;
+ rate_pitch_pid.kd                      =0;
+ rate_pitch_pid.kff                     =0;
+ rate_pitch_pid.kimax                   =0.25;
+ rate_pitch_pid.filt_T_hz               =20;
+ rate_pitch_pid.filt_E_hz               =20;
+ rate_pitch_pid.filt_D_hz               =20;
+ rate_pitch_pid.slew_rate_max           =0;
+ rate_pitch_pid.slew_rate_tau           =0.1;
  
+ ATC_RAT_PIT_D                          = 0                            ;
+ ATC_RAT_PIT_FF                         = 0                            ;
+ ATC_RAT_PIT_FILT                       = 20                           ;
+ ATC_RAT_PIT_I_inint                    = 0.1                          ;
+ ATC_RAT_PIT_IMAX                       = 0.25                         ;
+ ATC_RAT_PIT_P                          = 0.2                          ;
+ 
+ rate_pitch_pid.flags_reset_filter     =0;
+ rate_pitch_pid.target=0;
+ rate_pitch_pid.error=0;
+ rate_pitch_pid.integrator=0;
+ rate_pitch_pid.derivative=0;
+ rate_pitch_pid.slew_amplitude=0;
+ rate_pitch_pid.slew_filterg=0;
+ rate_pitch_pid.last_sample=0;
+ rate_pitch_pid.Dmod=0;
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     k_flap=0;
     thr_out_min=0;
     take_off_land=0;                        

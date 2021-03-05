@@ -32,6 +32,9 @@ function output_armed_stabilizing()
  global Kx
  rpy_scale=1;
  yaw_in=0;
+ 
+    limit_roll_pitch= 0;
+    limit_yaw = 0;
     % apply voltage and air pressure compensation
     compensation_gain = get_compensation_gain(); % compensation for battery voltage and altitude
     roll_thrust = roll_in * compensation_gain;
