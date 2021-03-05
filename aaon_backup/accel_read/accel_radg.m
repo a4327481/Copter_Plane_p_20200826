@@ -1,4 +1,4 @@
-%  
+function accel_radg()   
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % mat 格式转换为画图
 global PathName
@@ -11,6 +11,8 @@ end
 if FileName==0
     return;
 end
+
+plot_big=0;%%%%%%%%%% plot_big=1，绘制大图；plot_big=0，不绘制大图
 
 fileID = fopen([PathName,'\\',FileName]);
 C = fread(fileID);
@@ -45,6 +47,28 @@ ax(j:end)=[];
 ay(j:end)=[];
 az(j:end)=[];
 data_ck=[t ax ay az];%数据数组
+% if(plot_big==1)
+% figure(1)
+% plot(t,ax)
+% legend('ax')
+% figure(2)
+% plot(t,ay)
+% legend('ay')
+% figure(3)
+% plot(t,az)
+% legend('az')
+% end
+% figure(4)
+% subplot(3,1,1);
+% plot(t,ax)
+% legend('ax')
+% subplot(3,1,2);
+% plot(t,ay)
+% legend('ay')
+% subplot(3,1,3);
+% plot(t,az)
+% legend('az')
+% end
 fid=fopen([PathName,'\\',FileName,'accel'],'w');
 fprintf(fid,'t ax ay az\n');
 fclose(fid);

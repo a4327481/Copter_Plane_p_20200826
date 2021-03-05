@@ -55,6 +55,6 @@ global ATC_RAT_PIT_P
 
     % Compute output in range -1 ~ +1
    output =ATC_RAT_PIT_P*rate_pitch_pid_input + rate_pitch_pid_integrator + ATC_RAT_PIT_D*rate_pitch_pid_derivative + ATC_RAT_PIT_FF*rate_target_rads;
-   output=constrain_value( output, -1, 1);
+%    output=constrain_value( output, -1, 1);
 end
 

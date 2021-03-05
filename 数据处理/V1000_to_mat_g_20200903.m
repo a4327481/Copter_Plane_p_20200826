@@ -1038,14 +1038,14 @@ TempName.mag_data_err_cnt_2 = mag_data_err_cnt_2; % create struct
         'gz'; 
         };
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        %baro
-        len=500;
-        time_baro(1:len)=[];
-        altitue(1:len)=[];  
-        temperature(1:len)=[];
-        pressure(1:len)=[];
-        temperature_gs(1:len)=[];
-        pressure_gs(1:len)=[];
+%         %baro
+%         len=500;
+%         time_baro(1:len)=[];
+%         altitue(1:len)=[];  
+%         temperature(1:len)=[];
+%         pressure(1:len)=[];
+%         temperature_gs(1:len)=[];
+%         pressure_gs(1:len)=[];
         data_baro_txt={
         'time_baro'
         'altitue';        
@@ -1871,24 +1871,36 @@ fprintf(fid,head);
     fclose(fid); 
 save([PathName,'\\',FileName,'V1000_um482.dat'],'data_ck','-ascii','-append' )
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-data_17 = [];
-for i=1:length(data_count)
-        data_17(:,i)=eval(data_count{i,1});        
+% data_17 = [];
+% for i=1:length(data_count)
+%         data_17(:,i)=eval(data_count{i,1});        
+% end
+%         head=[data_count{1}];
+%         for i=2:length(data_count)
+%          head=[head ,' ',data_count{i}];
+%         end 
+%         head=[head ,'\n'];
+% data_ck=data_17(:,1:i);
+% fid=fopen([PathName,'\\',FileName,'V1000_count.dat'],'w');
+% fprintf(fid,head);
+% %     [count,num]=size(data_ck);
+% %     for i=1:count
+% %         for j=1:num
+% %             fprintf(fid,'%f ',data_ck(i,j));
+% %         end
+% %         fprintf(fid,'\n');
+% %     end
+%     fclose(fid); 
+% save([PathName,'\\',FileName,'V1000_count.dat'],'data_ck','-ascii','-append' )
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function d=binDecode(a,h,b,c)
+    if(b==0)
+        d=a(:,h)+a(:,h+1)*256;
+    else
+        e=a(:,h+1)>127;
+        f=ones(length(e),1)-e;
+        g=a(:,h)+a(:,h+1)*256;
+        d=(e.*(g-65536)+f.*(g))/32768*c;
+    end
 end
-        head=[data_count{1}];
-        for i=2:length(data_count)
-         head=[head ,' ',data_count{i}];
-        end 
-        head=[head ,'\n'];
-data_ck=data_17(:,1:i);
-fid=fopen([PathName,'\\',FileName,'V1000_count.dat'],'w');
-fprintf(fid,head);
-%     [count,num]=size(data_ck);
-%     for i=1:count
-%         for j=1:num
-%             fprintf(fid,'%f ',data_ck(i,j));
-%         end
-%         fprintf(fid,'\n');
-%     end
-    fclose(fid); 
-save([PathName,'\\',FileName,'V1000_count.dat'],'data_ck','-ascii','-append' )

@@ -118,7 +118,7 @@ global     rate_yaw_pid_reset_filter
   end
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
       
-    if(mode_state==3||mode_state==9||mode_state==10)
+    if(mode_state==2||mode_state==3||mode_state==9||mode_state==10)
         POSCONTROL_ACC_Z_I=POSCONTROL_ACC_Z_I_inint;
         POSCONTROL_VEL_XY_I=POSCONTROL_VEL_XY_I_inint;
         ATC_RAT_PIT_I=ATC_RAT_PIT_I_inint;

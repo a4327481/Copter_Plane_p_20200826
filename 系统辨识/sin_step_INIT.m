@@ -1,5 +1,5 @@
     load  bus_test_w.mat
-    Test_w.start=1;
+    Test_w.start=0;
     Test_w.ws=0.2;
     Test_w.we=1;
     Test_w.dw=0.2;

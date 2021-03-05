@@ -14,6 +14,7 @@ m_kg_V10=26;
 Jx_v10=4.17029;
 Jy_v10=8.07546;
 Jz_v10=4.01077;
+Jxz_V10=0.1849;
 J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
     switch plane_mode
         case ENUM_plane_mode.V1000
@@ -36,7 +37,7 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
     thrust_slew_time=0.3;%%%%%%%%%%%%%%%%油门时间
     throttle_slewrate=100;%%%%%%%%%%%%%%%%TECS 油门变化率
     yaw_rate_max=50;
-    plane_mode=ENUM_plane_mode.V1000;
+    plane_mode=ENUM_plane_mode.V10;
     pwm_tail=1000;
     vel_forward_integrator=0;
     
@@ -307,7 +308,7 @@ algo_dbg_param.maxClimbSpeed=0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     HD=180/pi;
-    pitch=0;
+    pitch=10/HD;
     roll=00/HD;
     yaw=0/HD;
     
@@ -315,7 +316,7 @@ algo_dbg_param.maxClimbSpeed=0;
      curr_pos=[0 0 ];
 
     gyro_x=000/HD;
-    gyro_y=100/HD;
+    gyro_y=000/HD;
     gyro_z=0;
 
     accel_x=0;
