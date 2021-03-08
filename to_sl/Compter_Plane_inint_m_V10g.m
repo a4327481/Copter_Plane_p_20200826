@@ -178,15 +178,18 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
  ATC_RAT_PIT_IMAX                       = 0.25                         ;
  ATC_RAT_PIT_P                          = 0.2                          ;
  
- rate_pitch_pid.flags_reset_filter     =0;
- rate_pitch_pid.target=0;
- rate_pitch_pid.error=0;
- rate_pitch_pid.integrator=0;
- rate_pitch_pid.derivative=0;
- rate_pitch_pid.slew_amplitude=0;
- rate_pitch_pid.slew_filterg=0;
- rate_pitch_pid.last_sample=0;
- rate_pitch_pid.Dmod=0;
+ rate_pitch_pid.flags_reset_filter     =1;
+ rate_pitch_pid.target                 =0;
+ rate_pitch_pid.error                  =0;
+ rate_pitch_pid.error_last             =0;
+ rate_pitch_pid.integrator             =0;
+ rate_pitch_pid.derivative             =0;
+ rate_pitch_pid.slew_amplitude         =0;
+ rate_pitch_pid.slew_filterg           =0;
+ rate_pitch_pid.last_sample            =0;
+ rate_pitch_pid.Dmod                   =0;
+ 
+ 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     k_flap=0;
     thr_out_min=0;
