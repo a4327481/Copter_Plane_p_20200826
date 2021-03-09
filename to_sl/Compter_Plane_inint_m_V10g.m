@@ -160,7 +160,67 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
  k_flap_Land                            = 3500                         ;
  p_flap_plane                           = 0                            ;
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- rate_pitch_pid.kp                      =0.2;
+ ATC_RAT_PIT_D                          = 0                            ;
+ ATC_RAT_PIT_FF                         = 0                            ;
+ ATC_RAT_PIT_FILT                       = 20                           ;
+ ATC_RAT_PIT_I_inint                    = 0.1                          ;
+ ATC_RAT_PIT_IMAX                       = 0.25                         ;
+ ATC_RAT_PIT_P                          = 0.2                          ;
+ 
+ ATC_RAT_RLL_D                          = 0                            ;
+ ATC_RAT_RLL_FF                         = 0                            ;
+ ATC_RAT_RLL_FILT                       = 20                           ;
+ ATC_RAT_RLL_I_inint                    = 0.1                          ;
+ ATC_RAT_RLL_IMAX                       = 0.25                         ;
+ ATC_RAT_RLL_P                          = 0.28                         ;
+ 
+ ATC_RAT_YAW_D                          = 0                            ;
+ ATC_RAT_YAW_FF                         = 0                            ;
+ ATC_RAT_YAW_FILT                       = 5                            ;
+ ATC_RAT_YAW_I_inint                    = 0                            ;
+ ATC_RAT_YAW_IMAX                       = 0                            ;
+ ATC_RAT_YAW_P                          = 0.19                         ;
+ rate_yaw_pid_reset_filter=0;
+ rate_yaw_pid_input=0;
+ rate_yaw_pid_derivative=0;
+ rate_yaw_pid_integrator=0;
+ motors_limit_yaw=0;
+ 
+ rate_roll_pid_reset_filter=0;
+ rate_roll_pid_input=0;
+ rate_roll_pid_derivative=0;
+ rate_roll_pid_integrator=0;
+ motors_limit_roll_pitch=0;
+ 
+ rate_pitch_pid_reset_filter=0;
+ rate_pitch_pid_input=0;
+ rate_pitch_pid_derivative=0;
+ rate_pitch_pid_integrator=0;
+ 
+ 
+ rate_roll_pid.kp                      =0.2;
+ rate_roll_pid.ki                      =0.1;
+ rate_roll_pid.kd                      =0;
+ rate_roll_pid.kff                     =0;
+ rate_roll_pid.kimax                   =0.25;
+ rate_roll_pid.filt_T_hz               =20;
+ rate_roll_pid.filt_E_hz               =20;
+ rate_roll_pid.filt_D_hz               =20;
+ rate_roll_pid.slew_rate_max           =0;
+ rate_roll_pid.slew_rate_tau           =0.1;
+ 
+ rate_roll_pid.flags_reset_filter     =1;
+ rate_roll_pid.target                 =0;
+ rate_roll_pid.error                  =0;
+ rate_roll_pid.error_last             =0;
+ rate_roll_pid.integrator             =0;
+ rate_roll_pid.derivative             =0;
+ rate_roll_pid.slew_amplitude         =0;
+ rate_roll_pid.slew_filterg           =0;
+ rate_roll_pid.last_sample            =0;
+ rate_roll_pid.Dmod                   =0;
+ 
+ rate_pitch_pid.kp                      =0.28;
  rate_pitch_pid.ki                      =0.1;
  rate_pitch_pid.kd                      =0;
  rate_pitch_pid.kff                     =0;
@@ -170,13 +230,6 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
  rate_pitch_pid.filt_D_hz               =20;
  rate_pitch_pid.slew_rate_max           =0;
  rate_pitch_pid.slew_rate_tau           =0.1;
- 
- ATC_RAT_PIT_D                          = 0                            ;
- ATC_RAT_PIT_FF                         = 0                            ;
- ATC_RAT_PIT_FILT                       = 20                           ;
- ATC_RAT_PIT_I_inint                    = 0.1                          ;
- ATC_RAT_PIT_IMAX                       = 0.25                         ;
- ATC_RAT_PIT_P                          = 0.2                          ;
  
  rate_pitch_pid.flags_reset_filter     =1;
  rate_pitch_pid.target                 =0;
@@ -189,7 +242,27 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
  rate_pitch_pid.last_sample            =0;
  rate_pitch_pid.Dmod                   =0;
  
+ rate_yaw_pid.kp                      =0.19;
+ rate_yaw_pid.ki                      =0.0;
+ rate_yaw_pid.kd                      =0;
+ rate_yaw_pid.kff                     =0;
+ rate_yaw_pid.kimax                   =0.0;
+ rate_yaw_pid.filt_T_hz               =20;
+ rate_yaw_pid.filt_E_hz               =20;
+ rate_yaw_pid.filt_D_hz               =20;
+ rate_yaw_pid.slew_rate_max           =0;
+ rate_yaw_pid.slew_rate_tau           =0.1;
  
+ rate_yaw_pid.flags_reset_filter     =1;
+ rate_yaw_pid.target                 =0;
+ rate_yaw_pid.error                  =0;
+ rate_yaw_pid.error_last             =0;
+ rate_yaw_pid.integrator             =0;
+ rate_yaw_pid.derivative             =0;
+ rate_yaw_pid.slew_amplitude         =0;
+ rate_yaw_pid.slew_filterg           =0;
+ rate_yaw_pid.last_sample            =0;
+ rate_yaw_pid.Dmod                   =0;
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     k_flap=0;
     thr_out_min=0;
@@ -423,22 +496,7 @@ ATC_ACCEL_P_MAX = 36397.976562;
 ATC_ACCEL_R_MAX = 33111.574219;
 ATC_ACCEL_Y_MAX = 36397.976562;
 
-rate_yaw_pid_reset_filter=0;
-rate_yaw_pid_input=0;
-rate_yaw_pid_derivative=0;
-rate_yaw_pid_integrator=0;
-motors_limit_yaw=0;
 
-rate_roll_pid_reset_filter=0;
-rate_roll_pid_input=0;
-rate_roll_pid_derivative=0;
-rate_roll_pid_integrator=0;
-motors_limit_roll_pitch=0;
-
-rate_pitch_pid_reset_filter=0;
-rate_pitch_pid_input=0;
-rate_pitch_pid_derivative=0;
-rate_pitch_pid_integrator=0;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
     POSCONTROL_ACCELERATION_MIN=50.0;% minimum horizontal acceleration in cm/s/s - used for sanity checking acceleration in leash length calculation

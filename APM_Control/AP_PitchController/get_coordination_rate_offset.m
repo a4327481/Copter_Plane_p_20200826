@@ -14,7 +14,7 @@ global airspeed_min
 global aspeed
 global HD;
  
- 	  bank_angle =  roll;
+ 	  bank_angle =  roll*HD;
 
 	% limit bank angle between +- 80 deg if right way up
 	

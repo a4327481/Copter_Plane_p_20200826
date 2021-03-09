@@ -83,7 +83,7 @@ function output_armed_stabilizing()
     % this is always equal to or less than the requested yaw from the pilot or rate controller
      rp_low = 1.0;    % lowest thrust value
      rp_high = -1.0;  % highest thrust value
-    for i=1:2 
+    for i=1:4 
              % calculate the thrust outputs for roll and pitch
             thrust_rpyt_out(i) = roll_thrust * roll_factor(i) + pitch_thrust * (pitch_factor(i)+ abs(pitch_factor(i))*Kx*0);
             
@@ -130,7 +130,7 @@ function output_armed_stabilizing()
     % add yaw control to thrust outputs
      rpy_low = 1.0;   % lowest thrust value
      rpy_high = -1.0; % highest thrust value
-    for i=1:2
+    for i=1:4
              thrust_rpyt_out(i) = thrust_rpyt_out(i) + yaw_thrust * yaw_factor(i);
             % record lowest roll+pitch+yaw command
             if (thrust_rpyt_out(i) < rpy_low)  
@@ -186,7 +186,7 @@ function output_armed_stabilizing()
      
 
     % add scaled roll, pitch, constrained yaw and throttle for each motor
-    for i=1:2  
+    for i=1:4  
              thrust_rpyt_out(i) = throttle_thrust_best_rpy + thr_adj + (rpy_scale * thrust_rpyt_out(i));   
     end
      thrust_rpyt_out([2 4])=thrust_rpyt_out([2 4])*cos(current_tilt);

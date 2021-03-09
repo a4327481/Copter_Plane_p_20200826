@@ -13,6 +13,10 @@ global ang_vel_roll_max
 global ang_vel_pitch_max
 global ang_vel_yaw_max
 global input_tc
+global Test_w
+     euler_roll_angle_cd  = euler_roll_angle_cd  + Test_w.roll_target;
+     euler_pitch_angle_cd = euler_pitch_angle_cd + Test_w.pitch_target; 
+     euler_yaw_rate_cds   = euler_yaw_rate_cds   + Test_w.target_yaw_rate;
     % Convert from centidegrees on public interface to radians
       euler_roll_angle = radians(euler_roll_angle_cd * 0.01);
       euler_pitch_angle = radians(euler_pitch_angle_cd * 0.01);

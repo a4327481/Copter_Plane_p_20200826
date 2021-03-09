@@ -107,11 +107,11 @@ global HD
 %       beyond the configured roll limit, reducing to zero at 90
 %       degrees
      
-      roll_wrapped = abs(roll);
+      roll_wrapped = abs(roll*HD*100);
     if (roll_wrapped > 9000)  
         roll_wrapped = 18000 - roll_wrapped;
     end
-    if (roll_wrapped >roll_limit_cd + 500 && roll_limit_cd < 8500 &&abs(pitch) < 7000)  
+    if (roll_wrapped >roll_limit_cd + 500 && roll_limit_cd < 8500 &&abs(pitch*HD*100) < 7000)  
          roll_prop = (roll_wrapped - (roll_limit_cd+500)) / (9000 - roll_limit_cd);
         last_out_pitch=last_out_pitch* (1 - roll_prop);
     end

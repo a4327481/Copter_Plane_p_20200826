@@ -1,4 +1,3 @@
-    load  bus_test_w.mat
     Test_w.start=0;
     Test_w.ws=0.2;
     Test_w.we=1;
@@ -9,6 +8,12 @@
     Test_w.mode=ENUM_Test_mode.step_w;
     Test_w.channel=ENUM_Test_channel.throttle_in_t;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    Test_w.roll_target=0;
+    Test_w.pitch_target=0;
+    Test_w.target_yaw_rate=0;
+    Test_w.rate_target_ang_vel0=0;
+    Test_w.rate_target_ang_vel1=0;
+    Test_w.rate_target_ang_vel2=0;
     Test_w.roll_in=0;
     Test_w.pitch_in=0;
     Test_w.yaw_in=0;
