@@ -9,13 +9,14 @@ global roll
 global pitch
 global EAS2TAS
 global GRAVITY_MSS
-global roll_ff_pitch
 global airspeed_min
 global aspeed
 global HD;
- 
- 	  bank_angle =  roll*HD;
+global AP_rate_pitch
 
+roll_ff=AP_rate_pitch.roll_ff;
+
+ 	  bank_angle =  roll*HD;
 	% limit bank angle between +- 80 deg if right way up
 	
     if (abs(bank_angle) < radians(90))	 
@@ -34,7 +35,7 @@ global HD;
         % don't do turn coordination handling when at very high pitch angles
         rate_offset = 0;    
     else  
-        rate_offset = cos(pitch)*abs(HD*((GRAVITY_MSS / max((aspeed *EAS2TAS) ,  (airspeed_min*EAS2TAS))) * tan(bank_angle) * sin(bank_angle))) * roll_ff_pitch;
+        rate_offset = cos(pitch)*abs(HD*((GRAVITY_MSS / max((aspeed *EAS2TAS) ,  (airspeed_min*EAS2TAS))) * tan(bank_angle) * sin(bank_angle))) * roll_ff;
     end
     if (inverted)
 		rate_offset = -rate_offset;

@@ -9,19 +9,20 @@ global airspeed_min
 global aspeed
 global EAS2TAS
 global roll
+global AP_rate_roll
+K_A               = AP_rate_roll.K_A;
+K_I               = AP_rate_roll.K_I;
+K_D               = AP_rate_roll.K_D;
+K_FF              = AP_rate_roll.K_FF;
+imax              = AP_rate_roll.imax;
 
-global K_I_yaw
-global K_D_yaw
-global K_A_yaw
-global K_FF_yaw
-global imax_yaw
-global K_D_last_yaw
-global pid_info_I_yaw
-global pid_info_D_yaw
-global last_rate_hp_out_yaw
-global last_rate_hp_in_yaw
-global integrator_yaw
-global last_out_yaw
+K_D_last          = AP_rate_roll.K_D_last;
+pid_info_I        = AP_rate_roll.pid_info_I;
+pid_info_D        = AP_rate_roll.pid_info_D;
+last_rate_hp_out  = AP_rate_roll.last_rate_hp_out;
+last_rate_hp_in   = AP_rate_roll.last_rate_hp_in;
+integrator        = AP_rate_roll.integrator; 
+last_out          = AP_rate_roll.last_out;
 
 
     servo_out=0;
@@ -41,7 +42,7 @@ global last_out_yaw
     end
 
 	 
-    rate_offset = (GRAVITY_MSS / max(aspeed*EAS2TAS ,  (aspd_min*EAS2TAS))) * sin(bank_angle) * K_FF_yaw;
+    rate_offset = (GRAVITY_MSS / max(aspeed*EAS2TAS ,  (aspd_min*EAS2TAS))) * sin(bank_angle) * K_FF;
 
     % Get body rate vector (radians/sec)
 	 
@@ -56,62 +57,70 @@ global last_out_yaw
 	% due to bias errors in rate_offset
 	% Use a cut-off frequency of omega = 0.2 rad/sec
 	% Could make this adjustable by replacing 0.9960080 with (1 - omega * dt)
-	  rate_hp_out = (1-0.2*dt)  *  last_rate_hp_out_yaw + rate_hp_in -  last_rate_hp_in_yaw;
-	 last_rate_hp_out_yaw = rate_hp_out;
-	 last_rate_hp_in_yaw = rate_hp_in;
-	%Calculate input to integrator_yaw
-	  integ_in = - K_I_yaw * (K_A_yaw * accel_y + rate_hp_out);
+	  rate_hp_out = (1-0.2*dt)  *  last_rate_hp_out + rate_hp_in -  last_rate_hp_in;
+	 last_rate_hp_out = rate_hp_out;
+	 last_rate_hp_in = rate_hp_in;
+	%Calculate input to integrator
+	  integ_in = - K_I * (K_A * accel_y + rate_hp_out);
 	
-	% Apply integrator_yaw, but clamp input to prevent control saturation and freeze integrator_yaw below min FBW speed
-	% Don't integrate if in stabilise mode as the integrator_yaw will wind up against the pilots inputs
-	% Don't integrate if _K_D is zero as integrator_yaw will keep winding up	
-    if (~disable_integrator && K_D_yaw > 0)  
+	% Apply integrator, but clamp input to prevent control saturation and freeze integrator below min FBW speed
+	% Don't integrate if in stabilise mode as the integrator will wind up against the pilots inputs
+	% Don't integrate if _K_D is zero as integrator will keep winding up	
+    if (~disable_integrator && K_D > 0)  
 		%only integrate if airspeed above min value	
         if (aspeed >  (aspd_min))		 
-			% prevent the integrator_yaw from increasing if surface defln demand is above the upper limit	
-            if ( last_out_yaw < -45)  
-                 integrator_yaw =integrator_yaw+ max(integ_in * delta_time , 0);
-            elseif (last_out_yaw > 45)  
-                % prevent the integrator_yaw from decreasing if surface defln demand  is below the lower limit
-                integrator_yaw =integrator_yaw+ min(integ_in * delta_time , 0);			  
+			% prevent the integrator from increasing if surface defln demand is above the upper limit	
+            if ( last_out < -45)  
+                 integrator =integrator+ max(integ_in * delta_time , 0);
+            elseif (last_out > 45)  
+                % prevent the integrator from decreasing if surface defln demand  is below the lower limit
+                integrator =integrator+ min(integ_in * delta_time , 0);			  
             else  
-               integrator_yaw=integrator_yaw + integ_in * delta_time;
+               integrator=integrator + integ_in * delta_time;
             end
         end      
     else
-		integrator_yaw = 0;    
+		integrator = 0;    
     end
 	 
-    if (K_D_yaw < 0.0001)  
-        % yaw damping is disabled, and the integrator_yaw is scaled by damping, so return 0
+    if (K_D < 0.0001)  
+        % yaw damping is disabled, and the integrator is scaled by damping, so return 0
         servo_out=0;
         return ;
     end
      
 	
     % Scale the integration limit
-      intLimScaled = imax_yaw * 0.01 / (K_D_yaw * scaler * scaler);
+      intLimScaled = imax * 0.01 / (K_D * scaler * scaler);
 
-    % Constrain the integrator_yaw state
-    integrator_yaw = constrain_value (integrator_yaw, -intLimScaled, intLimScaled);
+    % Constrain the integrator state
+    integrator = constrain_value (integrator, -intLimScaled, intLimScaled);
 	
 	% Protect against increases to _K_D during in-flight tuning from creating large control transients
-	% due to stored integrator_yaw values
-    if (K_D_yaw > K_D_last_yaw && K_D_yaw > 0)  
-	    integrator_yaw = K_D_last_yaw/K_D_yaw * integrator_yaw;
+	% due to stored integrator values
+    if (K_D > K_D_last && K_D > 0)  
+	    integrator = K_D_last/K_D * integrator;
     end
-	K_D_last_yaw = K_D_yaw;
+	K_D_last = K_D;
 	
 	% Calculate demanded rudder deflection, +Ve deflection yaws nose right
-	% Save to last value before application of limiter so that integrator_yaw limiting
+	% Save to last value before application of limiter so that integrator limiting
 	% can detect exceedance next frame
 	% Scale using inverse dynamic pressure (1/V^2)
-	pid_info_I_yaw = K_D_yaw * integrator_yaw * scaler * scaler;
-	pid_info_D_yaw = K_D_yaw * (-rate_hp_out) * scaler * scaler;
-	last_out_yaw =  pid_info_I_yaw + pid_info_D_yaw;
+	pid_info_I = K_D * integrator * scaler * scaler;
+	pid_info_D = K_D * (-rate_hp_out) * scaler * scaler;
+	last_out =  pid_info_I + pid_info_D;
 
 	% Convert to centi-degrees and constrain
-	 servo_out=constrain_value (last_out_yaw * 100, -4500, 4500);
+	 servo_out=constrain_value (last_out * 100, -4500, 4500);
 
+     AP_rate_roll.K_D_last                     = K_D_last;
+     AP_rate_roll.pid_info_I                   = pid_info_I;
+     AP_rate_roll.pid_info_D                   = pid_info_D;
+     AP_rate_roll.last_rate_hp_out             = last_rate_hp_out;
+     AP_rate_roll.last_rate_hp_in              = last_rate_hp_in;
+     AP_rate_roll.integrator                   = integrator;
+     AP_rate_roll.last_out                     = last_out;
+     
 end
 

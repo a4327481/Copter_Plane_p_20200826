@@ -180,6 +180,7 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
  ATC_RAT_YAW_I_inint                    = 0                            ;
  ATC_RAT_YAW_IMAX                       = 0                            ;
  ATC_RAT_YAW_P                          = 0.19                         ;
+ 
  rate_yaw_pid_reset_filter=0;
  rate_yaw_pid_input=0;
  rate_yaw_pid_derivative=0;
@@ -209,17 +210,6 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
  rate_roll_pid.slew_rate_max           =0;
  rate_roll_pid.slew_rate_tau           =0.1;
  
- rate_roll_pid.flags_reset_filter     =1;
- rate_roll_pid.target                 =0;
- rate_roll_pid.error                  =0;
- rate_roll_pid.error_last             =0;
- rate_roll_pid.integrator             =0;
- rate_roll_pid.derivative             =0;
- rate_roll_pid.slew_amplitude         =0;
- rate_roll_pid.slew_filterg           =0;
- rate_roll_pid.last_sample            =0;
- rate_roll_pid.Dmod                   =0;
- 
  rate_pitch_pid.kp                      =0.28;
  rate_pitch_pid.ki                      =0.1;
  rate_pitch_pid.kd                      =0;
@@ -230,17 +220,6 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
  rate_pitch_pid.filt_D_hz               =20;
  rate_pitch_pid.slew_rate_max           =0;
  rate_pitch_pid.slew_rate_tau           =0.1;
- 
- rate_pitch_pid.flags_reset_filter     =1;
- rate_pitch_pid.target                 =0;
- rate_pitch_pid.error                  =0;
- rate_pitch_pid.error_last             =0;
- rate_pitch_pid.integrator             =0;
- rate_pitch_pid.derivative             =0;
- rate_pitch_pid.slew_amplitude         =0;
- rate_pitch_pid.slew_filterg           =0;
- rate_pitch_pid.last_sample            =0;
- rate_pitch_pid.Dmod                   =0;
  
  rate_yaw_pid.kp                      =0.19;
  rate_yaw_pid.ki                      =0.0;
@@ -253,6 +232,28 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
  rate_yaw_pid.slew_rate_max           =0;
  rate_yaw_pid.slew_rate_tau           =0.1;
  
+ rate_roll_pid.flags_reset_filter     =1;
+ rate_roll_pid.target                 =0;
+ rate_roll_pid.error                  =0;
+ rate_roll_pid.error_last             =0;
+ rate_roll_pid.integrator             =0;
+ rate_roll_pid.derivative             =0;
+ rate_roll_pid.slew_amplitude         =0;
+ rate_roll_pid.slew_filterg           =0;
+ rate_roll_pid.last_sample            =0;
+ rate_roll_pid.Dmod                   =0;
+ 
+ rate_pitch_pid.flags_reset_filter     =1;
+ rate_pitch_pid.target                 =0;
+ rate_pitch_pid.error                  =0;
+ rate_pitch_pid.error_last             =0;
+ rate_pitch_pid.integrator             =0;
+ rate_pitch_pid.derivative             =0;
+ rate_pitch_pid.slew_amplitude         =0;
+ rate_pitch_pid.slew_filterg           =0;
+ rate_pitch_pid.last_sample            =0;
+ rate_pitch_pid.Dmod                   =0;
+ 
  rate_yaw_pid.flags_reset_filter     =1;
  rate_yaw_pid.target                 =0;
  rate_yaw_pid.error                  =0;
@@ -263,6 +264,74 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
  rate_yaw_pid.slew_filterg           =0;
  rate_yaw_pid.last_sample            =0;
  rate_yaw_pid.Dmod                   =0;
+ 
+ 
+ 
+
+ gains_tau_pitch                        = 1                            ;
+ gains_P_pitch                          = 1.2                          ;
+ gains_D_pitch_inint                    = 0.45                         ;
+ gains_I_pitch                          = 0.20                         ;
+ roll_ff_pitch_inint                    = 0.85                         ;
+ gains_imax_pitch                       = 3000                         ;
+ 
+ gains_tau_roll                         = 0.5                          ;
+ gains_P_roll                           = 1.27                         ;
+ gains_D_roll_inint                     = 0.22                         ;
+ gains_I_roll                           = 0                            ;
+ gains_imax_roll                        = 3000                         ;
+ gains_FF_roll                          = 0                            ;
+ 
+ K_A_yaw                                = 0.25                         ;
+ K_I_yaw                                = 0.15                         ;
+ K_D_yaw                                = 0.35                         ;
+ K_FF_yaw_inint                         = 1                            ;
+ imax_yaw                               = 1500                         ;
+ 
+ AP_rate_pitch.gains_tau                 =1;
+ AP_rate_pitch.gains_P                   =1.2  ;
+ AP_rate_pitch.gains_D                   =0.45;
+ AP_rate_pitch.gains_I                   =0.20     ;
+ AP_rate_pitch.gains_FF                  =0;
+ AP_rate_pitch.gains_imax                =3000;
+ AP_rate_pitch.slew_rate_max             =0;
+ AP_rate_pitch.slew_rate_tau             =0.1;
+ 
+ 
+ AP_rate_roll.gains_tau                 =0.5;
+
+ AP_rate_roll.gains_P                   =1.27  ;
+ AP_rate_roll.gains_D                   =0.22;
+ AP_rate_roll.gains_I                   =0     ;
+ AP_rate_roll.gains_FF                  =0;
+ AP_rate_roll.gains_imax                =3000;
+ AP_rate_roll.slew_rate_max             =0;
+ AP_rate_roll.slew_rate_tau             =0.1;
+ 
+ 
+ 
+ 
+AP_rate_pitch.last_out                    = 0;
+AP_rate_pitch.pid_info_target             = 0;
+AP_rate_pitch.pid_info_actual             = 0;
+AP_rate_pitch.pid_info_error              = 0;
+AP_rate_pitch.pid_info_P                  = 0;
+AP_rate_pitch.pid_info_I                  = 0;
+AP_rate_pitch.pid_info_D                  = 0;
+AP_rate_pitch.pid_info_FF                 = 0;
+AP_rate_pitch.last_pid_info_D             = 0;
+
+AP_rate_pitch.slew_filterg                = 0;
+AP_rate_pitch.slew_rate_amplitude         = 0;
+AP_rate_pitch.D_gain_modifier             = 0;
+AP_rate_pitch.pid_info_Dmod               = 0;
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     k_flap=0;
     thr_out_min=0;

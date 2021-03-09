@@ -1,10 +1,11 @@
 function  servo_out=get_servo_out_pitch(  angle_err,   scaler,   disable_integrator)
 
-global gains_tau_pitch
 global aspeed
-global max_rate_neg
-global gains_rmax_pitch
 global desired_rate_pitch
+global AP_rate_pitch
+gains_tau=AP_rate_pitch.gains_tau;
+max_rate_neg=AP_rate_pitch.max_rate_neg;
+gains_rmax=AP_rate_pitch.gains_rmax;
 % Function returns an equivalent elevator deflection in centi-degrees in the range from -4500 to 4500
 % A positive demand is up
 % Inputs are: 
@@ -20,15 +21,15 @@ global desired_rate_pitch
 	% Pitch rate offset is the component of turn rate about the pitch axis
  
 
-    if (gains_tau_pitch < 0.1)  
-        gains_tau_pitch=0.1;
+    if (gains_tau < 0.1)  
+        gains_tau=0.1;
     end
      
 
     [rate_offset,inverted] = get_coordination_rate_offset();
 	
 	% Calculate the desired pitch rate (deg/sec) from the angle error
-	  desired_rate = angle_err * 0.01 / gains_tau_pitch;
+	  desired_rate = angle_err * 0.01 / gains_tau;
 	
 	% limit the maximum pitch rate demand. Don't apply when inverted
 	% as the rates will be tuned when upright, and it is common that
@@ -36,8 +37,8 @@ global desired_rate_pitch
     if (~inverted)  		
         if (max_rate_neg && desired_rate < -max_rate_neg)  
 			desired_rate = -max_rate_neg;
-        elseif (gains_rmax_pitch && desired_rate > gains_rmax_pitch)  
-			desired_rate = gains_rmax_pitch;           
+        elseif (gains_rmax && desired_rate > gains_rmax)  
+			desired_rate = gains_rmax;           
         end
     end
      
