@@ -96,6 +96,9 @@ global throttle_in;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global latAccDem
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+global AP_rate_pitch
+global AP_rate_yaw
+
     if isempty(uavMode)
         uavMode = 0;
     end  
@@ -137,14 +140,16 @@ global latAccDem
         disable_integrator_pitch=0;
         disable_integrator_roll=0;
         disable_integrator_yaw=0;
-        roll_ff_pitch=roll_ff_pitch_inint;
-        K_FF_yaw=K_FF_yaw_inint;      
+        
+        
+        AP_rate_pitch.roll_ff=roll_ff_pitch_inint;
+        AP_rate_yaw.K_FF=K_FF_yaw_inint; 
     else
         disable_integrator_pitch=1;
         disable_integrator_roll=1;
         disable_integrator_yaw=1;
-        roll_ff_pitch=0;
-        K_FF_yaw=0;      
+        AP_rate_pitch.roll_ff=0;
+        AP_rate_yaw.K_FF=0;  
     end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         switch PathModeOut_sl.flightTaskMode

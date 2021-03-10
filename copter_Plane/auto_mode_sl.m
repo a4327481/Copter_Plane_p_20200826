@@ -138,6 +138,11 @@ global HD
 global k_flap
 global k_flap_TakeOff
 global k_flap_Land
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+global AP_rate_pitch
+global AP_rate_yaw
+global AP_rate_roll
+global AC_PosControl
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     if isempty(uavMode)
         uavMode = 0;
@@ -172,25 +177,6 @@ global k_flap_Land
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
        error_pos=8;
-%     if(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.HoverAdjustMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.TakeOffMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.LandMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.GoHomeMode)
-% %if(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.HoverAdjustMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.TakeOffMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.LandMode)
-%         POSCONTROL_ACC_Z_I=POSCONTROL_ACC_Z_I_inint;
-%         POSCONTROL_VEL_XY_I=POSCONTROL_VEL_XY_I_inint;
-%         ATC_RAT_PIT_I=ATC_RAT_PIT_I_inint;
-%         ATC_RAT_RLL_I=ATC_RAT_RLL_I_inint;
-%         ATC_RAT_YAW_I=ATC_RAT_YAW_I_inint;    
-%     else
-%         POSCONTROL_ACC_Z_I=0;
-%         POSCONTROL_VEL_XY_I=0;
-%         ATC_RAT_PIT_I=0;
-%         ATC_RAT_RLL_I=0;
-%         ATC_RAT_YAW_I=0;
-%         pid_accel_z_reset_filter=1;
-%         pid_vel_xy_reset_filter=1;
-%         rate_pitch_pid_reset_filter=1;
-%         rate_roll_pid_reset_filter=1;
-%         rate_yaw_pid_reset_filter=1;
-%     end
     spdWeight=spdWeight_inint;
     if(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.TakeOffMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.LandMode)
       take_off_land=1;
@@ -216,19 +202,21 @@ global k_flap_Land
         k_flap=0;
     end
     
+
+    
     if( uavMode==1)%% mode =1,mode=plane , disable plane I,vel_forward_integrator=0;
         disable_integrator_pitch=0;
         disable_integrator_roll=0;
         disable_integrator_yaw=0;
-        roll_ff_pitch=roll_ff_pitch_inint;
-        K_FF_yaw=K_FF_yaw_inint;
-        gains_D_pitch = gains_D_pitch_inint;  
-        gains_D_roll  = gains_D_roll_inint; 
+        AP_rate_pitch.roll_ff=roll_ff_pitch_inint;
+        AP_rate_yaw.K_FF=K_FF_yaw_inint;
+        AP_rate_pitch.gains_D = gains_D_pitch_inint;  
+        AP_rate_roll.gains_D  = gains_D_roll_inint; 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         vel_forward_integrator=0;
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        POSCONTROL_ACC_Z_I=0;
-        POSCONTROL_VEL_XY_I=0;
+        AC_PosControl.pid_accel_z.ki=0;
+        AC_PosControl.pid_vel_xy.ki=0;
         ATC_RAT_PIT_I=0;
         ATC_RAT_RLL_I=0;
         ATC_RAT_YAW_I=0;
@@ -241,13 +229,13 @@ global k_flap_Land
         disable_integrator_pitch=1;
         disable_integrator_roll=1;
         disable_integrator_yaw=1;   
-        roll_ff_pitch=0;
-        K_FF_yaw=0;  
-        gains_D_pitch=0;
-        gains_D_roll=0;    
+        AP_rate_pitch.roll_ff=0;
+        AP_rate_yaw.K_FF=0;  
+        AP_rate_pitch.gains_D=0;
+        AP_rate_roll.gains_D=0;    
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        POSCONTROL_ACC_Z_I=POSCONTROL_ACC_Z_I_inint;
-        POSCONTROL_VEL_XY_I=POSCONTROL_VEL_XY_I_inint;
+        AC_PosControl.pid_accel_z.ki=POSCONTROL_ACC_Z_I_inint;
+        AC_PosControl.pid_vel_xy.ki=POSCONTROL_VEL_XY_I_inint;
         ATC_RAT_PIT_I=ATC_RAT_PIT_I_inint;
         ATC_RAT_RLL_I=ATC_RAT_RLL_I_inint;
         ATC_RAT_YAW_I=ATC_RAT_YAW_I_inint;    
@@ -811,5 +799,6 @@ global k_flap_Land
             otherwise         
                  copter_run();
         end
+        
 end
 

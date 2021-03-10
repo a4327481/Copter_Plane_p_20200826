@@ -87,6 +87,8 @@ global     ATC_RAT_YAW_I_inint
 global     ATC_RAT_YAW_I
 global     rate_yaw_pid_reset_filter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+global    AP_rate_yaw
+global    AP_rate_pitch
 %mode auto
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     if isempty(mode_state)
@@ -103,14 +105,14 @@ global     rate_yaw_pid_reset_filter
     disable_integrator_pitch=1;
     disable_integrator_roll=1;
     disable_integrator_yaw=1;
-    roll_ff_pitch=0;
-    K_FF_yaw=0;
+    AP_rate_pitch.roll_ff=0;
+    AP_rate_yaw.K_FF=0;
   else
     disable_integrator_pitch=0;
     disable_integrator_roll=0;
     disable_integrator_yaw=0;
-    roll_ff_pitch=roll_ff_pitch_inint;
-    K_FF_yaw=K_FF_yaw_inint;
+    AP_rate_pitch.roll_ff=roll_ff_pitch_inint;
+    AP_rate_yaw.K_FF=K_FF_yaw_inint;
   end
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
       

@@ -198,7 +198,6 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
  rate_pitch_pid_derivative=0;
  rate_pitch_pid_integrator=0;
  
- 
  rate_roll_pid.kp                      =0.2;
  rate_roll_pid.ki                      =0.1;
  rate_roll_pid.kd                      =0;
@@ -265,9 +264,6 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
  rate_yaw_pid.last_sample            =0;
  rate_yaw_pid.Dmod                   =0;
  
- 
- 
-
  gains_tau_pitch                        = 1                            ;
  gains_P_pitch                          = 1.2                          ;
  gains_D_pitch_inint                    = 0.45                         ;
@@ -356,11 +352,11 @@ AP_rate_yaw.integrator                   = 0;
 AP_rate_yaw.last_out                     = 0;
  
 
- AC_PosControl.p_pos_z                               = 1;%POSCONTROL_ACC_Z_P
- AC_PosControl.p_vel_z                               = 1;%POSCONTROL_ACC_Z_I
- AC_PosControl.pid_accel_z.kp                        = 0.9 ;%POSCONTROL_ACC_Z_D
- AC_PosControl.pid_accel_z.ki                        = 0.18;
- AC_PosControl.pid_accel_z.kd                        = 0.3 ;
+ AC_PosControl.p_pos_z                               = 1;
+ AC_PosControl.p_vel_z                               = 1;
+ AC_PosControl.pid_accel_z.kp                        = 0.9 ;%POSCONTROL_ACC_Z_P
+ AC_PosControl.pid_accel_z.ki                        = 0.18;%POSCONTROL_ACC_Z_I
+ AC_PosControl.pid_accel_z.kd                        = 0.3 ;%POSCONTROL_ACC_Z_D
  AC_PosControl.pid_accel_z.kff                       = 0  ;
  AC_PosControl.pid_accel_z.kimax                     = 200; %POSCONTROL_ACC_Z_IMAX
  AC_PosControl.pid_accel_z.filt_T_hz                 = 20;
@@ -391,25 +387,33 @@ AP_rate_yaw.last_out                     = 0;
  AC_PosControl.leash_down_z                            = 100;%POSCONTROL_LEASH_LENGTH_MIN
  AC_PosControl.leash_up_z                              = 100;%POSCONTROL_LEASH_LENGTH_MIN
  AC_PosControl.accel_xy_filt_hz                        = 10;%POSCONTROL_ACCEL_FILTER_HZ
+ AC_PosControl.vibe_comp_enabled                       = 1;
+ AC_PosControl.POSCONTROL_VEL_ERROR_CUTOFF_FREQ        = 1.5;
+ AC_PosControl.POSCONTROL_ACCEL_XY_MAX                 = 458;
  
  AC_PosControl.flags_recalc_leash_z = true;
  AC_PosControl.flags_recalc_leash_xy = true;
  AC_PosControl.flags_reset_desired_vel_to_pos = true;
- AC_PosControl.reset_accel_to_lean_xy = true;
+ AC_PosControl.flags_reset_accel_to_lean_xy = true;
  AC_PosControl.flags_reset_rate_to_accel_z = true;
  AC_PosControl.flags_freeze_ff_z = true;
  AC_PosControl.flags_use_desvel_ff_z = true;
+ AC_PosControl.flags_vehicle_horiz_vel_override =false;
+ 
  AC_PosControl.limit_pos_up = true;
  AC_PosControl.limit_pos_down = true;
  AC_PosControl.limit_vel_up = true;
  AC_PosControl.limit_vel_down = true;
  AC_PosControl.limit_accel_xy = true;
  
-AC_PosControl.pos_error          = [0 0 0];
-AC_PosControl.pos_target         = [0 0 0];
-AC_PosControl.vel_target         = [0 0 0];
-AC_PosControl.accel_target       = [0 0 0];
 
+ 
+AC_PosControl.pos_error                 = [0 0 0];
+AC_PosControl.pos_target                = [0 0 0];
+AC_PosControl.vel_target                = [0 0 0];
+AC_PosControl.accel_target              = [0 0 0];
+AC_PosControl.accel_target_filter       = [0 0 0];
+AC_PosControl.vehicle_horiz_vel         = [0 0];
 AC_PosControl.vel_desired                      = [0 0 0];
 AC_PosControl.vel_error_filter                 = [0 0 0];
 AC_PosControl.vel_error                        = [0 0 0];
@@ -442,7 +446,9 @@ AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ         =10;
  AC_PosControl.pid_accel_z.slew_filterg               = 0;
  AC_PosControl.pid_accel_z.last_sample                = 0;
  AC_PosControl.pid_accel_z.Dmod                       = 0;
+
  
+ AC_ATTITUDE_CONTROL_ANGLE_LIMIT_MIN =10;
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     k_flap=0;
     thr_out_min=0;
