@@ -59,7 +59,6 @@ function attitude_controller_run_quat()
         attitude_target_quat=normalizeq(attitude_target_quat) ;
     end
     
-%     attitude_target_quat=normalizeq(attitude_target_quat) ;
-        attitude_ang_error = quatmultiply(quatconj(attitude_vehicle_quat), attitude_target_quat);
+       attitude_ang_error = quatmultiply(quatconj(attitude_vehicle_quat), attitude_target_quat);
 end
 

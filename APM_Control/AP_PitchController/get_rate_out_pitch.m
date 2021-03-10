@@ -7,7 +7,8 @@ global airspeed_min
 global EAS2TAS
 global roll_limit_cd
 global AP_rate_pitch	
-
+global roll
+global pitch
  gains_P                  =AP_rate_pitch.gains_P;
  gains_I                  =AP_rate_pitch.gains_I;
  gains_D                  =AP_rate_pitch.gains_D;

@@ -2,13 +2,13 @@ function rate_target_ang_velo = update_ang_vel_target_from_att_error(attitude_er
  
     global use_sqrt_controller  
     global accel_roll_max
-    global AC_ATTITUDE_ACCEL_RP_CONTROLLER_MIN_RADSS
-    global AC_ATTITUDE_ACCEL_RP_CONTROLLER_MAX_RADSS   
     global accel_pitch_max
+    global accel_yaw_max
     global p_angle_roll
     global p_angle_pitch
     global p_angle_yaw
-    global accel_yaw_max
+    global AC_ATTITUDE_ACCEL_RP_CONTROLLER_MIN_RADSS
+    global AC_ATTITUDE_ACCEL_RP_CONTROLLER_MAX_RADSS   
     global AC_ATTITUDE_ACCEL_Y_CONTROLLER_MIN_RADSS
     global AC_ATTITUDE_ACCEL_Y_CONTROLLER_MAX_RADSS
     global dt

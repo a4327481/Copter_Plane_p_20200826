@@ -61,7 +61,7 @@ global Test_w
         attitude_target_ang_vel = [0.0 , 0.0 , 0.0 ];
     end
     % Call quaternion attitude controller
-    attitude_controller_run_quat;
+    attitude_controller_run_quat();
  
 end
 

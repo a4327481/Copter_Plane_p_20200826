@@ -288,18 +288,8 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
  K_FF_yaw_inint                         = 1                            ;
  imax_yaw                               = 1500                         ;
  
- AP_rate_pitch.gains_tau                 =1;
- AP_rate_pitch.gains_P                   =1.2  ;
- AP_rate_pitch.gains_D                   =0.45;
- AP_rate_pitch.gains_I                   =0.20     ;
- AP_rate_pitch.gains_FF                  =0;
- AP_rate_pitch.gains_imax                =3000;
- AP_rate_pitch.slew_rate_max             =0;
- AP_rate_pitch.slew_rate_tau             =0.1;
- 
- 
  AP_rate_roll.gains_tau                 =0.5;
-
+ AP_rate_roll.gains_rmax                =0;
  AP_rate_roll.gains_P                   =1.27  ;
  AP_rate_roll.gains_D                   =0.22;
  AP_rate_roll.gains_I                   =0     ;
@@ -308,8 +298,39 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
  AP_rate_roll.slew_rate_max             =0;
  AP_rate_roll.slew_rate_tau             =0.1;
  
+ AP_rate_pitch.roll_ff                   =0.85;
+ AP_rate_pitch.max_rate_neg              =0;
+ AP_rate_pitch.gains_tau                 =1;
+ AP_rate_pitch.gains_rmax                =0;
+ AP_rate_pitch.gains_P                   =1.2  ;
+ AP_rate_pitch.gains_D                   =0.45;
+ AP_rate_pitch.gains_I                   =0.20     ;
+ AP_rate_pitch.gains_FF                  =0;
+ AP_rate_pitch.gains_imax                =3000;
+ AP_rate_pitch.slew_rate_max             =0;
+ AP_rate_pitch.slew_rate_tau             =0.1;
+ 
+ AP_rate_yaw.K_A                        =0.25;
+ AP_rate_yaw.K_I                        =0.15;
+ AP_rate_yaw.K_D                        =0.35;
+ AP_rate_yaw.K_FF                       =1;
+ AP_rate_yaw.imax                       =1500;
  
  
+AP_rate_roll.last_out                    = 0;
+AP_rate_roll.pid_info_target             = 0;
+AP_rate_roll.pid_info_actual             = 0;
+AP_rate_roll.pid_info_error              = 0;
+AP_rate_roll.pid_info_P                  = 0;
+AP_rate_roll.pid_info_I                  = 0;
+AP_rate_roll.pid_info_D                  = 0;
+AP_rate_roll.pid_info_FF                 = 0;
+AP_rate_roll.last_pid_info_D             = 0;
+
+AP_rate_roll.slew_filterg                = 0;
+AP_rate_roll.slew_rate_amplitude         = 0;
+AP_rate_roll.D_gain_modifier             = 0;
+AP_rate_roll.pid_info_Dmod               = 0;
  
 AP_rate_pitch.last_out                    = 0;
 AP_rate_pitch.pid_info_target             = 0;
@@ -326,11 +347,101 @@ AP_rate_pitch.slew_rate_amplitude         = 0;
 AP_rate_pitch.D_gain_modifier             = 0;
 AP_rate_pitch.pid_info_Dmod               = 0;
  
+AP_rate_yaw.K_D_last                     = 0;
+AP_rate_yaw.pid_info_I                   = 0;
+AP_rate_yaw.pid_info_D                   = 0;
+AP_rate_yaw.last_rate_hp_out             = 0;
+AP_rate_yaw.last_rate_hp_in              = 0;
+AP_rate_yaw.integrator                   = 0;
+AP_rate_yaw.last_out                     = 0;
+ 
+
+ AC_PosControl.p_pos_z                               = 1;%POSCONTROL_ACC_Z_P
+ AC_PosControl.p_vel_z                               = 1;%POSCONTROL_ACC_Z_I
+ AC_PosControl.pid_accel_z.kp                        = 0.9 ;%POSCONTROL_ACC_Z_D
+ AC_PosControl.pid_accel_z.ki                        = 0.18;
+ AC_PosControl.pid_accel_z.kd                        = 0.3 ;
+ AC_PosControl.pid_accel_z.kff                       = 0  ;
+ AC_PosControl.pid_accel_z.kimax                     = 200; %POSCONTROL_ACC_Z_IMAX
+ AC_PosControl.pid_accel_z.filt_T_hz                 = 20;
+ AC_PosControl.pid_accel_z.filt_E_hz                 = 4;%POSCONTROL_ACC_Z_FILT_HZ
+ AC_PosControl.pid_accel_z.filt_D_hz                 = 20;
+ AC_PosControl.pid_accel_z.slew_rate_max             = 0;
+ AC_PosControl.pid_accel_z.slew_rate_tau             = 0.1;
  
  
+ AC_PosControl.p_pos_xy                                = 1.1;
+ AC_PosControl.pid_vel_xy.kp                           = 1.1;
+ AC_PosControl.pid_vel_xy.ki                           = 0.15;
+ AC_PosControl.pid_vel_xy.kd                           = 0.12;
+ AC_PosControl.pid_vel_xy.kff                          = 0;
+ AC_PosControl.pid_vel_xy.kimax                        = 1000;
+ AC_PosControl.pid_vel_xy.filt_T_hz                    = 20;
+ AC_PosControl.pid_vel_xy.filt_E_hz                    = 2;
+ AC_PosControl.pid_vel_xy.filt_D_hz                    = 5;
+%  AC_PosControl.pid_vel_xy.slew_rate_max                = 0;
+%  AC_PosControl.pid_vel_xy.slew_rate_tau                = 0.1;
  
+ AC_PosControl.speed_down_cms                          = -300;%POSCONTROL_SPEED_DOWN
+ AC_PosControl.speed_up_cms                            = 300;%POSCONTROL_SPEED_UP
+ AC_PosControl.speed_cms                               = 300;%POSCONTROL_SPEED
+ AC_PosControl.accel_z_cms                             = 100;%POSCONTROL_ACCEL_Z
+ AC_PosControl.accel_cms                               = 100;%POSCONTROL_ACCEL_XY
+ AC_PosControl.leash                                   = 100;%POSCONTROL_LEASH_LENGTH_MIN
+ AC_PosControl.leash_down_z                            = 100;%POSCONTROL_LEASH_LENGTH_MIN
+ AC_PosControl.leash_up_z                              = 100;%POSCONTROL_LEASH_LENGTH_MIN
+ AC_PosControl.accel_xy_filt_hz                        = 10;%POSCONTROL_ACCEL_FILTER_HZ
  
+ AC_PosControl.flags_recalc_leash_z = true;
+ AC_PosControl.flags_recalc_leash_xy = true;
+ AC_PosControl.flags_reset_desired_vel_to_pos = true;
+ AC_PosControl.reset_accel_to_lean_xy = true;
+ AC_PosControl.flags_reset_rate_to_accel_z = true;
+ AC_PosControl.flags_freeze_ff_z = true;
+ AC_PosControl.flags_use_desvel_ff_z = true;
+ AC_PosControl.limit_pos_up = true;
+ AC_PosControl.limit_pos_down = true;
+ AC_PosControl.limit_vel_up = true;
+ AC_PosControl.limit_vel_down = true;
+ AC_PosControl.limit_accel_xy = true;
  
+AC_PosControl.pos_error          = [0 0 0];
+AC_PosControl.pos_target         = [0 0 0];
+AC_PosControl.vel_target         = [0 0 0];
+AC_PosControl.accel_target       = [0 0 0];
+
+AC_PosControl.vel_desired                      = [0 0 0];
+AC_PosControl.vel_error_filter                 = [0 0 0];
+AC_PosControl.vel_error                        = [0 0 0];
+AC_PosControl.vel_last                         = [0 0 0];
+AC_PosControl.accel_desired                    = [0 0 0];
+AC_PosControl.vel_z_control_ratio              = 0;
+
+AC_PosControl.POSCONTROL_VIBE_COMP_I_GAIN             =0.125;
+AC_PosControl.POSCONTROL_VIBE_COMP_P_GAIN             =0.25; 
+AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ         =10;
+ 
+ AC_PosControl.pid_vel_xy.flags_reset_filter            = 0;
+ AC_PosControl.pid_vel_xy.target                        = [0 0];
+ AC_PosControl.pid_vel_xy.error                         = [0 0];
+ AC_PosControl.pid_vel_xy.error_last                    = [0 0];
+ AC_PosControl.pid_vel_xy.integrator                    = [0 0];
+ AC_PosControl.pid_vel_xy.derivative                    = [0 0];
+%  AC_PosControl.pid_vel_xy.slew_amplitude                = [0 0];
+%  AC_PosControl.pid_vel_xy.slew_filterg                  = [0 0];
+%  AC_PosControl.pid_vel_xy.last_sample                   = [0 0];
+%  AC_PosControl.pid_vel_xy.Dmod                          = [1 1];
+%  
+ AC_PosControl.pid_accel_z.flags_reset_filter         = 0;
+ AC_PosControl.pid_accel_z.target                     = 0;
+ AC_PosControl.pid_accel_z.error                      = 0;
+ AC_PosControl.pid_accel_z.error_last                 = 0;
+ AC_PosControl.pid_accel_z.integrator                 = 0;
+ AC_PosControl.pid_accel_z.derivative                 = 0;
+ AC_PosControl.pid_accel_z.slew_amplitude             = 0;
+ AC_PosControl.pid_accel_z.slew_filterg               = 0;
+ AC_PosControl.pid_accel_z.last_sample                = 0;
+ AC_PosControl.pid_accel_z.Dmod                       = 0;
  
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     k_flap=0;

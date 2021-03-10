@@ -1,12 +1,7 @@
 function    update_xy_controller()
 
 % update_xy_controller - run the horizontal position controller - should be called at 100hz or higher
- 
-
 global dt
-
-    
-
     % check for ekf xy position reset
 %     check_for_ekf_xy_reset();
 

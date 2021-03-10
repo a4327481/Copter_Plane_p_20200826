@@ -6,7 +6,6 @@ global limit_vel_up
 global limit_vel_down
 global throttle_lower   
 global throttle_upper   
-global use_desvel_ff_z
 
 global curr_alt
 global pos_error
@@ -16,7 +15,6 @@ global vel_error
 global vel_target
 global vel_desired
 global vel_last
-global accel_desired
 global accel_target
 global vel_error_input
 global z_accel_meas
@@ -60,6 +58,11 @@ global thr_out_min
 global take_off_land
 global Test_w
  
+global POSCONTROL
+
+
+
+
  limit_pos_up=0;
  limit_pos_down=0;
  pos_error(3)=pos_target(3)-curr_alt;

@@ -9,20 +9,20 @@ global airspeed_min
 global aspeed
 global EAS2TAS
 global roll
-global AP_rate_roll
-K_A               = AP_rate_roll.K_A;
-K_I               = AP_rate_roll.K_I;
-K_D               = AP_rate_roll.K_D;
-K_FF              = AP_rate_roll.K_FF;
-imax              = AP_rate_roll.imax;
+global AP_rate_yaw
+K_A               = AP_rate_yaw.K_A;
+K_I               = AP_rate_yaw.K_I;
+K_D               = AP_rate_yaw.K_D;
+K_FF              = AP_rate_yaw.K_FF;
+imax              = AP_rate_yaw.imax;
 
-K_D_last          = AP_rate_roll.K_D_last;
-pid_info_I        = AP_rate_roll.pid_info_I;
-pid_info_D        = AP_rate_roll.pid_info_D;
-last_rate_hp_out  = AP_rate_roll.last_rate_hp_out;
-last_rate_hp_in   = AP_rate_roll.last_rate_hp_in;
-integrator        = AP_rate_roll.integrator; 
-last_out          = AP_rate_roll.last_out;
+K_D_last          = AP_rate_yaw.K_D_last;
+pid_info_I        = AP_rate_yaw.pid_info_I;
+pid_info_D        = AP_rate_yaw.pid_info_D;
+last_rate_hp_out  = AP_rate_yaw.last_rate_hp_out;
+last_rate_hp_in   = AP_rate_yaw.last_rate_hp_in;
+integrator        = AP_rate_yaw.integrator; 
+last_out          = AP_rate_yaw.last_out;
 
 
     servo_out=0;
@@ -114,13 +114,13 @@ last_out          = AP_rate_roll.last_out;
 	% Convert to centi-degrees and constrain
 	 servo_out=constrain_value (last_out * 100, -4500, 4500);
 
-     AP_rate_roll.K_D_last                     = K_D_last;
-     AP_rate_roll.pid_info_I                   = pid_info_I;
-     AP_rate_roll.pid_info_D                   = pid_info_D;
-     AP_rate_roll.last_rate_hp_out             = last_rate_hp_out;
-     AP_rate_roll.last_rate_hp_in              = last_rate_hp_in;
-     AP_rate_roll.integrator                   = integrator;
-     AP_rate_roll.last_out                     = last_out;
+     AP_rate_yaw.K_D_last                     = K_D_last;
+     AP_rate_yaw.pid_info_I                   = pid_info_I;
+     AP_rate_yaw.pid_info_D                   = pid_info_D;
+     AP_rate_yaw.last_rate_hp_out             = last_rate_hp_out;
+     AP_rate_yaw.last_rate_hp_in              = last_rate_hp_in;
+     AP_rate_yaw.integrator                   = integrator;
+     AP_rate_yaw.last_out                     = last_out;
      
 end
 

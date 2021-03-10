@@ -49,7 +49,7 @@ gains_rmax=AP_rate_pitch.gains_rmax;
 	% Apply the turn correction offset
 	desired_rate = desired_rate + rate_offset;
     desired_rate_pitch=desired_rate;
-    servo_out=get_rate_out_pitch(desired_rate, scaler, disable_integrator, aspeed);
+    servo_out=get_rate_out_pitch(desired_rate, scaler, disable_integrator);
  
 
 end

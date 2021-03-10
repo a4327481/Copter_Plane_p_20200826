@@ -32,7 +32,7 @@ D_gain_modifier      = AP_rate_roll.D_gain_modifier;
 pid_info_Dmod        = AP_rate_roll.pid_info_Dmod;
 	% Calculate equivalent gains so that values for K_P and K_I can be taken across from the old PID law
     % No conversion is required for K_D
-	  ki_rate = gains.I * gains_tau;
+	  ki_rate = gains_I * gains_tau;
       eas2tas =EAS2TAS;
 	  kp_ff = max((gains_P - gains_I * gains_tau) * gains_tau  - gains_D , 0) / eas2tas;
       k_ff = gains_FF / eas2tas;
