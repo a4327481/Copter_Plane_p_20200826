@@ -1,11 +1,15 @@
 function  calc_nav_pitch()
 global HD
-global pitch_dem
+global AP_TECS
+global Plane
  % calculate a new nav_pitch_cd from the speed height controller
-global pitch_limit_min_cd
-global pitch_limit_max_cd
-global nav_pitch_cd 
-    % Calculate the Pitch of the plane
+
+
+pitch_dem                        = AP_TECS.pitch_dem;
+pitch_limit_min_cd               = AP_TECS.pitch_limit_min_cd;
+pitch_limit_max_cd               = AP_TECS.pitch_limit_max_cd;
+nav_pitch_cd                     = Plane.nav_pitch_cd;
+% Calculate the Pitch of the plane
     % --------------------------------
       commanded_pitch = pitch_dem *HD*100;
 
@@ -18,5 +22,7 @@ global nav_pitch_cd
 
     nav_pitch_cd = constrain_value(commanded_pitch, pitch_limit_min_cd, pitch_limit_max_cd);
  
+   Plane.nav_pitch_cd     = nav_pitch_cd;
+   
 end
 

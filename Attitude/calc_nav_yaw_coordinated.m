@@ -18,8 +18,7 @@ function  calc_nav_yaw_coordinated( speed_scaler)
 
         % add in rudder mixing from roll
         commanded_rudder =commanded_rudder+ k_aileron * kff_rudder_mix;
-%         commanded_rudder =commanded_rudder+ rudder_in;    
-    k_rudder = constrain_value(commanded_rudder, -4500, 4500)+Test_w.k_rudder;
+        k_rudder = constrain_value(commanded_rudder, -4500, 4500)+Test_w.k_rudder;
  
 end
 

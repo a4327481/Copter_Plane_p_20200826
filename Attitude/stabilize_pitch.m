@@ -19,12 +19,7 @@ global Test_w
 %         SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, 45*force_elevator);
 %         return;
 %     end
-% if((curr_vel(1)^2+curr_vel(2)^2)^0.5>800)
-%   theta=atand(curr_vel(3)/(curr_vel(1)^2+curr_vel(2)^2)^0.5)*100;
-%   if(pitch*HD*100-theta>1400)
-%       nav_pitch_cd=theta+1400;
-%   end
-% end
+
   demanded_pitch = nav_pitch_cd  + k_throttle * kff_throttle_to_pitch;
   k_elevator=get_servo_out_pitch(demanded_pitch - pitch*HD*100,  speed_scaler, disable_integrator_pitch)+ Test_w.k_elevator;
   

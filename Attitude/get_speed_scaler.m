@@ -5,7 +5,7 @@ global scaling_speed
 global airspeed_min
 global airspeed_max
 
- %   get a speed scaling number for control surfaces. This is applied to
+%   get a speed scaling number for control surfaces. This is applied to
 %   PIDs to change the scaling of the PID with speed. At high speed we
 %   move the surfaces less, and at low speeds we move them more.
 
