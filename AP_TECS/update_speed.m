@@ -3,8 +3,7 @@ function  update_speed(load_factor)
  global EAS2TAS
  global aspeed
  global AP_TECS
- global airspeed_max
- global airspeed_min
+ global Plane
  
  TAS_dem             = AP_TECS.TAS_dem;
  TASmax              = AP_TECS.TASmax;
@@ -14,7 +13,8 @@ function  update_speed(load_factor)
  spdCompFiltOmega    = AP_TECS.spdCompFiltOmega;
  integDTAS_state     = AP_TECS.integDTAS_state;
  vel_dot             = AP_TECS.vel_dot;
-
+ airspeed_max        = Plane.airspeed_max;
+ airspeed_min        = Plane.airspeed_min;
     % Calculate time in seconds since last update
     % Convert equivalent airspeeds to true airspeeds
     EAS=aspeed;

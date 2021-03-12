@@ -1,12 +1,11 @@
 function update_pitch_throttle(  hgt_dem_cm,EAS_dem_cm,load_factor)
 
 global AP_TECS
+global Plane
   hgt_dem                      = AP_TECS.hgt_dem; 
   EAS_dem                      = AP_TECS.EAS_dem;
   pitch_max                    = AP_TECS.pitch_max;
   pitch_min                    = AP_TECS.pitch_min;
-  pitch_limit_max_cd           = AP_TECS.pitch_limit_max_cd;
-  pitch_limit_min_cd           = AP_TECS.pitch_limit_min_cd;
   PITCHmaxf                    = AP_TECS.PITCHmaxf;
   PITCHminf                    = AP_TECS.PITCHminf;
   pitch_max_limit              = AP_TECS.pitch_max_limit;
@@ -14,7 +13,8 @@ global AP_TECS
   throttle_min                 = AP_TECS.throttle_min;
   THRmaxf                      = AP_TECS.THRmaxf;
   THRminf                      = AP_TECS.THRminf;
-  
+  pitch_limit_max_cd           = Plane.pitch_limit_max_cd;
+  pitch_limit_min_cd           = Plane.pitch_limit_min_cd;
 
     % Convert inputs
     hgt_dem = hgt_dem_cm * 0.01;
@@ -94,8 +94,6 @@ global AP_TECS
   AP_TECS.EAS_dem                      = EAS_dem;
   AP_TECS.pitch_max                    = pitch_max;
   AP_TECS.pitch_min                    = pitch_min;
-  AP_TECS.pitch_limit_max_cd           = pitch_limit_max_cd;
-  AP_TECS.pitch_limit_min_cd           = pitch_limit_min_cd;
   AP_TECS.PITCHmaxf                    = PITCHmaxf;
   AP_TECS.PITCHminf                    = PITCHminf;
   AP_TECS.pitch_max_limit              = pitch_max_limit;
@@ -103,6 +101,6 @@ global AP_TECS
   AP_TECS.throttle_min                 = throttle_min;
   AP_TECS.THRmaxf                      = THRmaxf;
   AP_TECS.THRminf                      = THRminf;
- 
+
 end
 

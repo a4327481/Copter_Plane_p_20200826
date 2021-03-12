@@ -3,12 +3,14 @@ global dt
 global gyro_y
 global HD   
 global aspeed
-global airspeed_min
 global EAS2TAS
 global roll_limit_cd
-global AP_rate_pitch	
 global roll
 global pitch
+global AP_rate_pitch
+global Plane
+
+
  gains_P                  =AP_rate_pitch.gains_P;
  gains_I                  =AP_rate_pitch.gains_I;
  gains_D                  =AP_rate_pitch.gains_D;
@@ -32,7 +34,7 @@ global pitch
  slew_rate_amplitude      =AP_rate_pitch.slew_rate_amplitude;
  D_gain_modifier          =AP_rate_pitch.D_gain_modifier;
  pid_info_Dmod            =AP_rate_pitch.pid_info_Dmod;
- 
+ airspeed_min             =Plane.airspeed_min; 
 	
 	  delta_time    =dt;	
 	% Get body rate vector (radians/sec)

@@ -1,12 +1,18 @@
 function  update_load_factor()
 global aspeed
-global smoothed_airspeed
-global airspeed_min
-global aerodynamic_load_factor
-global nav_roll_cd
-global roll_limit_cd
 global roll_limit_cd_inint
 global HD
+
+global Plane
+
+smoothed_airspeed              = Plane.smoothed_airspeed;
+airspeed_min                   = Plane.airspeed_min;
+aerodynamic_load_factor        = Plane.aerodynamic_load_factor;
+nav_roll_cd                    = Plane.nav_roll_cd;
+roll_limit_cd                  = Plane.roll_limit_cd;
+
+
+
 %   calculate a new aerodynamic_load_factor and limit nav_roll_cd to
 %   ensure that the load factor does not take us below the sustainable
 %   airspeed
@@ -50,9 +56,13 @@ global HD
         nav_roll_cd = constrain_value(nav_roll_cd, -roll_limit_cd_inint, roll_limit_cd_inint);
         roll_limit_cd = roll_limit_cd_inint;       
         
-    end
+    end  
     
-    
-    
+    Plane.smoothed_airspeed                        = smoothed_airspeed;
+    Plane.airspeed_min                             = airspeed_min;
+    Plane.aerodynamic_load_factor                  = aerodynamic_load_factor;
+    Plane.nav_roll_cd                              = nav_roll_cd;
+    Plane.roll_limit_cd                            = roll_limit_cd;
+      
 end
 

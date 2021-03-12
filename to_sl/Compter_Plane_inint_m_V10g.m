@@ -464,7 +464,6 @@ AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ         =10;
  throttle_cruise                        = 40                           ;
  
  
- 
  AP_TECS.timeConstant              = 3;
  AP_TECS.integGain                 = 0.25;
  AP_TECS.rollComp                  = 20 ;
@@ -482,8 +481,6 @@ AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ         =10;
  AP_TECS.pitch_min                 = 0;
  AP_TECS.pitch_limit_max_cd        = 2000;
  AP_TECS.pitch_limit_min_cd        = -1500;
- AP_TECS.TASmax                    = 23;
- AP_TECS.TASmin                    = 15;
  AP_TECS.spdWeight                 = 0.9;
  AP_TECS.throttle_max              = 100;
  AP_TECS.throttle_min              = 0;
@@ -518,6 +515,8 @@ AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ         =10;
  AP_TECS.TAS_dem_adj               = 19;
  AP_TECS.TAS_rate_dem              = 0;
  AP_TECS.integDTAS_state           = 0;
+ AP_TECS.TASmax                    = 23;
+ AP_TECS.TASmin                    = 15;
  
  AP_TECS.SPE_dem                   = 0;
  AP_TECS.SPE_est                   = 0;
@@ -1239,6 +1238,26 @@ actuator=[0 0 0 0];
 
 
 
+pitch_limit_max_cd               = Plane.pitch_limit_max_cd;
+pitch_limit_min_cd               = Plane.pitch_limit_min_cd;
+kff_rudder_mix                   = Plane.kff_rudder_mix;
+highest_airspeed                 = Plane.highest_airspeed;
+scaling_speed                    = Plane.scaling_speed;
+airspeed_max                     = Plane.airspeed_max;
+nav_pitch_cd                     = Plane.nav_pitch_cd;
+kff_throttle_to_pitch            = Plane.kff_throttle_to_pitch;
+inverted_flight                  = Plane.inverted_flight;
+smoothed_airspeed                = Plane.smoothed_airspeed;
+airspeed_min                     = Plane.airspeed_min;
+aerodynamic_load_factor          = Plane.aerodynamic_load_factor;
+nav_roll_cd                      = Plane.nav_roll_cd;
+roll_limit_cd                    = Plane.roll_limit_cd;
 
+k_rudder                         = SRV_Channel.k_rudder;
+k_aileron                        = SRV_Channel.k_aileron;
+k_elevator                       = SRV_Channel.k_elevator;
+k_throttle                       = SRV_Channel.k_throttle;
+tail_tilt                        = SRV_Channel.tail_tilt;
+pwm_out                          = SRV_Channel.pwm_out;
 
 

@@ -9,12 +9,12 @@ global roll
 global pitch
 global EAS2TAS
 global GRAVITY_MSS
-global airspeed_min
 global aspeed
 global HD;
 global AP_rate_pitch
-
-roll_ff=AP_rate_pitch.roll_ff;
+global Plane
+airspeed_min       = Plane.airspeed_min;
+roll_ff            = AP_rate_pitch.roll_ff;
 
  	  bank_angle =  roll*HD;
 	% limit bank angle between +- 80 deg if right way up

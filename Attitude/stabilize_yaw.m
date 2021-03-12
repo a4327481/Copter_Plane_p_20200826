@@ -13,9 +13,6 @@ function  stabilize_yaw(  speed_scaler)
 %             % don't use ground steering on landing approach
 %             steering_control.ground_steering = false;
 %          
-%      
-% 
-% 
 %     
 % %       first calculate steering_control.steering for a nose or tail
 % %       wheel. We use "course hold" mode for the rudder when either performing

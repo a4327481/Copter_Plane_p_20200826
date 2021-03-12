@@ -1,11 +1,19 @@
 function  calc_nav_yaw_coordinated( speed_scaler)
 %   calculate yaw control for coordinated flight
-  global k_rudder
-  global k_aileron
-  global kff_rudder_mix
   global disable_integrator_yaw
   global Test_w
- 
+  
+  global SRV_Channel
+  global Plane
+  k_rudder                  = SRV_Channel.k_rudder;
+  k_aileron                 = SRV_Channel.k_aileron;
+  kff_rudder_mix            = Plane.kff_rudder_mix;
+  
+  
+  
+  
+  
+  
 %      rudder_in = rudder_input();
     % Received an external msg that guides yaw in the last 3 seconds?
 %     if ((control_mode == &mode_guided || control_mode == &mode_avoidADSB) &&
@@ -19,6 +27,10 @@ function  calc_nav_yaw_coordinated( speed_scaler)
         % add in rudder mixing from roll
         commanded_rudder =commanded_rudder+ k_aileron * kff_rudder_mix;
         k_rudder = constrain_value(commanded_rudder, -4500, 4500)+Test_w.k_rudder;
+        
+   SRV_Channel.k_rudder          = k_rudder;
+   SRV_Channel.k_aileron         = k_aileron;
+   Plane.kff_rudder_mix          = kff_rudder_mix;
  
 end
 

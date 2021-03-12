@@ -1,6 +1,8 @@
 function  calc_nav_roll()
- global nav_roll_cd
- global roll_limit_cd
+
+ global Plane
+ nav_roll_cd    = Plane.nav_roll_cd;
+ roll_limit_cd  = Plane.roll_limit_cd;
       commanded_roll = nav_roll_cd1();
 
     % Received an external msg that guides roll in the last 3 seconds?
@@ -13,5 +15,8 @@ function  calc_nav_roll()
     nav_roll_cd = constrain_value(commanded_roll, -roll_limit_cd, roll_limit_cd);
     update_load_factor();
  
+ Plane.nav_roll_cd       = nav_roll_cd;
+ Plane.roll_limit_cd     = roll_limit_cd;
+    
 end
 

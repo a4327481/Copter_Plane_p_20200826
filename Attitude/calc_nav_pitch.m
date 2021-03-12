@@ -6,8 +6,8 @@ global Plane
 
 
 pitch_dem                        = AP_TECS.pitch_dem;
-pitch_limit_min_cd               = AP_TECS.pitch_limit_min_cd;
-pitch_limit_max_cd               = AP_TECS.pitch_limit_max_cd;
+pitch_limit_max_cd               = Plane.pitch_limit_max_cd;
+pitch_limit_min_cd               = Plane.pitch_limit_min_cd;
 nav_pitch_cd                     = Plane.nav_pitch_cd;
 % Calculate the Pitch of the plane
     % --------------------------------
