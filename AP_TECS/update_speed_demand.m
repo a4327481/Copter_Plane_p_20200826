@@ -1,13 +1,17 @@
 function   update_speed_demand( )
-global  TAS_dem
-global  TASmin
-global  TASmax
-global  STEdot_max
-global  STEdot_min
-global  TAS_state
-global  TAS_dem_adj
 global  dt
-global  TAS_rate_dem
+global  AP_TECS
+
+TAS_dem                     = AP_TECS.TAS_dem;
+TASmin                      = AP_TECS.TASmin;
+TASmax                      = AP_TECS.TASmax;
+STEdot_max                  = AP_TECS.STEdot_max;
+STEdot_min                  = AP_TECS.STEdot_min;
+TAS_state                   = AP_TECS.TAS_state;
+TAS_dem_adj                 = AP_TECS.TAS_dem_adj;
+TAS_rate_dem                = AP_TECS.TAS_rate_dem;
+
+
     % Set the airspeed demand to the minimum value if an underspeed condition exists
     % or a bad descent condition exists
     % This will minimise the rate of descent resulting from an engine failure,
@@ -41,5 +45,15 @@ global  TAS_rate_dem
     end
     % Constrain speed demand again to protect against bad values on initialisation.
     TAS_dem_adj = constrain_value(TAS_dem_adj, TASmin, TASmax);
+    
+AP_TECS.TAS_dem                     = TAS_dem;
+AP_TECS.TASmin                      = TASmin;
+AP_TECS.STEdot_max                  = STEdot_max;
+AP_TECS.STEdot_min                  = STEdot_min;
+AP_TECS.TAS_state                   = TAS_state;
+AP_TECS.TAS_dem_adj                 = TAS_dem_adj;
+AP_TECS.TAS_rate_dem                = TAS_rate_dem;
+    
+    
 end
 

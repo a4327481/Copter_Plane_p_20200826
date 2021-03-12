@@ -7,12 +7,15 @@ global tail_tilt
 global k_aileron
 global k_elevator
 global k_rudder
-global vel_desired
 global aspeed
 global aspeed_cp
 global nav_pitch_cd
 global nav_roll_cd
 global p_plane_cp
+global AC_PosControl
+vel_desired             = AC_PosControl.vel_desired;
+
+
          if( (abs(vel_desired(1))>0) || (abs(vel_desired(2))>0)||(abs(target_yaw_rate)>0))
              temp_yaw_rate=0;
          else

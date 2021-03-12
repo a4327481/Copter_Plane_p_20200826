@@ -3,13 +3,17 @@ global loiter_bank_limit
 global GRAVITY_MSS
 global EAS_dem
 global EAS2TAS
+global AP_TECS
+global AP_L1
+
+EAS_dem                    = AP_TECS.EAS_dem;
+loiter_bank_limit          = AP_L1.loiter_bank_limit;
     % prevent an insane loiter bank limit
      sanitized_bank_limit = constrain_value(loiter_bank_limit, 0.0, 89.0);
      lateral_accel_sea_level = tan(radians(sanitized_bank_limit)) * GRAVITY_MSS;
  
      nominal_velocity_sea_level = EAS_dem;
      
-
      eas2tas_sq = EAS2TAS.^2;
 
     if (is_zero(sanitized_bank_limit) || is_zero(nominal_velocity_sea_level) ||is_zero(lateral_accel_sea_level))  
@@ -28,6 +32,9 @@ global EAS2TAS
             radiuso= max(sea_level_radius * eas2tas_sq, radius);
         end
     end
+    
+ AP_TECS.EAS_dem                =EAS_dem;
+ AP_L1.loiter_bank_limit        =loiter_bank_limit;    
          
 end
 

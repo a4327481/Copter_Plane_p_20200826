@@ -25,20 +25,17 @@ function update_50hz()
      
 %       if we have a vertical position estimate from the EKF then use
 %       it, otherwise use barometric altitude
-global dt 
-global usEKF
+
 global Vz
-global climb_rate
-global baro_alt
-global accel_ef_z
 global GRAVITY_MSS
-global hgtCompFiltOmega
-global height_filter_height
-global height_filter_dd_height
 global rot_body_to_ned
 global accel_x
-global vdot_filter
-global vel_dot
+
+global AP_TECS
+
+ climb_rate         = AP_TECS.climb_rate;
+ vdot_filter        = AP_TECS.vdot_filter;
+ vel_dot            = AP_TECS.vel_dot;
 % %    Calculate time in seconds since last update
 % % 
 % %     Use inertial nav verical velocity and height if available
@@ -77,5 +74,10 @@ global vel_dot
     vdot_filter(2)=vdot_filter(1);
     vdot_filter(1)=temp;
     vel_dot = sum(vdot_filter(1:5))/5;
+    
+  AP_TECS.climb_rate          = climb_rate;
+  AP_TECS.vdot_filter         = vdot_filter;
+  AP_TECS.vel_dot             = vel_dot;
+    
 end
 

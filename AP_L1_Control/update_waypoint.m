@@ -2,23 +2,26 @@ function  update_waypoint(   prev_WP,  next_WP,  dist_min)
 
 % update L1 control for waypoint navigation
 global dt
-global L1_damping
-global L1_period
-global current_loc
+global AP_L1
 global groundspeed_vector
-global target_bearing_cd
-global L1_dist
-global crosstrack_error
-global nav_bearing
-global L1_xtrack_i_gain
-global L1_xtrack_i_gain_prev
-global L1_xtrack_i
-global last_Nu
-global latAccDem
-global WPcircle
-global bearing_error
-global data_is_stale
-global mode_L1
+global current_loc
+ L1_damping                 = AP_L1.L1_damping;
+ L1_period                  = AP_L1.L1_period;
+ target_bearing_cd          = AP_L1.target_bearing_cd;
+ L1_dist                    = AP_L1.L1_dist;
+ crosstrack_error           = AP_L1.crosstrack_error;
+ nav_bearing                = AP_L1.nav_bearing;
+ L1_xtrack_i_gain           = AP_L1.L1_xtrack_i_gain;
+ L1_xtrack_i_gain_prev      = AP_L1.L1_xtrack_i_gain_prev;
+ L1_xtrack_i                = AP_L1.L1_xtrack_i;
+ last_Nu                    = AP_L1.last_Nu;
+ latAccDem                  = AP_L1.latAccDem;
+ WPcircle                   = AP_L1.WPcircle;
+ bearing_error              = AP_L1.bearing_error;
+ data_is_stale              = AP_L1.data_is_stale;
+ mode_L1                    = AP_L1.mode_L1;
+
+
 persistent mode_L1_old
 
 
@@ -219,6 +222,22 @@ persistent mode_L1_old
     bearing_error = Nu; % bearing error angle (radians), +ve to left of track
 
     data_is_stale = 0; % status are correctly updated with current waypoint data
+
+ AP_L1.L1_damping                 = L1_damping;
+ AP_L1.L1_period                  = L1_period;
+ AP_L1.target_bearing_cd          = target_bearing_cd;
+ AP_L1.L1_dist                    = L1_dist;
+ AP_L1.crosstrack_error           = crosstrack_error;
+ AP_L1.nav_bearing                = nav_bearing;
+ AP_L1.L1_xtrack_i_gain           = L1_xtrack_i_gain;
+ AP_L1.L1_xtrack_i_gain_prev      = L1_xtrack_i_gain_prev;
+ AP_L1.L1_xtrack_i                = L1_xtrack_i;
+ AP_L1.last_Nu                    = last_Nu;
+ AP_L1.latAccDem                  = latAccDem;
+ AP_L1.WPcircle                   = WPcircle;
+ AP_L1.bearing_error              = bearing_error;
+ AP_L1.data_is_stale              = data_is_stale;
+ AP_L1.mode_L1                    = mode_L1;
 
 
 end

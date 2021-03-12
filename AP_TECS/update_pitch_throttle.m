@@ -1,17 +1,20 @@
 function update_pitch_throttle(  hgt_dem_cm,EAS_dem_cm,load_factor)
- global hgt_dem 
- global EAS_dem
- global pitch_max
- global pitch_min
- global pitch_limit_max_cd
- global pitch_limit_min_cd
- global PITCHmaxf
- global PITCHminf
- global pitch_max_limit
- global throttle_max
- global throttle_min
- global THRmaxf
- global THRminf
+
+global AP_TECS
+  hgt_dem                      = AP_TECS.hgt_dem; 
+  EAS_dem                      = AP_TECS.EAS_dem;
+  pitch_max                    = AP_TECS.pitch_max;
+  pitch_min                    = AP_TECS.pitch_min;
+  pitch_limit_max_cd           = AP_TECS.pitch_limit_max_cd;
+  pitch_limit_min_cd           = AP_TECS.pitch_limit_min_cd;
+  PITCHmaxf                    = AP_TECS.PITCHmaxf;
+  PITCHminf                    = AP_TECS.PITCHminf;
+  pitch_max_limit              = AP_TECS.pitch_max_limit;
+  throttle_max                 = AP_TECS.throttle_max;
+  throttle_min                 = AP_TECS.throttle_min;
+  THRmaxf                      = AP_TECS.THRmaxf;
+  THRminf                      = AP_TECS.THRminf;
+  
 
     % Convert inputs
     hgt_dem = hgt_dem_cm * 0.01;
@@ -20,20 +23,22 @@ function update_pitch_throttle(  hgt_dem_cm,EAS_dem_cm,load_factor)
     update_speed(load_factor);
     THRmaxf  =throttle_max * 0.01;
     THRminf  =throttle_min * 0.01;
+    % min of 1% throttle range to prevent a numerical error
+    THRmaxf = max(THRmaxf, THRminf+0.01);
 
     % work out the maximum and minimum pitch
     % if TECS_PITCH_ MAX,MIN  isn't set then use
     % LIM_PITCH_ MAX,MIN . Don't allow TECS_PITCH_ MAX,MIN  to be
     % larger than LIM_PITCH_ MAX,MIN 
-    if (pitch_max <= 0)  
+    if (pitch_max <= 0)
         PITCHmaxf = pitch_limit_max_cd * 0.01;
-      else  
+    else
         PITCHmaxf = min(pitch_max, pitch_limit_max_cd * 0.01);
     end
 
-    if (pitch_min >= 0)  
+    if (pitch_min >= 0)
         PITCHminf = pitch_limit_min_cd * 0.01;
-     else  
+    else
         PITCHminf = max(pitch_min, pitch_limit_min_cd * 0.01);
     end
 
@@ -84,7 +89,20 @@ function update_pitch_throttle(  hgt_dem_cm,EAS_dem_cm,load_factor)
 
     % Calculate pitch demand
     update_pitch();
-
+	
+  AP_TECS.hgt_dem                      = hgt_dem; 
+  AP_TECS.EAS_dem                      = EAS_dem;
+  AP_TECS.pitch_max                    = pitch_max;
+  AP_TECS.pitch_min                    = pitch_min;
+  AP_TECS.pitch_limit_max_cd           = pitch_limit_max_cd;
+  AP_TECS.pitch_limit_min_cd           = pitch_limit_min_cd;
+  AP_TECS.PITCHmaxf                    = PITCHmaxf;
+  AP_TECS.PITCHminf                    = PITCHminf;
+  AP_TECS.pitch_max_limit              = pitch_max_limit;
+  AP_TECS.throttle_max                 = throttle_max;
+  AP_TECS.throttle_min                 = throttle_min;
+  AP_TECS.THRmaxf                      = THRmaxf;
+  AP_TECS.THRminf                      = THRminf;
  
 end
 

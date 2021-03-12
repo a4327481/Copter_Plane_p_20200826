@@ -1,8 +1,10 @@
 function Nuo=prevent_indecision( Nu)
- global last_Nu
- global target_bearing_cd
  global HD
- global loiter_direction
+
+ global AP_L1
+  last_Nu              =AP_L1.last_Nu;
+  target_bearing_cd    =AP_L1.target_bearing_cd;
+  loiter_direction     =AP_L1.loiter_direction;
 %    prevent indecision in our turning by using our previous turn
 %    decision if we are in a narrow angle band pointing away from the
 %    target and the turn angle has changed sign
@@ -23,5 +25,9 @@ function Nuo=prevent_indecision( Nu)
         % oscillating in our decision about which way to go
         Nuo = last_Nu;
     end
+    
+  AP_L1.last_Nu              =last_Nu;
+  AP_L1.target_bearing_cd    =target_bearing_cd;
+  AP_L1.loiter_direction     =loiter_direction;
 end
 

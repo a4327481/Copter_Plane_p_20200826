@@ -351,7 +351,8 @@ AP_rate_yaw.last_rate_hp_in              = 0;
 AP_rate_yaw.integrator                   = 0;
 AP_rate_yaw.last_out                     = 0;
  
-
+% POSCONTROL_OVERSPEED_GAIN_Z
+% accel_last_z_cms
  AC_PosControl.p_pos_z                               = 1;
  AC_PosControl.p_vel_z                               = 1;
  AC_PosControl.pid_accel_z.kp                        = 0.9 ;%POSCONTROL_ACC_Z_P
@@ -447,8 +448,112 @@ AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ         =10;
  AC_PosControl.pid_accel_z.last_sample                = 0;
  AC_PosControl.pid_accel_z.Dmod                       = 0;
 
- 
  AC_ATTITUDE_CONTROL_ANGLE_LIMIT_MIN =10;
+ 
+ maxClimbRate                           = 5                            ;
+ minSinkRate                            = 3                            ;
+ timeConstant                           = 3                            ;
+ thrDamp                                = 0.7                          ;
+ integGain                              = 0.25                         ;
+ vertAccLim                             = 3.5                          ;
+ spdCompFiltOmega                       = 2                            ;
+ rollComp                               = 20                           ;
+ spdWeight_inint                        = 0.9                          ;
+ ptchDamp                               = 0.7                          ;
+ maxSinkRate                            = 7                            ;
+ throttle_cruise                        = 40                           ;
+ 
+ 
+ 
+ AP_TECS.timeConstant              = 3;
+ AP_TECS.integGain                 = 0.25;
+ AP_TECS.rollComp                  = 20 ;
+ AP_TECS.ptchDamp                  = 0.7;
+ AP_TECS.thrDamp                   = 0.7;
+ AP_TECS.throttle_cruise           = 40;
+ AP_TECS.throttle_slewrate         = 100;
+ AP_TECS.maxClimbRate              = 5;
+ AP_TECS.minSinkRate               = 3;
+ AP_TECS.maxSinkRate               = 7;
+ AP_TECS.vertAccLim                = 3.5;
+ AP_TECS.spdCompFiltOmega          = 2;
+ AP_TECS.p_ff_throttle             = 0.5;
+ AP_TECS.pitch_max                 = 0;
+ AP_TECS.pitch_min                 = 0;
+ AP_TECS.pitch_limit_max_cd        = 2000;
+ AP_TECS.pitch_limit_min_cd        = -1500;
+ AP_TECS.TASmax                    = 23;
+ AP_TECS.TASmin                    = 15;
+ AP_TECS.spdWeight                 = 0.9;
+ AP_TECS.throttle_max              = 100;
+ AP_TECS.throttle_min              = 0;
+ 
+ AP_TECS.THRmaxf                   = 1;
+ AP_TECS.THRminf                   = 0;
+ AP_TECS.throttle_dem              = 0;
+ AP_TECS.last_throttle_dem         = 0;
+ AP_TECS.integTHR_state            = 0;
+ AP_TECS.ff_throttle               = 0;
+ 
+ AP_TECS.hgt_dem                   = 0;
+ AP_TECS.hgt_dem_in_old            = 0;
+ AP_TECS.hgt_dem_prev              = 0;
+ AP_TECS.hgt_dem_adj               = 0;
+ AP_TECS.hgt_dem_adj_last          = 0;
+ AP_TECS.hgt_rate_dem              = 0;
+ 
+ AP_TECS.pitch_dem                 = 0;
+ AP_TECS.pitch_dem_unc             = 0;
+ AP_TECS.last_pitch_dem            = 0;
+ AP_TECS.PITCHmaxf                 = 0;
+ AP_TECS.PITCHminf                 = 0;
+ AP_TECS.pitch_max_limit           = 0;
+ 
+ AP_TECS.vel_dot                   = 0;
+ AP_TECS.vdot_filter               = [0 0 0 0 0];
+ AP_TECS.climb_rate                = 0;
+ AP_TECS.EAS_dem                   = 19;
+ AP_TECS.TAS_dem                   = 19;
+ AP_TECS.TAS_state                 = 19;
+ AP_TECS.TAS_dem_adj               = 19;
+ AP_TECS.TAS_rate_dem              = 0;
+ AP_TECS.integDTAS_state           = 0;
+ 
+ AP_TECS.SPE_dem                   = 0;
+ AP_TECS.SPE_est                   = 0;
+ AP_TECS.SPEdot_dem                = 0;
+ AP_TECS.SPEdot                    = 0;
+ AP_TECS.SKE_dem                   = 0;
+ AP_TECS.SKE_est                   = 0;
+ AP_TECS.SKEdot_dem                = 0;
+ AP_TECS.SKEdot                    = 0;
+ AP_TECS.STE_error                 = 0;
+ AP_TECS.STEdot_min                = 0;
+ AP_TECS.STEdot_max                = 0;
+ AP_TECS.STEdotErrLast             = 0;
+ AP_TECS.integSEB_state            = 0;
+
+ AP_L1.loiter_direction            = 1;
+ AP_L1.L1_xtrack_i_gain            = 0;
+ AP_L1.L1_damping                  = 0.75;
+ AP_L1.L1_period                   = 15;
+ AP_L1.loiter_bank_limit           = 0;
+							     
+ AP_L1.target_bearing_cd           = 0;
+ AP_L1.L1_dist                     = 0;
+ AP_L1.crosstrack_error            = 0;
+ AP_L1.nav_bearing                 = 0;
+ AP_L1.L1_xtrack_i_gain_prev       = 0;
+ AP_L1.L1_xtrack_i                 = 0;
+ AP_L1.last_Nu                     = 0;
+ AP_L1.latAccDem                   = 0;
+ AP_L1.WPcircle                    = 0;
+ AP_L1.bearing_error               = 0;
+ AP_L1.data_is_stale               = 0;
+ AP_L1.mode_L1                     = 0;
+ AP_L1.reverse                     = 0;
+
+ 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     k_flap=0;
     thr_out_min=0;
@@ -1131,7 +1236,6 @@ batt_resistance=0;
 throttle_limit=0;
 batt_voltage=0;
 actuator=[0 0 0 0];
-
 
 
 

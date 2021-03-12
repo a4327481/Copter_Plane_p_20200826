@@ -8,7 +8,6 @@ global target_yaw_rate
 global climb_rate_cms
 global dt
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global pos_target
 global curr_pos
 global loc_origin
 global current_loc
@@ -19,7 +18,6 @@ global aspeed
 global p_tilt_pitch_target
 global tail_tilt
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global vel_desired
 global yaw
 %%%%%%%%%%L1%%%%%%%%%%%%%%%%%%%%%
 global center_WP
@@ -134,6 +132,12 @@ global AP_rate_pitch
 global AP_rate_yaw
 global AP_rate_roll
 global AC_PosControl
+global     rate_pitch_pid
+global     rate_roll_pid
+global     rate_yaw_pid
+
+pos_target       = AC_PosControl.pos_target;
+vel_desired      = AC_PosControl.vel_desired;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     if isempty(uavMode)
         uavMode = 0;
@@ -212,9 +216,9 @@ global AC_PosControl
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         AC_PosControl.pid_accel_z.ki=0;
         AC_PosControl.pid_vel_xy.ki=0;
-        ATC_RAT_PIT_I=0;
-        ATC_RAT_RLL_I=0;
-        ATC_RAT_YAW_I=0;
+        rate_pitch_pid.ki=0;
+        rate_roll_pid.ki=0;
+        rate_yaw_pid.ki=0; 
         pid_accel_z_reset_filter=1;
         pid_vel_xy_reset_filter=1;
         rate_pitch_pid_reset_filter=1;
@@ -231,9 +235,9 @@ global AC_PosControl
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         AC_PosControl.pid_accel_z.ki=POSCONTROL_ACC_Z_I_inint;
         AC_PosControl.pid_vel_xy.ki=POSCONTROL_VEL_XY_I_inint;
-        ATC_RAT_PIT_I=ATC_RAT_PIT_I_inint;
-        ATC_RAT_RLL_I=ATC_RAT_RLL_I_inint;
-        ATC_RAT_YAW_I=ATC_RAT_YAW_I_inint;    
+        rate_pitch_pid.ki=ATC_RAT_PIT_I_inint;
+        rate_roll_pid.ki=ATC_RAT_RLL_I_inint;
+        rate_yaw_pid.ki=ATC_RAT_YAW_I_inint; 
     end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         switch PathModeOut_sl.flightTaskMode
@@ -266,11 +270,11 @@ global AC_PosControl
                             curr_pos(1:2)=get_vector_xy_from_origin_NE( current_loc,loc_origin)*100; 
                          end
                          if(curr_alt<100)
-                            POSCONTROL_ACC_Z_I=0;
-                            POSCONTROL_VEL_XY_I=0;
-                            ATC_RAT_PIT_I=0;
-                            ATC_RAT_RLL_I=0;
-                            ATC_RAT_YAW_I=0;
+                             AC_PosControl.pid_accel_z.ki=0;
+                             AC_PosControl.pid_vel_xy.ki=0;
+                             rate_pitch_pid.ki=0;
+                             rate_roll_pid.ki=0;
+                             rate_yaw_pid.ki=0;
                             pid_accel_z_reset_filter=1;
                             pid_vel_xy_reset_filter=1;
                             rate_pitch_pid_reset_filter=1;
@@ -488,7 +492,7 @@ global AC_PosControl
                             stabilize()
                             throttle_in=0;
                             yaw_in=constrain_value(yaw_in,-yaw_max_c2p,yaw_max_c2p);
-                            POSCONTROL_ACC_Z_FILT_HZ=POSCONTROL_ACC_Z_FILT_HZ_c2p;
+                            AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ_c2p;
                             AP_MotorsMulticopter_output_4a1();  
                             if(throttle_filter<0.1)                                 
                                 Rotor2Fix_delay_flag=1;
@@ -508,7 +512,7 @@ global AC_PosControl
                         stabilize()
                         throttle_in=0;
                         yaw_in=constrain_value(yaw_in,-yaw_max_c2p,yaw_max_c2p);
-                        POSCONTROL_ACC_Z_FILT_HZ=POSCONTROL_ACC_Z_FILT_HZ_c2p;
+                        AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ_c2p;
                         AP_MotorsMulticopter_output_4a1();  
                         uavMode=1; 
                      elseif(aspeed>aspeed_c2p)
@@ -528,7 +532,7 @@ global AC_PosControl
                         k_elevator=k_elevator*p_plane_c2p;
                         k_rudder=k_rudder*p_plane_c2p;
                         yaw_in=constrain_value(yaw_in,-yaw_max_c2p,yaw_max_c2p);
-                        POSCONTROL_ACC_Z_FILT_HZ=POSCONTROL_ACC_Z_FILT_HZ_c2p;
+                        AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ_c2p;
                         AP_MotorsMulticopter_output_4a1();
                      else
                          if(pitch_target>0)
@@ -539,7 +543,7 @@ global AC_PosControl
                          input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target_temp,   target_yaw_rate);
                          rate_controller_run();
                          %%%%
-                         POSCONTROL_ACC_Z_FILT_HZ=POSCONTROL_ACC_Z_FILT_HZ_inint;
+                         AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ_inint;
                          k_aileron=0;
                          k_elevator=0;
                          k_rudder=0;
@@ -588,10 +592,10 @@ global AC_PosControl
                         k_elevator=k_elevator*p_plane_c2p;
                         k_rudder=k_rudder*p_plane_c2p;
                         yaw_in=constrain_value(yaw_in,-yaw_max_c2p,yaw_max_c2p);
-                        POSCONTROL_ACC_Z_FILT_HZ=POSCONTROL_ACC_Z_FILT_HZ_inint;
+                        AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ_inint;
                         AP_MotorsMulticopter_output_4a1();
                     else
-                        POSCONTROL_ACC_Z_FILT_HZ=POSCONTROL_ACC_Z_FILT_HZ_inint;
+                        AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ_inint;
                         k_aileron=0;
                         k_elevator=0;
                         k_rudder=0;
@@ -688,7 +692,7 @@ global AC_PosControl
                      throttle_in_error=constrain_value(throttle_in_error,-throttle_off_rate*dt,throttle_off_rate*dt);
                      throttle_in=throttle_in+throttle_in_error; 
                      throttle_in=max(throttle_in,0.1);
-                     set_throttle_out(throttle_in, 0, POSCONTROL_THROTTLE_CUTOFF_FREQ);
+                     set_throttle_out(throttle_in, 0, AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ);
                      input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate);
                      rate_controller_run();
                      AP_MotorsMulticopter_output_4a1();
@@ -725,7 +729,7 @@ global AC_PosControl
                     k_elevator=k_elevator*p_plane_c2p;
                     k_rudder=k_rudder*p_plane_c2p;
                     yaw_in=constrain_value(yaw_in,-yaw_max_c2p,yaw_max_c2p);
-                     POSCONTROL_ACC_Z_FILT_HZ=POSCONTROL_ACC_Z_FILT_HZ_inint;
+                     AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ_inint;
                     AP_MotorsMulticopter_output_4a1();
              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
              case    ENUM_FlightTaskMode.VerticalMove                             
@@ -776,5 +780,8 @@ global AC_PosControl
             otherwise         
                  copter_run_4a1();
         end
+        
+        AC_PosControl.pos_target   = pos_target;
+        AC_PosControl.vel_desired  = vel_desired;
 end
 

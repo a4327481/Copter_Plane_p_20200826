@@ -1,22 +1,27 @@
 function  update_energies( )
  
-global SPE_dem
-global hgt_dem_adj
 global GRAVITY_MSS
-global TAS_dem_adj
-global hgt_rate_dem
-global TAS_state
-global TAS_rate_dem
 global height
-global SKE_dem
-global SPEdot_dem
-global SKEdot_dem
-global SPE_est
-global SKE_est
-global SPEdot
-global SKEdot
-global climb_rate
-global vel_dot
+global AP_TECS
+
+
+
+SPE_dem                 = AP_TECS.SPE_dem;
+hgt_dem_adj             = AP_TECS.hgt_dem_adj;
+TAS_dem_adj             = AP_TECS.TAS_dem_adj;
+hgt_rate_dem            = AP_TECS.hgt_rate_dem;
+TAS_state               = AP_TECS.TAS_state;
+TAS_rate_dem            = AP_TECS.TAS_rate_dem;
+SKE_dem                 = AP_TECS.SKE_dem;
+SPEdot_dem              = AP_TECS.SPEdot_dem;
+SKEdot_dem              = AP_TECS.SKEdot_dem;
+SPE_est                 = AP_TECS.SPE_est;
+SKE_est                 = AP_TECS.SKE_est;
+SPEdot                  = AP_TECS.SPEdot;
+SKEdot                  = AP_TECS.SKEdot;
+climb_rate              = AP_TECS.climb_rate;
+vel_dot                 = AP_TECS.vel_dot;
+
     % Calculate specific energy demands
     SPE_dem = hgt_dem_adj * GRAVITY_MSS;
     SKE_dem = 0.5 * TAS_dem_adj * TAS_dem_adj;
@@ -32,6 +37,23 @@ global vel_dot
     % Calculate specific energy rate
     SPEdot = climb_rate * GRAVITY_MSS;
     SKEdot = TAS_state * vel_dot;
+
+ AP_TECS.SPE_dem                =   SPE_dem;                 
+ AP_TECS.hgt_dem_adj            =   hgt_dem_adj;             
+ AP_TECS.TAS_dem_adj            =   TAS_dem_adj;             
+ AP_TECS.hgt_rate_dem           =   hgt_rate_dem;            
+ AP_TECS.TAS_state              =   TAS_state;               
+ AP_TECS.TAS_rate_dem           =   TAS_rate_dem;            
+ AP_TECS.SKE_dem                =   SKE_dem;                 
+ AP_TECS.SPEdot_dem             =   SPEdot_dem;              
+ AP_TECS.SKEdot_dem             =   SKEdot_dem;              
+ AP_TECS.SPE_est                =   SPE_est;                 
+ AP_TECS.SKE_est                =   SKE_est;                 
+ AP_TECS.SPEdot                 =   SPEdot;                  
+ AP_TECS.SKEdot                 =   SKEdot;                  
+ AP_TECS.climb_rate             =   climb_rate;              
+ AP_TECS.vel_dot                =   vel_dot;                 
+
 
 end
 

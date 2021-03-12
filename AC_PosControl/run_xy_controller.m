@@ -2,7 +2,6 @@ function run_xy_controller(dt)
 global  curr_pos
 global  AC_PosControl
 global  curr_vel
-global limit_accel_xy
 global throttle_upper
 global GRAVITY_MSS
 global HD
@@ -26,7 +25,7 @@ vel_error                           = AC_PosControl.vel_error;
 vel_desired                         = AC_PosControl.vel_desired;
 vel_target                          = AC_PosControl.vel_target;
 accel_desired                       = AC_PosControl.accel_desired;
-
+limit_accel_xy                      = AC_PosControl.limit_accel_xy;
 kP=p_pos_xy;
     % avoid divide by zero
     if (kP <= 0.0)
@@ -129,6 +128,8 @@ kP=p_pos_xy;
  AC_PosControl.vel_desired                             = vel_desired;		 		               
  AC_PosControl.vel_target                              = vel_target;
  AC_PosControl.accel_desired                           = accel_desired;
+ AC_PosControl.limit_accel_xy                          = limit_accel_xy;
+
 
 end
 

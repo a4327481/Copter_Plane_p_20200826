@@ -1,19 +1,21 @@
 function update_loiter( center_WP,   radius,   loiter_direction)
  
- global L1_period
- global L1_damping
- global L1_dist
- global groundspeed_vector
- global target_bearing_cd
  global yaw
- global last_Nu
- global crosstrack_error
- global data_is_stale
- global latAccDem
- global WPcircle
- global bearing_error
- global nav_bearing
  global current_loc
+ global groundspeed_vector
+ global AP_L1
+  L1_period                   = AP_L1.L1_period;
+  L1_damping                  = AP_L1.L1_damping;
+  L1_dist                     = AP_L1.L1_dist;
+  target_bearing_cd           = AP_L1.target_bearing_cd;
+  last_Nu                     = AP_L1.last_Nu;
+  crosstrack_error            = AP_L1.crosstrack_error;
+  data_is_stale               = AP_L1.data_is_stale;
+  latAccDem                   = AP_L1.latAccDem;
+  WPcircle                    = AP_L1.WPcircle;
+  bearing_error               = AP_L1.bearing_error;
+  nav_bearing                 = AP_L1.nav_bearing;
+ 
  
     % scale loiter radius with square of EAS2TAS to allow us to stay
     % stable at high altitude
@@ -47,11 +49,11 @@ function update_loiter( center_WP,   radius,   loiter_direction)
      if (A_air_length > 0.1)  
         A_air_unit = A_air/A_air_length;
       else  
-        if (groundspeed_vector_length < 0.1)  
-            A_air_unit = [cos(yaw), sin(yaw)];
-          else  
-            A_air_unit = groundspeed_vector/groundspeed_vector_length;
-        end
+          if (groundspeed_vector_length < 0.1)
+              A_air_unit = [cos(yaw), sin(yaw)];
+          else
+              A_air_unit = groundspeed_vector/groundspeed_vector_length;
+          end
      end
      
 
@@ -108,7 +110,18 @@ function update_loiter( center_WP,   radius,   loiter_direction)
     end
 
     data_is_stale = 0; % status are correctly updated with current waypoint data
- 
+	
+  AP_L1.L1_period                   = L1_period;
+  AP_L1.L1_damping                  = L1_damping;
+  AP_L1.L1_dist                     = L1_dist;
+  AP_L1.target_bearing_cd           = target_bearing_cd;
+  AP_L1.last_Nu                     = last_Nu;
+  AP_L1.crosstrack_error            = crosstrack_error;
+  AP_L1.data_is_stale               = data_is_stale;
+  AP_L1.latAccDem                   = latAccDem;
+  AP_L1.WPcircle                    = WPcircle;
+  AP_L1.bearing_error               = bearing_error;
+  AP_L1.nav_bearing                 = nav_bearing;
 
 end
 

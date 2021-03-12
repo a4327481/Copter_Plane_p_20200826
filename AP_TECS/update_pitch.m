@@ -6,30 +6,32 @@ function update_pitch()
     % A SKE_weighting of 0 provides 100% priority to height control. This is used when no airspeed measurement is available
     % A SKE_weighting of 2 provides 100% priority to speed control. This is used when an underspeed condition is detected. In this instance, if airspeed
     % rises above the demanded value, the pitch angle will be increased by the TECS controller.
-global spdWeight  
-global SPE_dem
-global SKE_dem
-global SPEdot_dem
-global SKEdot_dem
-global SPE_est
-global SKE_est
-global SPEdot
-global integGain
-global pitch_dem
-global PITCHmaxf
-global PITCHminf
 global dt
-global TAS_state
-global timeConstant
 global GRAVITY_MSS
-global ptchDamp
-global integSEB_state
-global pitch_dem_unc
-global vertAccLim
-global last_pitch_dem
-global SKEdot
-global TASmax
-global TASmin
+global AP_TECS
+
+spdWeight              = AP_TECS.spdWeight;      
+SPE_dem                = AP_TECS.SPE_dem;       
+SKE_dem                = AP_TECS.SKE_dem;       
+SPEdot_dem             = AP_TECS.SPEdot_dem;    
+SKEdot_dem             = AP_TECS.SKEdot_dem;    
+SPE_est                = AP_TECS.SPE_est;       
+SKE_est                = AP_TECS.SKE_est;       
+SPEdot                 = AP_TECS.SPEdot;        
+integGain              = AP_TECS.integGain;     
+pitch_dem              = AP_TECS.pitch_dem;     
+PITCHmaxf              = AP_TECS.PITCHmaxf;     
+PITCHminf              = AP_TECS.PITCHminf;     
+TAS_state              = AP_TECS.TAS_state;     
+timeConstant           = AP_TECS.timeConstant;              
+ptchDamp               = AP_TECS.ptchDamp ;     
+integSEB_state         = AP_TECS.integSEB_state;
+pitch_dem_unc          = AP_TECS.pitch_dem_unc; 
+vertAccLim             = AP_TECS.vertAccLim;    
+last_pitch_dem         = AP_TECS.last_pitch_dem;
+SKEdot                 = AP_TECS.SKEdot;        
+TASmax                 = AP_TECS.TASmax;        
+TASmin                 = AP_TECS.TASmin;        
 
      SKE_weighting = constrain_value(spdWeight, 0.0, 2.0);
      SPE_weighting = 2.0 - SKE_weighting;
@@ -121,7 +123,30 @@ global TASmin
     pitch_dem = constrain_value(pitch_dem, PITCHminf, PITCHmaxf);
 
     last_pitch_dem = pitch_dem;
- 
+    
+    AP_TECS.spdWeight              = spdWeight;
+    AP_TECS.SPE_dem                = SPE_dem;
+    AP_TECS.SKE_dem                = SKE_dem;
+    AP_TECS.SPEdot_dem             = SPEdot_dem;
+    AP_TECS.SKEdot_dem             = SKEdot_dem;
+    AP_TECS.SPE_est                = SPE_est;
+    AP_TECS.SKE_est                = SKE_est;
+    AP_TECS.SPEdot                 = SPEdot;
+    AP_TECS.integGain              = integGain;
+    AP_TECS.pitch_dem              = pitch_dem;
+    AP_TECS.PITCHmaxf              = PITCHmaxf;
+    AP_TECS.PITCHminf              = PITCHminf;
+    AP_TECS.TAS_state              = TAS_state;
+    AP_TECS.timeConstant           = timeConstant;
+    AP_TECS.ptchDamp               = ptchDamp ;
+    AP_TECS.integSEB_state         = integSEB_state;
+    AP_TECS.pitch_dem_unc          = pitch_dem_unc;
+    AP_TECS.vertAccLim             = vertAccLim;
+    AP_TECS.last_pitch_dem         = last_pitch_dem;
+    AP_TECS.SKEdot                 = SKEdot;
+    AP_TECS.TASmax                 = TASmax;
+    AP_TECS.TASmin                 = TASmin;
+
 
 end
 

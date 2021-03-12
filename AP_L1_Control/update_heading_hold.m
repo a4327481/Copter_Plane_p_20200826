@@ -1,13 +1,15 @@
 function update_heading_hold( navigation_heading_cd)
-global L1_period
-global target_bearing_cd
-global nav_bearing
+global HD
 global yaw
 global groundspeed_vector
-global L1_dist
-global bearing_error
-global latAccDem
-global HD
+global AP_L1
+ L1_dist                    = AP_L1.L1_dist;
+ bearing_error              = AP_L1.bearing_error;
+ latAccDem                  = AP_L1.latAccDem;
+ L1_period                  = AP_L1.L1_period;
+ target_bearing_cd          = AP_L1.target_bearing_cd;
+ nav_bearing                = AP_L1.nav_bearing;
+
 % update L1 control for heading hold navigation
 
     % Calculate normalised frequency for tracking loop
@@ -42,4 +44,12 @@ global HD
     latAccDem = 2.0*sin(Nu)*VomegaA;
 
 %     _data_is_stale = false; % status are correctly updated with current waypoint data
+
+ AP_L1.L1_dist                    = L1_dist;
+ AP_L1.bearing_error              = bearing_error;
+ AP_L1.latAccDem                  = latAccDem;
+ AP_L1.L1_period                  = L1_period;
+ AP_L1.target_bearing_cd          = target_bearing_cd;
+ AP_L1.nav_bearing                = nav_bearing;
+
 end

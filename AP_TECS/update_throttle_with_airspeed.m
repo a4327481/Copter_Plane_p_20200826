@@ -1,34 +1,35 @@
 function  update_throttle_with_airspeed()
-global TASmax
-global SKE_dem
-global TASmin
-global SPE_dem
-global SPE_est
-global SKE_est
-global STE_error
-global SPEdot_dem
-global SKEdot_dem
-global STEdot_min
-global STEdot_max
-global SPEdot
-global SKEdot
-global STEdotErrLast
-global timeConstant
-global throttle_cruise
 global rot_body_to_ned
-global rollComp
-global THRmaxf
-global THRminf
-global thrDamp
-global throttle_dem
-global throttle_slewrate
-global last_throttle_dem
 global dt
-global integGain
-global integTHR_state
-global p_ff_throttle
-global ff_throttle
-global spdWeight
+global AP_TECS
+ TASmax                   = AP_TECS.TASmax;                
+ SKE_dem                  = AP_TECS.SKE_dem;            
+ TASmin                   = AP_TECS.TASmin;             
+ SPE_dem                  = AP_TECS.SPE_dem;            
+ SPE_est                  = AP_TECS.SPE_est;            
+ SKE_est                  = AP_TECS.SKE_est;            
+ STE_error                = AP_TECS.STE_error;          
+ SPEdot_dem               = AP_TECS.SPEdot_dem;         
+ SKEdot_dem               = AP_TECS.SKEdot_dem;         
+ STEdot_min               = AP_TECS.STEdot_min;        
+ STEdot_max               = AP_TECS.STEdot_max;         
+ SPEdot                   = AP_TECS.SPEdot;             
+ SKEdot                   = AP_TECS.SKEdot;             
+ STEdotErrLast            = AP_TECS.STEdotErrLast;      
+ timeConstant             = AP_TECS.timeConstant;       
+ throttle_cruise          = AP_TECS.throttle_cruise;    
+ rollComp                 = AP_TECS.rollComp;           
+ THRmaxf                  = AP_TECS.THRmaxf;            
+ THRminf                  = AP_TECS.THRminf;            
+ thrDamp                  = AP_TECS.thrDamp;            
+ throttle_dem             = AP_TECS.throttle_dem;       
+ throttle_slewrate        = AP_TECS.throttle_slewrate;  
+ last_throttle_dem        = AP_TECS.last_throttle_dem; 
+ integGain                = AP_TECS.integGain;          
+ integTHR_state           = AP_TECS.integTHR_state;     
+ p_ff_throttle            = AP_TECS.p_ff_throttle;      
+ ff_throttle              = AP_TECS.ff_throttle;        
+ spdWeight                = AP_TECS.spdWeight;          
  % calculate throttle demand - airspeed enabled case
  
  
@@ -103,6 +104,41 @@ global spdWeight
         throttle_dem=0;
         last_throttle_dem=throttle_dem;
     end
+ 
+    AP_TECS.TASmax                        = TASmax;
+    AP_TECS.SKE_dem                       = SKE_dem;
+    AP_TECS.TASmin                        = TASmin;
+    AP_TECS.SPE_dem                       = SPE_dem;
+    AP_TECS.SPE_est                       = SPE_est;
+    AP_TECS.SKE_est                       = SKE_est;
+    AP_TECS.STE_error                     = STE_error;
+    AP_TECS.SPEdot_dem                    = SPEdot_dem;
+    AP_TECS.SKEdot_dem                    = SKEdot_dem;
+    AP_TECS.STEdot_min                    = STEdot_min;
+    AP_TECS.STEdot_max                    = STEdot_max;
+    AP_TECS.SPEdot                        = SPEdot;
+    AP_TECS.SKEdot                        = SKEdot;
+    AP_TECS.STEdotErrLast                 = STEdotErrLast;
+    AP_TECS.timeConstant                  = timeConstant;
+    AP_TECS.throttle_cruise               = throttle_cruise;
+    AP_TECS.rollComp                      = rollComp;
+    AP_TECS.THRmaxf                       = THRmaxf;
+    AP_TECS.THRminf                       = THRminf;
+    AP_TECS.thrDamp                       = thrDamp;
+    AP_TECS.throttle_dem                  = throttle_dem;
+    AP_TECS.throttle_slewrate             = throttle_slewrate;
+    AP_TECS.last_throttle_dem             = last_throttle_dem;
+    AP_TECS.integGain                     = integGain;
+    AP_TECS.integTHR_state                = integTHR_state;
+    AP_TECS.p_ff_throttle                 = p_ff_throttle;
+    AP_TECS.ff_throttle                   = ff_throttle;
+    AP_TECS.spdWeight                     = spdWeight;
+ 
+ 
+ 
+ 
+ 
+ 
  
 end
 

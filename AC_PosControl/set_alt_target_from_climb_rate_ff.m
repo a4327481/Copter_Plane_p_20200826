@@ -8,24 +8,28 @@ function   set_alt_target_from_climb_rate_ff(  climb_rate_cms,   dt,   force_des
 global POSCONTROL_ACCEL_Z
 global POSCONTROL_SPEED_DOWN
 global POSCONTROL_SPEED_UP
-global vel_desired
 global POSCONTROL_JERK_RATIO
 global accel_last_z_cms
 global use_desvel_ff_z
-global pos_target
 global POSCONTROL_OVERSPEED_GAIN_Z
 global throttle_lower
 % global force_descend
 global throttle_upper
-global limit_pos_up
+global AC_PosControl
+
+speed_up_cms            = AC_PosControl.speed_up_cms;
+speed_down_cms          = AC_PosControl.speed_down_cms;
+vel_desired             = AC_PosControl.vel_desired;
+pos_target              = AC_PosControl.pos_target;
+limit_pos_up            = AC_PosControl.limit_pos_up;
 
     % calculated increased maximum acceleration if over speed
-      accel_z_cms = POSCONTROL_ACCEL_Z;
-    if (vel_desired(3) < POSCONTROL_SPEED_DOWN && POSCONTROL_SPEED_DOWN~=0)  
-        accel_z_cms =accel_z_cms*POSCONTROL_OVERSPEED_GAIN_Z * vel_desired(3) / POSCONTROL_SPEED_DOWN;
+      accel_z_cms = AC_PosControl.accel_z_cms;
+    if (vel_desired(3) < speed_down_cms && speed_down_cms~=0)  
+        accel_z_cms =accel_z_cms*POSCONTROL_OVERSPEED_GAIN_Z * vel_desired(3) / speed_down_cms;
     end
-    if (vel_desired(3) > POSCONTROL_SPEED_UP &&POSCONTROL_SPEED_UP~=0)  
-        accel_z_cms= accel_z_cms* POSCONTROL_OVERSPEED_GAIN_Z * vel_desired(3) / POSCONTROL_SPEED_UP;
+    if (vel_desired(3) > speed_up_cms &&speed_up_cms~=0)  
+        accel_z_cms= accel_z_cms* POSCONTROL_OVERSPEED_GAIN_Z * vel_desired(3) / speed_up_cms;
     end
     accel_z_cms = constrain_value(accel_z_cms, 0.0, 750.0);
 
@@ -46,5 +50,8 @@ global limit_pos_up
         pos_target(3) =pos_target(3)+vel_desired(3) * dt;
     end
      
+  AC_PosControl.vel_desired   = vel_desired; 
+  AC_PosControl.pos_target    = pos_target ;
+
 end
 

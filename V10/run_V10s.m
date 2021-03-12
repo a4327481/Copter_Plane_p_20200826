@@ -14,7 +14,6 @@ global inint
 global dt
 global height
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global pos_target
 global curr_alt
 global curr_pos
 global loc_origin
@@ -30,8 +29,7 @@ global tail_tilt
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global roll_target_pilot
 global pitch_target_pilot
-global vel_desired
-global yaw
+ global yaw
 %%%%%%%%%%L1%%%%%%%%%%%%%%%%%%%%%
 global center_WP
 global radius
@@ -90,8 +88,15 @@ global     ATC_RAT_YAW_I_inint
 global     ATC_RAT_YAW_I
 global     rate_yaw_pid_reset_filter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+global     rate_pitch_pid
+global     rate_roll_pid
+global     rate_yaw_pid
+global     AC_PosControl
 global AP_rate_pitch
 global AP_rate_yaw
+
+vel_desired          = AC_PosControl.vel_desired;
+pos_target           = AC_PosControl.pos_target;
 %mode auto
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     if isempty(mode_state)
@@ -120,17 +125,17 @@ global AP_rate_yaw
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
       
     if(mode_state==3||mode_state==9||mode_state==10)
-        POSCONTROL_ACC_Z_I=POSCONTROL_ACC_Z_I_inint;
-        POSCONTROL_VEL_XY_I=POSCONTROL_VEL_XY_I_inint;
-        ATC_RAT_PIT_I=ATC_RAT_PIT_I_inint;
-        ATC_RAT_RLL_I=ATC_RAT_RLL_I_inint;
-        ATC_RAT_YAW_I=ATC_RAT_YAW_I_inint;    
+        AC_PosControl.pid_accel_z.ki=POSCONTROL_ACC_Z_I_inint;
+        AC_PosControl.pid_vel_xy.ki=POSCONTROL_VEL_XY_I_inint;
+        rate_pitch_pid.ki=ATC_RAT_PIT_I_inint;
+        rate_roll_pid.ki=ATC_RAT_RLL_I_inint;
+        rate_yaw_pid.ki=ATC_RAT_YAW_I_inint;    
     else
-        POSCONTROL_ACC_Z_I=0;
-        POSCONTROL_VEL_XY_I=0;
-        ATC_RAT_PIT_I=0;
-        ATC_RAT_RLL_I=0;
-        ATC_RAT_YAW_I=0;
+        AC_PosControl.pid_accel_z.ki=0;
+        AC_PosControl.pid_vel_xy.ki=0;
+        rate_pitch_pid.ki=0;
+        rate_roll_pid.ki=0;
+        rate_yaw_pid.ki=0; 
         pid_accel_z_reset_filter=1;
         pid_vel_xy_reset_filter=1;
         rate_pitch_pid_reset_filter=1;
@@ -163,7 +168,7 @@ switch mode
              k_rudder=0;
              k_throttle=0;
         end                
-        set_throttle_out(throttle_in, 1, POSCONTROL_THROTTLE_CUTOFF_FREQ);
+        set_throttle_out(throttle_in, 1, AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ);
         input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate);
         rate_controller_run();
         AP_MotorsMulticopter_output_4a1();
@@ -293,9 +298,9 @@ switch mode
             k_elevator=k_elevator*p_plane_c2p;
             k_rudder=k_rudder*p_plane_c2p;
             yaw_in=constrain_value(yaw_in,-yaw_max_c2p,yaw_max_c2p);
-            POSCONTROL_ACC_Z_FILT_HZ=POSCONTROL_ACC_Z_FILT_HZ_c2p;
+            AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ_c2p;
          else          
-             POSCONTROL_ACC_Z_FILT_HZ=POSCONTROL_ACC_Z_FILT_HZ_inint;
+             AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ_inint;
              k_aileron=0;
              k_elevator=0;
              k_rudder=0;
@@ -341,5 +346,7 @@ switch mode
 %         rate_controller_run();
 %         AP_MotorsMulticopter_output();
 end
+AC_PosControl.vel_desired    = vel_desired;
+AC_PosControl.pos_target     = pos_target;
 end
 

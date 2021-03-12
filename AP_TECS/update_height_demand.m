@@ -1,14 +1,16 @@
 function  update_height_demand( )
- global hgt_dem
- global hgt_dem_in_old
- global maxSinkRate
- global hgt_dem_prev
- global maxClimbRate
  global dt
- global hgt_dem_adj
- global hgt_dem_adj_last
- global hgt_rate_dem
+ global AP_TECS
  global inint_hgt
+   hgt_dem                    =AP_TECS.hgt_dem;
+   hgt_dem_in_old             =AP_TECS.hgt_dem_in_old;
+   maxSinkRate                =AP_TECS.maxSinkRate;
+   hgt_dem_prev               =AP_TECS.hgt_dem_prev;
+   maxClimbRate               =AP_TECS.maxClimbRate;
+   hgt_dem_adj                =AP_TECS.hgt_dem_adj;
+   hgt_dem_adj_last           =AP_TECS.hgt_dem_adj_last;
+   hgt_rate_dem               =AP_TECS.hgt_rate_dem;
+ 
  
     if(inint_hgt)
        hgt_dem_in_old=hgt_dem; 
@@ -52,5 +54,15 @@ function  update_height_demand( )
     % us to consistently be above the desired glide slope. This will
     % be replaced with a better zero-lag filter in the future.
          hgt_dem_adj_last =  hgt_dem_adj;
+         
+   AP_TECS.hgt_dem                    = hgt_dem;
+   AP_TECS.hgt_dem_in_old             = hgt_dem_in_old;
+   AP_TECS.maxSinkRate                = maxSinkRate;
+   AP_TECS.hgt_dem_prev               = hgt_dem_prev;
+   AP_TECS.maxClimbRate               = maxClimbRate;
+   AP_TECS.hgt_dem_adj                = hgt_dem_adj;
+   AP_TECS.hgt_dem_adj_last           = hgt_dem_adj_last;
+   AP_TECS.hgt_rate_dem               = hgt_rate_dem;
+         
 end
 
