@@ -552,8 +552,6 @@ AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ         =10;
  AP_L1.mode_L1                     = 0;
  AP_L1.reverse                     = 0;
  
- 
- 
 Plane.airspeed_max                     =  22;
 Plane.airspeed_min                     =  15;
 Plane.kff_rudder_mix                   =  1.2;
@@ -579,7 +577,6 @@ SRV_Channel.tail_tilt                  = 0;
 SRV_Channel.pwm_tail                   = 1000;
 SRV_Channel.pwm_out                    = [1000 1000 1000 1000];
 								   
- 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     k_flap=0;
     thr_out_min=0;
