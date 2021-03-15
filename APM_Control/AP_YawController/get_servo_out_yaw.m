@@ -5,11 +5,13 @@ global HD
 global gyro_z
 global accel_y
 global GRAVITY_MSS
-global airspeed_min
 global aspeed
 global EAS2TAS
 global roll
 global AP_rate_yaw
+global Plane
+
+airspeed_min      = Plane.airspeed_min;  
 K_A               = AP_rate_yaw.K_A;
 K_I               = AP_rate_yaw.K_I;
 K_D               = AP_rate_yaw.K_D;

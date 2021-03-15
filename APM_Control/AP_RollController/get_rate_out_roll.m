@@ -3,10 +3,11 @@ global dt
 global gyro_x
 global HD
 global aspeed
-global airspeed_min
 global EAS2TAS
 global AP_rate_roll
+global Plane
 
+airspeed_min         = Plane.airspeed_min;
 gains_P              = AP_rate_roll.gains_P;
 gains_I              = AP_rate_roll.gains_I;
 gains_D              = AP_rate_roll.gains_D;

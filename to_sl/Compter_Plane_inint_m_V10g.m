@@ -479,8 +479,8 @@ AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ         =10;
  AP_TECS.p_ff_throttle             = 0.5;
  AP_TECS.pitch_max                 = 0;
  AP_TECS.pitch_min                 = 0;
- AP_TECS.pitch_limit_max_cd        = 2000;
- AP_TECS.pitch_limit_min_cd        = -1500;
+%  AP_TECS.pitch_limit_max_cd        = 2000;
+%  AP_TECS.pitch_limit_min_cd        = -1500;
  AP_TECS.spdWeight                 = 0.9;
  AP_TECS.throttle_max              = 100;
  AP_TECS.throttle_min              = 0;
@@ -551,7 +551,34 @@ AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ         =10;
  AP_L1.data_is_stale               = 0;
  AP_L1.mode_L1                     = 0;
  AP_L1.reverse                     = 0;
+ 
+ 
+ 
+Plane.airspeed_max                     =  22;
+Plane.airspeed_min                     =  15;
+Plane.kff_rudder_mix                   =  1.2;
+Plane.scaling_speed                    =  17;
+Plane.pitch_limit_max_cd               = 2000;
+Plane.pitch_limit_min_cd               = -1500;
 
+Plane.highest_airspeed                 = 0;
+Plane.nav_pitch_cd                     = 0;
+Plane.kff_throttle_to_pitch            = 0;
+Plane.inverted_flight                  = 0;
+Plane.smoothed_airspeed                = 0;
+Plane.aerodynamic_load_factor          = 0;
+Plane.nav_roll_cd                      = 0;
+Plane.roll_limit_cd                    = 0;
+
+SRV_Channel.k_rudder                   = 0;
+SRV_Channel.k_aileron                  = 0;
+SRV_Channel.k_elevator                 = 0;
+SRV_Channel.k_throttle                 = 0;
+SRV_Channel.k_flap                     = 0;
+SRV_Channel.tail_tilt                  = 0;
+SRV_Channel.pwm_tail                   = 1000;
+SRV_Channel.pwm_out                    = [1000 1000 1000 1000];
+								   
  
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     k_flap=0;
@@ -1238,26 +1265,6 @@ actuator=[0 0 0 0];
 
 
 
-pitch_limit_max_cd               = Plane.pitch_limit_max_cd;
-pitch_limit_min_cd               = Plane.pitch_limit_min_cd;
-kff_rudder_mix                   = Plane.kff_rudder_mix;
-highest_airspeed                 = Plane.highest_airspeed;
-scaling_speed                    = Plane.scaling_speed;
-airspeed_max                     = Plane.airspeed_max;
-nav_pitch_cd                     = Plane.nav_pitch_cd;
-kff_throttle_to_pitch            = Plane.kff_throttle_to_pitch;
-inverted_flight                  = Plane.inverted_flight;
-smoothed_airspeed                = Plane.smoothed_airspeed;
-airspeed_min                     = Plane.airspeed_min;
-aerodynamic_load_factor          = Plane.aerodynamic_load_factor;
-nav_roll_cd                      = Plane.nav_roll_cd;
-roll_limit_cd                    = Plane.roll_limit_cd;
 
-k_rudder                         = SRV_Channel.k_rudder;
-k_aileron                        = SRV_Channel.k_aileron;
-k_elevator                       = SRV_Channel.k_elevator;
-k_throttle                       = SRV_Channel.k_throttle;
-tail_tilt                        = SRV_Channel.tail_tilt;
-pwm_out                          = SRV_Channel.pwm_out;
 
 
