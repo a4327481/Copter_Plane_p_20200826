@@ -448,7 +448,6 @@ AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ         =10;
  AC_PosControl.pid_accel_z.last_sample                = 0;
  AC_PosControl.pid_accel_z.Dmod                       = 0;
 
- AC_ATTITUDE_CONTROL_ANGLE_LIMIT_MIN =10;
  
  maxClimbRate                           = 5                            ;
  minSinkRate                            = 3                            ;
@@ -576,8 +575,55 @@ SRV_Channel.k_flap                     = 0;
 SRV_Channel.tail_tilt                  = 0;
 SRV_Channel.pwm_tail                   = 1000;
 SRV_Channel.pwm_out                    = [1000 1000 1000 1000];
-								   
+
+
+
+ 
+AC_Attitude.p_angle_roll                                       = 3.3;
+AC_Attitude.p_angle_pitch                                      = 3;
+AC_Attitude.p_angle_yaw                                        = 3;
+AC_Attitude.use_sqrt_controller                                = 1;
+AC_Attitude.accel_roll_max                                     = 72000;
+AC_Attitude.accel_pitch_max                                    = 30000;
+AC_Attitude.accel_yaw_max                                      = 18000;
+AC_Attitude.ang_vel_roll_max                                   = 0;
+AC_Attitude.ang_vel_pitch_max                                  = 0;
+AC_Attitude.ang_vel_yaw_max                                    = 0;
+AC_Attitude.input_tc                                           = 0.3;
+AC_Attitude.rate_bf_ff_enabled                                 = 1;
+
+AC_Attitude.thrust_error_angle                                 = 0;
+AC_Attitude.rate_target_ang_vel                                = [0 0 0];
+AC_Attitude.attitude_ang_error                                 = [1 0 0 0];
+AC_Attitude.attitude_error_vector                              = [0 0 0];								             								             
+AC_Attitude.attitude_target_quat                               = [1 0 0 0];
+AC_Attitude.attitude_target_euler_angle                        = [0 0 0];
+AC_Attitude.attitude_target_euler_rate                         = [0 0 0];
+AC_Attitude.attitude_target_ang_vel                            = [0 0 0];
+AC_Attitude.althold_lean_angle_max                             = 0;
+
+%  attitude_target_euler_angle=[roll_target pitch_target yaw_target]*0.01/HD;
+%  attitude_target_quat=from_euler(attitude_target_euler_angle);
+
+AC_Attitude.AC_ATTITUDE_ACCEL_RP_CONTROLLER_MIN_RADSS          = radians(40.0) ;    %minimum body-frame acceleration limit for the stability controller (for roll and pitch axis)
+AC_Attitude.AC_ATTITUDE_ACCEL_RP_CONTROLLER_MAX_RADSS          = radians(720.0);   %maximum body-frame acceleration limit for the stability controller (for roll and pitch axis)
+AC_Attitude.AC_ATTITUDE_ACCEL_Y_CONTROLLER_MIN_RADSS           = radians(10.0) ;   % minimum body-frame acceleration limit for the stability controller (for yaw axis)
+AC_Attitude.AC_ATTITUDE_ACCEL_Y_CONTROLLER_MAX_RADSS           = radians(120.0) ;   % maximum body-frame acceleration limit for the stability controller (for yaw axis)
+AC_Attitude.AC_ATTITUDE_CONTROL_ANGLE_LIMIT_THROTTLE_MAX                = 0.8;
+AC_Attitude.AC_ATTITUDE_CONTROL_ANGLE_LIMIT_MIN                         = 10 ;
+AC_Attitude.AC_ATTITUDE_THRUST_ERROR_ANGLE                     = radians(30.0);               %Thrust angle error above which yaw corrections are limited;
+
+ AC_ATTITUDE_CONTROL_ANGLE_LIMIT_MIN =10;
+AC_ATTITUDE_CONTROL_ANGLE_LIMIT_THROTTLE_MAX=0.8;
+althold_lean_angle_max=0;
+attitude_target_quat=[1 0 0 0];
+rate_target_ang_vel=[0 0 0];
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ climb_rate_cms=0;
+slew_yaw=6000;
+angle_boost_enabled=1;
+angle_limit_tc=1;
+
     k_flap=0;
     thr_out_min=0;
     take_off_land=0;                        
@@ -785,25 +831,9 @@ algo_dbg_param.maxClimbSpeed=0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %AC_AttitudeControl matlab sim  
-slew_yaw=6000;
-accel_yaw_max=18000;
-rate_bf_ff_enabled=1;
-accel_roll_max=72000;
-accel_pitch_max=30000; 
-angle_boost_enabled=1;
 
-angle_limit_tc=1;
-ang_vel_roll_max=0;
-ang_vel_pitch_max=0;
-ang_vel_yaw_max=0;
-input_tc=0.3;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-AC_ATTITUDE_ACCEL_RP_CONTROLLER_MIN_RADSS= radians(40.0) ;    %minimum body-frame acceleration limit for the stability controller (for roll and pitch axis)
-AC_ATTITUDE_ACCEL_RP_CONTROLLER_MAX_RADSS= radians(720.0);   %maximum body-frame acceleration limit for the stability controller (for roll and pitch axis)
-AC_ATTITUDE_ACCEL_Y_CONTROLLER_MIN_RADSS= radians(10.0) ;   % minimum body-frame acceleration limit for the stability controller (for yaw axis)
-AC_ATTITUDE_ACCEL_Y_CONTROLLER_MAX_RADSS=radians(120.0) ;   % maximum body-frame acceleration limit for the stability controller (for yaw axis)
-AC_ATTITUDE_THRUST_ERROR_ANGLE=radians(30.0);               %Thrust angle error above which yaw corrections are limited
-AC_ATTITUDE_CONTROL_ANGLE_LIMIT_THROTTLE_MAX=0.8;
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 ATC_ACCEL_P_MAX = 36397.976562;
@@ -874,13 +904,9 @@ ATC_ACCEL_Y_MAX = 36397.976562;
  yaw_target=0;
  target_yaw_rate=0;
  
- attitude_target_euler_angle=[roll_target pitch_target yaw_target]*0.01/HD;
- attitude_target_quat=from_euler(attitude_target_euler_angle);
 
-attitude_target_ang_vel=[0 0 0];
-attitude_target_euler_rate=[0 0 0];
-attitude_ang_error=[1 0 0 0];
-use_sqrt_controller=1;
+
+
  
  %%%%%%%%%%%%%%%%%%%%%%
  throttle_rpy_mix=0;
@@ -920,7 +946,6 @@ angle_boost=0;
 throttle_avg_max=1;
 throttle_cutoff_frequency=1;
 throttle_thrust_max=1;
-althold_lean_angle_max=0;
 throttle_rpy_mix_desired=0;
 AC_ATTITUDE_CONTROL_MAX=5;
 roll_in=0;
@@ -937,10 +962,7 @@ throttle_filter=0;
 thrust_boost_ratio=0;
 thrust_rpyt_out=[0 0 0 0];
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-thrust_error_angle=0;
-rate_target_ang_vel=[0 0 0];
-attitude_error_vector=[0 0 0];
-climb_rate_cms=0;
+
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % AP_PitchController
@@ -1259,8 +1281,6 @@ batt_resistance=0;
 throttle_limit=0;
 batt_voltage=0;
 actuator=[0 0 0 0];
-
-
 
 
 

@@ -1,19 +1,23 @@
 function attitude_controller_run_quat()
   global rot_body_to_ned
-  global attitude_target_quat
-  global attitude_target_ang_vel
-  global thrust_error_angle
-  global rate_target_ang_vel
+  global dt  
   global gyro_z
-  global ang_vel_roll_max
-  global ang_vel_pitch_max
-  global ang_vel_yaw_max
-
-  global AC_ATTITUDE_THRUST_ERROR_ANGLE
-  global rate_bf_ff_enabled
-  global dt
-  global attitude_ang_error
-  global attitude_error_vector %%%%%%%%%tiao shi
+  global AC_Attitude
+	
+   attitude_target_quat                   = AC_Attitude.attitude_target_quat;
+   attitude_target_ang_vel                = AC_Attitude.attitude_target_ang_vel;
+   thrust_error_angle                     = AC_Attitude.thrust_error_angle;
+   rate_target_ang_vel                    = AC_Attitude.rate_target_ang_vel;
+   ang_vel_roll_max                       = AC_Attitude.ang_vel_roll_max;
+   ang_vel_pitch_max                      = AC_Attitude.ang_vel_pitch_max;
+   ang_vel_yaw_max                        = AC_Attitude.ang_vel_yaw_max;
+   AC_ATTITUDE_THRUST_ERROR_ANGLE         = AC_Attitude.AC_ATTITUDE_THRUST_ERROR_ANGLE;
+   rate_bf_ff_enabled                     = AC_Attitude.rate_bf_ff_enabled;
+   attitude_ang_error                     = AC_Attitude.attitude_ang_error;
+   attitude_error_vector                  = AC_Attitude.attitude_error_vector; 
+  
+  
+  
     % Retrieve quaternion vehicle attitude
     attitude_vehicle_quat=from_rotation_matrix(rot_body_to_ned);
     
@@ -24,9 +28,10 @@ function attitude_controller_run_quat()
 
     % Add feedforward term that attempts to ensure that roll and pitch errors rotate with the body frame rather than the reference frame.
     % todo: this should probably be a matrix that couples yaw as well.
-    rate_target_ang_vel(1) =rate_target_ang_vel(1) + constrain_value(attitude_error_vector(2), -pi/4, pi/4) * gyro_z;
-    rate_target_ang_vel(2) =rate_target_ang_vel(2) - constrain_value(attitude_error_vector(1), -pi/4, pi/4) * gyro_z;
-
+%     rate_target_ang_vel(1) =rate_target_ang_vel(1) + constrain_value(attitude_error_vector(2), -pi/4, pi/4) * gyro_z;
+%     rate_target_ang_vel(2) =rate_target_ang_vel(2) - constrain_value(attitude_error_vector(1), -pi/4, pi/4) * gyro_z;
+        
+    % ensure angular velocity does not go over configured limits
     rate_target_ang_vel=ang_vel_limit(rate_target_ang_vel, radians(ang_vel_roll_max), radians(ang_vel_pitch_max), radians(ang_vel_yaw_max));
 
     % Add the angular velocity feedforward, rotated into vehicle frame
@@ -60,5 +65,19 @@ function attitude_controller_run_quat()
     end
     
        attitude_ang_error = quatmultiply(quatconj(attitude_vehicle_quat), attitude_target_quat);
+	   
+	
+   AC_Attitude.attitude_target_quat                   = attitude_target_quat;
+   AC_Attitude.attitude_target_ang_vel                = attitude_target_ang_vel;
+   AC_Attitude.thrust_error_angle                     = thrust_error_angle;
+   AC_Attitude.rate_target_ang_vel                    = rate_target_ang_vel;
+   AC_Attitude.ang_vel_roll_max                       = ang_vel_roll_max;
+   AC_Attitude.ang_vel_pitch_max                      = ang_vel_pitch_max;
+   AC_Attitude.ang_vel_yaw_max                        = ang_vel_yaw_max;
+   AC_Attitude.AC_ATTITUDE_THRUST_ERROR_ANGLE         = AC_ATTITUDE_THRUST_ERROR_ANGLE;
+   AC_Attitude.rate_bf_ff_enabled                     = rate_bf_ff_enabled;
+   AC_Attitude.attitude_ang_error                     = attitude_ang_error;
+   AC_Attitude.attitude_error_vector                  = attitude_error_vector; 
+	   
 end
 

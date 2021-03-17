@@ -1,20 +1,25 @@
 function  input_euler_angle_roll_pitch_euler_rate_yaw(  euler_roll_angle_cd,   euler_pitch_angle_cd,   euler_yaw_rate_cds)
 % Command an euler roll and pitch angle and an euler yaw rate with angular velocity feedforward and smoothing
-global attitude_target_quat
-global attitude_target_euler_angle
-global rate_bf_ff_enabled
-global accel_roll_max
-global accel_pitch_max
-global accel_yaw_max
-global attitude_target_euler_rate
+
 global dt
-global attitude_target_ang_vel
-global ang_vel_roll_max
-global ang_vel_pitch_max
-global ang_vel_yaw_max
-global input_tc
 global Test_w
 global AC_Attitude
+
+attitude_target_quat               = AC_Attitude.attitude_target_quat;
+attitude_target_euler_angle        = AC_Attitude.attitude_target_euler_angle;
+rate_bf_ff_enabled                 = AC_Attitude.rate_bf_ff_enabled;
+accel_roll_max                     = AC_Attitude.accel_roll_max;
+accel_pitch_max                    = AC_Attitude.accel_pitch_max;
+accel_yaw_max                      = AC_Attitude.accel_yaw_max;
+attitude_target_euler_rate         = AC_Attitude.attitude_target_euler_rate;
+attitude_target_ang_vel            = AC_Attitude.attitude_target_ang_vel;
+ang_vel_roll_max                   = AC_Attitude.ang_vel_roll_max;
+ang_vel_pitch_max                  = AC_Attitude.ang_vel_pitch_max;
+ang_vel_yaw_max                    = AC_Attitude.ang_vel_yaw_max;
+input_tc                           = AC_Attitude.input_tc;
+
+
+
 
      euler_roll_angle_cd  = euler_roll_angle_cd  + Test_w.roll_target;
      euler_pitch_angle_cd = euler_pitch_angle_cd + Test_w.pitch_target; 
@@ -64,6 +69,18 @@ global AC_Attitude
     end
     % Call quaternion attitude controller
     attitude_controller_run_quat();
- 
+    
+AC_Attitude.attitude_target_quat               = attitude_target_quat;
+AC_Attitude.attitude_target_euler_angle        = attitude_target_euler_angle;
+AC_Attitude.rate_bf_ff_enabled                 = rate_bf_ff_enabled;
+AC_Attitude.accel_roll_max                     = accel_roll_max;
+AC_Attitude.accel_pitch_max                    = accel_pitch_max;
+AC_Attitude.accel_yaw_max                      = accel_yaw_max;
+AC_Attitude.attitude_target_euler_rate         = attitude_target_euler_rate;
+AC_Attitude.attitude_target_ang_vel            = attitude_target_ang_vel;
+AC_Attitude.ang_vel_roll_max                   = ang_vel_roll_max;
+AC_Attitude.ang_vel_pitch_max                  = ang_vel_pitch_max;
+AC_Attitude.ang_vel_yaw_max                    = ang_vel_yaw_max;
+AC_Attitude.input_tc                           = input_tc; 
 end
 

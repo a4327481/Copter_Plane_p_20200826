@@ -1,17 +1,19 @@
 function rate_target_ang_velo = update_ang_vel_target_from_att_error(attitude_error_rot_vec_radin)
- 
-    global use_sqrt_controller  
-    global accel_roll_max
-    global accel_pitch_max
-    global accel_yaw_max
-    global p_angle_roll
-    global p_angle_pitch
-    global p_angle_yaw
-    global AC_ATTITUDE_ACCEL_RP_CONTROLLER_MIN_RADSS
-    global AC_ATTITUDE_ACCEL_RP_CONTROLLER_MAX_RADSS   
-    global AC_ATTITUDE_ACCEL_Y_CONTROLLER_MIN_RADSS
-    global AC_ATTITUDE_ACCEL_Y_CONTROLLER_MAX_RADSS
     global dt
+	global AC_Attitude
+	
+    use_sqrt_controller                                  = AC_Attitude.use_sqrt_controller;  
+    accel_roll_max                                       = AC_Attitude.accel_roll_max;
+    accel_pitch_max                                      = AC_Attitude.accel_pitch_max;
+    accel_yaw_max                                        = AC_Attitude.accel_yaw_max;
+    p_angle_roll                                         = AC_Attitude.p_angle_roll;
+    p_angle_pitch                                        = AC_Attitude.p_angle_pitch;
+    p_angle_yaw                                          = AC_Attitude.p_angle_yaw;
+    AC_ATTITUDE_ACCEL_RP_CONTROLLER_MIN_RADSS            = AC_Attitude.AC_ATTITUDE_ACCEL_RP_CONTROLLER_MIN_RADSS;
+    AC_ATTITUDE_ACCEL_RP_CONTROLLER_MAX_RADSS            = AC_Attitude.AC_ATTITUDE_ACCEL_RP_CONTROLLER_MAX_RADSS;
+    AC_ATTITUDE_ACCEL_Y_CONTROLLER_MIN_RADSS             = AC_Attitude.AC_ATTITUDE_ACCEL_Y_CONTROLLER_MIN_RADSS;
+    AC_ATTITUDE_ACCEL_Y_CONTROLLER_MAX_RADSS             = AC_Attitude.AC_ATTITUDE_ACCEL_Y_CONTROLLER_MAX_RADSS;
+	
     % Compute the roll angular velocity demand from the roll angle error
     attitude_error_rot_vec_rad.x=attitude_error_rot_vec_radin(1);
     attitude_error_rot_vec_rad.y=attitude_error_rot_vec_radin(2);
@@ -40,6 +42,16 @@ function rate_target_ang_velo = update_ang_vel_target_from_att_error(attitude_er
 %      todo: Add Angular Velocity Limit
 rate_target_ang_velo=[rate_target_ang_vel.x rate_target_ang_vel.y rate_target_ang_vel.z];
 
-
+    AC_Attitude.use_sqrt_controller                                  = use_sqrt_controller;  
+    AC_Attitude.accel_roll_max                                       = accel_roll_max;
+    AC_Attitude.accel_pitch_max                                      = accel_pitch_max;
+    AC_Attitude.accel_yaw_max                                        = accel_yaw_max;
+    AC_Attitude.p_angle_roll                                         = p_angle_roll;
+    AC_Attitude.p_angle_pitch                                        = p_angle_pitch;
+    AC_Attitude.p_angle_yaw                                          = p_angle_yaw;
+    AC_Attitude.AC_ATTITUDE_ACCEL_RP_CONTROLLER_MIN_RADSS            = AC_ATTITUDE_ACCEL_RP_CONTROLLER_MIN_RADSS;
+    AC_Attitude.AC_ATTITUDE_ACCEL_RP_CONTROLLER_MAX_RADSS            = AC_ATTITUDE_ACCEL_RP_CONTROLLER_MAX_RADSS;
+    AC_Attitude.AC_ATTITUDE_ACCEL_Y_CONTROLLER_MIN_RADSS             = AC_ATTITUDE_ACCEL_Y_CONTROLLER_MIN_RADSS;
+    AC_Attitude.AC_ATTITUDE_ACCEL_Y_CONTROLLER_MAX_RADSS             = AC_ATTITUDE_ACCEL_Y_CONTROLLER_MAX_RADSS;
 end
 

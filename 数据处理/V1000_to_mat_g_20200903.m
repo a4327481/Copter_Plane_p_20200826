@@ -1,3 +1,4 @@
+
 %V1000 to txt  
 % Display surf plot of the currently selected data.
 %mat 格式转换为画图
@@ -967,6 +968,135 @@ temp = reshape([data(find(mod(Count,2)==1),174:174)'],1,[]);
 mag_data_err_cnt_2=double(typecast(uint8(temp),'uint8')')/1*1.0000000000;
 TempName.mag_data_err_cnt_2 = mag_data_err_cnt_2; % create struct
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+BMS_10.time_bms10=save_time(1:16:end);
+temp = reshape([data(find(mod(Count,16)==0),289:289)'],1,[]);
+a1_voltage=double(typecast(uint8(temp),'uint8')')/1*1;
+BMS_10.a1_voltage = a1_voltage; % create struct
+temp = reshape([data(find(mod(Count,16)==0),290:290)'],1,[]);
+a1_temperature=double(typecast(uint8(temp),'uint8')')/1*1;
+BMS_10.a1_temperature = a1_temperature; % create struct
+temp = reshape([data(find(mod(Count,16)==0),291:292)'],1,[]);
+a1_current=double(typecast(uint8(temp),'int16')')/32768*150;
+BMS_10.a1_current = a1_current; % create struct
+temp = reshape([data(find(mod(Count,16)==0),295:296)'],1,[]);
+a1_capacity=double(typecast(uint8(temp),'int16')')/1*1.0000000000;
+BMS_10.a1_capacity = a1_capacity; % create struct
+temp = reshape([data(find(mod(Count,16)==1),289:289)'],1,[]);
+a2_voltage=double(typecast(uint8(temp),'uint8')')/1*1;
+BMS_10.a2_voltage = a2_voltage; % create struct
+temp = reshape([data(find(mod(Count,16)==1),290:290)'],1,[]);
+a2_temperature=double(typecast(uint8(temp),'uint8')')/1*1;
+BMS_10.a2_temperature = a2_temperature; % create struct
+temp = reshape([data(find(mod(Count,16)==1),291:292)'],1,[]);
+a2_current=double(typecast(uint8(temp),'int16')')/32768*150;
+BMS_10.a2_current = a2_current; % create struct
+temp = reshape([data(find(mod(Count,16)==1),295:296)'],1,[]);
+a2_capacity=double(typecast(uint8(temp),'int16')')/1*1.0000000000;
+BMS_10.a2_capacity = a2_capacity; % create struct
+temp = reshape([data(find(mod(Count,16)==2),289:289)'],1,[]);
+a3_voltage=double(typecast(uint8(temp),'uint8')')/1*1;
+BMS_10.a3_voltage = a3_voltage; % create struct
+temp = reshape([data(find(mod(Count,16)==2),290:290)'],1,[]);
+a3_temperature=double(typecast(uint8(temp),'uint8')')/1*1;
+BMS_10.a3_temperature = a3_temperature; % create struct
+temp = reshape([data(find(mod(Count,16)==2),291:292)'],1,[]);
+a3_current=double(typecast(uint8(temp),'int16')')/32768*150;
+BMS_10.a3_current = a3_current; % create struct
+temp = reshape([data(find(mod(Count,16)==2),295:296)'],1,[]);
+a3_capacity=double(typecast(uint8(temp),'int16')')/1*1.0000000000;
+BMS_10.a3_capacity = a3_capacity; % create struct
+temp = reshape([data(find(mod(Count,16)==3),289:289)'],1,[]);
+a4_voltage=double(typecast(uint8(temp),'uint8')')/1*1;
+BMS_10.a4_voltage = a4_voltage; % create struct
+temp = reshape([data(find(mod(Count,16)==3),290:290)'],1,[]);
+a4_temperature=double(typecast(uint8(temp),'uint8')')/1*1;
+BMS_10.a4_temperature = a4_temperature; % create struct
+temp = reshape([data(find(mod(Count,16)==3),291:292)'],1,[]);
+a4_current=double(typecast(uint8(temp),'int16')')/32768*150;
+BMS_10.a4_current = a4_current; % create struct
+temp = reshape([data(find(mod(Count,16)==3),295:296)'],1,[]);
+a4_capacity=double(typecast(uint8(temp),'int16')')/1*1.0000000000;
+BMS_10.a4_capacity = a4_capacity; % create struct
+temp = reshape([data(find(mod(Count,16)==4),289:289)'],1,[]);
+a5_voltage=double(typecast(uint8(temp),'uint8')')/1*1;
+BMS_10.a5_voltage = a5_voltage; % create struct
+temp = reshape([data(find(mod(Count,16)==4),290:290)'],1,[]);
+a5_temperature=double(typecast(uint8(temp),'uint8')')/1*1;
+BMS_10.a5_temperature = a5_temperature; % create struct
+temp = reshape([data(find(mod(Count,16)==4),291:292)'],1,[]);
+a5_current=double(typecast(uint8(temp),'int16')')/32768*150;
+BMS_10.a5_current = a5_current; % create struct
+temp = reshape([data(find(mod(Count,16)==4),295:296)'],1,[]);
+a5_capacity=double(typecast(uint8(temp),'int16')')/1*1.0000000000;
+BMS_10.a5_capacity = a5_capacity; % create struct
+temp = reshape([data(find(mod(Count,16)==5),289:289)'],1,[]);
+a6_voltage=double(typecast(uint8(temp),'uint8')')/1*1;
+BMS_10.a6_voltage = a6_voltage; % create struct
+temp = reshape([data(find(mod(Count,16)==5),290:290)'],1,[]);
+a6_temperature=double(typecast(uint8(temp),'uint8')')/1*1;
+BMS_10.a6_temperature = a6_temperature; % create struct
+temp = reshape([data(find(mod(Count,16)==5),291:292)'],1,[]);
+a6_current=double(typecast(uint8(temp),'int16')')/32768*150;
+BMS_10.a6_current = a6_current; % create struct
+temp = reshape([data(find(mod(Count,16)==5),295:296)'],1,[]);
+a6_capacity=double(typecast(uint8(temp),'int16')')/1*1.0000000000;
+BMS_10.a6_capacity = a6_capacity; % create struct
+temp = reshape([data(find(mod(Count,16)==6),289:289)'],1,[]);
+a7_voltage=double(typecast(uint8(temp),'uint8')')/1*1;
+BMS_10.a7_voltage = a7_voltage; % create struct
+temp = reshape([data(find(mod(Count,16)==6),290:290)'],1,[]);
+a7_temperature=double(typecast(uint8(temp),'uint8')')/1*1;
+BMS_10.a7_temperature = a7_temperature; % create struct
+temp = reshape([data(find(mod(Count,16)==6),291:292)'],1,[]);
+a7_current=double(typecast(uint8(temp),'int16')')/32768*150;
+BMS_10.a7_current = a7_current; % create struct
+temp = reshape([data(find(mod(Count,16)==6),295:296)'],1,[]);
+a7_capacity=double(typecast(uint8(temp),'int16')')/1*1.0000000000;
+BMS_10.a7_capacity = a7_capacity; % create struct
+temp = reshape([data(find(mod(Count,16)==7),289:289)'],1,[]);
+a8_voltage=double(typecast(uint8(temp),'uint8')')/1*1;
+BMS_10.a8_voltage = a8_voltage; % create struct
+temp = reshape([data(find(mod(Count,16)==7),290:290)'],1,[]);
+a8_temperature=double(typecast(uint8(temp),'uint8')')/1*1;
+BMS_10.a8_temperature = a8_temperature; % create struct
+temp = reshape([data(find(mod(Count,16)==7),291:292)'],1,[]);
+a8_current=double(typecast(uint8(temp),'int16')')/32768*150;
+BMS_10.a8_current = a8_current; % create struct
+temp = reshape([data(find(mod(Count,16)==7),295:296)'],1,[]);
+a8_capacity=double(typecast(uint8(temp),'int16')')/1*1.0000000000;
+BMS_10.a8_capacity = a8_capacity; % create struct
+temp = reshape([data(find(mod(Count,16)==8),289:289)'],1,[]);
+a9_voltage=double(typecast(uint8(temp),'uint8')')/1*1;
+BMS_10.a9_voltage = a9_voltage; % create struct
+temp = reshape([data(find(mod(Count,16)==8),290:290)'],1,[]);
+a9_temperature=double(typecast(uint8(temp),'uint8')')/1*1;
+BMS_10.a9_temperature = a9_temperature; % create struct
+temp = reshape([data(find(mod(Count,16)==8),291:292)'],1,[]);
+a9_current=double(typecast(uint8(temp),'int16')')/32768*150;
+BMS_10.a9_current = a9_current; % create struct
+temp = reshape([data(find(mod(Count,16)==8),295:296)'],1,[]);
+a9_capacity=double(typecast(uint8(temp),'int16')')/1*1.0000000000;
+BMS_10.a9_capacity = a9_capacity; % create struct
+temp = reshape([data(find(mod(Count,16)==9),289:289)'],1,[]);
+a10_voltage=double(typecast(uint8(temp),'uint8')')/1*1;
+BMS_10.a10_voltage = a10_voltage; % create struct
+temp = reshape([data(find(mod(Count,16)==9),290:290)'],1,[]);
+a10_temperature=double(typecast(uint8(temp),'uint8')')/1*1;
+BMS_10.a10_temperature = a10_temperature; % create struct
+temp = reshape([data(find(mod(Count,16)==9),291:292)'],1,[]);
+a10_current=double(typecast(uint8(temp),'int16')')/32768*150;
+BMS_10.a10_current = a10_current; % create struct
+temp = reshape([data(find(mod(Count,16)==9),295:296)'],1,[]);
+a10_capacity=double(typecast(uint8(temp),'int16')')/1*1.0000000000;
+BMS_10.a10_capacity = a10_capacity; % create struct
+
+
+
+% 	fprintf('output:		%s\n',parserData{i});
+% 	assignin('base',parserData{i},V10Log.(parserData{i}));
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         len=length(algo_yaw);
         algo_yaw1=algo_yaw;
@@ -1001,7 +1131,8 @@ TempName.mag_data_err_cnt_2 = mag_data_err_cnt_2; % create struct
         time_sl_task_flight=save_time(1:16:end);
         time_um482=save_time(1:4:end);
         time_count=save_time(1:2:end);
-               
+         time_bms10=save_time(1:16:end);
+              
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -1871,6 +2002,24 @@ fprintf(fid,head);
     fclose(fid); 
 save([PathName,'\\',FileName,'V1000_um482.dat'],'data_ck','-ascii','-append' )
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+parserData = fieldnames(BMS_10);
+data = [];
+for i=1:length(parserData)
+        data(:,i)=eval(parserData{i,1});        
+end
+        head=[parserData{1}];
+        for i=2:length(parserData)
+         head=[head ,' ',parserData{i}];
+        end 
+        head=[head ,'\n'];
+        
+        data_ck=data(:,1:i);
+fid=fopen([PathName,'\\',FileName,'V1000_BMS10.dat'],'w');
+fprintf(fid,head);  
+fclose(fid); 
+save([PathName,'\\',FileName,'V1000_BMS10.dat'],'data_ck','-ascii','-append' )
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % data_17 = [];
 % for i=1:length(data_count)
 %         data_17(:,i)=eval(data_count{i,1});        
