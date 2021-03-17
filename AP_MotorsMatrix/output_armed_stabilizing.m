@@ -42,22 +42,28 @@ function output_armed_stabilizing()
     yaw_thrust = yaw_in * compensation_gain;
     throttle_thrust = throttle_filter * compensation_gain;
     throttle_avg_maxi = throttle_avg_max * compensation_gain;
-    throttle_thrust_max = thrust_boost_ratio + (1.0 - thrust_boost_ratio) * throttle_thrust_max;
+    
+     % If thrust boost is active then do not limit maximum thrust
+    throttle_thrust_max = thrust_boost_ratio + (1.0 - thrust_boost_ratio) * throttle_thrust_max * compensation_gain;
+    
     throttle_lower=0;
     % sanity check throttle is above zero and below current limited throttle
     if (throttle_thrust <= 0.0)  
         throttle_thrust = 0.0;
-        throttle_lower = 1;
+        throttle_lower = true;
     end
     throttle_upper=0;
     if (throttle_thrust >= throttle_thrust_max)  
         throttle_thrust = throttle_thrust_max;
-        throttle_upper = 1;
+        throttle_upper = true;
     end
     
     % ensure that throttle_avg_max is between the input throttle and the maximum throttle
     throttle_avg_maxi = constrain_value(throttle_avg_maxi, throttle_thrust, throttle_thrust_max);
-
+   
+    % calculate the highest allowed average thrust that will provide maximum control range
+    throttle_thrust_best_rpy = min(0.5, throttle_avg_max);
+  
     % calculate throttle that gives most possible room for yaw which is the lower of:
     %      1. 0.5f - (rpy_low+rpy_high)/2.0 - this would give the maximum possible margin above the highest motor and below the lowest
     %      2. the higher of:
@@ -85,9 +91,7 @@ function output_armed_stabilizing()
      rp_high = -1.0;  % highest thrust value
     for i=1:4 
              % calculate the thrust outputs for roll and pitch
-            thrust_rpyt_out(i) = roll_thrust * roll_factor(i) + pitch_thrust * (pitch_factor(i)+ abs(pitch_factor(i))*Kx*0);
-            
-            
+            thrust_rpyt_out(i) = roll_thrust * roll_factor(i) + pitch_thrust * (pitch_factor(i));         
             % record lowest roll+pitch command
             if (thrust_rpyt_out(i) < rp_low)  
                 rp_low = thrust_rpyt_out(i);
@@ -96,26 +100,55 @@ function output_armed_stabilizing()
             if (thrust_rpyt_out(i) > rp_high && (~thrust_boost ))  
                 rp_high = thrust_rpyt_out(i);
             end
+            
+            % Check the maximum yaw control that can be used on this channel
+            % Exclude any lost motors if thrust boost is enabled
+            if ((yaw_factor(i)~=0) && (~thrust_boost ))
+                if (yaw_thrust * yaw_factor(i)>0)
+                    yaw_allowed = min(yaw_allowed, abs(max(1.0 - (throttle_thrust_best_rpy + thrust_rpyt_out(i)), 0.0)/yaw_factor(i)));
+                 else 
+                    yaw_allowed = min(yaw_allowed, abs(max(throttle_thrust_best_rpy + thrust_rpyt_out(i), 0.0)/yaw_factor(i)));
+                end
+            end          
     end
   
-%     % include the lost motor scaled by _thrust_boost_ratio
-%     if (_thrust_boost && motor_enabled[_motor_lost_index])  
-%         % record highest roll+pitch command
-%         if (_thrust_rpyt_out[_motor_lost_index] > rp_high)  
-%             rp_high = _thrust_boost_ratio*rp_high + (1.0f-_thrust_boost_ratio)*_thrust_rpyt_out[_motor_lost_index];
-%         end    
-%     end
-     
 
-    % check for roll and pitch saturation
-    if (rp_high-rp_low > 1.0 || throttle_avg_maxi < -rp_low)  
-        % Full range is being used by roll and pitch.
-        limit_roll_pitch = 1;
-    end
+    % calculate the maximum yaw control that can be used
+    % todo: make _yaw_headroom 0 to 1
+     yaw_allowed_min = yaw_headroom / 1000.0;
 
-    % calculate the highest allowed average thrust that will provide maximum control range
-    throttle_thrust_best_rpy = min(0.5, throttle_avg_maxi);
+    % increase yaw headroom to 50% if thrust boost enabled
+    yaw_allowed_min = thrust_boost_ratio * 0.5 + (1.0 - thrust_boost_ratio) * yaw_allowed_min;
 
+    % Let yaw access minimum amount of head room
+    yaw_allowed = max(yaw_allowed, yaw_allowed_min);
+
+    % Include the lost motor scaled by _thrust_boost_ratio to smoothly transition this motor in and out of the calculation
+    if (_thrust_boost && motor_enabled[_motor_lost_index]) {
+        % record highest roll + pitch command
+        if (_thrust_rpyt_out[_motor_lost_index] > rp_high) {
+            rp_high = _thrust_boost_ratio * rp_high + (1.0f - _thrust_boost_ratio) * _thrust_rpyt_out[_motor_lost_index];
+        }
+
+        % Check the maximum yaw control that can be used on this channel
+        % Exclude any lost motors if thrust boost is enabled
+        if (!is_zero(_yaw_factor[_motor_lost_index])){
+            if (is_positive(yaw_thrust * _yaw_factor[_motor_lost_index])) {
+                yaw_allowed = _thrust_boost_ratio * yaw_allowed + (1.0f - _thrust_boost_ratio) * MIN(yaw_allowed, fabsf(MAX(1.0f - (throttle_thrust_best_rpy + _thrust_rpyt_out[_motor_lost_index]), 0.0f)/_yaw_factor[_motor_lost_index]));
+            } else {
+                yaw_allowed = _thrust_boost_ratio * yaw_allowed + (1.0f - _thrust_boost_ratio) * MIN(yaw_allowed, fabsf(MAX(throttle_thrust_best_rpy + _thrust_rpyt_out[_motor_lost_index], 0.0f)/_yaw_factor[_motor_lost_index]));
+            }
+        }
+    }
+
+    if (fabsf(yaw_thrust) > yaw_allowed) {
+        % not all commanded yaw can be used
+        yaw_thrust = constrain_float(yaw_thrust, -yaw_allowed, yaw_allowed);
+        limit.yaw = true;
+    }
+
+    
+    
     % calculate the maximum yaw control that can be used
     % todo: make _yaw_headroom 0 to 1
     yaw_allowed = yaw_headroom / 1000.0;

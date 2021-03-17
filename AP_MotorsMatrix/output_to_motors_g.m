@@ -15,8 +15,8 @@ switch (spool_state)
     case {SpoolState.SPOOLING_UP,SpoolState.THROTTLE_UNLIMITED,SpoolState.SPOOLING_DOWN}
         % set motor output based on thrust requests
         for i=1:4
-%             actuator(i)=set_actuator_with_slew(actuator(i), thrust_to_actuator(thrust_rpyt_out(i)));
-             actuator(i)=set_actuator_with_slew(actuator(i), (thrust_rpyt_out(i)));
+             actuator(i)=set_actuator_with_slew(actuator(i), thrust_to_actuator(thrust_rpyt_out(i)));
+%              actuator(i)=set_actuator_with_slew(actuator(i), (thrust_rpyt_out(i)));
 
         end
 end
