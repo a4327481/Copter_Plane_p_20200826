@@ -1,11 +1,16 @@
 function  output_to_motors_plane_4a1()
-global k_throttle
-global pwm_max
-global pwm_min
-global pwm_out
-global pwm_tail
-global thrust_slew_time
+
 global dt
+global AP_Motors
+
+global SRV_Channel
+k_throttle     = SRV_Channel.k_throttle;
+
+pwm_max                  = AP_Motors.pwm_max;
+pwm_min                  = AP_Motors.pwm_min;
+pwm_out                  = AP_Motors.pwm_out;
+pwm_tail                 = AP_Motors.pwm_tail;
+thrust_slew_time         = AP_Motors.thrust_slew_time;
 % global mode
 
     % convert output to PWM and send to each motor
@@ -25,3 +30,10 @@ global dt
         pwm_out(i)=constrain_value(pwm_out_temp,pwm_out(i)-thrust_dt,pwm_out(i)+thrust_dt);
         pwm_out(i)=constrain_value(pwm_out(i),pwm_min,pwm_max);
     end
+AP_Motors.pwm_max                  = pwm_max;
+AP_Motors.pwm_min                  = pwm_min;
+AP_Motors.pwm_out                  = pwm_out;
+AP_Motors.pwm_tail                 = pwm_tail;
+AP_Motors.thrust_slew_time         = thrust_slew_time;
+
+end

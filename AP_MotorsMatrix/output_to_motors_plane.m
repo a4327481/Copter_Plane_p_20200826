@@ -1,8 +1,10 @@
 function  output_to_motors_plane()
-global pwm_max
-global pwm_min
-global thrust_slew_time
 global dt
+
+
+pwm_max                        = AP_Motors.pwm_max;
+pwm_min                        = AP_Motors.pwm_min;
+thrust_slew_time               = AP_Motors.thrust_slew_time;
 
 global SRV_Channel
 k_throttle     = SRV_Channel.k_throttle;
@@ -24,6 +26,8 @@ tail_tilt      = SRV_Channel.tail_tilt;
     
     
     SRV_Channel.tail_tilt        =tail_tilt;
-
+AP_Motors.pwm_max                        = pwm_max;
+AP_Motors.pwm_min                        = pwm_min;
+AP_Motors.thrust_slew_time               = thrust_slew_time;
     
 end

@@ -1,7 +1,11 @@
 function normalise_rpy_factors()
-global roll_factor  
-global pitch_factor
-global yaw_factor
+
+global AP_Motors
+
+roll_factor                 = AP_Motors.roll_factor; 
+pitch_factor                = AP_Motors.pitch_factor;
+yaw_factor                  = AP_Motors.yaw_factor;
+
     % find maximum roll, pitch and yaw factors
     for i=1:4  
             if (roll_fac < abs(roll_factor(i)))  
@@ -26,5 +30,12 @@ global yaw_factor
             yaw_factor(i)   = 0.5 * yaw_factor(i) / yaw_fac;
         end     
     end 
+	
+	
+AP_Motors.roll_factor                 = roll_factor; 
+AP_Motors.pitch_factor                = pitch_factor;
+AP_Motors.yaw_factor                  = yaw_factor;
+	
+	
 end
 

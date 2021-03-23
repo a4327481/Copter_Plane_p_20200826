@@ -1,14 +1,19 @@
 function  output_to_motors()
-global thrust_rpyt_out
-global pwm_max
-global pwm_min
-global pwm_out
-global thrust_slew_time
+global AP_Motors
+
 global dt
-global tail_tilt
-global p_tail_tilt
 global mode
-global tail_tilt_c2p
+
+thrust_rpyt_out           = AP_Motors.thrust_rpyt_out;
+pwm_max                   = AP_Motors.pwm_max;
+pwm_min                   = AP_Motors.pwm_min;
+pwm_out                   = AP_Motors.pwm_out;
+thrust_slew_time          = AP_Motors.thrust_slew_time;
+tail_tilt                 = AP_Motors.tail_tilt;
+p_tail_tilt               = AP_Motors.p_tail_tilt;
+tail_tilt_c2p             = AP_Motors.tail_tilt_c2p;
+
+
     % convert output to PWM and send to each motor
     thrust_dt=(pwm_max-pwm_min)*dt/thrust_slew_time;
     
@@ -27,3 +32,15 @@ end
         pwm_out(i)=constrain_value(pwm_out_temp,pwm_out(i)-thrust_dt,pwm_out(i)+thrust_dt);
         pwm_out(i)=constrain_value(pwm_out(i),pwm_min,pwm_max);
     end
+	
+AP_Motors.thrust_rpyt_out           = thrust_rpyt_out;
+AP_Motors.pwm_max                   = pwm_max;
+AP_Motors.pwm_min                   = pwm_min;
+AP_Motors.pwm_out                   = pwm_out;
+AP_Motors.thrust_slew_time          = thrust_slew_time;
+AP_Motors.tail_tilt                 = tail_tilt;
+AP_Motors.p_tail_tilt               = p_tail_tilt;
+AP_Motors.tail_tilt_c2p             = tail_tilt_c2p;
+
+    
+end

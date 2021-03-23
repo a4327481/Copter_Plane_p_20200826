@@ -1,8 +1,11 @@
 function  output_to_motors_g()
-global actuator
-global spool_state
-global thrust_rpyt_out
-global pwm_out
+global AP_Motors
+
+actuator                     = AP_Motors.actuator;
+spool_state                  = AP_Motors.spool_state;
+thrust_rpyt_out              = AP_Motors.thrust_rpyt_out;
+pwm_out                      = AP_Motors.pwm_out;
+
 switch (spool_state)
     case SpoolState.SHUT_DOWN
         % no output
@@ -24,6 +27,11 @@ end
 for i=1:4
     pwm_out(i)=output_to_pwm(actuator(i));
 end
+
+AP_Motors.actuator                     = actuator;
+AP_Motors.spool_state                  = spool_state;
+AP_Motors.thrust_rpyt_out              = thrust_rpyt_out;
+AP_Motors.pwm_out                      = pwm_out;
 
 end
 

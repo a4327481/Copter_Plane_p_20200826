@@ -1,10 +1,4 @@
 function check_for_failed_motor( throttle_thrust_best_plus_adj)
-global dt
-global thrust_rpyt_out_filt
-global motor_lost_index
-global thrust_boost
-global thrust_balanced
-%UNTITLED 此处显示有关此函数的摘要
 % check for failed motor
 %   should be run immediately after output_armed_stabilizing
 %   first argument is the sum of:
@@ -13,6 +7,15 @@ global thrust_balanced
 %   records filtered motor output values in _thrust_rpyt_out_filt array
 %   sets thrust_balanced to true if motors are balanced, false if a motor failure is detected
 %   sets _motor_lost_index to index of failed motor
+
+global dt
+global AP_Motors
+
+thrust_rpyt_out_filt              = AP_Motors.thrust_rpyt_out_filt;
+motor_lost_index                  = AP_Motors.motor_lost_index;
+thrust_boost                      = AP_Motors.thrust_boost;
+thrust_balanced                   = AP_Motors.thrust_balanced;
+
 
  
     % record filtered and scaled thrust output for motor loss monitoring purposes
@@ -53,6 +56,12 @@ global thrust_balanced
     if ((throttle_thrust_max * get_compensation_gain() > throttle_thrust_best_plus_adj) && (rpyt_high < 0.9) && thrust_balanced)  
         thrust_boost = false;
     end
+	
+	
+AP_Motors.thrust_rpyt_out_filt              = thrust_rpyt_out_filt;
+AP_Motors.motor_lost_index                  = motor_lost_index;
+AP_Motors.thrust_boost                      = thrust_boost;
+AP_Motors.thrust_balanced                   = thrust_balanced;
      
 end
 
