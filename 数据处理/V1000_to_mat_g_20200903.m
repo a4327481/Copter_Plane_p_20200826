@@ -1285,8 +1285,24 @@ BMS_10.a10_capacity = a10_capacity; % create struct
         'Voltage';
         'Now_Current';
         'Average_Current';
-  };
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        };
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    load('thr_Ao.mat')
+    len=length(time_algo);
+    algo_pwm_out_1A=zeros(len,1);
+    algo_pwm_out_2A=zeros(len,1);
+    algo_pwm_out_3A=zeros(len,1);
+    algo_pwm_out_4A=zeros(len,1);
+    
+    for i=1:len
+        algo_pwm_out_1A(i)=interp1(V10001S0o(:,1),V10001S0o(:,2),(algo_pwm_out_1(i)-1000)/10,'spline');
+        algo_pwm_out_3A(i)=interp1(V10001S1o(:,1),V10001S1o(:,2),(algo_pwm_out_3(i)-1000)/10,'spline');
+        algo_pwm_out_2A(i)=interp1(V10001S2o(:,1),V10001S2o(:,2),(algo_pwm_out_2(i)-1000)/10,'spline');
+        algo_pwm_out_4A(i)=interp1(V10001S3o(:,1),V10001S3o(:,2),(algo_pwm_out_4(i)-1000)/10,'spline');
+    end
+    algo_pwm_out_A=algo_pwm_out_1A+algo_pwm_out_2A+algo_pwm_out_3A+algo_pwm_out_4A;    
+        
+        
         %algo
         data_ck_txt={ 
         'time_algo'
@@ -1402,6 +1418,11 @@ BMS_10.a10_capacity = a10_capacity; % create struct
         'algo_pos_error_0';
         'algo_pos_error_1';
         'algo_pos_error_2';
+        'algo_pwm_out_1A';
+        'algo_pwm_out_2A';
+        'algo_pwm_out_3A';
+        'algo_pwm_out_4A';
+        'algo_pwm_out_A';
        };
    
    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2018,6 +2039,11 @@ fid=fopen([PathName,'\\',FileName,'V1000_BMS10.dat'],'w');
 fprintf(fid,head);  
 fclose(fid); 
 save([PathName,'\\',FileName,'V1000_BMS10.dat'],'data_ck','-ascii','-append' )
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % data_17 = [];
@@ -2053,3 +2079,4 @@ function d=binDecode(a,h,b,c)
         d=(e.*(g-65536)+f.*(g))/32768*c;
     end
 end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
