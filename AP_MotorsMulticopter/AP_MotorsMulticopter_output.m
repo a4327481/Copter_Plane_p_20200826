@@ -18,9 +18,9 @@ output_armed_stabilizing();
 % convert rpy_thrust values to pwm
 output_to_motors();
 
-% output any booster throttle
+%% output any booster throttle
 % output_boost_throttle();
-% output raw roll/pitch/yaw/thrust
+%% output raw roll/pitch/yaw/thrust
 % output_rpyt();
 end
 

@@ -1,8 +1,14 @@
 function update_throttle_rpy_mix()
-global throttle_rpy_mix
-global throttle_rpy_mix_desired
+% update_throttle_rpy_mix - slew set_throttle_rpy_mix to requested value
+
 global dt
-global AC_ATTITUDE_CONTROL_MAX
+global AP_Motors
+
+throttle_rpy_mix                 = AP_Motors.throttle_rpy_mix;
+throttle_rpy_mix_desired         = AP_Motors.throttle_rpy_mix_desired;
+AC_ATTITUDE_CONTROL_MAX          = AP_Motors.AC_ATTITUDE_CONTROL_MAX;
+
+
     % slew _throttle_rpy_mix to _throttle_rpy_mix_desired
     if (throttle_rpy_mix < throttle_rpy_mix_desired)  
         % increase quickly (i.e. from 0.1 to 0.9 in 0.4 seconds)
@@ -12,6 +18,10 @@ global AC_ATTITUDE_CONTROL_MAX
         throttle_rpy_mix=throttle_rpy_mix - min(0.5 * dt, throttle_rpy_mix - throttle_rpy_mix_desired);
     end
     throttle_rpy_mix = constrain_value(throttle_rpy_mix, 0.1, AC_ATTITUDE_CONTROL_MAX);
+ 
+AP_Motors.throttle_rpy_mix                 = throttle_rpy_mix;
+AP_Motors.throttle_rpy_mix_desired         = throttle_rpy_mix_desired;
+AP_Motors.AC_ATTITUDE_CONTROL_MAX          = AC_ATTITUDE_CONTROL_MAX;
  
 end
 

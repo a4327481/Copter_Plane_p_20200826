@@ -1,14 +1,17 @@
 function update_lift_max_from_batt_voltage()
     % sanity check battery_voltage_min is not too small
     % if disabled or misconfigured exit immediately
- global batt_voltage_resting_estimate 
- global batt_voltage_max
- global batt_voltage_min
- global batt_voltage_filt
- global lift_max
- global loop_rate
- global thrust_curve_expo
+	
+ global AP_Motors	
  global dt
+
+ batt_voltage_resting_estimate              = AP_Motors.batt_voltage_resting_estimate;
+ batt_voltage_max                           = AP_Motors.batt_voltage_max;
+ batt_voltage_min                           = AP_Motors.batt_voltage_min;
+ batt_voltage_filt                          = AP_Motors.batt_voltage_filt;
+ lift_max                                   = AP_Motors.lift_max;
+ thrust_curve_expo                          = AP_Motors.thrust_curve_expo;
+ 
     if ((batt_voltage_max <= 0) || (batt_voltage_min >= batt_voltage_max) || (batt_voltage_resting_estimate < 0.25 * batt_voltage_min))  
         batt_voltage_filt=1;
         lift_max = 1.0;
@@ -30,6 +33,12 @@ function update_lift_max_from_batt_voltage()
       thrust_curve_expot = constrain_value (thrust_curve_expo, -1.0, 1.0);
     lift_max = batt_voltage_filt * (1 - thrust_curve_expot) + thrust_curve_expot * batt_voltage_filt * batt_voltage_filt;
  
+AP_Motors. batt_voltage_resting_estimate              = batt_voltage_resting_estimate;
+AP_Motors. batt_voltage_max                           = batt_voltage_max;
+AP_Motors. batt_voltage_min                           = batt_voltage_min;
+AP_Motors. batt_voltage_filt                          = batt_voltage_filt;
+AP_Motors. lift_max                                   = lift_max;
+AP_Motors. thrust_curve_expo                          = thrust_curve_expo;
 
 end
 

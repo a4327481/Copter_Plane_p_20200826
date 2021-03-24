@@ -1,8 +1,12 @@
 function  set_throttle_out(  throttle_ini,   apply_angle_boost,   filter_cutoff)
- global throttle_in
- global angle_boost
- global throttle_avg_max
- global throttle_cutoff_frequency
+
+global AP_Motors
+
+ throttle_in                        = AP_Motors.throttle_in;
+ angle_boost                        = AP_Motors.angle_boost;
+ throttle_avg_max                   = AP_Motors.throttle_avg_max;
+ throttle_cutoff_frequency          = AP_Motors.throttle_cutoff_frequency;
+ 
 %     throttle_in = throttle_ini;
     update_althold_lean_angle_max(throttle_ini);
     throttle_cutoff_frequency=filter_cutoff;
@@ -16,6 +20,12 @@ function  set_throttle_out(  throttle_ini,   apply_angle_boost,   filter_cutoff)
 %     set_throttle(throttle_ini);
     throttle_in = throttle_ini;
     throttle_avg_max=constrain_value(get_throttle_avg_max(max(throttle_ini, throttle_in)),0,1);
+ 
+ AP_Motors.throttle_in                        = throttle_in;
+ AP_Motors.angle_boost                        = angle_boost;
+ AP_Motors.throttle_avg_max                   = throttle_avg_max;
+ AP_Motors.throttle_cutoff_frequency          = throttle_cutoff_frequency;
+ 
  
 end
 

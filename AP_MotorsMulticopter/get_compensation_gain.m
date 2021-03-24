@@ -1,5 +1,8 @@
 function    ret=get_compensation_gain() 
-global air_density_ratio
+ global AP_Motors	
+
+ air_density_ratio  =AP_Motors.air_density_ratio;
+
     % avoid divide by zero 
     ret=1;
      % air density ratio is increasing in density / decreasing in altitude

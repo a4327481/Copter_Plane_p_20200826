@@ -1,21 +1,26 @@
 function  output_logic()
-global disarm_disable_pwm
-global armed
-global disarm_safe_timer
-global safe_time
-global spool_desired
-global spool_state
-global spool_up_time
-global limit
-global spin_up_ratio
-global throttle_thrust_max
-global thrust_boost
-global thrust_boost_ratio
-global spin_arm
-global spin_min
-global throttle_filter
-global thrust_balanced
+
 global dt
+global armed
+global AP_Motors
+
+
+disarm_disable_pwm               = AP_Motors.disarm_disable_pwm;
+disarm_safe_timer                = AP_Motors.disarm_safe_timer;
+safe_time                        = AP_Motors.safe_time;
+spool_desired                    = AP_Motors.spool_desired;
+spool_state                      = AP_Motors.spool_state;
+spool_up_time                    = AP_Motors.spool_up_time;
+limit                            = AP_Motors.limit;
+spin_up_ratio                    = AP_Motors.spin_up_ratio;
+throttle_thrust_max              = AP_Motors.throttle_thrust_max;
+thrust_boost                     = AP_Motors.thrust_boost;
+thrust_boost_ratio               = AP_Motors.thrust_boost_ratio;
+spin_arm                         = AP_Motors.spin_arm;
+spin_min                         = AP_Motors.spin_min;
+throttle_filter                  = AP_Motors.throttle_filter;
+thrust_balanced                  = AP_Motors.thrust_balanced;
+
     if (armed) 
         if (disarm_disable_pwm && (disarm_safe_timer < safe_time)) 
             disarm_safe_timer=disarm_safe_timer + dt;
@@ -189,6 +194,23 @@ global dt
         end 
         thrust_boost_ratio = max(0.0, thrust_boost_ratio - 1.0 / (spool_up_time * (1/dt)));
     end
+
+AP_Motors.disarm_disable_pwm               = disarm_disable_pwm;
+AP_Motors.disarm_safe_timer                = disarm_safe_timer;
+AP_Motors.safe_time                        = safe_time;
+AP_Motors.spool_desired                    = spool_desired;
+AP_Motors.spool_state                      = spool_state;
+AP_Motors.spool_up_time                    = spool_up_time;
+AP_Motors.limit                            = limit;
+AP_Motors.spin_up_ratio                    = spin_up_ratio;
+AP_Motors.throttle_thrust_max              = throttle_thrust_max;
+AP_Motors.thrust_boost                     = thrust_boost;
+AP_Motors.thrust_boost_ratio               = thrust_boost_ratio;
+AP_Motors.spin_arm                         = spin_arm;
+AP_Motors.spin_min                         = spin_min;
+AP_Motors.throttle_filter                  = throttle_filter;
+AP_Motors.thrust_balanced                  = thrust_balanced;
+
 
 end
 

@@ -1,9 +1,11 @@
 function  pwm_output=output_to_pwm(  actuator)
-global spool_state
-global disarm_disable_pwm
-global armed
-global pwm_min
-global pwm_max
+ global AP_Motors	
+ 
+spool_state                    = AP_Motors.spool_state;
+disarm_disable_pwm             = AP_Motors.disarm_disable_pwm;
+armed                          = AP_Motors.armed;
+pwm_min                        = AP_Motors.pwm_min;
+pwm_max                        = AP_Motors.pwm_max;
 
 if (spool_state == SpoolState.SHUT_DOWN)
     % in shutdown mode, use PWM 0 or minimum PWM
@@ -16,5 +18,11 @@ else
     % in all other spool modes, covert to desired PWM
     pwm_output = pwm_min + (pwm_max - pwm_min) * actuator;
 end
+AP_Motors.spool_state                    = spool_state;
+AP_Motors.disarm_disable_pwm             = disarm_disable_pwm;
+AP_Motors.armed                          = armed;
+AP_Motors.pwm_min                        = pwm_min;
+AP_Motors.pwm_max                        = pwm_max;
+
 end
 

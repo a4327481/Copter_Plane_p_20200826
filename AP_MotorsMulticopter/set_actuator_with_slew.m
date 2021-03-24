@@ -1,8 +1,11 @@
 function actuator_output_o=set_actuator_with_slew(   actuator_output,input)
-global slew_up_time
-global slew_dn_time
+%  adds slew rate limiting to actuator output   
 global dt
-%  adds slew rate limiting to actuator output     
+global AP_Motors	
+ 
+slew_up_time          = AP_Motors.slew_up_time;
+slew_dn_time          = AP_Motors.slew_dn_time;
+ 
 %     If MOT_SLEW_UP_TIME is 0 (default), no slew limit is applied to increasing output.
 %     If MOT_SLEW_DN_TIME is 0 (default), no slew limit is applied to decreasing output.
 %     MOT_SLEW_UP_TIME and MOT_SLEW_DN_TIME are constrained to 0.0~0.5 for sanity.
@@ -28,6 +31,7 @@ global dt
 %      Constrain change in output to within the above limits
     actuator_output_o = constrain_value(input, output_slew_limit_dn, output_slew_limit_up);
  
-
+AP_Motors.slew_up_time          = slew_up_time;
+AP_Motors.slew_dn_time          = slew_dn_time;
 end
 

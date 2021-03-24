@@ -1,17 +1,20 @@
 function update_throttle_mix()
 global armed
 global HD
-global throttle_rpy_mix_desired
-global thr_mix_min
+global z_accel_meas
+global vel_z_control_ratio
+global vel_desired
 global attitude_target_euler_angle
 global thrust_error_angle
-global LAND_CHECK_LARGE_ANGLE_CD
-global LAND_CHECK_ANGLE_ERROR_DEG
-global LAND_CHECK_ACCEL_MOVING
-global z_accel_meas
-global land_accel_ef_filter
-global vel_desired
-global vel_z_control_ratio
+
+global AP_Motors
+
+throttle_rpy_mix_desired                  = AP_Motors.throttle_rpy_mix_desired;
+thr_mix_min                               = AP_Motors.thr_mix_min;
+LAND_CHECK_LARGE_ANGLE_CD                 = AP_Motors.LAND_CHECK_LARGE_ANGLE_CD;
+LAND_CHECK_ANGLE_ERROR_DEG                = AP_Motors.LAND_CHECK_ANGLE_ERROR_DEG;
+LAND_CHECK_ACCEL_MOVING                   = AP_Motors.LAND_CHECK_ACCEL_MOVING;
+land_accel_ef_filter                      = AP_Motors.land_accel_ef_filter;
  
      % if disarmed or landed prioritise throttle
     if (~armed) 
@@ -53,7 +56,13 @@ global vel_z_control_ratio
          else 
             throttle_rpy_mix_desired = thr_mix_min;
         end
-    
+
+AP_Motors.throttle_rpy_mix_desired                  = throttle_rpy_mix_desired;
+AP_Motors.thr_mix_min                               = thr_mix_min;
+AP_Motors.LAND_CHECK_LARGE_ANGLE_CD                 = LAND_CHECK_LARGE_ANGLE_CD;
+AP_Motors.LAND_CHECK_ANGLE_ERROR_DEG                = LAND_CHECK_ANGLE_ERROR_DEG;
+AP_Motors.LAND_CHECK_ACCEL_MOVING                   = LAND_CHECK_ACCEL_MOVING;
+AP_Motors.land_accel_ef_filter                      = land_accel_ef_filter;   
  
 end
 

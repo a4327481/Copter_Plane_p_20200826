@@ -1,6 +1,6 @@
 function  output_to_motors_plane()
 global dt
-
+global AP_Motors
 
 pwm_max                        = AP_Motors.pwm_max;
 pwm_min                        = AP_Motors.pwm_min;

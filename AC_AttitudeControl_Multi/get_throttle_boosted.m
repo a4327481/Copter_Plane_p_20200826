@@ -1,10 +1,14 @@
 function     throttle_boosted=get_throttle_boosted(  throttle_in)
 % returns a throttle including compensation for roll/pitch angle
 % throttle value should be 0 ~ 1
- global angle_boost_enabled
- global angle_boost
+global AP_Motors
+
+ angle_boost_enabled          = AP_Motors.angle_boost_enabled;
+ angle_boost                  = AP_Motors.angle_boost;
+ 
  global pitch
  global roll
+ 
     if (~angle_boost_enabled)  
         angle_boost = 0;
         throttle_boosted=throttle_in;
@@ -22,6 +26,9 @@ function     throttle_boosted=get_throttle_boosted(  throttle_in)
 %     throttle_out = throttle_in  * 1.0 / constrain_value(cos_tilt, 0.83, 1.0);
     angle_boost = constrain_value(throttle_out - throttle_in, -1.0, 1.0);
     throttle_boosted= throttle_out;
- 
+	
+ AP_Motors.angle_boost_enabled          = angle_boost_enabled;
+ AP_Motors.angle_boost                  = angle_boost;
+
 end
 
