@@ -8,7 +8,7 @@ global AC_PosControl
 aerodynamic_load_factor               = Plane.aerodynamic_load_factor;
 roll_target                           = AC_PosControl.roll_target;
 pitch_target                          = AC_PosControl.pitch_target;
-
+target_yaw_rate                       = AC_PosControl.target_yaw_rate;
 
 global aerodynamic_load_factor
 global roll_target
