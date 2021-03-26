@@ -12,15 +12,17 @@ global POSCONTROL_JERK_RATIO
 global accel_last_z_cms
 global use_desvel_ff_z
 global POSCONTROL_OVERSPEED_GAIN_Z
-global throttle_lower
-% global force_descend
-global throttle_upper
+
 global AC_PosControl
+global AP_Motors
+
 speed_up_cms            = AC_PosControl.speed_up_cms;
 speed_down_cms          = AC_PosControl.speed_down_cms;    
 vel_desired             = AC_PosControl.vel_desired;
 pos_target              = AC_PosControl.pos_target;
 limit_pos_up            = AC_PosControl.limit_pos_up;
+throttle_lower          = AP_Motors.throttle_lower;
+throttle_upper          = AP_Motors.throttle_upper;
 
     % calculated increased maximum acceleration if over speed
       accel_z_cms = AC_PosControl.accel_z_cms;
@@ -59,5 +61,7 @@ limit_pos_up            = AC_PosControl.limit_pos_up;
     
   AC_PosControl.vel_desired   = vel_desired; 
   AC_PosControl.pos_target    = pos_target ;
+  AP_Motors.throttle_lower    = throttle_lower;
+  AP_Motors.throttle_upper    = throttle_upper;
 end
 

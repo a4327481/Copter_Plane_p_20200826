@@ -1,10 +1,11 @@
 function  output_to_motors_g()
 global AP_Motors
+global SRV_Channel
 
 actuator                     = AP_Motors.actuator;
 spool_state                  = AP_Motors.spool_state;
 thrust_rpyt_out              = AP_Motors.thrust_rpyt_out;
-pwm_out                      = AP_Motors.pwm_out;
+pwm_out                      = SRV_Channel.pwm_out;
 
 switch (spool_state)
     case SpoolState.SHUT_DOWN
@@ -31,7 +32,7 @@ end
 AP_Motors.actuator                     = actuator;
 AP_Motors.spool_state                  = spool_state;
 AP_Motors.thrust_rpyt_out              = thrust_rpyt_out;
-AP_Motors.pwm_out                      = pwm_out;
+SRV_Channel.pwm_out                    = pwm_out;
 
 end
 

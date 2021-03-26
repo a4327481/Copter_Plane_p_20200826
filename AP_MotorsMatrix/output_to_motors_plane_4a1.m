@@ -2,14 +2,14 @@ function  output_to_motors_plane_4a1()
 
 global dt
 global AP_Motors
-
 global SRV_Channel
-k_throttle     = SRV_Channel.k_throttle;
+
+k_throttle               = SRV_Channel.k_throttle;
+pwm_out                  = SRV_Channel.pwm_out;
+pwm_tail                 = SRV_Channel.pwm_tail;
 
 pwm_max                  = AP_Motors.pwm_max;
 pwm_min                  = AP_Motors.pwm_min;
-pwm_out                  = AP_Motors.pwm_out;
-pwm_tail                 = AP_Motors.pwm_tail;
 thrust_slew_time         = AP_Motors.thrust_slew_time;
 % global mode
 
@@ -32,8 +32,9 @@ thrust_slew_time         = AP_Motors.thrust_slew_time;
     end
 AP_Motors.pwm_max                  = pwm_max;
 AP_Motors.pwm_min                  = pwm_min;
-AP_Motors.pwm_out                  = pwm_out;
-AP_Motors.pwm_tail                 = pwm_tail;
 AP_Motors.thrust_slew_time         = thrust_slew_time;
+SRV_Channel.k_throttle             = k_throttle;
+SRV_Channel.pwm_out                = pwm_out;
+SRV_Channel.pwm_tail                 = pwm_tail;
 
 end

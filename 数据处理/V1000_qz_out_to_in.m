@@ -24,14 +24,14 @@ out=[out1 ;out2];
         'in';
         };
 data_3 = [];
-filename='E:\matlab_code\Copter_Plane\V1000';
+filename='D:\matlab_code\Copter_Plane_p_20200826\数据处理';
 for i=1:length(data_qz)
-        data_3(:,i)=eval(data_qz{i,1}); 
-        end
-        head=[data_qz{1}];
-        for i=2:length(data_qz)
-         head=[head ,' ',data_qz{i}];
-        end 
+    data_3(:,i)=eval(data_qz{i,1});
+end
+head=[data_qz{1}];
+for i=2:length(data_qz)
+    head=[head ,' ',data_qz{i}];
+end
         head=[head ,'\n'];
 data_ck=data_3(:,1:i);
 fid=fopen([filename,'\\','V1000_qzo.dat'],'w');

@@ -7,11 +7,9 @@ global curr_alt
 global curr_vel
 global z_accel_meas
 global dt
-global throttle_hover
 global GRAVITY_MSS
-global throttle_lower
-global throttle_upper
 global AC_PosControl
+global AP_Motors
 
 p_pos_z                      = AC_PosControl.p_pos_z;
 p_vel_z                      = AC_PosControl.p_vel_z;
@@ -46,6 +44,11 @@ limit_pos_up                 = AC_PosControl.limit_pos_up;
 limit_pos_down               = AC_PosControl.limit_pos_down;
 limit_vel_up                 = AC_PosControl.limit_vel_up;
 limit_vel_down               = AC_PosControl.limit_vel_down;
+
+limit_throttle_lower            = AP_Motors.limit_throttle_lower;
+limit_throttle_upper            = AP_Motors.limit_throttle_upper;
+throttle_hover                  = AP_Motors.throttle_hover;
+
 
 POSCONTROL_VIBE_COMP_I_GAIN        = AC_PosControl.POSCONTROL_VIBE_COMP_I_GAIN;
 POSCONTROL_VIBE_COMP_P_GAIN        = AC_PosControl.POSCONTROL_VIBE_COMP_P_GAIN;
@@ -153,13 +156,13 @@ POSCONTROL_VEL_ERROR_CUTOFF_FREQ   = AC_PosControl.POSCONTROL_VEL_ERROR_CUTOFF_F
             thr_per_accelz_cmss = throttle_hover / (GRAVITY_MSS * 100.0);
             % during vibration compensation use feed forward with manually calculated gain
             % ToDo: clear pid_info P, I and D terms for logging
-            if (~(throttle_lower || throttle_upper) || (((pid_accel_z_integrator>0) && (vel_error(3)<0)) || ((pid_accel_z_integrator<0) && (vel_error(3)>0))))
+            if (~(limit_throttle_lower || limit_throttle_upper) || (((pid_accel_z_integrator>0) && (vel_error(3)<0)) || ((pid_accel_z_integrator<0) && (vel_error(3)>0))))
                 pid_accel_z_integrator=pid_accel_z_integrator + dt * thr_per_accelz_cmss * 1000.0 * vel_error(3) * p_vel_z * POSCONTROL_VIBE_COMP_I_GAIN;
                 pid_accel_z_integrator=constrain_value(pid_accel_z_integrator,-pid_accel_z_kimax,pid_accel_z_kimax);
             end
             thr_out = POSCONTROL_VIBE_COMP_P_GAIN * thr_per_accelz_cmss * accel_target(3) + pid_accel_z_integrator * 0.001;
         else
-            thr_out = pid_accel_z_update_all(accel_target(3), z_accel_meas, (throttle_lower || throttle_upper)) * 0.001;
+            thr_out = pid_accel_z_update_all(accel_target(3), z_accel_meas, (limit_throttle_lower || limit_throttle_upper)) * 0.001;
         end
      thr_out =thr_out+ throttle_hover;
 
@@ -193,7 +196,10 @@ POSCONTROL_VEL_ERROR_CUTOFF_FREQ   = AC_PosControl.POSCONTROL_VEL_ERROR_CUTOFF_F
     AC_PosControl.limit_vel_up                 = limit_vel_up;
     AC_PosControl.limit_vel_down               = limit_vel_down;
     
-    
+    AP_Motors.limit_throttle_lower            = limit_throttle_lower;
+    AP_Motors.limit_throttle_upper            = limit_throttle_upper;
+    AP_Motors.throttle_hover                  = throttle_hover;
+
  
 end
 

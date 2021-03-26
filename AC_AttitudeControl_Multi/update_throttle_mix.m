@@ -37,7 +37,7 @@ land_accel_ef_filter                      = AP_Motors.land_accel_ef_filter;
         large_angle_request = (norm([angle_target(1), angle_target(2)],2) > LAND_CHECK_LARGE_ANGLE_CD);
 
         % check for large external disturbance - angle error over 30 degrees
-        angle_error = thrust_error_angle;
+        angle_error = thrust_error_angle*HD;
         large_angle_error = (angle_error > LAND_CHECK_ANGLE_ERROR_DEG);
 
         % check for large acceleration - falling or high turbulence

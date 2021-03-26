@@ -613,7 +613,124 @@ AC_Attitude.AC_ATTITUDE_CONTROL_ANGLE_LIMIT_THROTTLE_MAX                = 0.8;
 AC_Attitude.AC_ATTITUDE_CONTROL_ANGLE_LIMIT_MIN                         = 10 ;
 AC_Attitude.AC_ATTITUDE_THRUST_ERROR_ANGLE                     = radians(30.0);               %Thrust angle error above which yaw corrections are limited;
 
- AC_ATTITUDE_CONTROL_ANGLE_LIMIT_MIN =10;
+
+Kx                                                 = AP_Motors.Kx;
+thrust_slew_time                                   = AP_Motors.thrust_slew_time;
+thr_mix_min                                        = AP_Motors.thr_mix_min;
+thr_mix_max                                        = AP_Motors.thr_mix_max;
+
+p_tail_tilt                                        = AP_Motors.p_tail_tilt;
+tail_tilt_c2p                                      = AP_Motors.tail_tilt_c2p;
+current_tilt                                       = AP_Motors.current_tilt;
+yaw_headroom                                       = AP_Motors.yaw_headroom;
+thrust_curve_expo                                  = AP_Motors.thrust_curve_expo;
+spin_max                                           = AP_Motors.spin_max;
+batt_voltage_max                                   = AP_Motors.batt_voltage_max;
+batt_voltage_min                                   = AP_Motors.batt_voltage_min;
+batt_current_max                                   = AP_Motors.batt_current_max;
+pwm_max                                            = AP_Motors.pwm_max;
+pwm_min                                            = AP_Motors.pwm_min;
+spin_min                                           = AP_Motors.spin_min;
+spin_arm                                           = AP_Motors.spin_arm;
+batt_current_time_constant                         = AP_Motors.batt_current_time_constant;
+throttle_hover                                     = AP_Motors.throttle_hover;
+disarm_disable_pwm                                 = AP_Motors.disarm_disable_pwm;
+spool_up_time                                      = AP_Motors.spool_up_time;
+slew_up_time                                       = AP_Motors.slew_up_time;
+slew_dn_time                                       = AP_Motors.slew_dn_time;
+safe_time                                          = AP_Motors.safe_time;
+angle_limit_tc                                     = AP_Motors.angle_limit_tc;
+angle_boost_enabled                                = AP_Motors.angle_boost_enabled;
+air_density_ratio                                  = AP_Motors.air_density_ratio;
+
+ Kx                                     = 0                            ;
+ p_tail_tilt                            = 3                            ;
+ tail_tilt_c2p                          = -2800                        ;
+ current_tilt                           = 0                           ;
+
+ yaw_headroom=0;
+ thrust_curve_expo=0.25;
+ spin_max=0.95;
+ batt_voltage_max=0;
+ batt_voltage_min=0;
+ batt_current_max=0;
+ pwm_max=2000;
+ pwm_min=1000;
+ spin_min=0.15;
+ spin_arm=0.1;
+ batt_current_time_constant=5;
+ throttle_hover                         = 0.25                          ;
+ disarm_disable_pwm=1;
+ spool_up_time=0.5;
+ boost_scale=0;
+ slew_up_time=0;%0.5;
+ slew_dn_time=0;%0.5;
+ safe_time=1;
+ angle_limit_tc=1;
+ angle_boost_enabled=1;
+ 
+batt_current                                       = AP_Motors.batt_current;
+batt_resistance                                    = AP_Motors.batt_resistance;
+batt_voltage                                       = AP_Motors.batt_voltage;
+batt_voltage_resting_estimate                      = AP_Motors.batt_voltage_resting_estimate;
+batt_voltage_filt                                  = AP_Motors.batt_voltage_filt;
+lift_max                                           = AP_Motors.lift_max;
+spool_desired                                      = AP_Motors.spool_desired;
+spool_state                                        = AP_Motors.spool_state;
+angle_boost                                        = AP_Motors.angle_boost;
+althold_lean_angle_max                             = AP_Motors.althold_lean_angle_max;
+
+roll_in                                            = AP_Motors.roll_in;
+pitch_in                                           = AP_Motors.pitch_in;
+yaw_in                                             = AP_Motors.yaw_in;
+throttle_in                                        = AP_Motors.throttle_in;
+
+roll_factor                                        = AP_Motors.roll_factor;
+pitch_factor                                       = AP_Motors.pitch_factor;
+yaw_factor                                         = AP_Motors.yaw_factor;
+
+actuator                                           = AP_Motors.actuator;
+thrust_rpyt_out                                    = AP_Motors.thrust_rpyt_out;
+
+thrust_boost                                       = AP_Motors.thrust_boost;
+thrust_boost_ratio                                 = AP_Motors.thrust_boost_ratio;
+thrust_balanced                                    = AP_Motors.thrust_balanced;
+disarm_safe_timer                                  = AP_Motors.disarm_safe_timer;
+spin_up_ratio                                      = AP_Motors.spin_up_ratio;
+throttle_cutoff_frequency                          = AP_Motors.throttle_cutoff_frequency;
+throttle_filter                                    = AP_Motors.throttle_filter;
+throttle_limit                                     = AP_Motors.throttle_limit;
+throttle_avg_max                                   = AP_Motors.throttle_avg_max;
+throttle_rpy_mix                                   = AP_Motors.throttle_rpy_mix;
+throttle_rpy_mix_desired                           = AP_Motors.throttle_rpy_mix_desired;
+throttle_thrust_max                                = AP_Motors.throttle_thrust_max;
+throttle_out                                       = AP_Motors.throttle_out;
+thrust_rpyt_out_filt                               = AP_Motors.thrust_rpyt_out_filt;
+land_accel_ef_filter                               = AP_Motors.land_accel_ef_filter;
+motor_lost_index                                   = AP_Motors.motor_lost_index;
+
+ limit_roll                      = AP_Motors.limit_roll;
+ limit_pitch                     = AP_Motors.limit_pitch;
+ limit_yaw                       = AP_Motors.limit_yaw;
+ limit_throttle_lower            = AP_Motors.limit_throttle_lower;
+ limit_throttle_upper            = AP_Motors.limit_throttle_upper;
+
+
+LAND_CHECK_ANGLE_ERROR_DEG                         = AP_Motors.LAND_CHECK_ANGLE_ERROR_DEG;
+LAND_CHECK_LARGE_ANGLE_CD                          = AP_Motors.LAND_CHECK_LARGE_ANGLE_CD;
+LAND_CHECK_ACCEL_MOVING                            = AP_Motors.LAND_CHECK_ACCEL_MOVING;
+AP_MOTORS_MATRIX_YAW_FACTOR_CW                     = AP_Motors.AP_MOTORS_MATRIX_YAW_FACTOR_CW;
+AP_MOTORS_MATRIX_YAW_FACTOR_CCW                    = AP_Motors.AP_MOTORS_MATRIX_YAW_FACTOR_CCW;
+AC_ATTITUDE_CONTROL_MAX                            = AP_Motors.AC_ATTITUDE_CONTROL_MAX;
+AC_ATTITUDE_CONTROL_ANGLE_LIMIT_THROTTLE_MAX       = AP_Motors.AC_ATTITUDE_CONTROL_ANGLE_LIMIT_THROTTLE_MAX;
+
+  LAND_CHECK_ANGLE_ERROR_DEG = 30.0;       % maximum angle error to be considered landing
+  LAND_CHECK_LARGE_ANGLE_CD   =1500.0;     % maximum angle target to be considered landing
+  LAND_CHECK_ACCEL_MOVING     =3.0;        % maximum acceleration after subtracting gravity
+spool_desired=DesiredSpoolState.SHUT_DOWN;
+spool_state=SpoolState.SHUT_DOWN;
+
+AC_ATTITUDE_CONTROL_ANGLE_LIMIT_MIN =10;
 AC_ATTITUDE_CONTROL_ANGLE_LIMIT_THROTTLE_MAX=0.8;
 althold_lean_angle_max=0;
 attitude_target_quat=[1 0 0 0];
@@ -750,8 +867,7 @@ algo_dbg_param.maxClimbSpeed=0;
     mode_state=0;
     ts=0;
     dt=0.005;
-    pwm_max=2000;
-    pwm_min=1000;
+
     pwm_out=[1000 1000 1000 1000];
     highest_airspeed=30;
     scaling_speed=17;
@@ -938,7 +1054,6 @@ yaw_factor=[0 0 0 0];
 
 limit_roll_pitch=0;
 limit_yaw=0;
-yaw_headroom=0;
 air_density_ratio=1;
 thrust_boost=0;
 
@@ -1090,197 +1205,9 @@ thrust_rpyt_out=[0 0 0 0];
 % 
 %     // 7 was THR_LOW_CMP
 % 
-%     // @Param: THST_EXPO
-%     // @DisplayName: Thrust Curve Expo
-%     // @Description: Motor thrust curve exponent (from 0 for linear to 1.0 for second order curve)
-%     // @Range: 0.25 0.8
-%     // @User: Advanced
-%     AP_GROUPINFO("THST_EXPO", 8, AP_MotorsMulticopter, _thrust_curve_expo, AP_MOTORS_THST_EXPO_DEFAULT),
-thrust_curve_expo=0.25;
-%     // @Param: SPIN_MAX
-%     // @DisplayName: Motor Spin maximum
-%     // @Description: Point at which the thrust saturates expressed as a number from 0 to 1 in the entire output range
-%     // @Values: 0.9:Low, 0.95:Default, 1.0:High
-%     // @User: Advanced
-%     AP_GROUPINFO("SPIN_MAX", 9, AP_MotorsMulticopter, _spin_max, AP_MOTORS_SPIN_MAX_DEFAULT),
-spin_max=0.95;
-%     // @Param: BAT_VOLT_MAX
-%     // @DisplayName: Battery voltage compensation maximum voltage
-%     // @Description: Battery voltage compensation maximum voltage (voltage above this will have no additional scaling effect on thrust).  Recommend 4.4 * cell count, 0 = Disabled
-%     // @Range: 6 35
-%     // @Units: V
-%     // @User: Advanced
-%     AP_GROUPINFO("BAT_VOLT_MAX", 10, AP_MotorsMulticopter, _batt_voltage_max, AP_MOTORS_BAT_VOLT_MAX_DEFAULT),
-batt_voltage_max=0;
-%     // @Param: BAT_VOLT_MIN
-%     // @DisplayName: Battery voltage compensation minimum voltage
-%     // @Description: Battery voltage compensation minimum voltage (voltage below this will have no additional scaling effect on thrust).  Recommend 3.5 * cell count, 0 = Disabled
-%     // @Range: 6 35
-%     // @Units: V
-%     // @User: Advanced
-%     AP_GROUPINFO("BAT_VOLT_MIN", 11, AP_MotorsMulticopter, _batt_voltage_min, AP_MOTORS_BAT_VOLT_MIN_DEFAULT),
-batt_voltage_min=0;
-%     // @Param: BAT_CURR_MAX
-%     // @DisplayName: Motor Current Max
-%     // @Description: Maximum current over which maximum throttle is limited (0 = Disabled)
-%     // @Range: 0 200
-%     // @Units: A
-%     // @User: Advanced
-%     AP_GROUPINFO("BAT_CURR_MAX", 12, AP_MotorsMulticopter, _batt_current_max, AP_MOTORS_BAT_CURR_MAX_DEFAULT),
-batt_current_max=0;
-%     // 13, 14 were used by THR_MIX_MIN, THR_MIX_MAX
-% 
-%     // @Param: PWM_TYPE
-%     // @DisplayName: Output PWM type
-%     // @Description: This selects the output PWM type, allowing for normal PWM continuous output, OneShot, brushed or DShot motor output
-%     // @Values: 0:Normal,1:OneShot,2:OneShot125,3:Brushed,4:DShot150,5:DShot300,6:DShot600,7:DShot1200
-%     // @User: Advanced
-%     // @RebootRequired: True
-%     AP_GROUPINFO("PWM_TYPE", 15, AP_MotorsMulticopter, _pwm_type, PWM_TYPE_NORMAL),
-% 
-%     // @Param: PWM_MIN
-%     // @DisplayName: PWM output miniumum
-%     // @Description: This sets the min PWM output value in microseconds that will ever be output to the motors, 0 = use input RC3_MIN
-%     // @Units: PWM
-%     // @Range: 0 2000
-%     // @User: Advanced
-%     AP_GROUPINFO("PWM_MIN", 16, AP_MotorsMulticopter, _pwm_min, 0),
-% 
-%     // @Param: PWM_MAX
-%     // @DisplayName: PWM output maximum
-%     // @Description: This sets the max PWM value in microseconds that will ever be output to the motors, 0 = use input RC3_MAX
-%     // @Units: PWM
-%     // @Range: 0 2000
-%     // @User: Advanced
-%     AP_GROUPINFO("PWM_MAX", 17, AP_MotorsMulticopter, _pwm_max, 0),
-% 
-%     // @Param: SPIN_MIN
-%     // @DisplayName: Motor Spin minimum
-%     // @Description: Point at which the thrust starts expressed as a number from 0 to 1 in the entire output range.  Should be higher than MOT_SPIN_ARM.
-%     // @Values: 0.0:Low, 0.15:Default, 0.3:High
-%     // @User: Advanced
-%     AP_GROUPINFO("SPIN_MIN", 18, AP_MotorsMulticopter, _spin_min, AP_MOTORS_SPIN_MIN_DEFAULT),
-spin_min=0.15;
-%     // @Param: SPIN_ARM
-%     // @DisplayName: Motor Spin armed
-%     // @Description: Point at which the motors start to spin expressed as a number from 0 to 1 in the entire output range.  Should be lower than MOT_SPIN_MIN.
-%     // @Values: 0.0:Low, 0.1:Default, 0.2:High
-%     // @User: Advanced
-%     AP_GROUPINFO("SPIN_ARM", 19, AP_MotorsMulticopter, _spin_arm, AP_MOTORS_SPIN_ARM_DEFAULT),
-spin_arm=0.1;
-%     // @Param: BAT_CURR_TC
-%     // @DisplayName: Motor Current Max Time Constant
-%     // @Description: Time constant used to limit the maximum current
-%     // @Range: 0 10
-%     // @Units: s
-%     // @User: Advanced
-%     AP_GROUPINFO("BAT_CURR_TC", 20, AP_MotorsMulticopter, _batt_current_time_constant, AP_MOTORS_BAT_CURR_TC_DEFAULT),
-batt_current_time_constant=5;
-%     // @Param: THST_HOVER
-%     // @DisplayName: Thrust Hover Value
-%     // @Description: Motor thrust needed to hover expressed as a number from 0 to 1
-%     // @Range: 0.2 0.8
-%     // @User: Advanced
-%     AP_GROUPINFO("THST_HOVER", 21, AP_MotorsMulticopter, _throttle_hover, AP_MOTORS_THST_HOVER_DEFAULT),
-% 
-%     // @Param: HOVER_LEARN
-%     // @DisplayName: Hover Value Learning
-%     // @Description: Enable/Disable automatic learning of hover throttle
-%     // @Values{Copter}: 0:Disabled, 1:Learn, 2:Learn and Save
-%     // @Values{Sub}: 0:Disabled
-%     // @Values{Plane}: 0:Disabled, 1:Learn, 2:Learn and Save
-%     // @User: Advanced
-%     AP_GROUPINFO("HOVER_LEARN", 22, AP_MotorsMulticopter, _throttle_hover_learn, HOVER_LEARN_AND_SAVE),
-% 
-%     // @Param: SAFE_DISARM
-%     // @DisplayName: Motor PWM output disabled when disarmed
-%     // @Description: Disables motor PWM output when disarmed
-%     // @Values: 0:PWM enabled while disarmed, 1:PWM disabled while disarmed
-%     // @User: Advanced
-%     AP_GROUPINFO("SAFE_DISARM", 23, AP_MotorsMulticopter, _disarm_disable_pwm, 0),
-disarm_disable_pwm=1;
-%     // @Param: YAW_SV_ANGLE
-%     // @DisplayName: Yaw Servo Max Lean Angle
-%     // @Description: Yaw servo's maximum lean angle
-%     // @Range: 5 80
-%     // @Units: deg
-%     // @Increment: 1
-%     // @User: Standard
-%     AP_GROUPINFO_FRAME("YAW_SV_ANGLE", 35, AP_MotorsMulticopter, _yaw_servo_angle_max_deg, 30, AP_PARAM_FRAME_TRICOPTER),
-% 
-%     // @Param: SPOOL_TIME
-%     // @DisplayName: Spool up time
-%     // @Description: Time in seconds to spool up the motors from zero to min throttle. 
-%     // @Range: 0 2
-%     // @Units: s
-%     // @Increment: 0.1
-%     // @User: Advanced
-%     AP_GROUPINFO("SPOOL_TIME", 36, AP_MotorsMulticopter, _spool_up_time, AP_MOTORS_SPOOL_UP_TIME_DEFAULT),
-spool_up_time=0.5;
-%     // @Param: BOOST_SCALE
-%     // @DisplayName: Motor boost scale
-%     // @Description: Booster motor output scaling factor vs main throttle.  The output to the BoostThrottle servo will be the main throttle times this scaling factor. A higher scaling factor will put more of the load on the booster motor. A value of 1 will set the BoostThrottle equal to the main throttle.
-%     // @Range: 0 5
-%     // @Increment: 0.1
-%     // @User: Advanced
-%     AP_GROUPINFO("BOOST_SCALE", 37, AP_MotorsMulticopter, _boost_scale, 0),
-boost_scale=0;
-%     // 38 RESERVED for BAT_POW_MAX
-%     
-%     // @Param: BAT_IDX
-%     // @DisplayName: Battery compensation index
-%     // @Description: Which battery monitor should be used for doing compensation
-%     // @Values: 0:First battery, 1:Second battery
-%     // @User: Advanced
-%     AP_GROUPINFO("BAT_IDX", 39, AP_MotorsMulticopter, _batt_idx, 0),
-% 
-%     // @Param: SLEW_UP_TIME
-%     // @DisplayName: Output slew time for increasing throttle
-%     // @Description: Time in seconds to slew output from zero to full. This is used to limit the rate at which output can change. Range is constrained between 0 and 0.5.
-%     // @Range: 0 .5
-%     // @Units: s
-%     // @Increment: 0.001
-%     // @User: Advanced
-%     AP_GROUPINFO("SLEW_UP_TIME", 40, AP_MotorsMulticopter, _slew_up_time, AP_MOTORS_SLEW_TIME_DEFAULT),
-slew_up_time=0;%0.5;
-%     // @Param: SLEW_DN_TIME
-%     // @DisplayName: Output slew time for decreasing throttle
-%     // @Description: Time in seconds to slew output from full to zero. This is used to limit the rate at which output can change.  Range is constrained between 0 and 0.5.
-%     // @Range: 0 .5
-%     // @Units: s
-%     // @Increment: 0.001
-%     // @User: Advanced
-%     AP_GROUPINFO("SLEW_DN_TIME", 41, AP_MotorsMulticopter, _slew_dn_time, AP_MOTORS_SLEW_TIME_DEFAULT),
-slew_dn_time=0;%0.5;
-%     // @Param: SAFE_TIME
-%     // @DisplayName: Time taken to disable and enable the motor PWM output when disarmed and armed.
-%     // @Description: Time taken to disable and enable the motor PWM output when disarmed and armed.
-%     // @Range: 0 5
-%     // @Units: s
-%     // @Increment: 0.001
-%     // @User: Advanced
-%     AP_GROUPINFO("SAFE_TIME", 42, AP_MotorsMulticopter, _safe_time, AP_MOTORS_SAFE_TIME_DEFAULT),
-safe_time=1;
-%     AP_GROUPEND
 
-batt_voltage_resting_estimate=0;
-batt_voltage_filt=0;
-lift_max=1;
-disarm_safe_timer=0;
-spool_desired=DesiredSpoolState.SHUT_DOWN;
-spool_state=SpoolState.SHUT_DOWN;
-limit.roll = 0;
-limit.pitch = 0;
-limit.yaw = 0;
-limit.throttle_lower = 0;
-limit.throttle_upper = 0;
-spin_up_ratio=0;
-thrust_balanced=0;
-batt_current=0;
-batt_resistance=0;
-throttle_limit=0;
-batt_voltage=0;
-actuator=[0 0 0 0];
+
+
 
 
 

@@ -18,15 +18,16 @@ function output_armed_stabilizing()
  throttle_filter                 = AP_Motors.throttle_filter;
  throttle_avg_max                = AP_Motors.throttle_avg_max;
  thrust_boost_ratio              = AP_Motors.thrust_boost_ratio;
- throttle_lower                  = AP_Motors.throttle_lower;
- throttle_upper                  = AP_Motors.throttle_upper;
  thrust_rpyt_out                 = AP_Motors.thrust_rpyt_out;
  roll_factor                     = AP_Motors.roll_factor;
  pitch_factor                    = AP_Motors.pitch_factor;
  yaw_factor                      = AP_Motors.yaw_factor; 
  yaw_headroom                    = AP_Motors.yaw_headroom;
- limit_roll_pitch                = AP_Motors.limit_roll_pitch;
+ limit_roll                      = AP_Motors.limit_roll;
+ limit_pitch                     = AP_Motors.limit_pitch;
  limit_yaw                       = AP_Motors.limit_yaw;
+ limit_throttle_lower            = AP_Motors.limit_throttle_lower;
+ limit_throttle_upper            = AP_Motors.limit_throttle_upper;
  current_tilt                    = AP_Motors.current_tilt;
  throttle_thrust_max             = AP_Motors.throttle_thrust_max;
  thrust_boost                    = AP_Motors.thrust_boost;
@@ -35,7 +36,8 @@ function output_armed_stabilizing()
  
  rpy_scale=1;
  
-    limit_roll_pitch= 0;
+    limit_roll=0;
+    limit_pitch= 0;
     limit_yaw = 0;
     % apply voltage and air pressure compensation
     compensation_gain = get_compensation_gain(); % compensation for battery voltage and altitude
@@ -48,16 +50,16 @@ function output_armed_stabilizing()
      % If thrust boost is active then do not limit maximum thrust
     throttle_thrust_max = thrust_boost_ratio + (1.0 - thrust_boost_ratio) * throttle_thrust_max * compensation_gain;
     
-    throttle_lower=0;
+    limit_throttle_lower=0;
     % sanity check throttle is above zero and below current limited throttle
     if (throttle_thrust <= 0.0)  
         throttle_thrust = 0.0;
-        throttle_lower = true;
+        limit_throttle_lower = true;
     end
-    throttle_upper=0;
+    limit_throttle_upper=0;
     if (throttle_thrust >= throttle_thrust_max)  
         throttle_thrust = throttle_thrust_max;
-        throttle_upper = true;
+        limit_throttle_upper = true;
     end
   
     % ensure that throttle_avg_max is between the input throttle and the maximum throttle
@@ -152,7 +154,8 @@ function output_armed_stabilizing()
     % check for roll and pitch saturation
     if (rp_high-rp_low > 1.0 || throttle_avg_maxi < -rp_low)
         % Full range is being used by roll and pitch.
-        limit_roll_pitch = 1;
+            limit_roll  = 1;
+            limit_pitch = 1;
     end
     
     
@@ -196,10 +199,11 @@ function output_armed_stabilizing()
     thr_adj = throttle_thrust - throttle_thrust_best_rpy;
     if (rpy_scale < 1.0)  
         % Full range is being used by roll, pitch, and yaw.
-        limit_roll_pitch = 1;
-        limit_yaw = 1;
+            limit_roll=1;
+            limit_pitch= 1;
+            limit_yaw = 1;
         if (thr_adj > 0.0)  
-            throttle_upper = 1;
+            limit_throttle_upper = 1;
         end
         thr_adj = 0.0;     
     else  
@@ -210,7 +214,7 @@ function output_armed_stabilizing()
         elseif (thr_adj > 1.0 - (throttle_thrust_best_rpy + rpy_high))  
             % Throttle can't be increased to desired value
             thr_adj = 1.0 - (throttle_thrust_best_rpy + rpy_high);
-            throttle_upper = 1;
+            limit_throttle_upper = 1;
         end
     end
      
@@ -235,15 +239,17 @@ function output_armed_stabilizing()
  AP_Motors.throttle_filter                 = throttle_filter;
  AP_Motors.throttle_avg_max                = throttle_avg_max;
  AP_Motors.thrust_boost_ratio              = thrust_boost_ratio;
- AP_Motors.throttle_lower                  = throttle_lower;
- AP_Motors.throttle_upper                  = throttle_upper;
+ AP_Motors.limit_roll                      = limit_roll;
+ AP_Motors.limit_pitch                     = limit_pitch;
+ AP_Motors.limit_yaw                       = limit_yaw ;
+ AP_Motors.limit_throttle_lower            = limit_throttle_lower;
+ AP_Motors.limit_throttle_upper            = limit_throttle_upper;
+ 
  AP_Motors.thrust_rpyt_out                 = thrust_rpyt_out;
  AP_Motors.roll_factor                     = roll_factor;
  AP_Motors.pitch_factor                    = pitch_factor;
  AP_Motors.yaw_factor                      = yaw_factor; 
  AP_Motors.yaw_headroom                    = yaw_headroom;
- AP_Motors.limit_roll_pitch                = limit_roll_pitch;
- AP_Motors.limit_yaw                       = limit_yaw;
  AP_Motors.current_tilt                    = current_tilt;
  AP_Motors.throttle_thrust_max             = throttle_thrust_max;
  AP_Motors.thrust_boost                    = thrust_boost;

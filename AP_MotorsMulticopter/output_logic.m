@@ -4,14 +4,19 @@ global dt
 global armed
 global AP_Motors
 
-
 disarm_disable_pwm               = AP_Motors.disarm_disable_pwm;
 disarm_safe_timer                = AP_Motors.disarm_safe_timer;
 safe_time                        = AP_Motors.safe_time;
 spool_desired                    = AP_Motors.spool_desired;
 spool_state                      = AP_Motors.spool_state;
 spool_up_time                    = AP_Motors.spool_up_time;
-limit                            = AP_Motors.limit;
+
+limit_roll                      = AP_Motors.limit_roll;
+limit_pitch                     = AP_Motors.limit_pitch;
+limit_yaw                       = AP_Motors.limit_yaw;
+limit_throttle_lower            = AP_Motors.limit_throttle_lower;
+limit_throttle_upper            = AP_Motors.limit_throttle_upper;
+
 spin_up_ratio                    = AP_Motors.spin_up_ratio;
 throttle_thrust_max              = AP_Motors.throttle_thrust_max;
 thrust_boost                     = AP_Motors.thrust_boost;
@@ -49,11 +54,11 @@ thrust_balanced                  = AP_Motors.thrust_balanced;
             % Servos set to their trim values or in a test condition.
             
             % set limits flags
-            limit.roll = true;
-            limit.pitch = true;
-            limit.yaw = true;
-            limit.throttle_lower = true;
-            limit.throttle_upper = true;
+            limit_roll = true;
+            limit_pitch = true;
+            limit_yaw = true;
+            limit_throttle_lower = true;
+            limit_throttle_upper = true;
             
             % make sure the motors are spooling in the correct direction
             if (spool_desired ~= DesiredSpoolState.SHUT_DOWN && disarm_safe_timer >= safe_time)
@@ -72,11 +77,11 @@ thrust_balanced                  = AP_Motors.thrust_balanced;
             % Servos should be moving to correct the current attitude.
             
             % set limits flags
-            limit.roll = true;
-            limit.pitch = true;
-            limit.yaw = true;
-            limit.throttle_lower = true;
-            limit.throttle_upper = true;
+            limit_roll = true;
+            limit_pitch = true;
+            limit_yaw = true;
+            limit_throttle_lower = true;
+            limit_throttle_upper = true;
             
             % set and increment ramp variables
             spool_step = dt / (spool_up_time );
@@ -113,16 +118,16 @@ thrust_balanced                  = AP_Motors.thrust_balanced;
         % Servos should exhibit normal flight behavior.
 
         % initialize limits flags
-        limit.roll = false;
-        limit.pitch = false;
-        limit.yaw = false;
-        limit.throttle_lower = false;
-        limit.throttle_upper = false;
+        limit_roll = false;
+        limit_pitch = false;
+        limit_yaw = false;
+        limit_throttle_lower = false;
+        limit_throttle_upper = false;
 
         % make sure the motors are spooling in the correct direction
         if (spool_desired ~=DesiredSpoolState.THROTTLE_UNLIMITED) 
             spool_state = SpoolState.SPOOLING_DOWN;
-            return;
+%             return;
         end
         % set and increment ramp variables
         spin_up_ratio = 1.0;
@@ -142,16 +147,16 @@ thrust_balanced                  = AP_Motors.thrust_balanced;
         % Servos should exhibit normal flight behavior.
 
         % initialize limits flags
-        limit.roll = false;
-        limit.pitch = false;
-        limit.yaw = false;
-        limit.throttle_lower = false;
-        limit.throttle_upper = false;
+        limit_roll = false;
+        limit_pitch = false;
+        limit_yaw = false;
+        limit_throttle_lower = false;
+        limit_throttle_upper = false;
 
         % make sure the motors are spooling in the correct direction
         if (spool_desired ~= DesiredSpoolState.THROTTLE_UNLIMITED) 
             spool_state = SpoolState.SPOOLING_DOWN;
-            return;
+%             return;
         end
         % set and increment ramp variables
         spin_up_ratio = 1.0;
@@ -167,16 +172,16 @@ thrust_balanced                  = AP_Motors.thrust_balanced;
         % Servos should exhibit normal flight behavior.
 
         % initialize limits flags
-        limit.roll = false;
-        limit.pitch = false;
-        limit.yaw = false;
-        limit.throttle_lower = false;
-        limit.throttle_upper = false;
+        limit_roll = false;
+        limit_pitch = false;
+        limit_yaw = false;
+        limit_throttle_lower = false;
+        limit_throttle_upper = false;
 
         % make sure the motors are spooling in the correct direction
         if (spool_desired == DesiredSpoolState.THROTTLE_UNLIMITED) 
             spool_state = SpoolState.SPOOLING_UP;
-            return;
+%             return;
         end
 
         % set and increment ramp variables
@@ -201,7 +206,6 @@ AP_Motors.safe_time                        = safe_time;
 AP_Motors.spool_desired                    = spool_desired;
 AP_Motors.spool_state                      = spool_state;
 AP_Motors.spool_up_time                    = spool_up_time;
-AP_Motors.limit                            = limit;
 AP_Motors.spin_up_ratio                    = spin_up_ratio;
 AP_Motors.throttle_thrust_max              = throttle_thrust_max;
 AP_Motors.thrust_boost                     = thrust_boost;
@@ -211,6 +215,11 @@ AP_Motors.spin_min                         = spin_min;
 AP_Motors.throttle_filter                  = throttle_filter;
 AP_Motors.thrust_balanced                  = thrust_balanced;
 
+ AP_Motors.limit_roll                      = limit_roll;
+ AP_Motors.limit_pitch                     = limit_pitch;
+ AP_Motors.limit_yaw                       = limit_yaw ;
+ AP_Motors.limit_throttle_lower            = limit_throttle_lower;
+ AP_Motors.limit_throttle_upper            = limit_throttle_upper;
 
 end
 
