@@ -9,6 +9,10 @@ global vel_forward_last_pct
 global vel_forward_gain
 global vel_forward_min_pitch
 global vel_forward_tail_tilt_max
+
+global  AC_PosControl
+pitch_target                        = AC_PosControl.pitch_target;
+
      pitch = pitch_target / 100.0;
     if (pitch > vel_forward_min_pitch)  
         vel_forward_last_pct = 0;
@@ -23,5 +27,9 @@ global vel_forward_tail_tilt_max
     % scale over half of yaw_rate_max. This gives the pilot twice the
     % authority of the weathervane controller
      vel_forward_pct_out=vel_forward_last_pct * (vel_forward_tail_tilt_max) ;
+     
+     
+          AC_PosControl.pitch_target            =pitch_target;    
+
 end
 

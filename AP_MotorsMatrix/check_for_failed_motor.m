@@ -15,8 +15,8 @@ thrust_rpyt_out_filt              = AP_Motors.thrust_rpyt_out_filt;
 motor_lost_index                  = AP_Motors.motor_lost_index;
 thrust_boost                      = AP_Motors.thrust_boost;
 thrust_balanced                   = AP_Motors.thrust_balanced;
-
-
+thrust_rpyt_out                   = AP_Motors.thrust_rpyt_out;
+throttle_thrust_max               = AP_Motors.throttle_thrust_max;
  
     % record filtered and scaled thrust output for motor loss monitoring purposes
      alpha = 1.0 / (1.0 + 1/dt * 0.5);
@@ -62,6 +62,8 @@ AP_Motors.thrust_rpyt_out_filt              = thrust_rpyt_out_filt;
 AP_Motors.motor_lost_index                  = motor_lost_index;
 AP_Motors.thrust_boost                      = thrust_boost;
 AP_Motors.thrust_balanced                   = thrust_balanced;
-     
+AP_Motors.thrust_rpyt_out                   = thrust_rpyt_out;     
+AP_Motors.throttle_thrust_max               = throttle_thrust_max;
+
 end
 

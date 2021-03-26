@@ -21,8 +21,8 @@ speed_down_cms          = AC_PosControl.speed_down_cms;
 vel_desired             = AC_PosControl.vel_desired;
 pos_target              = AC_PosControl.pos_target;
 limit_pos_up            = AC_PosControl.limit_pos_up;
-throttle_lower          = AP_Motors.throttle_lower;
-throttle_upper          = AP_Motors.throttle_upper;
+limit_throttle_lower          = AP_Motors.limit_throttle_lower;
+limit_throttle_upper          = AP_Motors.limit_throttle_upper;
 
     % calculated increased maximum acceleration if over speed
       accel_z_cms = AC_PosControl.accel_z_cms;
@@ -55,13 +55,13 @@ throttle_upper          = AP_Motors.throttle_upper;
 
     % adjust desired alt if motors have not hit their limits
     % To-Do: add check of _limit.pos_down?
-    if ((vel_desired(3) < 0 && (~throttle_lower || force_descend)) || (vel_desired(3) > 0 && ~throttle_upper && ~limit_pos_up))  
+    if ((vel_desired(3) < 0 && (~limit_throttle_lower || force_descend)) || (vel_desired(3) > 0 && ~limit_throttle_upper && ~limit_pos_up))  
         pos_target(3) =pos_target(3)+vel_desired(3) * dt;
     end
     
   AC_PosControl.vel_desired   = vel_desired; 
   AC_PosControl.pos_target    = pos_target ;
-  AP_Motors.throttle_lower    = throttle_lower;
-  AP_Motors.throttle_upper    = throttle_upper;
+  AP_Motors.limit_throttle_lower    = limit_throttle_lower;
+  AP_Motors.limit_throttle_upper    = limit_throttle_upper;
 end
 

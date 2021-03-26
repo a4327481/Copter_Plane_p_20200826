@@ -1,6 +1,15 @@
 function auto_mode()
 %auto flight
 %mode auto
+
+global Plane 
+global AC_PosControl
+
+aerodynamic_load_factor               = Plane.aerodynamic_load_factor;
+roll_target                           = AC_PosControl.roll_target;
+pitch_target                          = AC_PosControl.pitch_target;
+
+
 global aerodynamic_load_factor
 global roll_target
 global pitch_target
@@ -53,11 +62,7 @@ global tail_tilt_p2c
 global tail_tilt_rate
 global aspeed_c2p
 global aspeed_c2ps
-persistent WP_i
-persistent PathMode
-persistent uavMode %0:comper 1:plane
-persistent Rotor2Fix_delay
-persistent Rotor2Fix_delay_flag
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global disable_integrator_pitch
 global disable_integrator_roll
@@ -100,6 +105,12 @@ global     rate_pitch_pid
 global     rate_roll_pid
 global     rate_yaw_pid
 global     AC_PosControl
+
+persistent WP_i
+persistent PathMode
+persistent uavMode %0:comper 1:plane
+persistent Rotor2Fix_delay
+persistent Rotor2Fix_delay_flag
 
 pos_target       = AC_PosControl.pos_target;
 vel_desired      = AC_PosControl.vel_desired;

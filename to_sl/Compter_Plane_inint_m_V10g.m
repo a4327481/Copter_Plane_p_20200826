@@ -614,121 +614,93 @@ AC_Attitude.AC_ATTITUDE_CONTROL_ANGLE_LIMIT_MIN                         = 10 ;
 AC_Attitude.AC_ATTITUDE_THRUST_ERROR_ANGLE                     = radians(30.0);               %Thrust angle error above which yaw corrections are limited;
 
 
-Kx                                                 = AP_Motors.Kx;
-thrust_slew_time                                   = AP_Motors.thrust_slew_time;
-thr_mix_min                                        = AP_Motors.thr_mix_min;
-thr_mix_max                                        = AP_Motors.thr_mix_max;
+AP_Motors.Kx                                                 = 0                            ;
+AP_Motors.thrust_slew_time                                   = 0.3                          ;
+AP_Motors.thr_mix_min                                        = 0.1                          ;
+AP_Motors.thr_mix_max                                        = 0.5                          ;
+																			             
+AP_Motors.p_tail_tilt                                        = 3                            ;
+AP_Motors.tail_tilt_c2p                                      = -2800                        ;
+AP_Motors.current_tilt                                       = 0                            ;
+AP_Motors.yaw_headroom                                       = 0                            ;
+AP_Motors.thrust_curve_expo                                  = 0.25                         ;
+AP_Motors.spin_max                                           = 0.95                         ;
+AP_Motors.batt_voltage_max                                   = 0                            ;
+AP_Motors.batt_voltage_min                                   = 0                            ;
+AP_Motors.batt_current_max                                   = 0                            ;
+AP_Motors.pwm_max                                            = 2000                         ;
+AP_Motors.pwm_min                                            = 1000                         ;
+AP_Motors.spin_min                                           = 0.15                         ;
+AP_Motors.spin_arm                                           = 0.1                          ;
+AP_Motors.batt_current_time_constant                         = 5                            ;
+AP_Motors.throttle_hover                                     = 0.25                         ;
+AP_Motors.disarm_disable_pwm                                 = 1                            ;
+AP_Motors.spool_up_time                                      = 0.5                          ;
+AP_Motors.slew_up_time                                       = 0                            ;%0.5                 
+AP_Motors.slew_dn_time                                       = 0                            ;%0.5                 
+AP_Motors.safe_time                                          = 1                            ;
+AP_Motors.angle_limit_tc                                     = 1                            ;
+AP_Motors.angle_boost_enabled                                = 1                            ;
+AP_Motors.air_density_ratio                                  = 1                            ;                       
+																			             
+AP_Motors.batt_current                                       = 0                            ;
+AP_Motors.batt_resistance                                    = 0                            ;
+AP_Motors.batt_voltage                                       = 0                            ;
+AP_Motors.batt_voltage_resting_estimate                      = 0                            ;
+AP_Motors.batt_voltage_filt                                  = 0                            ;
+AP_Motors.lift_max                                           = 1                            ;
+AP_Motors.spool_desired                                      = DesiredSpoolState.SHUT_DOWN  ;
+AP_Motors.spool_state                                        = SpoolState.SHUT_DOWN         ;
+AP_Motors.angle_boost                                        = 0                            ;
+AP_Motors.althold_lean_angle_max                             = 0                            ;
 
-p_tail_tilt                                        = AP_Motors.p_tail_tilt;
-tail_tilt_c2p                                      = AP_Motors.tail_tilt_c2p;
-current_tilt                                       = AP_Motors.current_tilt;
-yaw_headroom                                       = AP_Motors.yaw_headroom;
-thrust_curve_expo                                  = AP_Motors.thrust_curve_expo;
-spin_max                                           = AP_Motors.spin_max;
-batt_voltage_max                                   = AP_Motors.batt_voltage_max;
-batt_voltage_min                                   = AP_Motors.batt_voltage_min;
-batt_current_max                                   = AP_Motors.batt_current_max;
-pwm_max                                            = AP_Motors.pwm_max;
-pwm_min                                            = AP_Motors.pwm_min;
-spin_min                                           = AP_Motors.spin_min;
-spin_arm                                           = AP_Motors.spin_arm;
-batt_current_time_constant                         = AP_Motors.batt_current_time_constant;
-throttle_hover                                     = AP_Motors.throttle_hover;
-disarm_disable_pwm                                 = AP_Motors.disarm_disable_pwm;
-spool_up_time                                      = AP_Motors.spool_up_time;
-slew_up_time                                       = AP_Motors.slew_up_time;
-slew_dn_time                                       = AP_Motors.slew_dn_time;
-safe_time                                          = AP_Motors.safe_time;
-angle_limit_tc                                     = AP_Motors.angle_limit_tc;
-angle_boost_enabled                                = AP_Motors.angle_boost_enabled;
-air_density_ratio                                  = AP_Motors.air_density_ratio;
+AP_Motors.roll_in                                            = 0                            ;
+AP_Motors.pitch_in                                           = 0                            ;
+AP_Motors.yaw_in                                             = 0                            ;
+AP_Motors.throttle_in                                        = 0                            ;
 
- Kx                                     = 0                            ;
- p_tail_tilt                            = 3                            ;
- tail_tilt_c2p                          = -2800                        ;
- current_tilt                           = 0                           ;
+AP_Motors.roll_factor                                        = [0 0 0 0]                            ;
+AP_Motors.pitch_factor                                       = [0 0 0 0]                            ;
+AP_Motors.yaw_factor                                         = [0 0 0 0]                            ;
 
- yaw_headroom=0;
- thrust_curve_expo=0.25;
- spin_max=0.95;
- batt_voltage_max=0;
- batt_voltage_min=0;
- batt_current_max=0;
- pwm_max=2000;
- pwm_min=1000;
- spin_min=0.15;
- spin_arm=0.1;
- batt_current_time_constant=5;
- throttle_hover                         = 0.25                          ;
- disarm_disable_pwm=1;
- spool_up_time=0.5;
- boost_scale=0;
- slew_up_time=0;%0.5;
- slew_dn_time=0;%0.5;
- safe_time=1;
- angle_limit_tc=1;
- angle_boost_enabled=1;
+AP_Motors.actuator                                           = [0 0 0 0]                    ;
+AP_Motors.thrust_rpyt_out                                    = [0 0 0 0]                    ;
+
+AP_Motors.thrust_boost                                       = 0;
+AP_Motors.thrust_boost_ratio                                 = 0;
+AP_Motors.thrust_balanced                                    = 0;
+AP_Motors.disarm_safe_timer                                  = 0;
+AP_Motors.spin_up_ratio                                      = 0;
+AP_Motors.throttle_cutoff_frequency                          = 1;
+AP_Motors.throttle_filter                                    = 0;
+AP_Motors.throttle_limit                                     = 1;
+AP_Motors.throttle_avg_max                                   = 0;
+AP_Motors.throttle_rpy_mix                                   = 0;
+AP_Motors.throttle_rpy_mix_desired                           = 0;
+AP_Motors.throttle_thrust_max                                = 1;
+AP_Motors.throttle_out                                       = 0;
+AP_Motors.thrust_rpyt_out_filt                               = [0 0 0 0];
+AP_Motors.land_accel_ef_filter                               = 0;
+AP_Motors.motor_lost_index                                   = 0;
+
+AP_Motors.limit_roll                                         = false;
+AP_Motors.limit_pitch                                        = false;
+AP_Motors.limit_yaw                                          = false;
+AP_Motors.limit_throttle_lower                               = false;
+AP_Motors.limit_throttle_upper                               = false;
+
+
+AP_Motors.LAND_CHECK_ANGLE_ERROR_DEG                         = 30;% maximum angle error to be considered landing
+AP_Motors.LAND_CHECK_LARGE_ANGLE_CD                          = 15;% maximum angle target to be considered landing
+AP_Motors.LAND_CHECK_ACCEL_MOVING                            = 3.0;% maximum acceleration after subtracting gravity
+AP_Motors.AP_MOTORS_MATRIX_YAW_FACTOR_CW                     = -1;
+AP_Motors.AP_MOTORS_MATRIX_YAW_FACTOR_CCW                    = 1;
+AP_Motors.AC_ATTITUDE_CONTROL_MAX                            = 5;
+AP_Motors.AC_ATTITUDE_CONTROL_ANGLE_LIMIT_THROTTLE_MAX       = 0.8;
+
  
-batt_current                                       = AP_Motors.batt_current;
-batt_resistance                                    = AP_Motors.batt_resistance;
-batt_voltage                                       = AP_Motors.batt_voltage;
-batt_voltage_resting_estimate                      = AP_Motors.batt_voltage_resting_estimate;
-batt_voltage_filt                                  = AP_Motors.batt_voltage_filt;
-lift_max                                           = AP_Motors.lift_max;
-spool_desired                                      = AP_Motors.spool_desired;
-spool_state                                        = AP_Motors.spool_state;
-angle_boost                                        = AP_Motors.angle_boost;
-althold_lean_angle_max                             = AP_Motors.althold_lean_angle_max;
+ 
 
-roll_in                                            = AP_Motors.roll_in;
-pitch_in                                           = AP_Motors.pitch_in;
-yaw_in                                             = AP_Motors.yaw_in;
-throttle_in                                        = AP_Motors.throttle_in;
-
-roll_factor                                        = AP_Motors.roll_factor;
-pitch_factor                                       = AP_Motors.pitch_factor;
-yaw_factor                                         = AP_Motors.yaw_factor;
-
-actuator                                           = AP_Motors.actuator;
-thrust_rpyt_out                                    = AP_Motors.thrust_rpyt_out;
-
-thrust_boost                                       = AP_Motors.thrust_boost;
-thrust_boost_ratio                                 = AP_Motors.thrust_boost_ratio;
-thrust_balanced                                    = AP_Motors.thrust_balanced;
-disarm_safe_timer                                  = AP_Motors.disarm_safe_timer;
-spin_up_ratio                                      = AP_Motors.spin_up_ratio;
-throttle_cutoff_frequency                          = AP_Motors.throttle_cutoff_frequency;
-throttle_filter                                    = AP_Motors.throttle_filter;
-throttle_limit                                     = AP_Motors.throttle_limit;
-throttle_avg_max                                   = AP_Motors.throttle_avg_max;
-throttle_rpy_mix                                   = AP_Motors.throttle_rpy_mix;
-throttle_rpy_mix_desired                           = AP_Motors.throttle_rpy_mix_desired;
-throttle_thrust_max                                = AP_Motors.throttle_thrust_max;
-throttle_out                                       = AP_Motors.throttle_out;
-thrust_rpyt_out_filt                               = AP_Motors.thrust_rpyt_out_filt;
-land_accel_ef_filter                               = AP_Motors.land_accel_ef_filter;
-motor_lost_index                                   = AP_Motors.motor_lost_index;
-
- limit_roll                      = AP_Motors.limit_roll;
- limit_pitch                     = AP_Motors.limit_pitch;
- limit_yaw                       = AP_Motors.limit_yaw;
- limit_throttle_lower            = AP_Motors.limit_throttle_lower;
- limit_throttle_upper            = AP_Motors.limit_throttle_upper;
-
-
-LAND_CHECK_ANGLE_ERROR_DEG                         = AP_Motors.LAND_CHECK_ANGLE_ERROR_DEG;
-LAND_CHECK_LARGE_ANGLE_CD                          = AP_Motors.LAND_CHECK_LARGE_ANGLE_CD;
-LAND_CHECK_ACCEL_MOVING                            = AP_Motors.LAND_CHECK_ACCEL_MOVING;
-AP_MOTORS_MATRIX_YAW_FACTOR_CW                     = AP_Motors.AP_MOTORS_MATRIX_YAW_FACTOR_CW;
-AP_MOTORS_MATRIX_YAW_FACTOR_CCW                    = AP_Motors.AP_MOTORS_MATRIX_YAW_FACTOR_CCW;
-AC_ATTITUDE_CONTROL_MAX                            = AP_Motors.AC_ATTITUDE_CONTROL_MAX;
-AC_ATTITUDE_CONTROL_ANGLE_LIMIT_THROTTLE_MAX       = AP_Motors.AC_ATTITUDE_CONTROL_ANGLE_LIMIT_THROTTLE_MAX;
-
-  LAND_CHECK_ANGLE_ERROR_DEG = 30.0;       % maximum angle error to be considered landing
-  LAND_CHECK_LARGE_ANGLE_CD   =1500.0;     % maximum angle target to be considered landing
-  LAND_CHECK_ACCEL_MOVING     =3.0;        % maximum acceleration after subtracting gravity
-spool_desired=DesiredSpoolState.SHUT_DOWN;
-spool_state=SpoolState.SHUT_DOWN;
 
 AC_ATTITUDE_CONTROL_ANGLE_LIMIT_MIN =10;
 AC_ATTITUDE_CONTROL_ANGLE_LIMIT_THROTTLE_MAX=0.8;
@@ -1045,8 +1017,7 @@ ATC_ACCEL_Y_MAX = 36397.976562;
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  inint=1;
- AP_MOTORS_MATRIX_YAW_FACTOR_CW=-1;
- AP_MOTORS_MATRIX_YAW_FACTOR_CCW=1;
+
 
 roll_factor=[0 0 0 0];
 pitch_factor=[0 0 0 0];
