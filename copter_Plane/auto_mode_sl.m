@@ -552,7 +552,7 @@ global k_flap_Land
             case    ENUM_FlightTaskMode.Fix2Rotor_Mode
                  if(PathMode~=ENUM_FlightTaskMode.Fix2Rotor_Mode)
                     PathMode=ENUM_FlightTaskMode.Fix2Rotor_Mode;
-                    uavMode=1;
+%                     uavMode=1;
                     pos_target(3) = curr_alt;
                     k_throttle=0;
                     vel_desired(3)=0;
