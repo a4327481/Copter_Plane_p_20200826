@@ -10,6 +10,8 @@ global dt
 global GRAVITY_MSS
 global AC_PosControl
 global AP_Motors
+global take_off_land
+global thr_out_min
 
 p_pos_z                      = AC_PosControl.p_pos_z;
 p_vel_z                      = AC_PosControl.p_vel_z;
@@ -92,10 +94,14 @@ POSCONTROL_VEL_ERROR_CUTOFF_FREQ   = AC_PosControl.POSCONTROL_VEL_ERROR_CUTOFF_F
      
 
     % add feed forward component
-    if (flags_use_desvel_ff_z)  
-        vel_target(3)=vel_target(3)+ vel_desired(3);
-    end
-
+%     if (flags_use_desvel_ff_z)  
+%         vel_target(3)=vel_target(3)+ vel_desired(3);
+%     end
+        if(take_off_land)
+            vel_target(3) =vel_desired(3);            
+        else
+            vel_target(3) =vel_target(3)+vel_desired(3);
+        end
     % the following section calculates acceleration required to achieve the velocity target
 
  
@@ -165,6 +171,7 @@ POSCONTROL_VEL_ERROR_CUTOFF_FREQ   = AC_PosControl.POSCONTROL_VEL_ERROR_CUTOFF_F
             thr_out = pid_accel_z_update_all(accel_target(3), z_accel_meas, (limit_throttle_lower || limit_throttle_upper)) * 0.001;
         end
      thr_out =thr_out+ throttle_hover;
+     thr_out=constrain_value(thr_out,thr_out_min,1);
 
     % send throttle to attitude controller with angle boost
      set_throttle_out(thr_out, true, POSCONTROL_THROTTLE_CUTOFF_FREQ);

@@ -689,7 +689,6 @@ AP_Motors.limit_yaw                                          = false;
 AP_Motors.limit_throttle_lower                               = false;
 AP_Motors.limit_throttle_upper                               = false;
 
-
 AP_Motors.LAND_CHECK_ANGLE_ERROR_DEG                         = 30;% maximum angle error to be considered landing
 AP_Motors.LAND_CHECK_LARGE_ANGLE_CD                          = 15;% maximum angle target to be considered landing
 AP_Motors.LAND_CHECK_ACCEL_MOVING                            = 3.0;% maximum acceleration after subtracting gravity
@@ -697,10 +696,6 @@ AP_Motors.AP_MOTORS_MATRIX_YAW_FACTOR_CW                     = -1;
 AP_Motors.AP_MOTORS_MATRIX_YAW_FACTOR_CCW                    = 1;
 AP_Motors.AC_ATTITUDE_CONTROL_MAX                            = 5;
 AP_Motors.AC_ATTITUDE_CONTROL_ANGLE_LIMIT_THROTTLE_MAX       = 0.8;
-
- 
- 
-
 
 AC_ATTITUDE_CONTROL_ANGLE_LIMIT_MIN =10;
 AC_ATTITUDE_CONTROL_ANGLE_LIMIT_THROTTLE_MAX=0.8;

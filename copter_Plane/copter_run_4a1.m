@@ -1,20 +1,27 @@
 function  copter_run_4a1()
 %copter run
-global roll_target
-global pitch_target
-global target_yaw_rate
-global tail_tilt
-global k_aileron
-global k_elevator
-global k_rudder
+
+
 global aspeed
 global aspeed_cp
-global nav_pitch_cd
-global nav_roll_cd
 global p_plane_cp
-global k_throttle
 global AC_PosControl
-vel_desired             = AC_PosControl.vel_desired;
+global SRV_Channel
+global Plane
+
+vel_desired                           = AC_PosControl.vel_desired;
+roll_target                           = AC_PosControl.roll_target;
+pitch_target                          = AC_PosControl.pitch_target;
+target_yaw_rate                       = AC_PosControl.target_yaw_rate;
+
+tail_tilt                             = SRV_Channel.tail_tilt; 
+k_aileron                             = SRV_Channel.k_aileron;
+k_elevator                            = SRV_Channel.k_elevator;
+k_rudder                              = SRV_Channel.k_rudder;
+k_throttle                            = SRV_Channel.k_throttle;
+nav_pitch_cd                          = Plane.nav_pitch_cd;
+nav_roll_cd                           = Plane.nav_roll_cd;
+
 
          if( (abs(vel_desired(1))>0) || (abs(vel_desired(2))>0)||(abs(target_yaw_rate)>0))
              temp_yaw_rate=0;
@@ -43,6 +50,19 @@ vel_desired             = AC_PosControl.vel_desired;
          
 
          AP_MotorsMulticopter_output_4a1();
+
+AC_PosControl.vel_desired                         = vel_desired;
+AC_PosControl.roll_target                         = roll_target;
+AC_PosControl.pitch_target                        = pitch_target;
+AC_PosControl.target_yaw_rate                     = target_yaw_rate;
+
+SRV_Channel.tail_tilt                             = tail_tilt; 
+SRV_Channel.k_aileron                             = k_aileron;
+SRV_Channel.k_elevator                            = k_elevator;
+SRV_Channel.k_rudder                              = k_rudder;
+SRV_Channel.k_throttle                            = k_throttle;
+Plane.nav_pitch_cd                                = nav_pitch_cd;
+Plane.nav_roll_cd                                 = nav_roll_cd;
                 
 end
 

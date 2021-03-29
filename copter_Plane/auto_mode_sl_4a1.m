@@ -1,65 +1,112 @@
 function auto_mode_sl_4a1()
 %auto flight
 %mode auto
-global aerodynamic_load_factor
-global roll_target
-global pitch_target
-global target_yaw_rate
-global climb_rate_cms
+
+
 global dt
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global curr_pos
+global Plane 
+global AC_Attitude
+global AC_PosControl
+global AP_Motors
+global AP_L1
+global AP_TECS
+global AP_rate_pitch
+global AP_rate_yaw
+global rate_pitch_pid
+global rate_roll_pid
+global rate_yaw_pid
+global SRV_Channel
+
+aerodynamic_load_factor               = Plane.aerodynamic_load_factor;
+nav_pitch_cd                          = Plane.nav_pitch_cd;
+nav_roll_cd                           = Plane.nav_roll_cd;
+
+roll_target                           = AC_PosControl.roll_target;
+pitch_target                          = AC_PosControl.pitch_target;
+target_yaw_rate                       = AC_PosControl.target_yaw_rate;
+pos_target                            = AC_PosControl.pos_target;
+vel_desired                           = AC_PosControl.vel_desired;
+attitude_target_quat                  = AC_Attitude.attitude_target_quat;
+
+latAccDem                             = AP_L1.latAccDem;
+throttle_dem                          = AP_TECS.throttle_dem;       
+last_throttle_dem                     = AP_TECS.last_throttle_dem; 
+throttle_cruise                       = AP_TECS.throttle_cruise;    
+spdWeight                             = AP_TECS.spdWeight;      
+integTHR_state                        = AP_TECS.integTHR_state;     
+
+yaw_in                                = AP_Motors.yaw_in;    
+throttle_filter                       = AP_Motors.throttle_filter;
+throttle_in                           = AP_Motors.throttle_in;
+
+tail_tilt                             = SRV_Channel.tail_tilt; 
+k_aileron                             = SRV_Channel.k_aileron;
+k_elevator                            = SRV_Channel.k_elevator;
+k_rudder                              = SRV_Channel.k_rudder;
+k_throttle                            = SRV_Channel.k_throttle;
+pwm_out                               = SRV_Channel.pwm_out;
+k_flap                                = SRV_Channel.k_flap;
+
+global climb_rate_cms
 global loc_origin
 global current_loc
 global EAS_dem_cm
 global hgt_dem_cm
-
-global aspeed
 global p_tilt_pitch_target
-global tail_tilt
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global yaw
-%%%%%%%%%%L1%%%%%%%%%%%%%%%%%%%%%
 global center_WP
 global radius
 global loiter_direction
 global prev_WP
 global next_WP
 global dist_min
-global loc
-global L1_radius
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global k_aileron 
-global k_elevator 
-global k_rudder 
-global k_throttle
-global throttle_dem
-global last_throttle_dem
-global nav_pitch_cd
-global nav_roll_cd
-global yaw_in
 global p_plane_c2p
 global yaw_max_c2p
-global pitch_target_p2c
-global pitch_target_c2p
-global k_throttle_c2p
-
-global attitude_target_quat
-global rot_body_to_ned
-global POSCONTROL_ACC_Z_FILT_HZ
 global POSCONTROL_ACC_Z_FILT_HZ_c2p
 global inint_hgt
-global height
-global curr_alt
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%mode auto
-global PathModeOut_sl
-global airspeed_min
-global tail_tilt_c2p
 global tail_tilt_p2c
 global tail_tilt_rate
 global aspeed_c2p
 global aspeed_c2ps
+global pitch_target_p2c
+global pitch_target_c2p
+global k_throttle_c2p
+global throttle_ground
+global throttle_off_rate
+global take_off_land
+global vel_forward_integrator
+
+global k_flap_TakeOff
+global k_flap_Land
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+global curr_pos
+global aspeed
+global rot_body_to_ned
+global height
+global curr_alt
+global PathModeOut_sl
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+global disable_integrator_pitch
+global disable_integrator_roll
+global disable_integrator_yaw
+global roll_ff_pitch_inint
+global K_FF_yaw_inint
+global POSCONTROL_ACC_Z_FILT_HZ_inint
+global POSCONTROL_ACC_Z_I_inint
+global pid_accel_z_reset_filter
+global POSCONTROL_VEL_XY_I_inint
+global pid_vel_xy_reset_filter
+global ATC_RAT_PIT_I_inint
+global rate_pitch_pid_reset_filter
+global ATC_RAT_RLL_I_inint
+global rate_roll_pid_reset_filter
+global ATC_RAT_YAW_I_inint
+global rate_yaw_pid_reset_filter
+global gains_D_pitch_inint
+global gains_D_roll_inint
+
 persistent WP_i
 persistent PathMode
 persistent uavMode %0:comper 1:plane
@@ -70,74 +117,6 @@ persistent Fix2Rotor_delay_flag
 persistent TakeOffMode_delay
 persistent TakeOffMode_delay_flag
 
-
-global gains_D_pitch
-global gains_D_roll
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global disable_integrator_pitch
-global disable_integrator_roll
-global disable_integrator_yaw
-global roll_ff_pitch
-global K_FF_yaw
-
-global roll_ff_pitch_inint
-global K_FF_yaw_inint
-global POSCONTROL_ACC_Z_FILT_HZ_inint
-%%%%%%%%%%%%%%%%%%%%%% I %%%%%%%%%%%%%%%%%%%%%
-global POSCONTROL_ACC_Z_I_inint
-global     POSCONTROL_ACC_Z_I
-global     pid_accel_z_reset_filter
-
-global POSCONTROL_VEL_XY_I_inint
-global     POSCONTROL_VEL_XY_I
-global     pid_vel_xy_reset_filter
-
-global ATC_RAT_PIT_I_inint
-global     ATC_RAT_PIT_I
-global     rate_pitch_pid_reset_filter
-
-global ATC_RAT_RLL_I_inint
-global     ATC_RAT_RLL_I
-global     rate_roll_pid_reset_filter
-
-global ATC_RAT_YAW_I_inint
-global     ATC_RAT_YAW_I
-global     rate_yaw_pid_reset_filter
-
-global gains_D_pitch_inint
-global gains_D_roll_inint
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global throttle_filter;
-global throttle_in;
-global throttle_ground
-global thrust_rpyt_out
-global POSCONTROL_THROTTLE_CUTOFF_FREQ
-global throttle_off_rate
-global throttle_cruise
-global pwm_out
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global latAccDem
-global take_off_land
-global vel_forward_integrator
-
-global spdWeight
-global integTHR_state
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global k_flap
-global k_flap_TakeOff
-global k_flap_Land
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global AP_rate_pitch
-global AP_rate_yaw
-global AP_rate_roll
-global AC_PosControl
-global     rate_pitch_pid
-global     rate_roll_pid
-global     rate_yaw_pid
-
-pos_target       = AC_PosControl.pos_target;
-vel_desired      = AC_PosControl.vel_desired;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     if isempty(uavMode)
         uavMode = 0;
@@ -251,7 +230,7 @@ vel_desired      = AC_PosControl.vel_desired;
                        k_rudder=0; 
                        throttle_in=0.1;
                        throttle_filter=0.1;
-                       pwm_out=[1100 1100 1100 1100]';                       
+                       pwm_out=[1100 1100 1100 1100];                       
                        if(TakeOffMode_delay>1)
                            TakeOffMode_delay_flag=1;
                        end
@@ -579,7 +558,7 @@ vel_desired      = AC_PosControl.vel_desired;
                     nav_roll_cd=roll_target;
                     stabilize()
                     output_to_motors_plane_4a1();
-                    pwm_out=[1050 1050 1050 1050]';                  
+                    pwm_out=[1050 1050 1050 1050];                  
                 else
                     update_z_controller();
                     input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate);
@@ -781,7 +760,38 @@ vel_desired      = AC_PosControl.vel_desired;
                  copter_run_4a1();
         end
         
-        AC_PosControl.pos_target   = pos_target;
-        AC_PosControl.vel_desired  = vel_desired;
+		
+Plane.aerodynamic_load_factor                     = aerodynamic_load_factor;
+Plane.nav_pitch_cd                                = nav_pitch_cd;
+Plane.nav_roll_cd                                 = nav_roll_cd;
+
+AC_PosControl.roll_target                         = roll_target;
+AC_PosControl.pitch_target                        = pitch_target;
+AC_PosControl.target_yaw_rate                     = target_yaw_rate;
+AC_PosControl.pos_target                          = pos_target;
+AC_PosControl.vel_desired                         = vel_desired;
+
+AC_Attitude.attitude_target_quat                  = attitude_target_quat;
+
+AP_L1.latAccDem                                   = latAccDem;
+
+AP_TECS.throttle_dem                              = throttle_dem;       
+AP_TECS.last_throttle_dem                         = last_throttle_dem; 
+AP_TECS.throttle_cruise                           = throttle_cruise;    
+AP_TECS.spdWeight                                 = spdWeight;      
+AP_TECS.integTHR_state                            = integTHR_state;     
+
+AP_Motors.yaw_in                                  = yaw_in;    
+AP_Motors.throttle_filter                         = throttle_filter;
+AP_Motors.throttle_in                             = throttle_in;
+
+SRV_Channel.tail_tilt                             = tail_tilt; 
+SRV_Channel.k_aileron                             = k_aileron;
+SRV_Channel.k_elevator                            = k_elevator;
+SRV_Channel.k_rudder                              = k_rudder;
+SRV_Channel.k_throttle                            = k_throttle;
+SRV_Channel.pwm_out                               = pwm_out;
+SRV_Channel.k_flap                                = k_flap;		
+
 end
 

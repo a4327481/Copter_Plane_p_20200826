@@ -1,37 +1,44 @@
 function run_V10()
 
- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% quad _4a1 
-global aerodynamic_load_factor
-global roll_target
-global pitch_target
-global target_yaw_rate
-global throttle_in
-global climb_rate_cms
-global mode
-persistent mode_state
-global POSCONTROL_THROTTLE_CUTOFF_FREQ
-global inint
 global dt
-global height
+global Plane 
+global AC_Attitude
+global AC_PosControl
+global AP_Motors
+global AP_rate_pitch
+global AP_rate_yaw
+global AP_TECS
+global rate_pitch_pid
+global rate_roll_pid
+global rate_yaw_pid
+global SRV_Channel
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global curr_alt
-global curr_pos
+aerodynamic_load_factor               = Plane.aerodynamic_load_factor;
+nav_pitch_cd                          = Plane.nav_pitch_cd;
+nav_roll_cd                           = Plane.nav_roll_cd;
+
+roll_target                           = AC_PosControl.roll_target;
+pitch_target                          = AC_PosControl.pitch_target;
+target_yaw_rate                       = AC_PosControl.target_yaw_rate;
+pos_target                            = AC_PosControl.pos_target;
+vel_desired                           = AC_PosControl.vel_desired;
+attitude_target_quat                  = AC_Attitude.attitude_target_quat;
+hgt_dem                               = AP_TECS.hgt_dem;
+
+yaw_in                                = AP_Motors.yaw_in;    
+throttle_in                           = AP_Motors.throttle_in;
+
+tail_tilt                             = SRV_Channel.tail_tilt; 
+k_aileron                             = SRV_Channel.k_aileron;
+k_elevator                            = SRV_Channel.k_elevator;
+k_rudder                              = SRV_Channel.k_rudder;
+
+
+global climb_rate_cms
 global loc_origin
 global current_loc
 global EAS_dem_cm
 global hgt_dem_cm
-global hgt_dem
-global arspeed_filt
-global aspeed
-global arspeed_temp
-global p_tilt_pitch_target
-global tail_tilt
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global roll_target_pilot
-global pitch_target_pilot
- global yaw
-%%%%%%%%%%L1%%%%%%%%%%%%%%%%%%%%%
 global center_WP
 global radius
 global loiter_direction
@@ -40,65 +47,46 @@ global next_WP
 global dist_min
 global loc
 global L1_radius
-persistent WP_i
+global p_plane_c2p
+global yaw_max_c2p
+global POSCONTROL_ACC_Z_FILT_HZ_c2p
+global inint_hgt
+global aspeed_c2p
+global mode
+global inint
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+global arspeed_filt
+global arspeed_temp
+global roll_target_pilot
+global pitch_target_pilot
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+global curr_pos
+global aspeed
+global yaw
+global rot_body_to_ned
+global height
+global curr_alt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global disable_integrator_pitch
 global disable_integrator_roll
 global disable_integrator_yaw
-global roll_ff_pitch
-global K_FF_yaw
-global aspeed_c2p
-global k_aileron 
-global k_elevator 
-global k_rudder 
-global k_throttle
-global nav_pitch_cd
-global nav_roll_cd
-global roll_in
-global pitch_in
-global yaw_in
-global p_plane_c2p
-global yaw_max_c2p
-
-global attitude_target_quat
-global rot_body_to_ned
-global POSCONTROL_ACC_Z_FILT_HZ_inint
 global roll_ff_pitch_inint
 global K_FF_yaw_inint
-global POSCONTROL_ACC_Z_FILT_HZ
-global POSCONTROL_ACC_Z_FILT_HZ_c2p
-global inint_hgt
-%%%%%%%%%%%%%%%%%%%%%% I %%%%%%%%%%%%%%%%%%%%%
-global     POSCONTROL_ACC_Z_I_inint
-global     POSCONTROL_ACC_Z_I
-global     pid_accel_z_reset_filter
-
-global     POSCONTROL_VEL_XY_I_inint
-global     POSCONTROL_VEL_XY_I
-global     pid_vel_xy_reset_filter
-
-global     ATC_RAT_PIT_I_inint
-global     ATC_RAT_PIT_I
-global     rate_pitch_pid_reset_filter
-
-global     ATC_RAT_RLL_I_inint
-global     ATC_RAT_RLL_I
-global     rate_roll_pid_reset_filter
-
-global     ATC_RAT_YAW_I_inint
-global     ATC_RAT_YAW_I
-global     rate_yaw_pid_reset_filter
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global     rate_pitch_pid
-global     rate_roll_pid
-global     rate_yaw_pid
-global     AC_PosControl
-global    AP_rate_yaw
-global    AP_rate_pitch
-
-vel_desired          = AC_PosControl.vel_desired;
-pos_target           = AC_PosControl.pos_target;
-%mode auto
+global POSCONTROL_ACC_Z_FILT_HZ_inint
+global POSCONTROL_ACC_Z_I_inint
+global pid_accel_z_reset_filter
+global POSCONTROL_VEL_XY_I_inint
+global pid_vel_xy_reset_filter
+global ATC_RAT_PIT_I_inint
+global rate_pitch_pid_reset_filter
+global ATC_RAT_RLL_I_inint
+global rate_roll_pid_reset_filter
+global ATC_RAT_YAW_I_inint
+global rate_yaw_pid_reset_filter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% quad _4a1 
+persistent mode_state
+persistent WP_i
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     if isempty(mode_state)
         mode_state = 0;
@@ -347,7 +335,26 @@ switch mode
 %         AP_MotorsMulticopter_output();
 end
 
-AC_PosControl.vel_desired    = vel_desired;
-AC_PosControl.pos_target     = pos_target;
+
+Plane.aerodynamic_load_factor                     = aerodynamic_load_factor;
+Plane.nav_pitch_cd                                = nav_pitch_cd;
+Plane.nav_roll_cd                                 = nav_roll_cd;
+
+AC_PosControl.roll_target                         = roll_target;
+AC_PosControl.pitch_target                        = pitch_target;
+AC_PosControl.target_yaw_rate                     = target_yaw_rate;
+AC_PosControl.pos_target                          = pos_target;
+AC_PosControl.vel_desired                         = vel_desired;
+AC_Attitude.attitude_target_quat                  = attitude_target_quat;
+AP_TECS.hgt_dem                                   = hgt_dem;
+
+AP_Motors.yaw_in                                  = yaw_in;    
+AP_Motors.throttle_in                             = throttle_in;
+
+SRV_Channel.tail_tilt                             = tail_tilt; 
+SRV_Channel.k_aileron                             = k_aileron;
+SRV_Channel.k_elevator                            = k_elevator;
+SRV_Channel.k_rudder                              = k_rudder;
+
 end
 

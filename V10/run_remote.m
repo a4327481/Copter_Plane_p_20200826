@@ -1,18 +1,29 @@
 function  run_remote()
-global roll_target
-global pitch_target
-global target_yaw_rate
-global throttle_in
+
+global mode
 global climb_rate_cms
 global roll_target_pilot
 global pitch_target_pilot
-global nav_pitch_cd
-global latAccDem
-global throttle_dem
-global tail_tilt
-global mode
 global algo_remote_ct_st
-global pwm_tail
+
+global AP_Motors
+global AC_PosControl
+global Plane
+global AP_L1
+global AP_TECS 
+global SRV_Channel
+
+roll_target                           = AC_PosControl.roll_target;
+pitch_target                          = AC_PosControl.pitch_target;
+target_yaw_rate                       = AC_PosControl.target_yaw_rate;
+throttle_in                           = AP_Motors.throttle_in;
+nav_pitch_cd                          = Plane.nav_pitch_cd;
+latAccDem                             = AP_L1.latAccDem;
+throttle_dem                          = AP_TECS.throttle_dem;       
+tail_tilt                             = SRV_Channel.tail_tilt; 
+pwm_tail                              = SRV_Channel.pwm_tail;
+
+
 dead=0.05;
             if(algo_remote_ct_st.isRemoteConnected||algo_remote_ct_st.mode==9||algo_remote_ct_st.mode==10)
                 mode=algo_remote_ct_st.mode;
@@ -62,5 +73,15 @@ dead=0.05;
             climb_rate_cms=algo_remote_ct_st.pitch*600;
     end
     
+AC_PosControl.roll_target                           = roll_target;
+AC_PosControl.pitch_target                          = pitch_target;
+AC_PosControl.target_yaw_rate                       = target_yaw_rate;
+AP_Motors.throttle_in                               = throttle_in;
+Plane.nav_pitch_cd                                  = nav_pitch_cd;
+AP_L1.latAccDem                                     = latAccDem;
+AP_TECS.throttle_dem                                = throttle_dem;       
+SRV_Channel.tail_tilt                               = tail_tilt; 
+SRV_Channel.pwm_tail                                = pwm_tail;
+	
 end
 
