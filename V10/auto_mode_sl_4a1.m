@@ -545,7 +545,7 @@ global k_flap_Land
             case    ENUM_FlightTaskMode.Fix2Rotor_Mode
                  if(PathMode~=ENUM_FlightTaskMode.Fix2Rotor_Mode)
                     PathMode=ENUM_FlightTaskMode.Fix2Rotor_Mode;
-                    uavMode=0;
+%                     uavMode=0;
                     pos_target(3) = curr_alt;
                     vel_desired(3)=0;
                     attitude_target_quat=from_rotation_matrix(rot_body_to_ned);%20200225
@@ -559,9 +559,10 @@ global k_flap_Land
                     Fix2Rotor_delay=0;
                     Fix2Rotor_delay_flag=0;
                  end
-                if(Fix2Rotor_delay_flag==0)
+                if(Fix2Rotor_delay_flag==0&&uavMode==1)
                     if(Fix2Rotor_delay>=0.250)
                         Fix2Rotor_delay_flag=1;
+                        uavMode=0;
                     else
                         Fix2Rotor_delay=Fix2Rotor_delay+dt; 
                         Fix2Rotor_delay_flag=0;
