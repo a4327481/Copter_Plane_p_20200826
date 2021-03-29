@@ -889,19 +889,19 @@ temp = reshape([data(find(mod(Count,4)==3),133:136)'],1,[]);
 task_100ms_total_cnt=double(typecast(uint8(temp),'uint32')')/1*1.0000000000;
 SL.SystemInfo.task_100ms_total_cnt = task_100ms_total_cnt; % create struct
 len=length(task_1ms_total_cnt);
-% hold on
-% plot(diff(task_1ms_total_cnt))
-% % plot(diff(task_4ms_total_cnt))
-% plot(diff(task_12ms_total_cnt))
-% plot((task_1ms_total_cnt),'*')
-% plot((task_4ms_total_cnt),'*')
-% plot((task_12ms_total_cnt),'*')
-% plot(task_4ms_total_cnt./len)
-%  hold on
-%  plot(task_1ms_total_cnt./task_4ms_total_cnt)
-%  plot(task_1ms_total_cnt./task_12ms_total_cnt)
-%  plot(task_1ms_total_cnt./task_100ms_total_cnt)
-%  plot(save_time(2:end),diff(save_time))
+hold on
+plot(diff(task_1ms_total_cnt))
+% plot(diff(task_4ms_total_cnt))
+plot(diff(task_12ms_total_cnt))
+plot((task_1ms_total_cnt),'*')
+plot((task_4ms_total_cnt),'*')
+plot((task_12ms_total_cnt),'*')
+plot(task_4ms_total_cnt./len)
+ hold on
+ plot(task_1ms_total_cnt./task_4ms_total_cnt)
+ plot(task_1ms_total_cnt./task_12ms_total_cnt)
+ plot(task_1ms_total_cnt./task_100ms_total_cnt)
+ plot(save_time(2:end),diff(save_time))
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % /*-----------------------GlobalWindEst      ----------------------------------------------| */ 
 % /* |@@SL.GlobalWindEst@@------------------------+-------------+------------+--------------| */20200602
