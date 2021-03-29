@@ -4,7 +4,7 @@
 load IOBusInfo_byc_20200903.mat
 load IOBusInfo_V1000.mat
 pianzhuanjiao();
-sin_step_INIT();
+% sin_step_INIT();
 
 
     POSCONTROL_ACC_Z_DT=0.0025;    % vertical acceleration controller dt default
