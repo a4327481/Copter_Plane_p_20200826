@@ -10,8 +10,7 @@ global dt
 global GRAVITY_MSS
 global AC_PosControl
 global AP_Motors
-global take_off_land
-global thr_out_min
+global Copter_Plane
 
 p_pos_z                      = AC_PosControl.p_pos_z;
 p_vel_z                      = AC_PosControl.p_vel_z;
@@ -47,15 +46,18 @@ limit_pos_down               = AC_PosControl.limit_pos_down;
 limit_vel_up                 = AC_PosControl.limit_vel_up;
 limit_vel_down               = AC_PosControl.limit_vel_down;
 
-limit_throttle_lower            = AP_Motors.limit_throttle_lower;
-limit_throttle_upper            = AP_Motors.limit_throttle_upper;
-throttle_hover                  = AP_Motors.throttle_hover;
-
-
 POSCONTROL_VIBE_COMP_I_GAIN        = AC_PosControl.POSCONTROL_VIBE_COMP_I_GAIN;
 POSCONTROL_VIBE_COMP_P_GAIN        = AC_PosControl.POSCONTROL_VIBE_COMP_P_GAIN;
 POSCONTROL_THROTTLE_CUTOFF_FREQ    = AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ;
 POSCONTROL_VEL_ERROR_CUTOFF_FREQ   = AC_PosControl.POSCONTROL_VEL_ERROR_CUTOFF_FREQ;
+
+limit_throttle_lower            = AP_Motors.limit_throttle_lower;
+limit_throttle_upper            = AP_Motors.limit_throttle_upper;
+throttle_hover                  = AP_Motors.throttle_hover;
+
+take_off_land                   = Copter_Plane.take_off_land;
+thr_out_min                     = Copter_Plane.thr_out_min;
+
     % clear position limit flags
     limit_pos_up = false;
     limit_pos_down = false;
@@ -207,6 +209,7 @@ POSCONTROL_VEL_ERROR_CUTOFF_FREQ   = AC_PosControl.POSCONTROL_VEL_ERROR_CUTOFF_F
     AP_Motors.limit_throttle_upper            = limit_throttle_upper;
     AP_Motors.throttle_hover                  = throttle_hover;
 
- 
+    Copter_Plane.take_off_land                     = take_off_land;
+    Copter_Plane.thr_out_min                       = thr_out_min;
 end
 

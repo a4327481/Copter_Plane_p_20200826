@@ -1,5 +1,6 @@
 function vec_ne=get_vector_xy_from_origin_NE( loc,loc_origin ) 
  global LOCATION_SCALING_FACTOR
+
  loc_lat=loc(1);
  loc_lng=loc(2);
  loc_origin_lat=loc_origin(1);

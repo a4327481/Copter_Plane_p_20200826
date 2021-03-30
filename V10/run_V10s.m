@@ -55,12 +55,12 @@ inint_hgt                          = Copter_Plane.inint_hgt;
 aspeed_c2p                         = Copter_Plane.aspeed_c2p;
 mode                               = Copter_Plane.mode;
 inint                              = Copter_Plane.inint;
+roll_target_pilot                  = Copter_Plane.roll_target_pilot;
+pitch_target_pilot                 = Copter_Plane.pitch_target_pilot;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 global arspeed_filt
 global arspeed_temp
-global roll_target_pilot
-global pitch_target_pilot
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global curr_pos
 global aspeed
@@ -382,6 +382,7 @@ Copter_Plane.inint_hgt                            = inint_hgt;
 Copter_Plane.aspeed_c2p                           = aspeed_c2p;
 Copter_Plane.mode                                 = mode;
 Copter_Plane.inint                                = inint;
-
+Copter_Plane.roll_target_pilot                    = roll_target_pilot ;
+Copter_Plane.pitch_target_pilot                   = pitch_target_pilot;
 end
 

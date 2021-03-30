@@ -1,11 +1,10 @@
 function run_xy_controller(dt)
 global  curr_pos
 global  curr_vel
-global throttle_upper
 global GRAVITY_MSS
 global HD
-global  AC_PosControl
-
+global AC_PosControl
+global AP_Motors
 p_pos_xy                            = AC_PosControl.p_pos_xy;
 speed_cms                           = AC_PosControl.speed_cms;
 accel_cms                           = AC_PosControl.accel_cms;
@@ -27,6 +26,7 @@ accel_desired                       = AC_PosControl.accel_desired;
 limit_accel_xy                      = AC_PosControl.limit_accel_xy;
 roll_target                         = AC_PosControl.roll_target;
 pitch_target                        = AC_PosControl.pitch_target;
+limit_throttle_upper                = AP_Motors.limit_throttle_upper; 
 
 kP=p_pos_xy;
     % avoid divide by zero
@@ -89,7 +89,7 @@ kP=p_pos_xy;
 %     % acceleration to correct for velocity error and scale PID output to compensate for optical flow measurement induced EKF noise
 %     accel_target.x = (vel_xy_p.x + vel_xy_i.x + vel_xy_d.x) * ekfNavVelGainScaler;
 %     accel_target.y = (vel_xy_p.y + vel_xy_i.y + vel_xy_d.y) * ekfNavVelGainScaler;
-   accel_target(1:2) = pid_accel_xy_update_all(vel_target(1:2),vehicle_horiz_vel(1:2),(~limit_accel_xy && ~throttle_upper));
+   accel_target(1:2) = pid_accel_xy_update_all(vel_target(1:2),vehicle_horiz_vel(1:2),(~limit_accel_xy && ~limit_throttle_upper));
     % reset accel to current desired acceleration
     if (flags_reset_accel_to_lean_xy)  
         accel_target_filter(1:2)=accel_target(1:2);
@@ -133,6 +133,7 @@ kP=p_pos_xy;
  AC_PosControl.limit_accel_xy                          = limit_accel_xy;
  AC_PosControl.roll_target                             = roll_target;
  AC_PosControl.pitch_target                            = pitch_target;
+ AP_Motors.limit_throttle_upper                        = limit_throttle_upper; 
 
 end
 

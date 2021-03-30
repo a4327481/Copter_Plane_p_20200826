@@ -2,12 +2,10 @@ function  copter_run()
 %copter run
  
 global aspeed
-global aspeed_cp
-global p_plane_cp
 global AC_PosControl
 global SRV_Channel
 global Plane
-
+global Copter_Plane
 vel_desired                           = AC_PosControl.vel_desired;
 roll_target                           = AC_PosControl.roll_target;
 pitch_target                          = AC_PosControl.pitch_target;
@@ -19,7 +17,8 @@ k_elevator                            = SRV_Channel.k_elevator;
 k_rudder                              = SRV_Channel.k_rudder;
 nav_pitch_cd                          = Plane.nav_pitch_cd;
 nav_roll_cd                           = Plane.nav_roll_cd;
-
+p_plane_cp                            = Copter_Plane.p_plane_cp;
+aspeed_cp                             = Copter_Plane.aspeed_cp;
 
          if( (abs(vel_desired(1))>0) || (abs(vel_desired(2))>0)||(abs(target_yaw_rate)>0))
              temp_yaw_rate=0;
@@ -60,6 +59,8 @@ SRV_Channel.k_elevator                            = k_elevator;
 SRV_Channel.k_rudder                              = k_rudder;
 Plane.nav_pitch_cd                                = nav_pitch_cd;
 Plane.nav_roll_cd                                 = nav_roll_cd;
-                
+Copter_Plane.p_plane_cp                           = p_plane_cp;
+Copter_Plane.aspeed_cp                            = aspeed_cp;
+              
 end
 

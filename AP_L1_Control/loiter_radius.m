@@ -1,7 +1,5 @@
 function   radiuso=loiter_radius(radius)  
-global loiter_bank_limit
 global GRAVITY_MSS
-global EAS_dem
 global EAS2TAS
 global AP_TECS
 global AP_L1

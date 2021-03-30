@@ -1,10 +1,10 @@
 function rate_controller_run()
-global rate_target_ang_vel
 global gyro_x
 global gyro_y
 global gyro_z
 global Test_w
 global AP_Motors
+global AC_Attitude
 
  limit_roll                      = AP_Motors.limit_roll;
  limit_pitch                     = AP_Motors.limit_pitch;
@@ -12,6 +12,7 @@ global AP_Motors
 roll_in                 = AP_Motors.roll_in;
 pitch_in                = AP_Motors.pitch_in;
 yaw_in                  = AP_Motors.yaw_in;    
+rate_target_ang_vel     = AC_Attitude.rate_target_ang_vel; 
 % move throttle vs attitude mixing towards desired (called from here because this is conveniently called on every iteratio
 update_throttle_rpy_mix();
 
@@ -30,6 +31,7 @@ yaw_in   = rate_target_to_motor_yawg(  rate_target_ang_vel(3),gyro_z,limit_yaw)+
 AP_Motors.roll_in                 = roll_in;
 AP_Motors.pitch_in                = pitch_in;
 AP_Motors.yaw_in                  = yaw_in;    
+AC_Attitude.rate_target_ang_vel   = rate_target_ang_vel; 
 
 
 end

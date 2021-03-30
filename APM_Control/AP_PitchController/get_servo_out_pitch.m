@@ -1,8 +1,9 @@
 function  servo_out=get_servo_out_pitch(  angle_err,   scaler,   disable_integrator)
 
 global aspeed
-global desired_rate_pitch
+% global desired_rate_pitch
 global AP_rate_pitch
+
 gains_tau=AP_rate_pitch.gains_tau;
 max_rate_neg=AP_rate_pitch.max_rate_neg;
 gains_rmax=AP_rate_pitch.gains_rmax;
@@ -48,9 +49,11 @@ gains_rmax=AP_rate_pitch.gains_rmax;
 
 	% Apply the turn correction offset
 	desired_rate = desired_rate + rate_offset;
-    desired_rate_pitch=desired_rate;
+%     desired_rate_pitch=desired_rate;
     servo_out=get_rate_out_pitch(desired_rate, scaler, disable_integrator);
  
-
+AP_rate_pitch.gains_tau        = gains_tau;
+AP_rate_pitch.max_rate_neg     = max_rate_neg;
+AP_rate_pitch.gains_rmax       = gains_rmax;
 end
 

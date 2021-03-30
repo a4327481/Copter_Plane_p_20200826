@@ -1,5 +1,5 @@
 function servo_out=get_servo_out_roll(  angle_err,   scaler,   disable_integrator)
- global desired_rate_roll
+%  global desired_rate_roll
  global AP_rate_roll
  
  gains_tau   =AP_rate_roll.gains_tau;
@@ -20,7 +20,7 @@ function servo_out=get_servo_out_roll(  angle_err,   scaler,   disable_integrato
 	
 	% Calculate the desired roll rate (deg/sec) from the angle error
 	desired_rate = angle_err * 0.01 / gains_tau;
-    desired_rate_roll=desired_rate;
+%     desired_rate_roll=desired_rate;
         % Limit the demanded roll rate
         if (gains_rmax && desired_rate < -gains_rmax)
             desired_rate = - gains_rmax;
@@ -29,6 +29,7 @@ function servo_out=get_servo_out_roll(  angle_err,   scaler,   disable_integrato
         end
     servo_out=get_rate_out_roll(desired_rate, scaler, disable_integrator);
  
-
+AP_rate_roll.gains_tau   = gains_tau;
+AP_rate_roll.gains_rmax  = gains_rmax ;
 end
 

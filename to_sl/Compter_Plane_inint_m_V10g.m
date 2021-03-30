@@ -397,6 +397,9 @@ AP_rate_yaw.last_out                     = 0;
  AC_PosControl.POSCONTROL_ACCEL_XY_MAX                 = 458;
  AC_PosControl.POSCONTROL_OVERSPEED_GAIN_Z             = 2;%a
  AC_PosControl.POSCONTROL_JERK_RATIO                   = 1.0;%a
+ AC_PosControl.POSCONTROL_ACCELERATION_MIN             = 50.0;% minimum horizontal acceleration in cm/s/s - used for sanity checking acceleration in leash length calculation
+ AC_PosControl.POSCONTROL_LEASH_LENGTH_MIN             = 100.0;%minimum leash lengths in cm
+
  
  AC_PosControl.flags_recalc_leash_z = true;
  AC_PosControl.flags_recalc_leash_xy = true;
@@ -420,6 +423,9 @@ AC_PosControl.pos_target                = [0 0 0];
 AC_PosControl.vel_target                = [0 0 0];
 AC_PosControl.accel_target              = [0 0 0];
 AC_PosControl.accel_target_filter       = [0 0 0];
+AC_PosControl.roll_target               = 0;
+AC_PosControl.pitch_target              = 0;
+AC_PosControl.target_yaw_rate           = 0;
 AC_PosControl.vehicle_horiz_vel         = [0 0];
 AC_PosControl.vel_desired                      = [0 0 0];
 AC_PosControl.vel_error_filter                 = [0 0 0];
@@ -427,7 +433,6 @@ AC_PosControl.vel_error                        = [0 0 0];
 AC_PosControl.vel_last                         = [0 0 0];
 AC_PosControl.accel_desired                    = [0 0 0];
 AC_PosControl.vel_z_control_ratio              = 0;
-
 
  
  AC_PosControl.pid_vel_xy.flags_reset_filter            = 0;
@@ -786,7 +791,10 @@ Copter_Plane.vel_forward_gain                       = 1          ;
 Copter_Plane.vel_forward_min_pitch                  = -4         ;
 Copter_Plane.vel_forward_tail_tilt_max              = 2000       ;
 Copter_Plane.vel_forward_integrator                 = 0          ;
-                                                                                      
+
+LOCATION_SCALING_FACTOR                = 0.011131884502145034;
+LOCATION_SCALING_FACTOR_INV            = 89.83204953368922;   
+                                                                             
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 climb_rate_cms=0;

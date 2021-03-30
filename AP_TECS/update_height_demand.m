@@ -1,7 +1,7 @@
 function  update_height_demand( )
  global dt
  global AP_TECS
- global inint_hgt
+ global Copter_Plane
    hgt_dem                    =AP_TECS.hgt_dem;
    hgt_dem_in_old             =AP_TECS.hgt_dem_in_old;
    maxSinkRate                =AP_TECS.maxSinkRate;
@@ -10,7 +10,8 @@ function  update_height_demand( )
    hgt_dem_adj                =AP_TECS.hgt_dem_adj;
    hgt_dem_adj_last           =AP_TECS.hgt_dem_adj_last;
    hgt_rate_dem               =AP_TECS.hgt_rate_dem;
- 
+   inint_hgt                  = Copter_Plane.inint_hgt;
+
  
     if(inint_hgt)
        hgt_dem_in_old=hgt_dem; 
@@ -63,6 +64,7 @@ function  update_height_demand( )
    AP_TECS.hgt_dem_adj                = hgt_dem_adj;
    AP_TECS.hgt_dem_adj_last           = hgt_dem_adj_last;
    AP_TECS.hgt_rate_dem               = hgt_rate_dem;
-         
+   Copter_Plane.inint_hgt             = inint_hgt;
+      
 end
 
