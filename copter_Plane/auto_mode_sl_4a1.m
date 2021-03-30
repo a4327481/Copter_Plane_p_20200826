@@ -16,7 +16,7 @@ global rate_pitch_pid
 global rate_roll_pid
 global rate_yaw_pid
 global SRV_Channel
-
+global Copter_Plane
 aerodynamic_load_factor               = Plane.aerodynamic_load_factor;
 nav_pitch_cd                          = Plane.nav_pitch_cd;
 nav_roll_cd                           = Plane.nav_roll_cd;
@@ -47,36 +47,35 @@ k_throttle                            = SRV_Channel.k_throttle;
 pwm_out                               = SRV_Channel.pwm_out;
 k_flap                                = SRV_Channel.k_flap;
 
-global climb_rate_cms
-global loc_origin
-global current_loc
-global EAS_dem_cm
-global hgt_dem_cm
-global p_tilt_pitch_target
-global center_WP
-global radius
-global loiter_direction
-global prev_WP
-global next_WP
-global dist_min
-global p_plane_c2p
-global yaw_max_c2p
-global POSCONTROL_ACC_Z_FILT_HZ_c2p
-global inint_hgt
-global tail_tilt_p2c
-global tail_tilt_rate
-global aspeed_c2p
-global aspeed_c2ps
-global pitch_target_p2c
-global pitch_target_c2p
-global k_throttle_c2p
-global throttle_ground
-global throttle_off_rate
-global take_off_land
-global vel_forward_integrator
-
-global k_flap_TakeOff
-global k_flap_Land
+climb_rate_cms                     = Copter_Plane.climb_rate_cms;
+loc_origin                         = Copter_Plane.loc_origin;
+current_loc                        = Copter_Plane.current_loc;
+EAS_dem_cm                         = Copter_Plane.EAS_dem_cm;
+hgt_dem_cm                         = Copter_Plane.hgt_dem_cm;
+p_tilt_pitch_target                = Copter_Plane.p_tilt_pitch_target;
+center_WP                          = Copter_Plane.center_WP;
+radius                             = Copter_Plane.radius;
+loiter_direction                   = Copter_Plane.loiter_direction;
+prev_WP                            = Copter_Plane.prev_WP;
+next_WP                            = Copter_Plane.next_WP;
+dist_min                           = Copter_Plane.dist_min;
+p_plane_c2p                        = Copter_Plane.p_plane_c2p;
+yaw_max_c2p                        = Copter_Plane.yaw_max_c2p;
+POSCONTROL_ACC_Z_FILT_HZ_c2p       = Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ_c2p;
+inint_hgt                          = Copter_Plane.inint_hgt;
+tail_tilt_p2c                      = Copter_Plane.tail_tilt_p2c;
+tail_tilt_rate                     = Copter_Plane.tail_tilt_rate;
+aspeed_c2p                         = Copter_Plane.aspeed_c2p;
+aspeed_c2ps                        = Copter_Plane.aspeed_c2ps;
+pitch_target_p2c                   = Copter_Plane.pitch_target_p2c;
+pitch_target_c2p                   = Copter_Plane.pitch_target_c2p;
+k_throttle_c2p                     = Copter_Plane.k_throttle_c2p;
+throttle_ground                    = Copter_Plane.throttle_ground;
+throttle_off_rate                  = Copter_Plane.throttle_off_rate;
+take_off_land                      = Copter_Plane.take_off_land;
+vel_forward_integrator             = Copter_Plane.vel_forward_integrator;
+k_flap_TakeOff                     = Copter_Plane.k_flap_TakeOff;
+k_flap_Land                        = Copter_Plane.k_flap_Land;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -793,5 +792,34 @@ SRV_Channel.k_throttle                            = k_throttle;
 SRV_Channel.pwm_out                               = pwm_out;
 SRV_Channel.k_flap                                = k_flap;		
 
+Copter_Plane.climb_rate_cms                     = climb_rate_cms;
+Copter_Plane.loc_origin                         = loc_origin;
+Copter_Plane.current_loc                        = current_loc;
+Copter_Plane.EAS_dem_cm                         = EAS_dem_cm;
+Copter_Plane.hgt_dem_cm                         = hgt_dem_cm;
+Copter_Plane.p_tilt_pitch_target                = p_tilt_pitch_target;
+Copter_Plane.center_WP                          = center_WP;
+Copter_Plane.radius                             = radius;
+Copter_Plane.loiter_direction                   = loiter_direction;
+Copter_Plane.prev_WP                            = prev_WP;
+Copter_Plane.next_WP                            = next_WP;
+Copter_Plane.dist_min                           = dist_min;
+Copter_Plane.p_plane_c2p                        = p_plane_c2p;
+Copter_Plane.yaw_max_c2p                        = yaw_max_c2p;
+Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ_c2p       = POSCONTROL_ACC_Z_FILT_HZ_c2p;
+Copter_Plane.inint_hgt                          = inint_hgt;
+Copter_Plane.tail_tilt_p2c                      = tail_tilt_p2c;
+Copter_Plane.tail_tilt_rate                     = tail_tilt_rate;
+Copter_Plane.aspeed_c2p                         = aspeed_c2p;
+Copter_Plane.aspeed_c2ps                        = aspeed_c2ps;
+Copter_Plane.pitch_target_p2c                   = pitch_target_p2c;
+Copter_Plane.pitch_target_c2p                   = pitch_target_c2p;
+Copter_Plane.k_throttle_c2p                     = k_throttle_c2p;
+Copter_Plane.throttle_ground                    = throttle_ground;
+Copter_Plane.throttle_off_rate                  = throttle_off_rate;
+Copter_Plane.take_off_land                      = take_off_land;
+Copter_Plane.vel_forward_integrator             = vel_forward_integrator;
+Copter_Plane.k_flap_TakeOff                     = k_flap_TakeOff;
+Copter_Plane.k_flap_Land                        = k_flap_Land;
 end
 

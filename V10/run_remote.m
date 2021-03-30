@@ -1,17 +1,15 @@
 function  run_remote()
 
-global mode
-global climb_rate_cms
-global roll_target_pilot
-global pitch_target_pilot
-global algo_remote_ct_st
 
+
+global algo_remote_ct_st
 global AP_Motors
 global AC_PosControl
 global Plane
 global AP_L1
 global AP_TECS 
 global SRV_Channel
+global Copter_Plane
 
 roll_target                           = AC_PosControl.roll_target;
 pitch_target                          = AC_PosControl.pitch_target;
@@ -23,6 +21,10 @@ throttle_dem                          = AP_TECS.throttle_dem;
 tail_tilt                             = SRV_Channel.tail_tilt; 
 pwm_tail                              = SRV_Channel.pwm_tail;
 
+mode                                  = Copter_Plane.mode;
+climb_rate_cms                        = Copter_Plane.climb_rate_cms;
+roll_target_pilot                     = Copter_Plane.roll_target_pilot;
+pitch_target_pilot                    = Copter_Plane.pitch_target_pilot;
 
 dead=0.05;
             if(algo_remote_ct_st.isRemoteConnected||algo_remote_ct_st.mode==9||algo_remote_ct_st.mode==10)
@@ -82,6 +84,9 @@ AP_L1.latAccDem                                     = latAccDem;
 AP_TECS.throttle_dem                                = throttle_dem;       
 SRV_Channel.tail_tilt                               = tail_tilt; 
 SRV_Channel.pwm_tail                                = pwm_tail;
-	
+Copter_Plane.mode                                   = mode;
+Copter_Plane.climb_rate_cms                         = climb_rate_cms;
+Copter_Plane.roll_target_pilot                      = roll_target_pilot;
+Copter_Plane.pitch_target_pilot                     = pitch_target_pilot;	
 end
 

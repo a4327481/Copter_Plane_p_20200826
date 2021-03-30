@@ -2,9 +2,10 @@ function Nuo=prevent_indecision( Nu)
  global HD
 
  global AP_L1
+ global Copter_Plane
   last_Nu              =AP_L1.last_Nu;
   target_bearing_cd    =AP_L1.target_bearing_cd;
-  loiter_direction     =AP_L1.loiter_direction;
+  loiter_direction     =Copter_Plane.loiter_direction;
 %    prevent indecision in our turning by using our previous turn
 %    decision if we are in a narrow angle band pointing away from the
 %    target and the turn angle has changed sign
@@ -26,8 +27,8 @@ function Nuo=prevent_indecision( Nu)
         Nuo = last_Nu;
     end
     
-  AP_L1.last_Nu              =last_Nu;
-  AP_L1.target_bearing_cd    =target_bearing_cd;
-  AP_L1.loiter_direction     =loiter_direction;
+  AP_L1.last_Nu                     = last_Nu;
+  AP_L1.target_bearing_cd           = target_bearing_cd;
+  Copter_Plane.loiter_direction     = loiter_direction;
 end
 

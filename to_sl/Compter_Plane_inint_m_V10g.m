@@ -351,8 +351,7 @@ AP_rate_yaw.last_rate_hp_in              = 0;
 AP_rate_yaw.integrator                   = 0;
 AP_rate_yaw.last_out                     = 0;
  
-% POSCONTROL_OVERSPEED_GAIN_Z
-% accel_last_z_cms
+
  AC_PosControl.p_pos_z                               = 1;
  AC_PosControl.p_vel_z                               = 1;
  AC_PosControl.pid_accel_z.kp                        = 0.9 ;%POSCONTROL_ACC_Z_P
@@ -389,8 +388,15 @@ AP_rate_yaw.last_out                     = 0;
  AC_PosControl.leash_up_z                              = 100;%POSCONTROL_LEASH_LENGTH_MIN
  AC_PosControl.accel_xy_filt_hz                        = 10;%POSCONTROL_ACCEL_FILTER_HZ
  AC_PosControl.vibe_comp_enabled                       = 1;
+ AC_PosControl.accel_last_z_cms                        = 0;%a
+
  AC_PosControl.POSCONTROL_VEL_ERROR_CUTOFF_FREQ        = 1.5;
+ AC_PosControl.POSCONTROL_VIBE_COMP_I_GAIN             = 0.125;
+ AC_PosControl.POSCONTROL_VIBE_COMP_P_GAIN             = 0.25; 
+ AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ         = 10;
  AC_PosControl.POSCONTROL_ACCEL_XY_MAX                 = 458;
+ AC_PosControl.POSCONTROL_OVERSPEED_GAIN_Z             = 2;%a
+ AC_PosControl.POSCONTROL_JERK_RATIO                   = 1.0;%a
  
  AC_PosControl.flags_recalc_leash_z = true;
  AC_PosControl.flags_recalc_leash_xy = true;
@@ -422,9 +428,7 @@ AC_PosControl.vel_last                         = [0 0 0];
 AC_PosControl.accel_desired                    = [0 0 0];
 AC_PosControl.vel_z_control_ratio              = 0;
 
-AC_PosControl.POSCONTROL_VIBE_COMP_I_GAIN             =0.125;
-AC_PosControl.POSCONTROL_VIBE_COMP_P_GAIN             =0.25; 
-AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ         =10;
+
  
  AC_PosControl.pid_vel_xy.flags_reset_filter            = 0;
  AC_PosControl.pid_vel_xy.target                        = [0 0];
@@ -531,7 +535,6 @@ AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ         =10;
  AP_TECS.STEdotErrLast             = 0;
  AP_TECS.integSEB_state            = 0;
 
- AP_L1.loiter_direction            = 1;
  AP_L1.L1_xtrack_i_gain            = 0;
  AP_L1.L1_damping                  = 0.75;
  AP_L1.L1_period                   = 15;
@@ -702,8 +705,91 @@ AC_ATTITUDE_CONTROL_ANGLE_LIMIT_THROTTLE_MAX=0.8;
 althold_lean_angle_max=0;
 attitude_target_quat=[1 0 0 0];
 rate_target_ang_vel=[0 0 0];
- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- climb_rate_cms=0;
+
+Copter_Plane.aspeed_cp                              = 30         ;          
+Copter_Plane.aspeed_c2p                             = 8          ;          
+Copter_Plane.aspeed_c2ps                            = 18         ;          
+Copter_Plane.p_plane_c2p                            = 0.6        ;          
+Copter_Plane.p_plane_cp                             = 0.4        ;          
+Copter_Plane.p_k_elevator_c2p                       = 2          ;          
+Copter_Plane.pitch_target_c2p                       = 0          ;          
+Copter_Plane.tail_tilt_c2p                          = -2800      ;          
+Copter_Plane.k_throttle_c2p                         = 0.4        ;          
+Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ_c2p           = 0.2        ;          
+Copter_Plane.thr_out_min_c2p                        = 0.5        ;          
+Copter_Plane.yaw_max_c2p                            = 0.1        ;          
+Copter_Plane.p_tilt_pitch_target                    = 0.4        ;          
+Copter_Plane.tail_tilt_p2c                          = -1300      ;          
+Copter_Plane.p_plane_p2c                            = 1          ;          
+Copter_Plane.pitch_target_p2c                       = 500        ;          
+Copter_Plane.POSCONTROL_THROTTLE_CUTOFF_FREQ_p2c    = 0.05       ;          
+Copter_Plane.Fix2Rotor_delay_s                      = 0.8        ;          
+Copter_Plane.tail_tilt_rate                         = 1500       ;          
+
+
+
+Copter_Plane.inint                                 = 1            ;                                                                                              
+Copter_Plane.mode                                  = 0            ; 
+Copter_Plane.EAS_dem_cm                            = 2000         ; 
+Copter_Plane.hgt_dem_cm                            = 0            ; 
+Copter_Plane.roll_target_pilot                     = 0            ; 
+Copter_Plane.pitch_target_pilot                    = 0            ; 
+Copter_Plane.heading_hold                          = 0            ;                                                                                               
+Copter_Plane.climb_rate_cms                        = 0            ; 
+
+
+	loc.num=1:20;
+    loc.lat=[
+        40*1e7;
+        40.01*1e7;
+        40.02*1e7;
+        40.02*1e7;
+        40.01*1e7;
+        zeros(15,1)
+        ];
+    loc.lon=[
+        100*1e7;
+        100.01*1e7;
+        100.01*1e7;
+        100.02*1e7;
+        100.02*1e7;
+        zeros(15,1)
+        ];
+		
+Copter_Plane.prev_WP                               = [40,100]*1e7                           ; 
+Copter_Plane.next_WP                               = [40,100.01]*1e7                        ; 
+Copter_Plane.dist_min                              = 50                                     ; 
+
+Copter_Plane.center_WP                             = [40,100]*1e7                           ; 
+Copter_Plane.loc_origin                            = [40,100]*1e7                           ; 
+Copter_Plane.current_loc                           = [40,100]*1e7                           ; 
+Copter_Plane.loc                                   = loc                                    ; 
+Copter_Plane.L1_radius                             = 60                                     ;
+Copter_Plane.radius                                = 80                                     ;
+Copter_Plane.loiter_direction                      = 1                                      ;     
+
+Copter_Plane.k_flap_TakeOff                        = -3500                                  ; 
+Copter_Plane.k_flap_Land                           = 3500                                   ; 
+Copter_Plane.thr_out_min                           = 0                                      ; 
+Copter_Plane.throttle_ground                       = 0.45                                   ; 
+Copter_Plane.throttle_off_rate                     = 0.03                                   ; 
+
+Copter_Plane.take_off_land                         = 0                                      ; 
+Copter_Plane.inint_hgt                             = 0                                      ; 
+
+Copter_Plane.weathervane_gain                      = 1.2                                    ;
+Copter_Plane.weathervane_min_roll                  = 4                                      ;           
+Copter_Plane.weathervane_last_output               = 0                                      ;
+Copter_Plane.yaw_rate_max                          = 50                                     ;
+
+Copter_Plane.vel_forward_gain                       = 1          ;
+Copter_Plane.vel_forward_min_pitch                  = -4         ;
+Copter_Plane.vel_forward_tail_tilt_max              = 2000       ;
+Copter_Plane.vel_forward_integrator                 = 0          ;
+                                                                                      
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+climb_rate_cms=0;
 slew_yaw=6000;
 angle_boost_enabled=1;
 angle_limit_tc=1;
@@ -1171,10 +1257,4 @@ thrust_rpyt_out=[0 0 0 0];
 % 
 %     // 7 was THR_LOW_CMP
 % 
-
-
-
-
-
-
 

@@ -51,16 +51,16 @@ global HD
     PathModeOut_sl.prePathPoint_LLA         =Curr_sate.PathModeOut.prePathPoint_LLA*1e7;
     PathModeOut_sl.curPathPoint_LLA         =Curr_sate.PathModeOut.curPathPoint_LLA*1e7;
     PathModeOut_sl.rollCmd                  =Curr_sate.PathModeOut.rollCmd;   
-    curr_alt=Curr_sate.curLLA(3)*100;
-    height=Curr_sate.curLLA(3);
+    curr_alt                                =Curr_sate.curLLA(3)*100;
+    height                                  =Curr_sate.curLLA(3);
  else
     PathModeOut_sl.headingCmd               =algo_dbg_param.headingCmd;
     PathModeOut_sl.groundspeedCmd           =algo_dbg_param.groundspeedCmd;
     PathModeOut_sl.heightCmd                =algo_dbg_param.heightCmd;
     PathModeOut_sl.flightTaskMode           =algo_dbg_param.flightTaskMode;
     PathModeOut_sl.maxClimbSpeed            =algo_dbg_param.maxClimbSpeed;  
-    curr_alt=Curr_sate.NAV_alt*100;
-    height=Curr_sate.NAV_alt;
+    curr_alt                                =Curr_sate.NAV_alt*100;
+    height                                  =Curr_sate.NAV_alt;
  end
  
 end

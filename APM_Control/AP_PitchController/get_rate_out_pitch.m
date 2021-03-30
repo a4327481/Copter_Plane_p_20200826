@@ -4,7 +4,6 @@ global gyro_y
 global HD   
 global aspeed
 global EAS2TAS
-global roll_limit_cd
 global roll
 global pitch
 global AP_rate_pitch
@@ -35,7 +34,7 @@ global Plane
  D_gain_modifier          =AP_rate_pitch.D_gain_modifier;
  pid_info_Dmod            =AP_rate_pitch.pid_info_Dmod;
  airspeed_min             =Plane.airspeed_min; 
-	
+ roll_limit_cd	          =Plane.roll_limit_cd;
 	  delta_time    =dt;	
 	% Get body rate vector (radians/sec)
 	% Calculate the pitch rate error (deg/sec) and scale
@@ -175,6 +174,9 @@ AP_rate_pitch.slew_filterg                = slew_filterg;
 AP_rate_pitch.slew_rate_amplitude         = slew_rate_amplitude;
 AP_rate_pitch.D_gain_modifier             = D_gain_modifier;
 AP_rate_pitch.pid_info_Dmod               = pid_info_Dmod;
-     
+ 
+Plane.airspeed_min                        = airspeed_min;
+Plane.roll_limit_cd	                      = roll_limit_cd;
+ 
 end
 

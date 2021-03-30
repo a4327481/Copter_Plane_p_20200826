@@ -1,11 +1,11 @@
 function plane_run_4a1()
 %plane
-global hgt_dem_cm
-global EAS_dem_cm
-
 global Plane
 global SRV_Channel
+global Copter_Plane
 
+hgt_dem_cm                            = Copter_Plane.hgt_dem_cm;
+EAS_dem_cm                            = Copter_Plane.EAS_dem_cm;
 aerodynamic_load_factor               = Plane.aerodynamic_load_factor;
 k_throttle                            = SRV_Channel.k_throttle;
 
@@ -21,8 +21,11 @@ k_throttle                            = SRV_Channel.k_throttle;
         output_to_motors_plane_4a1();
 %         k_flap=k_aileron*p_flap_plane;
 
-Plane.aerodynamic_load_factor               = aerodynamic_load_factor;
-SRV_Channel.k_throttle                      = k_throttle;  
+
+Copter_Plane.hgt_dem_cm                            = hgt_dem_cm;
+Copter_Plane.EAS_dem_cm                            = EAS_dem_cm;    
+Plane.aerodynamic_load_factor                      = aerodynamic_load_factor;
+SRV_Channel.k_throttle                             = k_throttle;  
   
 end
 

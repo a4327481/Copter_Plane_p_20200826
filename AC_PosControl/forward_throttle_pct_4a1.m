@@ -4,10 +4,8 @@ function vel_forward_pct_out = forward_throttle_pct_4a1()
 %       recovery modes for a quadplane and need to be as simple as
 %       possible. They will drift with the wind
 %     work out the desired speed in forward direction
- global vel_forward_last_pct
 global vel_forward_gain
 global vel_forward_min_pitch
-global vel_forward_tail_tilt_max
 global vel_forward_integrator
 global dt
 global  AC_PosControl

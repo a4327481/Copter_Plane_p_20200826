@@ -5,22 +5,20 @@ function   set_alt_target_from_climb_rate_ff(  climb_rate_cms,   dt,   force_des
 %     actual position target will be moved no faster than the speed_down and speed_up
 %     target will also be stopped if the motors hit their limits or leash length is exceeded
 %     set force_descend to true during landing to allow target to move low enough to slow the motors
-global POSCONTROL_ACCEL_Z
-global POSCONTROL_SPEED_DOWN
-global POSCONTROL_SPEED_UP
-global POSCONTROL_JERK_RATIO
-global accel_last_z_cms
-global use_desvel_ff_z
-global POSCONTROL_OVERSPEED_GAIN_Z
+
 
 global AC_PosControl
 global AP_Motors
 
-speed_up_cms            = AC_PosControl.speed_up_cms;
-speed_down_cms          = AC_PosControl.speed_down_cms;
-vel_desired             = AC_PosControl.vel_desired;
-pos_target              = AC_PosControl.pos_target;
-limit_pos_up            = AC_PosControl.limit_pos_up;
+speed_up_cms                  = AC_PosControl.speed_up_cms;
+speed_down_cms                = AC_PosControl.speed_down_cms;
+vel_desired                   = AC_PosControl.vel_desired;
+pos_target                    = AC_PosControl.pos_target;
+limit_pos_up                  = AC_PosControl.limit_pos_up;
+POSCONTROL_JERK_RATIO         = AC_PosControl.POSCONTROL_JERK_RATIO;
+accel_last_z_cms              = AC_PosControl.accel_last_z_cms;
+flags_use_desvel_ff_z         = AC_PosControl.flags_use_desvel_ff_z;
+POSCONTROL_OVERSPEED_GAIN_Z   = AC_PosControl.POSCONTROL_OVERSPEED_GAIN_Z;
 limit_throttle_lower          = AP_Motors.limit_throttle_lower;
 limit_throttle_upper          = AP_Motors.limit_throttle_upper;
 
@@ -43,7 +41,7 @@ limit_throttle_upper          = AP_Motors.limit_throttle_upper;
 
      vel_change_limit = accel_last_z_cms * dt;
     vel_desired(3) = constrain_value(climb_rate_cms, vel_desired(3) - vel_change_limit, vel_desired(3) + vel_change_limit);
-    use_desvel_ff_z = 1;
+    flags_use_desvel_ff_z = true;
 
     % adjust desired alt if motors have not hit their limits
     % To-Do: add check of _limit.pos_down?
@@ -51,9 +49,19 @@ limit_throttle_upper          = AP_Motors.limit_throttle_upper;
         pos_target(3) =pos_target(3)+vel_desired(3) * dt;
     end
      
-  AC_PosControl.vel_desired   = vel_desired; 
-  AC_PosControl.pos_target    = pos_target ;
-  AP_Motors.limit_throttle_lower    = limit_throttle_lower;
-  AP_Motors.limit_throttle_upper    = limit_throttle_upper;
+AC_PosControl.speed_up_cms                  = speed_up_cms;
+AC_PosControl.speed_down_cms                = speed_down_cms;
+AC_PosControl.vel_desired                   = vel_desired;
+AC_PosControl.pos_target                    = pos_target;
+AC_PosControl.limit_pos_up                  = limit_pos_up;
+AC_PosControl.POSCONTROL_JERK_RATIO         = POSCONTROL_JERK_RATIO;
+AC_PosControl.accel_last_z_cms              = accel_last_z_cms;
+AC_PosControl.flags_use_desvel_ff_z         = flags_use_desvel_ff_z;
+AC_PosControl.POSCONTROL_OVERSPEED_GAIN_Z   = POSCONTROL_OVERSPEED_GAIN_Z;
+AP_Motors.limit_throttle_lower              = limit_throttle_lower;
+AP_Motors.limit_throttle_upper              = limit_throttle_upper;
+  
+  
+  
 end
 
