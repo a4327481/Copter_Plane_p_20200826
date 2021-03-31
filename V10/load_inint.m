@@ -39,8 +39,7 @@ global thr_out_min
     
     roll_ff_pitch                   =roll_ff_pitch_inint;
     K_FF_yaw                        =K_FF_yaw_inint;
-%     gains_D_pitch                   =gains_D_pitch_inint;
-%     gains_D_roll                    =gains_D_roll_inint;
+
     
     POSCONTROL_ACC_Z_FILT_HZ        =POSCONTROL_ACC_Z_FILT_HZ_inint;
     POSCONTROL_THROTTLE_CUTOFF_FREQ =POSCONTROL_THROTTLE_CUTOFF_FREQ_inint;

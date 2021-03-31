@@ -11,7 +11,6 @@ global aspeed
 global EAS2TAS
 global groundspeed_vector
 global height
-global Vz
 global curr_vel
 global curr_alt
 global current_loc
@@ -28,18 +27,14 @@ global HD
  gyro_x=Curr_sate.gyro_x;
  gyro_y=Curr_sate.gyro_y;
  gyro_z=Curr_sate.gyro_z;
- aspeed=Curr_sate.EAS_Algo;
- EAS2TAS=Curr_sate.EAS2TAS_Algo;
- groundspeed_vector=Curr_sate.curVelNED(1:2);
- Vz=Curr_sate.curVelNED(3);
- curr_vel=[Curr_sate.curVelNED(1) Curr_sate.curVelNED(2) -Curr_sate.curVelNED(3)]*100;
-%  curr_alt=Curr_sate.curLLA(3)*100;
-%  height=Curr_sate.curLLA(3);
- current_loc=Curr_sate.curLLA(1:2)*1e7;
  pitch=Curr_sate.pitchd/HD;
  roll=Curr_sate.rolld/HD;
  yaw=Curr_sate.yawd/HD;
- 
+ aspeed=Curr_sate.EAS_Algo;
+ EAS2TAS=Curr_sate.EAS2TAS_Algo;
+ groundspeed_vector=Curr_sate.curVelNED(1:2);
+ curr_vel=[Curr_sate.curVelNED(1) Curr_sate.curVelNED(2) -Curr_sate.curVelNED(3)]*100;
+ current_loc=Curr_sate.curLLA(1:2)*1e7;
  if(mode==10)
     PathModeOut_sl.headingCmd               =Curr_sate.PathModeOut.headingCmd;
     PathModeOut_sl.groundspeedCmd           =Curr_sate.PathModeOut.groundspeedCmd;

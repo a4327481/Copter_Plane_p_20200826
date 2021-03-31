@@ -25,7 +25,10 @@ for i = 1:length(parserData)
     end
     head=[V10Log_parserData_i{1}];
     for j=2:length(V10Log_parserData_i)
+        len=size(V10Log_parserData.(V10Log_parserData_i{j,1}),2);
+        for jj=1:len
         head=[head ,' ',V10Log_parserData_i{j}];
+        end
     end
     head=[head ,'\n'];
     data_ck=data(1:1:end,:);

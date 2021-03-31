@@ -56,10 +56,12 @@ mode                                     = Copter_Plane.mode;
 inint                                    = Copter_Plane.inint;
 roll_target_pilot                        = Copter_Plane.roll_target_pilot;
 pitch_target_pilot                       = Copter_Plane.pitch_target_pilot;
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+arspeed_filt                             = Copter_Plane.arspeed_filt;
+arspeed_temp                             = Copter_Plane.arspeed_temp;
+disable_integrator_pitch                 = Copter_Plane.disable_integrator_pitch;          
+disable_integrator_roll                  = Copter_Plane.disable_integrator_roll;
+disable_integrator_yaw                   = Copter_Plane.disable_integrator_yaw;
 
-global arspeed_filt
-global arspeed_temp
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global curr_pos
 global aspeed
@@ -68,9 +70,9 @@ global rot_body_to_ned
 global height
 global curr_alt
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global disable_integrator_pitch
-global disable_integrator_roll
-global disable_integrator_yaw
+
+
+
 global roll_ff_pitch_inint
 global K_FF_yaw_inint
 global POSCONTROL_ACC_Z_FILT_HZ_inint
@@ -377,5 +379,11 @@ Copter_Plane.mode                                 = mode;
 Copter_Plane.inint                                = inint;
 Copter_Plane.roll_target_pilot                    = roll_target_pilot ;
 Copter_Plane.pitch_target_pilot                   = pitch_target_pilot;
+Copter_Plane.arspeed_filt                         = arspeed_filt;
+Copter_Plane.arspeed_temp                         = arspeed_temp;
+Copter_Plane.disable_integrator_pitch             = disable_integrator_pitch;          
+Copter_Plane.disable_integrator_roll              = disable_integrator_roll;
+Copter_Plane.disable_integrator_yaw               = disable_integrator_yaw;
+
 end
 

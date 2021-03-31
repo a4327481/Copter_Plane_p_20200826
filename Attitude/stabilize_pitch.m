@@ -30,6 +30,11 @@ k_throttle               = SRV_Channel.k_throttle;
 %   set_output_scaled( k_elevator, get_servo_out_pitch(demanded_pitch - ahrs.pitch_sensor, 
 %                                                                                            speed_scaler, 
 %                                                                                            disable_integrator));
+
+Plane.nav_pitch_cd             =nav_pitch_cd;
+Plane.kff_throttle_to_pitch    =kff_throttle_to_pitch;
+SRV_Channel.k_elevator               = k_elevator;
+SRV_Channel.k_throttle               = k_throttle;
 %  
 end
 

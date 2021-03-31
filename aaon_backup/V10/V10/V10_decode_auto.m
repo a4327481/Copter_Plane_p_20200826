@@ -1,10 +1,10 @@
 function V10Log = V10_decode_auto(logFile)
-% example: V10Log = V10_decode_auto('log_0.bin-7573842.mat')
+% example: V10Log = V10_decode_auto('log_7�V10-3# V66��8��������.bin-5519051.mat')
 % computer name: LAPTOP-KCGKQN65
-% generate date: 22-Feb-2021
+% generate date: 30-Mar-2021
 % Matlab version: 9.9.0.1467703 (R2020b)
-% protocol file: V10_v20210218_1525.txt
-% data file: log_0.bin-7573842.mat
+% protocol file: V10_v20210323_9.txt
+% data file: log_7�V10-3# V66��8��������.bin-5519051.mat
 % logFile: .mat log file
 load(logFile);
 %% ARP1
@@ -16,7 +16,9 @@ V10Log.ARP1.indicated_airspeed = ARP1(:,6);            %   5. | isp1    | indica
 V10Log.ARP1.true_airspeed = ARP1(:,7);                 %   6. | tsp1    | true_airspeed                  | [F]   | [10:10]   | 
 V10Log.ARP1.EAS_Algo = ARP1(:,8);                      %   7. | EAS     | EAS_Algo                       | [F]   | [10:10]   | 
 V10Log.ARP1.EAS2TAS_Algo = ARP1(:,9);                  %   8. | EAS2    | EAS2TAS_Algo                   | [F]   | [10:10]   | 
-V10Log.ARP1.I2C_AirRetryCount_0(:,1) = ARP1(:,10);     %   9. | err1    | I2C_AirRetryCount[0][0]        | [U32] | [10:10]   | 
+V10Log.ARP1.I2C_AirRetryCount_0(:,1) = ARP1(:,10);     %   9. | err1    | I2C_AirRetryCount[0][0]        | [U8]  | [10:10]   | 
+V10Log.ARP1.I2C_AirRetryCount_0(:,2) = ARP1(:,11);     %  10. | err2    | I2C_AirRetryCount[0][1]        | [U8]  | [10:10]   | 
+V10Log.ARP1.Sum = ARP1(:,12);                          %  11. | Sum     | Sum                            | [U8]  | [10:10]   | 
 %% ARP2
 V10Log.ARP2.TimeUS = ARP2(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [10:10]   | 
 V10Log.ARP2.CNT = ARP2(:,3);                           %   2. | CNT     | CNT                            | [U32] | [10:10]   | 
@@ -26,7 +28,9 @@ V10Log.ARP2.indicated_airspeed = ARP2(:,6);            %   5. | isp2    | indica
 V10Log.ARP2.true_airspeed = ARP2(:,7);                 %   6. | tsp2    | true_airspeed                  | [F]   | [10:10]   | 
 V10Log.ARP2.EAS_Algo = ARP2(:,8);                      %   7. | EAS     | EAS_Algo                       | [F]   | [10:10]   | 
 V10Log.ARP2.EAS2TAS_Algo = ARP2(:,9);                  %   8. | EAS2    | EAS2TAS_Algo                   | [F]   | [10:10]   | 
-V10Log.ARP2.I2C_AirRetryCount_1(:,1) = ARP2(:,10);     %   9. | err1    | I2C_AirRetryCount[1][0]        | [U32] | [10:10]   | 
+V10Log.ARP2.I2C_AirRetryCount_1(:,1) = ARP2(:,10);     %   9. | err1    | I2C_AirRetryCount[1][0]        | [U8]  | [10:10]   | 
+V10Log.ARP2.I2C_AirRetryCount_1(:,2) = ARP2(:,11);     %  10. | err2    | I2C_AirRetryCount[1][1]        | [U8]  | [10:10]   | 
+V10Log.ARP2.Sum = ARP2(:,12);                          %  11. | Sum     | Sum                            | [U8]  | [10:10]   | 
 %% MAG1
 V10Log.MAG1.TimeUS = MAG1(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [10:10]   | 
 V10Log.MAG1.CNT = MAG1(:,3);                           %   2. | CNT     | CNT                            | [U32] | [10:10]   | 
@@ -36,8 +40,8 @@ V10Log.MAG1.true_data_z = MAG1(:,6);                   %   5. | Lz_t    | true_d
 V10Log.MAG1.cali_data_x = MAG1(:,7);                   %   6. | Lx_c    | cali_data_x                    | [F]   | [10:10]   | 
 V10Log.MAG1.cali_data_y = MAG1(:,8);                   %   7. | Ly_c    | cali_data_y                    | [F]   | [10:10]   | 
 V10Log.MAG1.cali_data_z = MAG1(:,9);                   %   8. | Lz_c    | cali_data_z                    | [F]   | [10:10]   | 
-V10Log.MAG1.I2C_MagRetryCount_0(:,1) = MAG1(:,10);     %   9. | err1    | I2C_MagRetryCount[0][0]        | [U32] | [10:10]   | 
-V10Log.MAG1.I2C_MagRetryCount_0(:,2) = MAG1(:,11);     %  10. | err2    | I2C_MagRetryCount[0][1]        | [U32] | [10:10]   | 
+V10Log.MAG1.I2C_MagRetryCount_0(:,1) = MAG1(:,10);     %   9. | err1    | I2C_MagRetryCount[0][0]        | [U8]  | [10:10]   | 
+V10Log.MAG1.I2C_MagRetryCount_0(:,2) = MAG1(:,11);     %  10. | err2    | I2C_MagRetryCount[0][1]        | [U8]  | [10:10]   | 
 V10Log.MAG1.Sum = MAG1(:,12);                          %  11. | Sum     | Sum                            | [U8]  | [10:10]   | 
 %% MAG2
 V10Log.MAG2.TimeUS = MAG2(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [10:10]   | 
@@ -48,8 +52,8 @@ V10Log.MAG2.true_data_z = MAG2(:,6);                   %   5. | Rz_t    | true_d
 V10Log.MAG2.cali_data_x = MAG2(:,7);                   %   6. | Rx_c    | cali_data_x                    | [F]   | [10:10]   | 
 V10Log.MAG2.cali_data_y = MAG2(:,8);                   %   7. | Ry_c    | cali_data_y                    | [F]   | [10:10]   | 
 V10Log.MAG2.cali_data_z = MAG2(:,9);                   %   8. | Rz_c    | cali_data_z                    | [F]   | [10:10]   | 
-V10Log.MAG2.I2C_MagRetryCount_1(:,1) = MAG2(:,10);     %   9. | err1    | I2C_MagRetryCount[1][0]        | [U32] | [10:10]   | 
-V10Log.MAG2.I2C_MagRetryCount_1(:,2) = MAG2(:,11);     %  10. | err2    | I2C_MagRetryCount[1][1]        | [U32] | [10:10]   | 
+V10Log.MAG2.I2C_MagRetryCount_1(:,1) = MAG2(:,10);     %   9. | err1    | I2C_MagRetryCount[1][0]        | [U8]  | [10:10]   | 
+V10Log.MAG2.I2C_MagRetryCount_1(:,2) = MAG2(:,11);     %  10. | err2    | I2C_MagRetryCount[1][1]        | [U8]  | [10:10]   | 
 V10Log.MAG2.Sum = MAG2(:,12);                          %  11. | Sum     | Sum                            | [U8]  | [10:10]   | 
 %% MGC1
 V10Log.MGC1.TimeUS = MGC1(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [10:10]   | 
@@ -93,7 +97,7 @@ V10Log.BAR1.ground_temperature = BAR1(:,5);            %   4. | gT      | ground
 V10Log.BAR1.pressure = BAR1(:,6);                      %   5. | pres    | pressure                       | [F]   | [10:10]   | 
 V10Log.BAR1.altitude = BAR1(:,7);                      %   6. | alt     | altitude                       | [F]   | [10:10]   | 
 V10Log.BAR1.temperature = BAR1(:,8);                   %   7. | temp    | temperature                    | [F]   | [10:10]   | 
-V10Log.BAR1.Sum = BAR1(:,9);                           %   8. | Sum     | Sum                            | [U8]  | [10:10]   | 
+V10Log.BAR1.Sum = BAR1(:,10);                          %   8. | Sum     | Sum                            | [U8]  | [10:10]   | 
 %% BAR2
 V10Log.BAR2.TimeUS = BAR2(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [10:10]   | 
 V10Log.BAR2.CNT = BAR2(:,3);                           %   2. | CNT     | CNT                            | [U32] | [10:10]   | 
@@ -102,7 +106,16 @@ V10Log.BAR2.ground_temperature = BAR2(:,5);            %   4. | gT      | ground
 V10Log.BAR2.pressure = BAR2(:,6);                      %   5. | pres    | pressure                       | [F]   | [10:10]   | 
 V10Log.BAR2.altitude = BAR2(:,7);                      %   6. | alt     | altitude                       | [F]   | [10:10]   | 
 V10Log.BAR2.temperature = BAR2(:,8);                   %   7. | temp    | temperature                    | [F]   | [10:10]   | 
-V10Log.BAR2.Sum = BAR2(:,9);                           %   8. | Sum     | Sum                            | [U8]  | [10:10]   | 
+V10Log.BAR2.Sum = BAR2(:,10);                          %   8. | Sum     | Sum                            | [U8]  | [10:10]   | 
+%% NRA
+V10Log.NRA.TimeUS = NRA(:,2);                          %   1. | TimeUS  | TimeUS                         | [U64] | [20:10]   | 
+V10Log.NRA.CNT = NRA(:,3);                             %   2. | CNT     | CNT                            | [U32] | [20:10]   | 
+V10Log.NRA.lost_count = NRA(:,4);                      %   3. | lcnt    | lost_count                     | [U32] | [20:10]   | 
+V10Log.NRA.Range = NRA(:,5);                           %   4. | range   | Range                          | [F]   | [20:10]   | 
+V10Log.NRA.Flag = NRA(:,6);                            %   5. | flag    | Flag                           | [U8]  | [20:10]   | 
+V10Log.NRA.SNR = NRA(:,7);                             %   6. | snr     | SNR                            | [U8]  | [20:10]   | 
+V10Log.NRA.Rcs = NRA(:,8);                             %   7. | rcs     | Rcs                            | [U8]  | [20:10]   | 
+V10Log.NRA.Sum = NRA(:,9);                             %   8. | Sum     | Sum                            | [U8]  | [20:10]   | 
 %% IMU1
 V10Log.IMU1.TimeUS = IMU1(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [1:4]     | 
 V10Log.IMU1.CNT = IMU1(:,3);                           %   2. | CNT     | CNT                            | [U32] | [1:4]     | 
@@ -113,44 +126,7 @@ V10Log.IMU1.gx = IMU1(:,7);                            %   6. | gx      | gx    
 V10Log.IMU1.gy = IMU1(:,8);                            %   7. | gy      | gy                             | [F]   | [1:4]     | 
 V10Log.IMU1.gz = IMU1(:,9);                            %   8. | gz      | gz                             | [F]   | [1:4]     | 
 V10Log.IMU1.temperature = IMU1(:,10);                  %   9. | temp    | temperature                    | [F]   | [1:4]     | 
-V10Log.IMU1.temp_pwm = IMU1(:,11);                     %  10. | pwm     | temp_pwm                       | [F]   | [1:4]     | 
-V10Log.IMU1.Sum = IMU1(:,12);                          %  11. | Sum     | Sum                            | [U8]  | [1:4]     | 
-%% IMU2
-V10Log.IMU2.TimeUS = IMU2(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [1:4]     | 
-V10Log.IMU2.CNT = IMU2(:,3);                           %   2. | CNT     | CNT                            | [U32] | [1:4]     | 
-V10Log.IMU2.ax = IMU2(:,4);                            %   3. | ax      | ax                             | [F]   | [1:4]     | 
-V10Log.IMU2.ay = IMU2(:,5);                            %   4. | ay      | ay                             | [F]   | [1:4]     | 
-V10Log.IMU2.az = IMU2(:,6);                            %   5. | az      | az                             | [F]   | [1:4]     | 
-V10Log.IMU2.gx = IMU2(:,7);                            %   6. | gx      | gx                             | [F]   | [1:4]     | 
-V10Log.IMU2.gy = IMU2(:,8);                            %   7. | gy      | gy                             | [F]   | [1:4]     | 
-V10Log.IMU2.gz = IMU2(:,9);                            %   8. | gz      | gz                             | [F]   | [1:4]     | 
-V10Log.IMU2.temperature = IMU2(:,10);                  %   9. | temp    | temperature                    | [F]   | [1:4]     | 
-V10Log.IMU2.temp_pwm = IMU2(:,11);                     %  10. | pwm     | temp_pwm                       | [F]   | [1:4]     | 
-V10Log.IMU2.Sum = IMU2(:,12);                          %  11. | Sum     | Sum                            | [U8]  | [1:4]     | 
-%% IMU3
-V10Log.IMU3.TimeUS = IMU3(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [1:4]     | 
-V10Log.IMU3.CNT = IMU3(:,3);                           %   2. | CNT     | CNT                            | [U32] | [1:4]     | 
-V10Log.IMU3.ax = IMU3(:,4);                            %   3. | ax      | ax                             | [F]   | [1:4]     | 
-V10Log.IMU3.ay = IMU3(:,5);                            %   4. | ay      | ay                             | [F]   | [1:4]     | 
-V10Log.IMU3.az = IMU3(:,6);                            %   5. | az      | az                             | [F]   | [1:4]     | 
-V10Log.IMU3.gx = IMU3(:,7);                            %   6. | gx      | gx                             | [F]   | [1:4]     | 
-V10Log.IMU3.gy = IMU3(:,8);                            %   7. | gy      | gy                             | [F]   | [1:4]     | 
-V10Log.IMU3.gz = IMU3(:,9);                            %   8. | gz      | gz                             | [F]   | [1:4]     | 
-V10Log.IMU3.temperature = IMU3(:,10);                  %   9. | temp    | temperature                    | [F]   | [1:4]     | 
-V10Log.IMU3.temp_pwm = IMU3(:,11);                     %  10. | pwm     | temp_pwm                       | [F]   | [1:4]     | 
-V10Log.IMU3.Sum = IMU3(:,12);                          %  11. | Sum     | Sum                            | [U8]  | [1:4]     | 
-%% IMU4
-V10Log.IMU4.TimeUS = IMU4(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [1:4]     | 
-V10Log.IMU4.CNT = IMU4(:,3);                           %   2. | CNT     | CNT                            | [U32] | [1:4]     | 
-V10Log.IMU4.ax = IMU4(:,4);                            %   3. | ax      | ax                             | [F]   | [1:4]     | 
-V10Log.IMU4.ay = IMU4(:,5);                            %   4. | ay      | ay                             | [F]   | [1:4]     | 
-V10Log.IMU4.az = IMU4(:,6);                            %   5. | az      | az                             | [F]   | [1:4]     | 
-V10Log.IMU4.gx = IMU4(:,7);                            %   6. | gx      | gx                             | [F]   | [1:4]     | 
-V10Log.IMU4.gy = IMU4(:,8);                            %   7. | gy      | gy                             | [F]   | [1:4]     | 
-V10Log.IMU4.gz = IMU4(:,9);                            %   8. | gz      | gz                             | [F]   | [1:4]     | 
-V10Log.IMU4.temperature = IMU4(:,10);                  %   9. | temp    | temperature                    | [F]   | [1:4]     | 
-V10Log.IMU4.temp_pwm = IMU4(:,11);                     %  10. | pwm     | temp_pwm                       | [F]   | [1:4]     | 
-V10Log.IMU4.Sum = IMU4(:,12);                          %  11. | Sum     | Sum                            | [U8]  | [1:4]     | 
+V10Log.IMU1.temp_pwm = IMU1(:,12);                     %  10. | pwm     | temp_pwm                       | [F]   | [1:4]     | 
 %% IMF1
 V10Log.IMF1.TimeUS = IMF1(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [1:4]     | 
 V10Log.IMF1.CNT = IMF1(:,3);                           %   2. | CNT     | CNT                            | [U32] | [1:4]     | 
@@ -191,6 +167,16 @@ V10Log.IMF7.gx = IMF7(:,7);                            %   6. | gx      | gx    
 V10Log.IMF7.gy = IMF7(:,8);                            %   7. | gy      | gy                             | [F]   | [1:4]     | 
 V10Log.IMF7.gz = IMF7(:,9);                            %   8. | gz      | gz                             | [F]   | [1:4]     | 
 V10Log.IMF7.Sum = IMF7(:,10);                          %   9. | Sum     | Sum                            | [U8]  | [1:4]     | 
+%% IMF8
+V10Log.IMF8.TimeUS = IMF8(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [1:4]     | 
+V10Log.IMF8.CNT = IMF8(:,3);                           %   2. | CNT     | CNT                            | [U32] | [1:4]     | 
+V10Log.IMF8.ax = IMF8(:,4);                            %   3. | ax      | ax                             | [F]   | [1:4]     | 
+V10Log.IMF8.ay = IMF8(:,5);                            %   4. | ay      | ay                             | [F]   | [1:4]     | 
+V10Log.IMF8.az = IMF8(:,6);                            %   5. | az      | az                             | [F]   | [1:4]     | 
+V10Log.IMF8.gx = IMF8(:,7);                            %   6. | gx      | gx                             | [F]   | [1:4]     | 
+V10Log.IMF8.gy = IMF8(:,8);                            %   7. | gy      | gy                             | [F]   | [1:4]     | 
+V10Log.IMF8.gz = IMF8(:,9);                            %   8. | gz      | gz                             | [F]   | [1:4]     | 
+V10Log.IMF8.Sum = IMF8(:,10);                          %   9. | Sum     | Sum                            | [U8]  | [1:4]     | 
 %% GPS
 V10Log.GPS.TimeUS = GPS(:,2);                          %   1. | TimeUS  | TimeUS                         | [U64] | [50:50]   | 
 V10Log.GPS.CNT = GPS(:,3);                             %   2. | CNT     | CNT                            | [U32] | [50:50]   | 
@@ -211,15 +197,16 @@ V10Log.GPS.Sum = GPS(:,17);                            %  16. | Sum     | Sum   
 %% GPSE
 V10Log.GPSE.TimeUS = GPSE(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [50:50]   | 
 V10Log.GPSE.CNT = GPSE(:,3);                           %   2. | CNT     | CNT                            | [U32] | [50:50]   | 
-V10Log.GPSE.decode_error_cnt = GPSE(:,4);              %   3. | err1    | decode_error_cnt               | [U32] | [50:50]   | 
-V10Log.GPSE.decode_crc_error_cnt = GPSE(:,5);          %   4. | err2    | decode_crc_error_cnt           | [U32] | [50:50]   | 
-V10Log.GPSE.decode_psrdop_cnt = GPSE(:,6);             %   5. | err3    | decode_psrdop_cnt              | [U32] | [50:50]   | 
-V10Log.GPSE.oem718d_decode_status = GPSE(:,7);         %   6. | err4    | oem718d_decode_status          | [U32] | [50:50]   | 
-V10Log.GPSE.decode_bestpos_cnt = GPSE(:,8);            %   7. | err5    | decode_bestpos_cnt             | [U32] | [50:50]   | 
-V10Log.GPSE.decode_bestvel_cnt = GPSE(:,9);            %   8. | err6    | decode_bestvel_cnt             | [U32] | [50:50]   | 
-V10Log.GPSE.decode_heading_cnt = GPSE(:,10);           %   9. | err7    | decode_heading_cnt             | [U32] | [50:50]   | 
-V10Log.GPSE.rev = GPSE(:,11);                          %  10. | err8    | rev                            | [U32] | [50:50]   | 
-V10Log.GPSE.Sum = GPSE(:,12);                          %  11. | Sum     | Sum                            | [U8]  | [50:50]   | 
+V10Log.GPSE.decode_error_cnt = GPSE(:,4);              %   3. | err1    | decode_error_cnt               | [U8]  | [50:50]   | 
+V10Log.GPSE.decode_crc_error_cnt = GPSE(:,5);          %   4. | err2    | decode_crc_error_cnt           | [U8]  | [50:50]   | 
+V10Log.GPSE.decode_psrdop_cnt = GPSE(:,6);             %   5. | err3    | decode_psrdop_cnt              | [U8]  | [50:50]   | 
+V10Log.GPSE.oem718d_decode_status = GPSE(:,7);         %   6. | err4    | oem718d_decode_status          | [U8]  | [50:50]   | 
+V10Log.GPSE.decode_bestpos_cnt = GPSE(:,8);            %   7. | err5    | decode_bestpos_cnt             | [U8]  | [50:50]   | 
+V10Log.GPSE.decode_bestvel_cnt = GPSE(:,9);            %   8. | err6    | decode_bestvel_cnt             | [U8]  | [50:50]   | 
+V10Log.GPSE.decode_heading_cnt = GPSE(:,10);           %   9. | err7    | decode_heading_cnt             | [U8]  | [50:50]   | 
+V10Log.GPSE.rev1 = GPSE(:,11);                         %  10. | err8    | rev1                           | [U32] | [50:50]   | 
+V10Log.GPSE.rev2 = GPSE(:,12);                         %  11. | err9    | rev2                           | [U32] | [50:50]   | 
+V10Log.GPSE.Sum = GPSE(:,13);                          %  12. | Sum     | Sum                            | [U8]  | [50:50]   | 
 %% UBX
 V10Log.UBX.TimeUS = UBX(:,2);                          %   1. | TimeUS  | TimeUS                         | [U64] | [100:100] | 
 V10Log.UBX.CNT = UBX(:,3);                             %   2. | CNT     | CNT                            | [U32] | [100:100] | 
@@ -239,15 +226,11 @@ V10Log.UBX.Sum = UBX(:,16);                            %  15. | Sum     | Sum   
 %% UBXE
 V10Log.UBXE.TimeUS = UBXE(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [100:100] | 
 V10Log.UBXE.CNT = UBXE(:,3);                           %   2. | CNT     | CNT                            | [U32] | [100:100] | 
-V10Log.UBXE.decode_error_cnt = UBXE(:,4);              %   3. | err1    | decode_error_cnt               | [U32] | [100:100] | 
-V10Log.UBXE.decode_crc_error_cnt = UBXE(:,4);          %   4. | err1    | decode_crc_error_cnt           | [U32] | [100:100] | 
-V10Log.UBXE.decode_psrdop_cnt = UBXE(:,4);             %   5. | err1    | decode_psrdop_cnt              | [U32] | [100:100] | 
-V10Log.UBXE.nak_error = UBXE(:,4);                     %   6. | err1    | nak_error                      | [U32] | [100:100] | 
-V10Log.UBXE.rev1 = UBXE(:,4);                          %   7. | err1    | rev1                           | [U32] | [100:100] | 
-V10Log.UBXE.rev2 = UBXE(:,4);                          %   8. | err1    | rev2                           | [U32] | [100:100] | 
-V10Log.UBXE.rev3 = UBXE(:,4);                          %   9. | err1    | rev3                           | [U32] | [100:100] | 
-V10Log.UBXE.rev4 = UBXE(:,4);                          %  10. | err1    | rev4                           | [U32] | [100:100] | 
-V10Log.UBXE.Sum = UBXE(:,12);                          %  11. | Sum     | Sum                            | [U8]  | [100:100] | 
+V10Log.UBXE.decode_error_cnt = UBXE(:,4);              %   3. | err1    | decode_error_cnt               | [U8]  | [100:100] | 
+V10Log.UBXE.decode_crc_error_cnt = UBXE(:,5);          %   4. | err2    | decode_crc_error_cnt           | [U8]  | [100:100] | 
+V10Log.UBXE.decode_psrdop_cnt = UBXE(:,6);             %   5. | err3    | decode_psrdop_cnt              | [U8]  | [100:100] | 
+V10Log.UBXE.nak_error = UBXE(:,7);                     %   6. | err4    | nak_error                      | [U8]  | [100:100] | 
+V10Log.UBXE.Sum = UBXE(:,8);                           %   7. | Sum     | Sum                            | [U8]  | [100:100] | 
 %% RCIN
 V10Log.RCIN.TimeUS = RCIN(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [7:7]     | 
 V10Log.RCIN.recv_total_cnt = RCIN(:,3);                %   2. | CNT     | recv_total_cnt                 | [U32] | [7:7]     | 
@@ -280,26 +263,27 @@ V10Log.PWMO.pwm_servo(:,4) = PWMO(:,14);               %  13. | SV3     | pwm_se
 V10Log.PWMO.pwm_servo(:,5) = PWMO(:,15);               %  14. | SV4     | pwm_servo[4]                   | [U16] | [12:12]   | 
 V10Log.PWMO.pwm_tilt = PWMO(:,16);                     %  15. | Tilt    | pwm_tilt                       | [U16] | [12:12]   | 
 V10Log.PWMO.Sum = PWMO(:,17);                          %  16. | Sum     | Sum                            | [U8]  | [12:12]   | 
-%% STOR
-V10Log.STOR.TimeUS = STOR(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [12:12]   | 
-V10Log.STOR.count = STOR(:,3);                         %   2. | CNT     | count                          | [U32] | [12:12]   | 
-V10Log.STOR.log_write_exe_time = STOR(:,4);            %   3. | exe     | log_write_exe_time             | [U32] | [12:12]   | 
-V10Log.STOR.sector_write_index = STOR(:,5);            %   4. | secw    | sector_write_index             | [U32] | [12:12]   | 
-V10Log.STOR.sector_read_index = STOR(:,6);             %   5. | secr    | sector_read_index              | [U32] | [12:12]   | 
-V10Log.STOR.sector_lost_error = STOR(:,7);             %   6. | err     | sector_lost_error              | [U32] | [12:12]   | 
-V10Log.STOR.Sum = STOR(:,8);                           %   7. | Sum     | Sum                            | [U8]  | [12:12]   | 
+%% ALG0
+V10Log.ALG0.TimeUS = ALG0(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [100:96]  | 
+V10Log.ALG0.count = ALG0(:,3);                         %   2. | CNT     | count                          | [U32] | [100:96]  | 
+V10Log.ALG0.FC_Version = ALG0(:,4);                    %   3. | FcV     | FC_Version                     | [U16] | [100:96]  | 
+V10Log.ALG0.Logic_Version = ALG0(:,5);                 %   4. | LogicV  | Logic_Version                  | [U16] | [100:96]  | 
+V10Log.ALG0.Driver_Version = ALG0(:,6);                %   5. | DriV    | Driver_Version                 | [U16] | [100:96]  | 
+V10Log.ALG0.Sum = ALG0(:,7);                           %   6. | Sum     | Sum                            | [U8]  | [100:96]  | 
 %% ALG1
-V10Log.ALG1.TimeUS = ALG1(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [100:96]  | 
-V10Log.ALG1.count = ALG1(:,3);                         %   2. | CNT     | count                          | [U32] | [100:96]  | 
-V10Log.ALG1.remote_lock = ALG1(:,4);                   %   3. | rk      | remote_lock                    | [U8]  | [100:96]  | 
-V10Log.ALG1.switch_lock_0 = ALG1(:,5);                 %   4. | sw0     | switch_lock_0                  | [U8]  | [100:96]  | 
-V10Log.ALG1.switch_lock_1 = ALG1(:,6);                 %   5. | sw1     | switch_lock_1                  | [U8]  | [100:96]  | 
-V10Log.ALG1.ground_station_lock = ALG1(:,7);           %   6. | gsk     | ground_station_lock            | [U8]  | [100:96]  | 
-V10Log.ALG1.fc_simulation = ALG1(:,8);                 %   7. | simu    | fc_simulation                  | [U8]  | [100:96]  | 
-V10Log.ALG1.ground_station_connect = ALG1(:,9);        %   8. | gsc     | ground_station_connect         | [U8]  | [100:96]  | 
-V10Log.ALG1.ground_station_timeout = ALG1(:,10);       %   9. | gst     | ground_station_timeout         | [U16] | [100:96]  | 
-V10Log.ALG1.ground_station_count = ALG1(:,11);         %  10. | gscn    | ground_station_count           | [U16] | [100:96]  | 
-V10Log.ALG1.Sum = ALG1(:,12);                          %  11. | Sum     | Sum                            | [U8]  | [100:96]  | 
+V10Log.ALG1.TimeUS = ALG1(:,3);                        %   1. | TimeUS  | TimeUS                         | [U64] | [100:96]  | 
+V10Log.ALG1.count = ALG1(:,4);                         %   2. | CNT     | count                          | [U32] | [100:96]  | 
+V10Log.ALG1.time_algo_imu = ALG1(:,5);                 %   3. | tImu    | time_algo_imu                  | [U64] | [100:96]  | 
+V10Log.ALG1.time_algo_pwm = ALG1(:,6);                 %   4. | tPwm    | time_algo_pwm                  | [U64] | [100:96]  | 
+V10Log.ALG1.time_algo_exe = ALG1(:,8);                 %   5. | tExe    | time_algo_exe                  | [U64] | [100:96]  | 
+V10Log.ALG1.remote_lock = ALG1(:,9);                   %   6. | rk      | remote_lock                    | [U8]  | [100:96]  | 
+V10Log.ALG1.switch_lock_0 = ALG1(:,10);                %   7. | sw0     | switch_lock_0                  | [U8]  | [100:96]  | 
+V10Log.ALG1.switch_lock_1 = ALG1(:,11);                %   8. | sw1     | switch_lock_1                  | [U8]  | [100:96]  | 
+V10Log.ALG1.ground_station_lock = ALG1(:,12);          %   9. | gsk     | ground_station_lock            | [U8]  | [100:96]  | 
+V10Log.ALG1.fc_simulation = ALG1(:,13);                %  10. | simu    | fc_simulation                  | [U8]  | [100:96]  | 
+V10Log.ALG1.ground_station_connect = ALG1(:,14);       %  11. | gsc     | ground_station_connect         | [U8]  | [100:96]  | 
+V10Log.ALG1.ground_station_timeout = ALG1(:,15);       %  12. | gst     | ground_station_timeout         | [U16] | [100:96]  | 
+V10Log.ALG1.ground_station_count = ALG1(:,16);         %  13. | gscn    | ground_station_count           | [U16] | [100:96]  | 
 %% ALG2
 V10Log.ALG2.TimeUS = ALG2(:,2);                        %   1. | TimeUS  | TimeUS                         | [U64] | [12:12]   | 
 V10Log.ALG2.count = ALG2(:,3);                         %   2. | CNT     | count                          | [U32] | [12:12]   | 
@@ -430,20 +414,21 @@ V10Log.IN_MAVLINK.mavlink_msg_groundHomeLLA(:,2) = ALL1(:,5); %   4. | LLA1    |
 V10Log.IN_MAVLINK.mavlink_msg_groundHomeLLA(:,3) = ALL1(:,6); %   5. | LLA2    | mavlink_msg_groundHomeLLA[2]   | [F]   | [12:12]   | 
 V10Log.IN_MAVLINK.Sum = ALL1(:,7);                     %   6. | Sm      | Sum                            | [U8]  | [12:12]   | 
 %% ALL2
-V10Log.IN_MAVLINK.mavlink_msg_command_battery_data.TimeUS = ALL2(:,3); %   1. | Tim     | TimeUS                         | [U64] | [12:12]   | 
-V10Log.IN_MAVLINK.mavlink_msg_command_battery_data.CNT = ALL2(:,4); %   2. | CNT     | CNT                            | [U32] | [12:12]   | 
-V10Log.IN_MAVLINK.mavlink_msg_command_battery_data.fullCapacity = ALL2(:,5); %   3. | cap     | fullCapacity                   | [U16] | [12:12]   | 
-V10Log.IN_MAVLINK.mavlink_msg_command_battery_data.lifePercent = ALL2(:,6); %   4. | life    | lifePercent                    | [U8]  | [12:12]   | 
-V10Log.IN_MAVLINK.mavlink_msg_command_battery_data.cycleTime = ALL2(:,7); %   5. | cycle   | cycleTime                      | [U16] | [12:12]   | 
-V10Log.IN_MAVLINK.mavlink_msg_command_battery_data.batteryId = ALL2(:,8); %   6. | batID   | batteryId                      | [U16] | [12:12]   | 
+% V10Log.IN_MAVLINK.mavlink_msg_command_battery_data.TimeUS = ALL2(:,2); %   1. | Tim     | TimeUS                         | [U64] | [12:12]   | 
+% V10Log.IN_MAVLINK.mavlink_msg_command_battery_data.CNT = ALL2(:,3); %   2. | CNT     | CNT                            | [U32] | [12:12]   | 
+% V10Log.IN_MAVLINK.mavlink_msg_command_battery_data.fullCapacity = ALL2(:,4); %   3. | cap     | fullCapacity                   | [U16] | [12:12]   | 
+% V10Log.IN_MAVLINK.mavlink_msg_command_battery_data.lifePercent = ALL2(:,5); %   4. | life    | lifePercent                    | [U8]  | [12:12]   | 
+% V10Log.IN_MAVLINK.mavlink_msg_command_battery_data.cycleTime = ALL2(:,6); %   5. | cycle   | cycleTime                      | [U16] | [12:12]   | 
+% V10Log.IN_MAVLINK.mavlink_msg_command_battery_data.batteryId = ALL2(:,7); %   6. | batID   | batteryId                      | [U16] | [12:12]   | 
+% V10Log.IN_MAVLINK.mavlink_msg_command_battery_data.Sum = ALL2(:,8); %   7. | Sm      | Sum                            | [U8]  | [12:12]   | 
 %% ALL3
-V10Log.IN_MAVLINK.mavlink_mission_item_def.TimeUS = ALL3(:,2); %   1. | Tim     | TimeUS                         | [U64] | [12:12]   | 
-V10Log.IN_MAVLINK.mavlink_mission_item_def.CNT = ALL3(:,3); %   2. | CNT     | CNT                            | [U32] | [12:12]   | 
-V10Log.IN_MAVLINK.mavlink_mission_item_def.seq = ALL3(:,4); %   3. | seq     | seq                            | [U16] | [12:12]   | 
-V10Log.IN_MAVLINK.mavlink_mission_item_def.x = ALL3(:,5); %   4. | x       | x                              | [F]   | [12:12]   | 
-V10Log.IN_MAVLINK.mavlink_mission_item_def.y = ALL3(:,6); %   5. | y       | y                              | [F]   | [12:12]   | 
-V10Log.IN_MAVLINK.mavlink_mission_item_def.z = ALL3(:,7); %   6. | z       | z                              | [F]   | [12:12]   | 
-V10Log.IN_MAVLINK.mavlink_mission_item_def.Sum = ALL3(:,8); %   7. | Sm      | Sum                            | [U8]  | [12:12]   | 
+% V10Log.IN_MAVLINK.mavlink_mission_item_def.TimeUS = ALL3(:,2); %   1. | Tim     | TimeUS                         | [U64] | [12:12]   | 
+% V10Log.IN_MAVLINK.mavlink_mission_item_def.CNT = ALL3(:,3); %   2. | CNT     | CNT                            | [U32] | [12:12]   | 
+% V10Log.IN_MAVLINK.mavlink_mission_item_def.seq = ALL3(:,4); %   3. | seq     | seq                            | [U16] | [12:12]   | 
+% V10Log.IN_MAVLINK.mavlink_mission_item_def.x = ALL3(:,5); %   4. | x       | x                              | [F]   | [12:12]   | 
+% V10Log.IN_MAVLINK.mavlink_mission_item_def.y = ALL3(:,6); %   5. | y       | y                              | [F]   | [12:12]   | 
+% V10Log.IN_MAVLINK.mavlink_mission_item_def.z = ALL3(:,7); %   6. | z       | z                              | [F]   | [12:12]   | 
+% V10Log.IN_MAVLINK.mavlink_mission_item_def.Sum = ALL3(:,8); %   7. | Sm      | Sum                            | [U8]  | [12:12]   | 
 %% ALL4
 V10Log.SensorSelect.TimeUS = ALL4(:,2);                %   1. | Tim     | TimeUS                         | [U64] | [12:12]   | 
 V10Log.SensorSelect.CNT = ALL4(:,3);                   %   2. | CNT     | CNT                            | [U32] | [12:12]   | 
@@ -577,6 +562,19 @@ V10Log.OUT_TASKMODE.curPathPoint_LLA(:,3) = AL12(:,14); %  13. | LL5     | curPa
 V10Log.OUT_TASKMODE.whereIsUAV = AL12(:,15);           %  14. | UAV     | whereIsUAV                     | [F]   | [12:12]   | 
 V10Log.OUT_TASKMODE.typeAutoMode = AL12(:,16);         %  15. | aMd     | typeAutoMode                   | [U8]  | [12:12]   | 
 V10Log.OUT_TASKMODE.Sum = AL12(:,17);                  %  16. | Sm      | Sum                            | [U8]  | [12:12]   | 
+%% AL13
+V10Log.OUT_TASKMODE.TimeUS = AL13(:,2);                %   1. | Tim     | TimeUS                         | [U64] | [12:12]   | 
+V10Log.OUT_TASKMODE.CNT = AL13(:,3);                   %   2. | CNT     | CNT                            | [U32] | [12:12]   | 
+V10Log.OUT_TASKMODE.airspeedCmd = AL13(:,5);           %   3. | aspCmd  | airspeedCmd                    | [F]   | [12:12]   | 
+V10Log.OUT_TASKMODE.LLATaskInterrupt(:,1) = AL13(:,6); %   4. | LL0     | LLATaskInterrupt[0]            | [F]   | [12:12]   | 
+V10Log.OUT_TASKMODE.LLATaskInterrupt(:,2) = AL13(:,7); %   5. | LL1     | LLATaskInterrupt[1]            | [F]   | [12:12]   | 
+V10Log.OUT_TASKMODE.LLATaskInterrupt(:,3) = AL13(:,8); %   6. | LL2     | LLATaskInterrupt[2]            | [F]   | [12:12]   | 
+V10Log.OUT_TASKMODE.isTaskComplete = AL13(:,9);        %   7. | comp    | isTaskComplete                 | [F]   | [12:12]   | 
+V10Log.OUT_TASKMODE.numTakeOff = AL13(:,10);           %   8. | take    | numTakeOff                     | [F]   | [12:12]   | 
+V10Log.OUT_TASKMODE.isHeadingRotate_OnGround = AL13(:,11); %   9. | onGd    | isHeadingRotate_OnGround       | [F]   | [12:12]   | 
+V10Log.OUT_TASKMODE.isAllowedToPause = AL13(:,12);     %  10. | isPause | isAllowedToPause               | [F]   | [12:12]   | 
+V10Log.OUT_TASKMODE.lastTargetPathPoint = AL13(:,13);  %  11. | lPt     | lastTargetPathPoint            | [F]   | [12:12]   | 
+V10Log.OUT_TASKMODE.uavMode = AL13(:,14);              %  12. | Mod     | uavMode                        | [U8]  | [12:12]   | 
 %% AL14
 V10Log.OUT_TASKFLIGHTPARAM.TimeUS = AL14(:,2);         %   1. | Tim     | TimeUS                         | [U64] | [12:12]   | 
 V10Log.OUT_TASKFLIGHTPARAM.CNT = AL14(:,3);            %   2. | CNT     | CNT                            | [U32] | [12:12]   | 
@@ -629,33 +627,32 @@ V10Log.OUT_FLIGHTPERF.economicAirspeed = AL17(:,9);    %   8. | espd    | econom
 V10Log.OUT_FLIGHTPERF.remainPathPoint = AL17(:,10);    %   9. | rpnt    | remainPathPoint                | [F]   | [12:12]   | 
 V10Log.OUT_FLIGHTPERF.batteryLifeToCompleteTask = AL17(:,11); %  10. | bcmp    | batteryLifeToCompleteTask      | [F]   | [12:12]   | 
 V10Log.OUT_FLIGHTPERF.batterylifeNeededToHome = AL17(:,12); %  11. | bthm    | batterylifeNeededToHome        | [F]   | [12:12]   | 
-V10Log.OUT_FLIGHTPERF.isNavFilterGood = AL17(:,13);    %  12. | god     | isNavFilterGood                | [F]   | [12:12]   | 
-V10Log.OUT_FLIGHTPERF.groundHomeLLA = AL17(:,14);      %  13. | LLA     | groundHomeLLA                  | [F]   | [12:12]   | 
-V10Log.OUT_FLIGHTPERF.batterylifeNeededToLand = AL17(:,15); %  14. | btL     | batterylifeNeededToLand        | [F]   | [12:12]   | 
-V10Log.OUT_FLIGHTPERF.Sum = AL17(:,16);                %  15. | Sm      | Sum                            | [U8]  | [12:12]   | 
+V10Log.OUT_FLIGHTPERF.batterylifeNeededToLand = AL17(:,13); %  12. | btL     | batterylifeNeededToLand        | [F]   | [12:12]   | 
+V10Log.OUT_FLIGHTPERF.Sum = AL17(:,14);                %  13. | Sm      | Sum                            | [U8]  | [12:12]   | 
 %% AL18
 V10Log.Debug_Task_RTInfo.TimeUS = AL18(:,2);           %   1. | Tim     | TimeUS                         | [U64] | [12:12]   | 
 V10Log.Debug_Task_RTInfo.CNT = AL18(:,3);              %   2. | CNT     | CNT                            | [U32] | [12:12]   | 
-V10Log.Debug_Task_RTInfo.Task = AL18(:,4);             %   3. | tsk     | Task                           | [F]   | [12:12]   | 
-V10Log.Debug_Task_RTInfo.Payload = AL18(:,5);          %   4. | pld     | Payload                        | [F]   | [12:12]   | 
-V10Log.Debug_Task_RTInfo.GSCmd = AL18(:,6);            %   5. | GSd     | GSCmd                          | [F]   | [12:12]   | 
-V10Log.Debug_Task_RTInfo.Warning = AL18(:,7);          %   6. | Wrn     | Warning                        | [F]   | [12:12]   | 
-V10Log.Debug_Task_RTInfo.ComStatus = AL18(:,8);        %   7. | Com     | ComStatus                      | [F]   | [12:12]   | 
-V10Log.Debug_Task_RTInfo.FenseStatus = AL18(:,9);      %   8. | Fen     | FenseStatus                    | [F]   | [12:12]   | 
-V10Log.Debug_Task_RTInfo.StallStatus = AL18(:,10);     %   9. | Stl     | StallStatus                    | [F]   | [12:12]   | 
-V10Log.Debug_Task_RTInfo.SensorStatus = AL18(:,11);    %  10. | Sen     | SensorStatus                   | [F]   | [12:12]   | 
-V10Log.Debug_Task_RTInfo.BatteryStatus = AL18(:,12);   %  11. | Bat     | BatteryStatus                  | [F]   | [12:12]   | 
-V10Log.Debug_Task_RTInfo.FixWingHeightStatus = AL18(:,13); %  12. | Fix     | FixWingHeightStatus            | [F]   | [12:12]   | 
-V10Log.Debug_Task_RTInfo.FindWind = AL18(:,14);        %  13. | Fin     | FindWind                       | [F]   | [12:12]   | 
-V10Log.Debug_Task_RTInfo.LandCond1_Acc_H = AL18(:,15); %  14. | LAc     | LandCond1_Acc_H                | [F]   | [12:12]   | 
-V10Log.Debug_Task_RTInfo.LandCond1_Vd_H = AL18(:,16);  %  15. | LVd     | LandCond1_Vd_H                 | [F]   | [12:12]   | 
+V10Log.Debug_Task_RTInfo.Task = AL18(:,4);             %   3. | tsk     | Task                           | [U16] | [12:12]   | 
+V10Log.Debug_Task_RTInfo.Payload = AL18(:,5);          %   4. | pld     | Payload                        | [U16] | [12:12]   | 
+V10Log.Debug_Task_RTInfo.GSCmd = AL18(:,6);            %   5. | GSd     | GSCmd                          | [U8]  | [12:12]   | 
+V10Log.Debug_Task_RTInfo.Warning = AL18(:,7);          %   6. | Wrn     | Warning                        | [U8]  | [12:12]   | 
+V10Log.Debug_Task_RTInfo.ComStatus = AL18(:,8);        %   7. | Com     | ComStatus                      | [U8]  | [12:12]   | 
+V10Log.Debug_Task_RTInfo.FenseStatus = AL18(:,9);      %   8. | Fen     | FenseStatus                    | [U8]  | [12:12]   | 
+V10Log.Debug_Task_RTInfo.StallStatus = AL18(:,10);     %   9. | Stl     | StallStatus                    | [U8]  | [12:12]   | 
+V10Log.Debug_Task_RTInfo.SensorStatus = AL18(:,11);    %  10. | Sen     | SensorStatus                   | [U8]  | [12:12]   | 
+V10Log.Debug_Task_RTInfo.BatteryStatus = AL18(:,12);   %  11. | Bat     | BatteryStatus                  | [U8]  | [12:12]   | 
+V10Log.Debug_Task_RTInfo.FixWingHeightStatus = AL18(:,13); %  12. | Fix     | FixWingHeightStatus            | [U8]  | [12:12]   | 
+V10Log.Debug_Task_RTInfo.FindWind = AL18(:,14);        %  13. | Fin     | FindWind                       | [U8]  | [12:12]   | 
+V10Log.Debug_Task_RTInfo.LandCond1_Acc_H = AL18(:,15); %  14. | LAc     | LandCond1_Acc_H                | [U8]  | [12:12]   | 
+V10Log.Debug_Task_RTInfo.LandCond1_Vd_H = AL18(:,16);  %  15. | LVd     | LandCond1_Vd_H                 | [U8]  | [12:12]   | 
 V10Log.Debug_Task_RTInfo.Sum = AL18(:,17);             %  16. | Sm      | Sum                            | [U8]  | [12:12]   | 
 %% AL19
 V10Log.Debug_Task_RTInfo.TimeUS = AL19(:,2);           %   1. | Tim     | TimeUS                         | [U64] | [12:12]   | 
 V10Log.Debug_Task_RTInfo.CNT = AL19(:,3);              %   2. | CNT     | CNT                            | [U32] | [12:12]   | 
-V10Log.Debug_Task_RTInfo.LandCond3_near = AL19(:,4);   %   3. | L3n     | LandCond3_near                 | [F]   | [12:12]   | 
+V10Log.Debug_Task_RTInfo.LandCond3_near = AL19(:,4);   %   3. | L3n     | LandCond3_near                 | [U8]  | [12:12]   | 
 V10Log.Debug_Task_RTInfo.maxDist_Path2Home = AL19(:,5); %   4. | hom     | maxDist_Path2Home              | [F]   | [12:12]   | 
 V10Log.Debug_Task_RTInfo.realtimeFenseDist = AL19(:,6); %   5. | dist    | realtimeFenseDist              | [F]   | [12:12]   | 
+V10Log.Debug_Task_RTInfo.Sum = AL19(:,7);              %   6. | Sm      | Sum                            | [U8]  | [12:12]   | 
 %% AL20
 V10Log.Debug_WindParam.TimeUS = AL20(:,2);             %   1. | Tim     | TimeUS                         | [U64] | [12:12]   | 
 V10Log.Debug_WindParam.CNT = AL20(:,3);                %   2. | CNT     | CNT                            | [U32] | [12:12]   | 
@@ -716,6 +713,21 @@ V10Log.OUT_NAVI2CONTROL.Vn = AL26(:,10);               %   9. | Vn      | Vn    
 V10Log.OUT_NAVI2CONTROL.Ve = AL26(:,11);               %  10. | Ve      | Ve                             | [F]   | [12:12]   | 
 V10Log.OUT_NAVI2CONTROL.Vd = AL26(:,12);               %  11. | Vd      | Vd                             | [F]   | [12:12]   | 
 V10Log.OUT_NAVI2CONTROL.Sum = AL26(:,13);              %  12. | Sm      | Sum                            | [U8]  | [12:12]   | 
+%% AL27
+V10Log.SystemHealthStatus.TimeUS = AL27(:,2);          %   1. | Tim     | TimeUS                         | [U64] | [12:12]   | 
+V10Log.SystemHealthStatus.CNT = AL27(:,3);             %   2. | CNT     | CNT                            | [U32] | [12:12]   | 
+V10Log.SystemHealthStatus.SystemHealthStatus = AL27(:,4); %   3. | Health  | SystemHealthStatus             | [F]   | [12:12]   | 
+V10Log.SystemHealthStatus.Sum = AL27(:,5);             %   4. | Sm      | Sum                            | [U8]  | [12:12]   | 
+%% AL28
+V10Log.Status.TimeUS = AL28(:,2);                      %   1. | Tim     | TimeUS                         | [U64] | [12:12]   | 
+V10Log.Status.CNT = AL28(:,3);                         %   2. | CNT     | CNT                            | [U32] | [12:12]   | 
+V10Log.Status.isNavFilterGood = AL28(:,4);             %   3. | good    | isNavFilterGood                | [U8]  | [12:12]   | 
+V10Log.Status.Sum = AL28(:,5);                         %   4. | Sm      | Sum                            | [U8]  | [12:12]   | 
+%% AL29
+V10Log.OUT_SYSTEMINFO.TimeUS = AL29(:,2);              %   1. | Tim     | TimeUS                         | [U64] | [12:12]   | 
+V10Log.OUT_SYSTEMINFO.CNT = AL29(:,3);                 %   2. | CNT     | CNT                            | [U32] | [12:12]   | 
+V10Log.OUT_SYSTEMINFO.uavModel = AL29(:,4);            %   3. | modl    | uavModel                       | [U8]  | [12:12]   | 
+V10Log.OUT_SYSTEMINFO.Sum = AL29(:,5);                 %   4. | Sm      | Sum                            | [U8]  | [12:12]   | 
 %% 
 parserData = fieldnames(V10Log);
 for i = 1:length(parserData)

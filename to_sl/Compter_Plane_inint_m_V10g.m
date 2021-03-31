@@ -492,7 +492,7 @@ AC_PosControl.vel_z_control_ratio              = 0;
  AP_TECS.spdWeight                 = 0.9;
  AP_TECS.throttle_max              = 100;
  AP_TECS.throttle_min              = 0;
- 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  AP_TECS.THRmaxf                   = 1;
  AP_TECS.THRminf                   = 0;
  AP_TECS.throttle_dem              = 0;
@@ -791,6 +791,11 @@ Copter_Plane.vel_forward_gain                       = 1          ;
 Copter_Plane.vel_forward_min_pitch                  = -4         ;
 Copter_Plane.vel_forward_tail_tilt_max              = 2000       ;
 Copter_Plane.vel_forward_integrator                 = 0          ;
+Copter_Plane.arspeed_filt                           = 5          ;
+Copter_Plane.arspeed_temp                           = 0          ;
+Copter_Plane.disable_integrator_pitch               = 0          ;
+Copter_Plane.disable_integrator_roll                = 0          ;
+Copter_Plane.disable_integrator_yaw                 = 0          ;
 
 LOCATION_SCALING_FACTOR                = 0.011131884502145034;
 LOCATION_SCALING_FACTOR_INV            = 89.83204953368922;   

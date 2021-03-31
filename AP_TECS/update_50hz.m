@@ -26,11 +26,10 @@ function update_50hz()
 %       if we have a vertical position estimate from the EKF then use
 %       it, otherwise use barometric altitude
 
-global Vz
 global GRAVITY_MSS
 global rot_body_to_ned
 global accel_x
-
+global curr_vel
 global AP_TECS
 
  climb_rate         = AP_TECS.climb_rate;
@@ -60,7 +59,8 @@ global AP_TECS
 %         % to the measured height
 %             height_filter_height=height_filter_height + integ3_input*dt;
 %      end
-     climb_rate = -Vz;
+%      climb_rate = -Vz;
+     climb_rate = curr_vel(3)/100;
 
     % Update and average speed rate of change
     % Get DCM
