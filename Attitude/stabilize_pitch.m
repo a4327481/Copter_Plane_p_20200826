@@ -4,16 +4,15 @@ function stabilize_pitch(  speed_scaler)
 %   stabilize the plane at the given attitude.
 global pitch
 global HD
-global disable_integrator_pitch
 global Test_w
 global SRV_Channel
 global Plane
-
+global Copter_Plane
 nav_pitch_cd             = Plane.nav_pitch_cd;
 kff_throttle_to_pitch    = Plane.kff_throttle_to_pitch;
 k_elevator               = SRV_Channel.k_elevator;
 k_throttle               = SRV_Channel.k_throttle;
-
+disable_integrator_pitch = Copter_Plane.disable_integrator_pitch;
 
 % global curr_vel
 %     int8_t force_elevator = takeoff_tail_hold();
@@ -31,10 +30,11 @@ k_throttle               = SRV_Channel.k_throttle;
 %                                                                                            speed_scaler, 
 %                                                                                            disable_integrator));
 
-Plane.nav_pitch_cd             =nav_pitch_cd;
-Plane.kff_throttle_to_pitch    =kff_throttle_to_pitch;
-SRV_Channel.k_elevator               = k_elevator;
-SRV_Channel.k_throttle               = k_throttle;
-%  
+Plane.nav_pitch_cd                           = nav_pitch_cd;
+Plane.kff_throttle_to_pitch                  = kff_throttle_to_pitch;
+SRV_Channel.k_elevator                       = k_elevator;
+SRV_Channel.k_throttle                       = k_throttle;
+Copter_Plane.disable_integrator_pitch        = disable_integrator_pitch;
+
 end
 

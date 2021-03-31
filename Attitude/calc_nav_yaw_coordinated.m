@@ -1,14 +1,14 @@
 function  calc_nav_yaw_coordinated( speed_scaler)
 %   calculate yaw control for coordinated flight
-  global disable_integrator_yaw
   global Test_w
   
   global SRV_Channel
   global Plane
+  global Copter_Plane
   k_rudder                  = SRV_Channel.k_rudder;
   k_aileron                 = SRV_Channel.k_aileron;
   kff_rudder_mix            = Plane.kff_rudder_mix;
-  
+  disable_integrator_yaw    = Copter_Plane.disable_integrator_yaw;
   
   
   
@@ -28,9 +28,10 @@ function  calc_nav_yaw_coordinated( speed_scaler)
         commanded_rudder =commanded_rudder+ k_aileron * kff_rudder_mix;
         k_rudder = constrain_value(commanded_rudder, -4500, 4500)+Test_w.k_rudder;
         
-   SRV_Channel.k_rudder          = k_rudder;
-   SRV_Channel.k_aileron         = k_aileron;
-   Plane.kff_rudder_mix          = kff_rudder_mix;
- 
+   SRV_Channel.k_rudder                  = k_rudder;
+   SRV_Channel.k_aileron                 = k_aileron;
+   Plane.kff_rudder_mix                  = kff_rudder_mix;
+   Copter_Plane.disable_integrator_yaw   = disable_integrator_yaw;
+
 end
 

@@ -232,6 +232,7 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
  rate_yaw_pid.slew_rate_tau           =0.1;
  
  rate_roll_pid.flags_reset_filter     =1;
+ rate_roll_pid.disable_integrator     =0;
  rate_roll_pid.target                 =0;
  rate_roll_pid.error                  =0;
  rate_roll_pid.error_last             =0;
@@ -243,6 +244,7 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
  rate_roll_pid.Dmod                   =0;
  
  rate_pitch_pid.flags_reset_filter     =1;
+ rate_pitch_pid.disable_integrator     =0;
  rate_pitch_pid.target                 =0;
  rate_pitch_pid.error                  =0;
  rate_pitch_pid.error_last             =0;
@@ -254,6 +256,7 @@ J_V10=diag([Jx_v10 Jy_v10 Jz_v10]);
  rate_pitch_pid.Dmod                   =0;
  
  rate_yaw_pid.flags_reset_filter     =1;
+ rate_yaw_pid.disable_integrator     =0;
  rate_yaw_pid.target                 =0;
  rate_yaw_pid.error                  =0;
  rate_yaw_pid.error_last             =0;
@@ -436,6 +439,7 @@ AC_PosControl.vel_z_control_ratio              = 0;
 
  
  AC_PosControl.pid_vel_xy.flags_reset_filter            = 0;
+ AC_PosControl.pid_vel_xy.disable_integrator            = true;
  AC_PosControl.pid_vel_xy.target                        = [0 0];
  AC_PosControl.pid_vel_xy.error                         = [0 0];
  AC_PosControl.pid_vel_xy.error_last                    = [0 0];
@@ -447,6 +451,7 @@ AC_PosControl.vel_z_control_ratio              = 0;
 %  AC_PosControl.pid_vel_xy.Dmod                          = [1 1];
 %  
  AC_PosControl.pid_accel_z.flags_reset_filter         = 0;
+ AC_PosControl.pid_accel_z.disable_integrator         = true;
  AC_PosControl.pid_accel_z.target                     = 0;
  AC_PosControl.pid_accel_z.error                      = 0;
  AC_PosControl.pid_accel_z.error_last                 = 0;

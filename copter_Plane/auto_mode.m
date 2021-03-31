@@ -62,6 +62,9 @@ tail_tilt_p2c                      = Copter_Plane.tail_tilt_p2c;
 tail_tilt_rate                     = Copter_Plane.tail_tilt_rate;
 aspeed_c2p                         = Copter_Plane.aspeed_c2p;
 aspeed_c2ps                        = Copter_Plane.aspeed_c2ps;
+disable_integrator_pitch           = Copter_Plane.disable_integrator_pitch;          
+disable_integrator_roll            = Copter_Plane.disable_integrator_roll;
+disable_integrator_yaw              = Copter_Plane.disable_integrator_yaw;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global curr_pos
 global aspeed
@@ -72,9 +75,7 @@ global curr_alt
 global PathModeOut_sl
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global disable_integrator_pitch
-global disable_integrator_roll
-global disable_integrator_yaw
+
 global roll_ff_pitch_inint
 global K_FF_yaw_inint
 global POSCONTROL_ACC_Z_FILT_HZ_inint
@@ -116,23 +117,15 @@ persistent Rotor2Fix_delay_flag
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
        error_pos=8;   
     if(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.HoverAdjustMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.TakeOffMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.LandMode)
-        AC_PosControl.pid_accel_z.ki=POSCONTROL_ACC_Z_I_inint;
-        AC_PosControl.pid_vel_xy.ki=POSCONTROL_VEL_XY_I_inint;
-        rate_pitch_pid.ki=ATC_RAT_PIT_I_inint;
-        rate_roll_pid.ki=ATC_RAT_RLL_I_inint;
-        rate_yaw_pid.ki=ATC_RAT_YAW_I_inint;
+
     else
-        AC_PosControl.pid_accel_z.ki=0;
-        AC_PosControl.pid_vel_xy.ki=0;
-        rate_pitch_pid.ki=0;
-        rate_roll_pid.ki=0;
-        rate_yaw_pid.ki=0; 
-        pid_accel_z_reset_filter=1;
-        pid_vel_xy_reset_filter=1;
-        rate_pitch_pid_reset_filter=1;
-        rate_roll_pid_reset_filter=1;
-        rate_yaw_pid_reset_filter=1;
+        AC_PosControl.pid_accel_z.flags_reset_filter=true;
+        AC_PosControl.pid_vel_xy.flags_reset_filter=true;
+        rate_pitch_pid.flags_reset_filter=true;
+        rate_roll_pid.flags_reset_filter=true;
+        rate_yaw_pid.flags_reset_filter=true;
     end
+    
     if( uavMode==1)%% mode= comper disable plane I
         disable_integrator_pitch=0;
         disable_integrator_roll=0;
@@ -533,6 +526,8 @@ Copter_Plane.tail_tilt_p2c                      = tail_tilt_p2c;
 Copter_Plane.tail_tilt_rate                     = tail_tilt_rate;
 Copter_Plane.aspeed_c2p                         = aspeed_c2p;
 Copter_Plane.aspeed_c2ps                        = aspeed_c2ps; 
-
+Copter_Plane.disable_integrator_pitch           = disable_integrator_pitch;          
+Copter_Plane.disable_integrator_roll            = disable_integrator_roll;
+Copter_Plane.disable_integrator_yaw             = disable_integrator_yaw;
 end
 

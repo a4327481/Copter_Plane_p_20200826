@@ -1,6 +1,7 @@
 function  weathervane_yaw_rate_cds=get_weathervane_yaw_rate_cds( )
 global Copter_Plane
 global AC_PosControl
+
 weathervane_min_roll           = Copter_Plane.weathervane_min_roll;
 weathervane_last_output        = Copter_Plane.weathervane_last_output;
 weathervane_gain               = Copter_Plane.weathervane_gain;

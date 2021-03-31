@@ -79,11 +79,9 @@ global Plane
     else
         pid_info_I = 0;
     end
-    
-	
-
+    	
     % Scale the integration limit
-      intLimScaled = gains_imax * 0.01;
+    intLimScaled = gains_imax * 0.01;
 
     % Constrain the integrator state
     pid_info_I = constrain_value(pid_info_I, -intLimScaled, intLimScaled);
@@ -135,7 +133,7 @@ global Plane
 %         % set down rate to rate up when auto-tuning
 %         _max_rate_neg.set_and_save_ifchanged(gains.rmax);
 
-	  last_out=last_out +pid_info_I;
+	  last_out=last_out + pid_info_I;
  
 %       when we are past the users defined roll limit for the
 %       aircraft our priority should be to bring the aircraft back

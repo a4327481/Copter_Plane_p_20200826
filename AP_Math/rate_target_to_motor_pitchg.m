@@ -14,6 +14,7 @@ function output=rate_target_to_motor_pitchg( target_in,  measurement,  limit)
  slew_rate_tau           =rate_pitch_pid.slew_rate_tau;
  
  flags_reset_filter      =rate_pitch_pid.flags_reset_filter;
+ disable_integrator      =rate_pitch_pid.disable_integrator;
  target                  =rate_pitch_pid.target;
  error                   =rate_pitch_pid.error;
  error_last              =rate_pitch_pid.error_last;
@@ -46,7 +47,7 @@ function output=rate_target_to_motor_pitchg( target_in,  measurement,  limit)
         end 
     % update I term
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    if (ki~=0 )  
+    if (ki~=0 && ~disable_integrator )  
         % Ensure that integrator can only be reduced if the output is saturated
         if (~limit || (((integrator>0) && (error<0)) || ((integrator<0) && (error>0))))                  
             integrator = integrator + (error * ki) * dt;
@@ -97,6 +98,7 @@ function output=rate_target_to_motor_pitchg( target_in,  measurement,  limit)
     output=P_out + integrator + D_out+kff*target_in;
     
     rate_pitch_pid.flags_reset_filter  = flags_reset_filter;
+    rate_pitch_pid.disable_integrator  = disable_integrator;
     rate_pitch_pid.target              = target;
     rate_pitch_pid.error               = error;
     rate_pitch_pid.error_last          = error_last ;

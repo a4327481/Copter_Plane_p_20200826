@@ -5,15 +5,15 @@ function  stabilize_roll(  speed_scaler)
 
  global roll
  global HD
- global disable_integrator_roll
  global Test_w
  global Plane
  global SRV_Channel
- 
- inverted_flight     = Plane.inverted_flight;
- nav_roll_cd         = Plane.nav_roll_cd;
- k_aileron           = SRV_Channel.k_aileron;
- 
+ global Copter_Plane
+
+ inverted_flight                 = Plane.inverted_flight;
+ nav_roll_cd                     = Plane.nav_roll_cd;
+ k_aileron                       = SRV_Channel.k_aileron;
+ disable_integrator_roll         = Copter_Plane.disable_integrator_roll;
  
     if (inverted_flight)  
         % we want to fly upside down. We need to cope with wrap of
@@ -32,8 +32,9 @@ function  stabilize_roll(  speed_scaler)
 %     SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, rollController.get_servo_out(nav_roll_cd - ahrs.roll_sensor, 
 %                                                                                          speed_scaler, 
 %                                                                                          disable_integrator));
- Plane.inverted_flight            = inverted_flight;
- Plane.nav_roll_cd                = nav_roll_cd ;
- SRV_Channel.k_aileron            = k_aileron;
+ Plane.inverted_flight                 = inverted_flight;
+ Plane.nav_roll_cd                     = nav_roll_cd ;
+ SRV_Channel.k_aileron                 = k_aileron;
+ Copter_Plane.disable_integrator_roll  = disable_integrator_roll;
 end
 

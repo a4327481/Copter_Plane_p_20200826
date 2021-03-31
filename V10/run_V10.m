@@ -32,7 +32,7 @@ tail_tilt                             = SRV_Channel.tail_tilt;
 k_aileron                             = SRV_Channel.k_aileron;
 k_elevator                            = SRV_Channel.k_elevator;
 k_rudder                              = SRV_Channel.k_rudder;
-
+k_throttle                            = SRV_Channel.k_throttle;
 
 climb_rate_cms                           = Copter_Plane.climb_rate_cms;
 loc_origin                               = Copter_Plane.loc_origin;
@@ -116,22 +116,13 @@ persistent WP_i
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
       
     if(mode_state==3||mode_state==9||mode_state==10)
-        AC_PosControl.pid_accel_z.ki=POSCONTROL_ACC_Z_I_inint;
-        AC_PosControl.pid_vel_xy.ki=POSCONTROL_VEL_XY_I_inint;
-        rate_pitch_pid.ki=ATC_RAT_PIT_I_inint;
-        rate_roll_pid.ki=ATC_RAT_RLL_I_inint;
-        rate_yaw_pid.ki=ATC_RAT_YAW_I_inint;    
+
     else
-        AC_PosControl.pid_accel_z.ki=0;
-        AC_PosControl.pid_vel_xy.ki=0;
-        rate_pitch_pid.ki=0;
-        rate_roll_pid.ki=0;
-        rate_yaw_pid.ki=0; 
-        pid_accel_z_reset_filter=1;
-        pid_vel_xy_reset_filter=1;
-        rate_pitch_pid_reset_filter=1;
-        rate_roll_pid_reset_filter=1;
-        rate_yaw_pid_reset_filter=1;
+        AC_PosControl.pid_accel_z.disable_integrator=true;
+        AC_PosControl.pid_vel_xy.disable_integrator=true;
+        rate_pitch_pid.disable_integrator=true;
+        rate_roll_pid.disable_integrator=true;
+        rate_yaw_pid.disable_integrator=true;
     end
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
@@ -357,6 +348,9 @@ SRV_Channel.tail_tilt                             = tail_tilt;
 SRV_Channel.k_aileron                             = k_aileron;
 SRV_Channel.k_elevator                            = k_elevator;
 SRV_Channel.k_rudder                              = k_rudder;
+SRV_Channel.k_throttle                            = k_throttle;
+
+
 Copter_Plane.climb_rate_cms                       = climb_rate_cms;
 Copter_Plane.loc_origin                           = loc_origin;
 Copter_Plane.current_loc                          = current_loc;

@@ -58,6 +58,9 @@ roll_target_pilot                     = Copter_Plane.roll_target_pilot;
 pitch_target_pilot                    = Copter_Plane.pitch_target_pilot;
 arspeed_filt                          = Copter_Plane.arspeed_filt;
 arspeed_temp                          = Copter_Plane.arspeed_temp;
+disable_integrator_pitch              = Copter_Plane.disable_integrator_pitch;          
+disable_integrator_roll               = Copter_Plane.disable_integrator_roll;
+disable_integrator_yaw                = Copter_Plane.disable_integrator_yaw;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -70,9 +73,7 @@ global rot_body_to_ned
 global height
 global curr_alt
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global disable_integrator_pitch
-global disable_integrator_roll
-global disable_integrator_yaw
+
 global roll_ff_pitch_inint
 global K_FF_yaw_inint
 global POSCONTROL_ACC_Z_FILT_HZ_inint
@@ -117,22 +118,13 @@ persistent WP_i
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
       
     if(mode_state==3||mode_state==9||mode_state==10)
-        AC_PosControl.pid_accel_z.ki=POSCONTROL_ACC_Z_I_inint;
-        AC_PosControl.pid_vel_xy.ki=POSCONTROL_VEL_XY_I_inint;
-        rate_pitch_pid.ki=ATC_RAT_PIT_I_inint;
-        rate_roll_pid.ki=ATC_RAT_RLL_I_inint;
-        rate_yaw_pid.ki=ATC_RAT_YAW_I_inint;    
+
     else
-        AC_PosControl.pid_accel_z.ki=0;
-        AC_PosControl.pid_vel_xy.ki=0;
-        rate_pitch_pid.ki=0;
-        rate_roll_pid.ki=0;
-        rate_yaw_pid.ki=0; 
-        pid_accel_z_reset_filter=1;
-        pid_vel_xy_reset_filter=1;
-        rate_pitch_pid_reset_filter=1;
-        rate_roll_pid_reset_filter=1;
-        rate_yaw_pid_reset_filter=1;
+        AC_PosControl.pid_accel_z.disable_integrator=true;
+        AC_PosControl.pid_vel_xy.disable_integrator=true;
+        rate_pitch_pid.disable_integrator=true;
+        rate_roll_pid.disable_integrator=true;
+        rate_yaw_pid.disable_integrator=true;
     end
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
@@ -346,8 +338,8 @@ AC_PosControl.vel_desired                            =  vel_desired;
 AC_Attitude.attitude_target_quat                     =  attitude_target_quat;
 AP_TECS.hgt_dem                                      =  hgt_dem;
 
-AP_Motors.yaw_in                                = yaw_in;    
-AP_Motors.throttle_in                           = throttle_in;
+AP_Motors.yaw_in                                  = yaw_in;    
+AP_Motors.throttle_in                             = throttle_in;
 
 SRV_Channel.tail_tilt                             = tail_tilt; 
 SRV_Channel.k_aileron                             = k_aileron;
@@ -379,6 +371,9 @@ Copter_Plane.roll_target_pilot                     = roll_target_pilot ;
 Copter_Plane.pitch_target_pilot                    = pitch_target_pilot;
 Copter_Plane.arspeed_filt                          = arspeed_filt;
 Copter_Plane.arspeed_temp                          = arspeed_temp;
+Copter_Plane.disable_integrator_pitch              = disable_integrator_pitch;          
+Copter_Plane.disable_integrator_roll               = disable_integrator_roll;
+Copter_Plane.disable_integrator_yaw                = disable_integrator_yaw;
 
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

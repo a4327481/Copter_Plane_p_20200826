@@ -65,6 +65,9 @@ aspeed_c2p                          = Copter_Plane.aspeed_c2p;
 aspeed_c2ps                         = Copter_Plane.aspeed_c2ps;
 k_throttle_c2p                      = Copter_Plane.k_throttle_c2p;
 pitch_target_p2c                    = Copter_Plane.pitch_target_p2c;
+disable_integrator_pitch              = Copter_Plane.disable_integrator_pitch;          
+disable_integrator_roll               = Copter_Plane.disable_integrator_roll;
+disable_integrator_yaw                = Copter_Plane.disable_integrator_yaw;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global curr_pos
 global aspeed
@@ -74,9 +77,6 @@ global height
 global curr_alt
 global PathModeOut_sl
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global disable_integrator_pitch
-global disable_integrator_roll
-global disable_integrator_yaw
 global roll_ff_pitch_inint
 global K_FF_yaw_inint
 global POSCONTROL_ACC_Z_FILT_HZ_inint
@@ -525,5 +525,8 @@ Copter_Plane.aspeed_c2p                          = aspeed_c2p;
 Copter_Plane.aspeed_c2ps                         = aspeed_c2ps;
 Copter_Plane.k_throttle_c2p                      = k_throttle_c2p;
 Copter_Plane.pitch_target_p2c                    = pitch_target_p2c;	
+Copter_Plane.disable_integrator_pitch             = disable_integrator_pitch;          
+Copter_Plane.disable_integrator_roll              = disable_integrator_roll;
+Copter_Plane.disable_integrator_yaw               = disable_integrator_yaw;
 end
 
