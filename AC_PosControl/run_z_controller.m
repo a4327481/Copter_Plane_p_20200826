@@ -40,6 +40,7 @@ vel_last                     = AC_PosControl.vel_last;
 accel_desired               = AC_PosControl.accel_desired;
 pid_accel_z_integrator       = AC_PosControl.pid_accel_z.integrator;
 vel_z_control_ratio          = AC_PosControl.vel_z_control_ratio;
+thr_out_min                   = AC_PosControl.thr_out_min;
 
 limit_pos_up                 = AC_PosControl.limit_pos_up;
 limit_pos_down               = AC_PosControl.limit_pos_down;
@@ -56,7 +57,6 @@ limit_throttle_upper            = AP_Motors.limit_throttle_upper;
 throttle_hover                  = AP_Motors.throttle_hover;
 
 take_off_land                   = Copter_Plane.take_off_land;
-thr_out_min                     = Copter_Plane.thr_out_min;
 
     % clear position limit flags
     limit_pos_up = false;

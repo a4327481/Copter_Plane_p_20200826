@@ -1,7 +1,7 @@
 function update_loiter( center_WP,   radius,   loiter_direction)
  
  global yaw
- global current_loc
+ global curr_loc
  global groundspeed_vector
  global AP_L1
   L1_period                   = AP_L1.L1_period;
@@ -31,7 +31,7 @@ function update_loiter( center_WP,   radius,   loiter_direction)
       groundspeed_vector_length=norm(groundspeed_vector,2);
       groundSpeed = max(groundspeed_vector_length , 1.0);
     % update _target_bearing_cd
-      target_bearing_cd = get_bearing_to(center_WP,current_loc);
+      target_bearing_cd = get_bearing_to(center_WP,curr_loc);
 
 
     % Calculate time varying control parameters
@@ -40,7 +40,7 @@ function update_loiter( center_WP,   radius,   loiter_direction)
     L1_dist = 0.3183099 * L1_damping * L1_period * groundSpeed;
 
     %Calculate the NE position of the aircraft relative to WP A
-    A_air = get_distance_NE(current_loc,center_WP);
+    A_air = get_distance_NE(curr_loc,center_WP);
     A_air_length=norm(A_air,2);
     % Calculate the unit vector from WP A to aircraft
     % protect against being on the waypoint and having zero velocity

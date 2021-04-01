@@ -1,9 +1,9 @@
 function  update_load_factor()
 global aspeed
-global roll_limit_cd_inint
 global HD
 
 global Plane
+global Copter_Plane
 
 smoothed_airspeed              = Plane.smoothed_airspeed;
 airspeed_min                   = Plane.airspeed_min;
@@ -53,8 +53,8 @@ roll_limit_cd                  = Plane.roll_limit_cd;
         roll_limit_cd = roll_limit;
 %         roll_limit_cd = min(roll_limit_cd, roll_limit);  %byc xiugai 20191111   
     else
-        nav_roll_cd = constrain_value(nav_roll_cd, -roll_limit_cd_inint, roll_limit_cd_inint);
-        roll_limit_cd = roll_limit_cd_inint;       
+        nav_roll_cd = constrain_value(nav_roll_cd, -Copter_Plane.roll_limit_cd, Copter_Plane.roll_limit_cd);
+        roll_limit_cd = Copter_Plane.roll_limit_cd;       
         
     end  
     

@@ -10,10 +10,9 @@ global gyro_z
 global aspeed
 global EAS2TAS
 global groundspeed_vector
-global height
 global curr_vel
 global curr_alt
-global current_loc
+global curr_loc
 global roll
 global pitch
 global yaw
@@ -34,7 +33,7 @@ global HD
  EAS2TAS=Curr_sate.EAS2TAS_Algo;
  groundspeed_vector=Curr_sate.curVelNED(1:2);
  curr_vel=[Curr_sate.curVelNED(1) Curr_sate.curVelNED(2) -Curr_sate.curVelNED(3)]*100;
- current_loc=Curr_sate.curLLA(1:2)*1e7;
+ curr_loc=Curr_sate.curLLA(1:2)*1e7;
  if(mode==10)
     PathModeOut_sl.headingCmd               =Curr_sate.PathModeOut.headingCmd;
     PathModeOut_sl.groundspeedCmd           =Curr_sate.PathModeOut.groundspeedCmd;
@@ -47,7 +46,6 @@ global HD
     PathModeOut_sl.curPathPoint_LLA         =Curr_sate.PathModeOut.curPathPoint_LLA*1e7;
     PathModeOut_sl.rollCmd                  =Curr_sate.PathModeOut.rollCmd;   
     curr_alt                                =Curr_sate.curLLA(3)*100;
-    height                                  =Curr_sate.curLLA(3);
  else
     PathModeOut_sl.headingCmd               =algo_dbg_param.headingCmd;
     PathModeOut_sl.groundspeedCmd           =algo_dbg_param.groundspeedCmd;
@@ -55,7 +53,6 @@ global HD
     PathModeOut_sl.flightTaskMode           =algo_dbg_param.flightTaskMode;
     PathModeOut_sl.maxClimbSpeed            =algo_dbg_param.maxClimbSpeed;  
     curr_alt                                =Curr_sate.NAV_alt*100;
-    height                                  =Curr_sate.NAV_alt;
  end
  
 end

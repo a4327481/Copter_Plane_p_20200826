@@ -5,14 +5,14 @@ global Plane
 global AC_Attitude
 global AC_PosControl
 global AP_Motors
-global AP_rate_pitch
-global AP_rate_yaw
 global AP_TECS
 global rate_pitch_pid
 global rate_roll_pid
 global rate_yaw_pid
 global SRV_Channel
 global Copter_Plane
+global curr_loc
+global curr_alt
 aerodynamic_load_factor               = Plane.aerodynamic_load_factor;
 nav_pitch_cd                          = Plane.nav_pitch_cd;
 nav_roll_cd                           = Plane.nav_roll_cd;
@@ -35,7 +35,6 @@ k_rudder                              = SRV_Channel.k_rudder;
 
 climb_rate_cms                        = Copter_Plane.climb_rate_cms;
 loc_origin                            = Copter_Plane.loc_origin;
-current_loc                           = Copter_Plane.current_loc;
 EAS_dem_cm                            = Copter_Plane.EAS_dem_cm;
 hgt_dem_cm                            = Copter_Plane.hgt_dem_cm;
 p_tilt_pitch_target                   = Copter_Plane.p_tilt_pitch_target;
@@ -50,6 +49,7 @@ L1_radius                             = Copter_Plane.L1_radius;
 p_plane_c2p                           = Copter_Plane.p_plane_c2p;
 yaw_max_c2p                           = Copter_Plane.yaw_max_c2p;
 POSCONTROL_ACC_Z_FILT_HZ_c2p          = Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ_c2p;
+POSCONTROL_ACC_Z_FILT_HZ              = Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ;
 inint_hgt                             = Copter_Plane.inint_hgt;
 aspeed_c2p                            = Copter_Plane.aspeed_c2p;
 mode                                  = Copter_Plane.mode;
@@ -66,31 +66,15 @@ disable_AP_rate_pitch_roll_ff         = Copter_Plane.disable_AP_rate_pitch_roll_
 disable_AP_rate_pitch_gains_D         = Copter_Plane.disable_AP_rate_pitch_gains_D;
 disable_AP_rate_yaw_K_FF              = Copter_Plane.disable_AP_rate_yaw_K_FF;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
+height                                = curr_alt/100;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global curr_pos
 global aspeed
 global yaw
 global rot_body_to_ned
-global height
-global curr_alt
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-global roll_ff_pitch_inint
-global K_FF_yaw_inint
-global POSCONTROL_ACC_Z_FILT_HZ_inint
-global POSCONTROL_ACC_Z_I_inint
-global pid_accel_z_reset_filter
-global POSCONTROL_VEL_XY_I_inint
-global pid_vel_xy_reset_filter
-global ATC_RAT_PIT_I_inint
-global rate_pitch_pid_reset_filter
-global ATC_RAT_RLL_I_inint
-global rate_roll_pid_reset_filter
-global ATC_RAT_YAW_I_inint
-global rate_yaw_pid_reset_filter
+
 
 %%%%%%%%%%L1%%%%%%%%%%%%%%%%%%%%%
 persistent mode_state
@@ -182,7 +166,7 @@ switch mode
          AP_MotorsMulticopter_output();
     case 3 %copter xyz
         if(mode_state~=3)
-            loc_origin=current_loc;
+            loc_origin=curr_loc;
             curr_pos(1:2)=[0 0];
             AC_PosControl.pos_target(1:2)=[0 0];
             pos_target(3) = curr_alt;
@@ -193,7 +177,7 @@ switch mode
             k_rudder=0;
         else
 %             AC_PosControl.pos_target(1:2)=[0 0];
-            curr_pos(1:2)=get_vector_xy_from_origin_NE( current_loc,loc_origin)*100; 
+            curr_pos(1:2)=get_vector_xy_from_origin_NE( curr_loc,loc_origin)*100; 
         end
          vel_desired(1)=pitch_target_pilot/10*cos(yaw)-roll_target_pilot/10*sin(yaw);
          vel_desired(2)=pitch_target_pilot/10*sin(yaw)+roll_target_pilot/10*cos(yaw);
@@ -250,7 +234,7 @@ switch mode
             %         next_WP=loc(WP_i+1,2:3); 
                      prev_WP=[loc.lat(WP_i) loc.lon(WP_i)];
                      next_WP=[loc.lat(WP_i+1) loc.lon(WP_i+1)];        
-                    AB = get_distance_NE(next_WP,current_loc);
+                    AB = get_distance_NE(next_WP,curr_loc);
                     AB_length = norm(AB,2);
                     if((AB_length<L1_radius))
                         if((loc.lat(WP_i+2,1)~=0&&loc.lon(WP_i+2,1)~=0))       
@@ -292,7 +276,7 @@ switch mode
             AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ_c2p;
             
          else          
-             AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ_inint;
+             AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ;
              k_aileron=0;
              k_elevator=0;
              k_rudder=0;
@@ -304,7 +288,7 @@ switch mode
              hgt_dem_cm=height*100;
              hgt_dem=height;
              inint_hgt=1;
-             center_WP=current_loc;
+             center_WP=curr_loc;
              mode_state=8; 
         else
              hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;
@@ -361,7 +345,6 @@ SRV_Channel.k_rudder                              = k_rudder;
 
 Copter_Plane.climb_rate_cms                        = climb_rate_cms;
 Copter_Plane.loc_origin                            = loc_origin;
-Copter_Plane.current_loc                           = current_loc;
 Copter_Plane.EAS_dem_cm                            = EAS_dem_cm;
 Copter_Plane.hgt_dem_cm                            = hgt_dem_cm;
 Copter_Plane.p_tilt_pitch_target                   = p_tilt_pitch_target;

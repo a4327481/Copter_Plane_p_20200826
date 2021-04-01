@@ -4,15 +4,14 @@ function auto_mode_sl()
 
 
 global dt
+global curr_alt
+global curr_loc
 global Plane 
 global AC_Attitude
 global AC_PosControl
 global AP_Motors
 global AP_L1
 global AP_TECS
-global AP_rate_pitch
-global AP_rate_roll
-global AP_rate_yaw
 global rate_pitch_pid
 global rate_roll_pid
 global rate_yaw_pid
@@ -27,8 +26,8 @@ pitch_target                          = AC_PosControl.pitch_target;
 target_yaw_rate                       = AC_PosControl.target_yaw_rate;
 pos_target                            = AC_PosControl.pos_target;
 vel_desired                           = AC_PosControl.vel_desired;
+thr_out_min                           = AC_PosControl.thr_out_min;
 attitude_target_quat                  = AC_Attitude.attitude_target_quat;
-
 latAccDem                             = AP_L1.latAccDem;
 throttle_dem                          = AP_TECS.throttle_dem;       
 last_throttle_dem                     = AP_TECS.last_throttle_dem; 
@@ -50,7 +49,6 @@ k_flap                                = SRV_Channel.k_flap;
 
 climb_rate_cms                           = Copter_Plane.climb_rate_cms;
 loc_origin                               = Copter_Plane.loc_origin;
-current_loc                              = Copter_Plane.current_loc;
 EAS_dem_cm                               = Copter_Plane.EAS_dem_cm;
 hgt_dem_cm                               = Copter_Plane.hgt_dem_cm;
 p_tilt_pitch_target                      = Copter_Plane.p_tilt_pitch_target;
@@ -62,7 +60,6 @@ next_WP                                  = Copter_Plane.next_WP;
 dist_min                                 = Copter_Plane.dist_min;
 p_plane_c2p                              = Copter_Plane.p_plane_c2p;
 yaw_max_c2p                              = Copter_Plane.yaw_max_c2p;
-POSCONTROL_ACC_Z_FILT_HZ_c2p             = Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ_c2p;
 inint_hgt                                = Copter_Plane.inint_hgt;
 tail_tilt_c2p                            = Copter_Plane.tail_tilt_c2p;
 tail_tilt_p2c                            = Copter_Plane.tail_tilt_p2c;
@@ -76,12 +73,12 @@ k_throttle_c2p                           = Copter_Plane.k_throttle_c2p;
 Fix2Rotor_delay_s                        = Copter_Plane.Fix2Rotor_delay_s;
 p_k_elevator_c2p                         = Copter_Plane.p_k_elevator_c2p;
 POSCONTROL_THROTTLE_CUTOFF_FREQ_p2c      = Copter_Plane.POSCONTROL_THROTTLE_CUTOFF_FREQ_p2c;
+POSCONTROL_THROTTLE_CUTOFF_FREQ          = Copter_Plane.POSCONTROL_THROTTLE_CUTOFF_FREQ;
 throttle_ground                          = Copter_Plane.throttle_ground;
 throttle_off_rate                        = Copter_Plane.throttle_off_rate;
 take_off_land                            = Copter_Plane.take_off_land;
 vel_forward_integrator                   = Copter_Plane.vel_forward_integrator;
-thr_out_min_c2p                          = Copter_Plane.thr_out_min_c2p;
-thr_out_min                              = Copter_Plane.thr_out_min;
+
 heading_hold                             = Copter_Plane.heading_hold;
 k_flap_TakeOff                           = Copter_Plane.k_flap_TakeOff;
 k_flap_Land                              = Copter_Plane.k_flap_Land;
@@ -92,20 +89,16 @@ disable_AP_rate_roll_gains_D          = Copter_Plane.disable_AP_rate_roll_gains_
 disable_AP_rate_pitch_roll_ff         = Copter_Plane.disable_AP_rate_pitch_roll_ff;
 disable_AP_rate_pitch_gains_D         = Copter_Plane.disable_AP_rate_pitch_gains_D;
 disable_AP_rate_yaw_K_FF              = Copter_Plane.disable_AP_rate_yaw_K_FF;
+POSCONTROL_ACC_Z_FILT_HZ_c2p          = Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ_c2p;
+POSCONTROL_ACC_Z_FILT_HZ              = Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ;
+height                                =curr_alt/100;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global HD
 global curr_pos
 global aspeed
 global rot_body_to_ned
-global height
-global curr_alt
 global PathModeOut_sl
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global POSCONTROL_ACC_Z_FILT_HZ_inint
-global POSCONTROL_THROTTLE_CUTOFF_FREQ_inint
-global thr_out_min_inint
-global spdWeight_inint
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %mode auto
 persistent WP_i
@@ -151,7 +144,6 @@ persistent TakeOffMode_delay_flag
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
        error_pos=8;
-    spdWeight=spdWeight_inint;
     if(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.TakeOffMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.LandMode)
       take_off_land=1;
     else
@@ -159,13 +151,13 @@ persistent TakeOffMode_delay_flag
     end
     
     if(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.Rotor2Fix_Mode)
-      thr_out_min=thr_out_min_c2p;
+      thr_out_min  = Copter_Plane.thr_out_min_c2p ;
     else
-      thr_out_min=thr_out_min_inint;
+      thr_out_min =  Copter_Plane.thr_out_min;
     end
 
    if(PathModeOut_sl.flightTaskMode~=ENUM_FlightTaskMode.Fix2Rotor_Mode)
-      AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ=POSCONTROL_THROTTLE_CUTOFF_FREQ_inint;
+      AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ=POSCONTROL_THROTTLE_CUTOFF_FREQ;
     end
       
     if(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.TakeOffMode)
@@ -229,13 +221,13 @@ persistent TakeOffMode_delay_flag
                             uavMode=0;
                             pos_target(3)=max(curr_alt,10);
                             vel_desired(3)=0;
-                            loc_origin=current_loc;
+                            loc_origin=curr_loc;
                             curr_pos(1:2)=[0 0];
                             pos_target(1:2)=[0 0];
                             attitude_target_quat=from_rotation_matrix(rot_body_to_ned);
                             target_yaw_rate=0;
                          else
-                            curr_pos(1:2)=get_vector_xy_from_origin_NE( current_loc,loc_origin)*100; 
+                            curr_pos(1:2)=get_vector_xy_from_origin_NE( curr_loc,loc_origin)*100; 
                          end
                          if(curr_alt<100)
                              AC_PosControl.pid_accel_z.disable_integrator=true;
@@ -265,7 +257,7 @@ persistent TakeOffMode_delay_flag
                 if(PathMode~=ENUM_FlightTaskMode.LandMode)
                     PathMode=ENUM_FlightTaskMode.LandMode;
                     uavMode=0;
-                    loc_origin=current_loc;
+                    loc_origin=curr_loc;
                     pos_target(3) = curr_alt;
                     vel_desired(3)=0;
                     curr_pos(1:2)=[0 0];
@@ -275,7 +267,7 @@ persistent TakeOffMode_delay_flag
                 else
                     pos_target(1:2)=[0 0]; 
                     loc_origin=PathModeOut_sl.turnCenterLL(1:2);
-                    curr_pos(1:2)=get_vector_xy_from_origin_NE( current_loc,loc_origin)*100; 
+                    curr_pos(1:2)=get_vector_xy_from_origin_NE( curr_loc,loc_origin)*100; 
                 end
                  climb_rate_cms=PathModeOut_sl.maxClimbSpeed;
                  set_alt_target_from_climb_rate_ffg1(climb_rate_cms, dt, 0,-1); 
@@ -289,7 +281,7 @@ persistent TakeOffMode_delay_flag
                   if(PathMode~=ENUM_FlightTaskMode.HoverAdjustMode)
                     PathMode=ENUM_FlightTaskMode.HoverAdjustMode;
                     uavMode=0;
-                    loc_origin=current_loc;
+                    loc_origin=curr_loc;
                     pos_target(3) = curr_alt;
                     vel_desired(3)=0;
                     curr_pos(1:2)=[0 0];
@@ -299,7 +291,7 @@ persistent TakeOffMode_delay_flag
                   else
                     pos_target(1:2)=[0 0];  
                     loc_origin=PathModeOut_sl.turnCenterLL(1:2);
-                    curr_pos(1:2)=get_vector_xy_from_origin_NE( current_loc,loc_origin)*100; 
+                    curr_pos(1:2)=get_vector_xy_from_origin_NE( curr_loc,loc_origin)*100; 
                   end               
                  climb_rate_cms=PathModeOut_sl.maxClimbSpeed;
                  set_alt_target_from_climb_rate_ffg(PathModeOut_sl.heightCmd,climb_rate_cms, dt, 0);                                      
@@ -311,7 +303,7 @@ persistent TakeOffMode_delay_flag
                     uavMode=1;
                     inint_hgt=1;
                     hgt_dem_cm=height*100;
-%                       center_WP=current_loc;                     
+%                       center_WP=curr_loc;                     
                 end 
                  if (PathModeOut_sl.heightCmd-hgt_dem_cm)>error_pos         
                      climb_rate_cms=PathModeOut_sl.maxClimbSpeed;
@@ -333,7 +325,7 @@ persistent TakeOffMode_delay_flag
                     uavMode=1;
                     inint_hgt=1;
                     hgt_dem_cm=height*100;
-%                      center_WP=current_loc;                     
+%                      center_WP=curr_loc;                     
                 end 
                 center_WP=PathModeOut_sl.turnCenterLL(1:2);
                 update_loiter( center_WP,   radius,   loiter_direction) 
@@ -367,7 +359,7 @@ persistent TakeOffMode_delay_flag
                     uavMode=1;
                     inint_hgt=1;
                     hgt_dem_cm=height*100;
-%                      center_WP=current_loc;                     
+%                      center_WP=curr_loc;                     
                 end 
                  if (PathModeOut_sl.heightCmd-hgt_dem_cm)>error_pos         
                      climb_rate_cms=PathModeOut_sl.maxClimbSpeed;
@@ -490,7 +482,7 @@ persistent TakeOffMode_delay_flag
                          input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target_temp,   target_yaw_rate);
                          rate_controller_run();
                          %%%%
-                         AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ_inint;
+                         AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ;
                          k_aileron=0;
                          k_elevator=0;
                          k_rudder=0;
@@ -557,7 +549,7 @@ persistent TakeOffMode_delay_flag
                          k_elevator=k_elevator*p_plane_p2c;
                          k_rudder=k_rudder*p_plane_p2c;
                          yaw_in=constrain_value(yaw_in,-yaw_max_c2p,yaw_max_c2p);
-                         AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ_inint;
+                         AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ;
                          AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ=POSCONTROL_THROTTLE_CUTOFF_FREQ_p2c;
                          update_z_controller();
 %                          throttle_in=0.3;
@@ -565,8 +557,8 @@ persistent TakeOffMode_delay_flag
 %                          set_throttle_out(throttle_in, 0, 10);
                          AP_MotorsMulticopter_output();
                      else
-                         AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ_inint;
-                         AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ=POSCONTROL_THROTTLE_CUTOFF_FREQ_inint;
+                         AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ;
+                         AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ=POSCONTROL_THROTTLE_CUTOFF_FREQ;
                          update_z_controller();
 %                          throttle_in=0.3;
 %                          throttle_filter=0.3;  
@@ -583,7 +575,7 @@ persistent TakeOffMode_delay_flag
                      PathMode=ENUM_FlightTaskMode.PathFollowMode;
                      uavMode=1;
                      inint_hgt=1;
-                     center_WP=current_loc;                     
+                     center_WP=curr_loc;                     
                 end 
                  if (PathModeOut_sl.heightCmd-hgt_dem_cm)>error_pos         
                      climb_rate_cms=PathModeOut_sl.maxClimbSpeed;
@@ -608,8 +600,8 @@ persistent TakeOffMode_delay_flag
                  if(PathMode~=ENUM_FlightTaskMode.GoHomeMode)
                      PathMode=ENUM_FlightTaskMode.GoHomeMode;
                      inint_hgt=1;
-                     center_WP=current_loc;
-                     loc_origin=current_loc;
+                     center_WP=curr_loc;
+                     loc_origin=curr_loc;
                      pos_target(3) = curr_alt;
                      vel_desired(3)=0;
                      curr_pos(1:2)=[0 0];
@@ -640,7 +632,7 @@ persistent TakeOffMode_delay_flag
                   case 0
                     pos_target(1:2)=[0 0]; 
                     loc_origin=PathModeOut_sl.turnCenterLL(1:2);
-                    curr_pos(1:2)=get_vector_xy_from_origin_NE( current_loc,loc_origin)*100;                 
+                    curr_pos(1:2)=get_vector_xy_from_origin_NE( curr_loc,loc_origin)*100;                 
                      if (PathModeOut_sl.heightCmd-pos_target(3))>error_pos         
                          climb_rate_cms=PathModeOut_sl.maxClimbSpeed;
                          set_alt_target_from_climb_rate_ff(climb_rate_cms, dt, 0);
@@ -709,15 +701,15 @@ persistent TakeOffMode_delay_flag
                     k_elevator=k_elevator*p_plane_c2p;
                     k_rudder=k_rudder*p_plane_c2p;
                     yaw_in=constrain_value(yaw_in,-yaw_max_c2p,yaw_max_c2p);
-                     AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ_inint;
+                     AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ;
                     AP_MotorsMulticopter_output();
              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
              case    ENUM_FlightTaskMode.VerticalMove                             
                  if(PathMode~=ENUM_FlightTaskMode.VerticalMove)
                      PathMode=ENUM_FlightTaskMode.VerticalMove;
                      inint_hgt=1;
-                     center_WP=current_loc;
-                     loc_origin=current_loc;
+                     center_WP=curr_loc;
+                     loc_origin=curr_loc;
                      pos_target(3) = curr_alt;
                      vel_desired(3)=0;
                      curr_pos(1:2)=[0 0];
@@ -743,7 +735,7 @@ persistent TakeOffMode_delay_flag
                   case 0
                     pos_target(1:2)=[0 0]; 
                     loc_origin=PathModeOut_sl.turnCenterLL(1:2);
-                    curr_pos(1:2)=get_vector_xy_from_origin_NE( current_loc,loc_origin)*100;                 
+                    curr_pos(1:2)=get_vector_xy_from_origin_NE( curr_loc,loc_origin)*100;                 
                      if (PathModeOut_sl.heightCmd-pos_target(3))>error_pos         
                          climb_rate_cms=PathModeOut_sl.maxClimbSpeed;
                          set_alt_target_from_climb_rate_ff(climb_rate_cms, dt, 0);
@@ -771,6 +763,8 @@ AC_PosControl.pitch_target                         = pitch_target;
 AC_PosControl.target_yaw_rate                      = target_yaw_rate;
 AC_PosControl.pos_target                           = pos_target;
 AC_PosControl.vel_desired                          = vel_desired;
+AC_PosControl.thr_out_min                          = thr_out_min;
+
 AC_Attitude.attitude_target_quat                   = attitude_target_quat;
 
 AP_L1.latAccDem                                    = latAccDem;
@@ -794,7 +788,6 @@ SRV_Channel.k_flap                                 = k_flap;
 											    
 Copter_Plane.climb_rate_cms                           = climb_rate_cms;
 Copter_Plane.loc_origin                               = loc_origin;
-Copter_Plane.current_loc                              = current_loc;
 Copter_Plane.EAS_dem_cm                               = EAS_dem_cm;
 Copter_Plane.hgt_dem_cm                               = hgt_dem_cm;
 Copter_Plane.p_tilt_pitch_target                      = p_tilt_pitch_target;
@@ -824,8 +817,7 @@ Copter_Plane.throttle_ground                          = throttle_ground;
 Copter_Plane.throttle_off_rate                        = throttle_off_rate;
 Copter_Plane.take_off_land                            = take_off_land;
 Copter_Plane.vel_forward_integrator                   = vel_forward_integrator;
-Copter_Plane.thr_out_min_c2p                          = thr_out_min_c2p;
-Copter_Plane.thr_out_min                              = thr_out_min;
+
 Copter_Plane.heading_hold                             = heading_hold;
 Copter_Plane.k_flap_TakeOff                           = k_flap_TakeOff;
 Copter_Plane.k_flap_Land                              = k_flap_Land;

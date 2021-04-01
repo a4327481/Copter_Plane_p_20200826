@@ -725,17 +725,18 @@ Copter_Plane.p_k_elevator_c2p                       = 2          ;
 Copter_Plane.pitch_target_c2p                       = 0          ;          
 Copter_Plane.tail_tilt_c2p                          = -2800      ;          
 Copter_Plane.k_throttle_c2p                         = 0.4        ;          
-Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ_c2p           = 0.2        ;          
+Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ_c2p           = 0.2        ;  
+Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ               = 4          ;  
 Copter_Plane.thr_out_min_c2p                        = 0.5        ;          
 Copter_Plane.yaw_max_c2p                            = 0.1        ;          
 Copter_Plane.p_tilt_pitch_target                    = 0.4        ;          
 Copter_Plane.tail_tilt_p2c                          = -1300      ;          
 Copter_Plane.p_plane_p2c                            = 1          ;          
 Copter_Plane.pitch_target_p2c                       = 500        ;          
-Copter_Plane.POSCONTROL_THROTTLE_CUTOFF_FREQ_p2c    = 0.05       ;          
+Copter_Plane.POSCONTROL_THROTTLE_CUTOFF_FREQ_p2c    = 0.05       ; 
+Copter_Plane.POSCONTROL_THROTTLE_CUTOFF_FREQ        = 3          ; 
 Copter_Plane.Fix2Rotor_delay_s                      = 0.8        ;          
 Copter_Plane.tail_tilt_rate                         = 1500       ;          
-
 
 
 Copter_Plane.inint                                 = 1            ;                                                                                              
@@ -745,8 +746,9 @@ Copter_Plane.hgt_dem_cm                            = 0            ;
 Copter_Plane.roll_target_pilot                     = 0            ; 
 Copter_Plane.pitch_target_pilot                    = 0            ; 
 Copter_Plane.heading_hold                          = 0            ;                                                                                               
-Copter_Plane.climb_rate_cms                        = 0            ; 
-
+Copter_Plane.climb_rate_cms                        = 0            ;
+Copter_Plane.spdWeight                             = 0.9          ;
+Copter_Plane.roll_limit_cd                         = 4000         ;
 
 	loc.num=1:20;
     loc.lat=[
@@ -772,7 +774,6 @@ Copter_Plane.dist_min                              = 50                         
 
 Copter_Plane.center_WP                             = [40,100]*1e7                           ; 
 Copter_Plane.loc_origin                            = [40,100]*1e7                           ; 
-Copter_Plane.current_loc                           = [40,100]*1e7                           ; 
 Copter_Plane.loc                                   = loc                                    ; 
 Copter_Plane.L1_radius                             = 60                                     ;
 Copter_Plane.radius                                = 80                                     ;
@@ -780,7 +781,8 @@ Copter_Plane.loiter_direction                      = 1                          
 
 Copter_Plane.k_flap_TakeOff                        = -3500                                  ; 
 Copter_Plane.k_flap_Land                           = 3500                                   ; 
-Copter_Plane.thr_out_min                           = 0                                      ; 
+Copter_Plane.thr_out_min                           = 0.4                                    ; 
+
 Copter_Plane.throttle_ground                       = 0.45                                   ; 
 Copter_Plane.throttle_off_rate                     = 0.03                                   ; 
 
@@ -930,7 +932,8 @@ algo_dbg_param.maxClimbSpeed=0;
  Curr_sate.rolld=0;
  Curr_sate.yawd=0;
  Curr_sate.NAV_alt=0;
- 
+ curr_loc                              = [40,100]*1e7                           ; 
+
  Sevro_pwm.k_aileron=0;
  Sevro_pwm.k_elevator=0;
  Svero_pwm.k_rudder=0;

@@ -1,7 +1,7 @@
 function  update_energies( )
  
 global GRAVITY_MSS
-global height
+global curr_alt
 global AP_TECS
 
 
@@ -21,7 +21,7 @@ SPEdot                  = AP_TECS.SPEdot;
 SKEdot                  = AP_TECS.SKEdot;
 climb_rate              = AP_TECS.climb_rate;
 vel_dot                 = AP_TECS.vel_dot;
-
+height                  = curr_alt/100;
     % Calculate specific energy demands
     SPE_dem = hgt_dem_adj * GRAVITY_MSS;
     SKE_dem = 0.5 * TAS_dem_adj * TAS_dem_adj;

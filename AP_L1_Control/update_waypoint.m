@@ -4,7 +4,7 @@ function  update_waypoint(   prev_WP,  next_WP,  dist_min)
 global dt
 global AP_L1
 global groundspeed_vector
-global current_loc
+global curr_loc
  L1_damping                 = AP_L1.L1_damping;
  L1_period                  = AP_L1.L1_period;
  target_bearing_cd          = AP_L1.target_bearing_cd;
@@ -33,7 +33,7 @@ persistent mode_L1_old
       K_L1 = 4.0 * L1_damping * L1_damping;
     % Get current position and velocity
     % update _target_bearing_cd
-    target_bearing_cd = get_bearing_to(next_WP,current_loc);
+    target_bearing_cd = get_bearing_to(next_WP,curr_loc);
 
     %Calculate groundspeed
       groundSpeed = norm(groundspeed_vector,2);
@@ -56,7 +56,7 @@ persistent mode_L1_old
     % Check for AB zero length and track directly to the destination
     % if too small
     if (AB_length < 1.0e-6)  
-        AB = get_distance_NE(next_WP,current_loc);
+        AB = get_distance_NE(next_WP,curr_loc);
         AB_length = norm(AB,2);
         if (AB_length < 1.0e-6)  
             AB = [cos(get_yaw()), sin(get_yaw())];
@@ -68,7 +68,7 @@ persistent mode_L1_old
     AB=AB/AB_length;
 
     % Calculate the NE position of the aircraft relative to WP A
-     A_air = get_distance_NE(current_loc,prev_WP);
+     A_air = get_distance_NE(curr_loc,prev_WP);
      A_air_length= norm(A_air,2);
     % calculate distance to target track, for reporting
     crosstrack_error =cross2D( A_air , AB);
@@ -93,7 +93,7 @@ persistent mode_L1_old
         mode_L1=1;
 %         % we have passed point B by 4 seconds. Head towards B
 %         % Calc Nu to fly To WP B
-%         B_air = get_distance_NE(current_loc,next_WP);
+%         B_air = get_distance_NE(curr_loc,next_WP);
 %         B_air_length=norm(B_air,2);
 %         B_air_unit = B_air/B_air_length; % Unit vector from WP B to aircraft
 %         xtrackVel =cross2D( groundspeed_vector , (-B_air_unit)); % Velocity across line
@@ -146,7 +146,7 @@ persistent mode_L1_old
 %         mode_L1=1;
         % we have passed point B by 3 seconds. Head towards B
         % Calc Nu to fly To WP B
-        B_air = get_distance_NE(current_loc,next_WP);
+        B_air = get_distance_NE(curr_loc,next_WP);
         B_air_length=norm(B_air,2);
         B_air_unit = B_air/B_air_length; % Unit vector from WP B to aircraft
         xtrackVel =cross2D( groundspeed_vector , (-B_air_unit)); % Velocity across line
