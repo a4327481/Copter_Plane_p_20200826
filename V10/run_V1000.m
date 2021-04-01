@@ -58,9 +58,13 @@ roll_target_pilot                     = Copter_Plane.roll_target_pilot;
 pitch_target_pilot                    = Copter_Plane.pitch_target_pilot;
 arspeed_filt                          = Copter_Plane.arspeed_filt;
 arspeed_temp                          = Copter_Plane.arspeed_temp;
-disable_integrator_pitch              = Copter_Plane.disable_integrator_pitch;          
-disable_integrator_roll               = Copter_Plane.disable_integrator_roll;
-disable_integrator_yaw                = Copter_Plane.disable_integrator_yaw;
+disable_AP_roll_integrator            = Copter_Plane.disable_AP_roll_integrator;          
+disable_AP_pitch_integrator           = Copter_Plane.disable_AP_pitch_integrator;
+disable_AP_yaw_integrator             = Copter_Plane.disable_AP_yaw_integrator;
+disable_AP_rate_roll_gains_D          = Copter_Plane.disable_AP_rate_roll_gains_D;
+disable_AP_rate_pitch_roll_ff         = Copter_Plane.disable_AP_rate_pitch_roll_ff;
+disable_AP_rate_pitch_gains_D         = Copter_Plane.disable_AP_rate_pitch_gains_D;
+disable_AP_rate_yaw_K_FF              = Copter_Plane.disable_AP_rate_yaw_K_FF;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -103,17 +107,26 @@ persistent WP_i
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
   if(mode==1||mode==2||mode==3||mode==7)%%disable plane I
-    disable_integrator_pitch=1;
-    disable_integrator_roll=1;
-    disable_integrator_yaw=1;
-    AP_rate_pitch.roll_ff=0;
-    AP_rate_yaw.K_FF=0;
+        disable_AP_roll_integrator=false;
+        disable_AP_pitch_integrator=false;
+        disable_AP_yaw_integrator=false;
+        disable_AP_rate_pitch_roll_ff =false;
+        disable_AP_rate_pitch_gains_D =false;
+        disable_AP_rate_yaw_K_FF =false;
+        disable_AP_rate_roll_gains_D =false;      
   else
-    disable_integrator_pitch=0;
-    disable_integrator_roll=0;
-    disable_integrator_yaw=0;
-    AP_rate_pitch.roll_ff=roll_ff_pitch_inint;
-    AP_rate_yaw.K_FF=K_FF_yaw_inint;
+        disable_AP_roll_integrator=true;
+        disable_AP_pitch_integrator=true;
+        disable_AP_yaw_integrator=true;
+        disable_AP_rate_pitch_roll_ff =true;
+        disable_AP_rate_pitch_gains_D =true;
+        disable_AP_rate_yaw_K_FF =true;
+        disable_AP_rate_roll_gains_D =true;
+        AC_PosControl.pid_accel_z.flags_reset_filter=true;
+        AC_PosControl.pid_vel_xy.flags_reset_filter=true;
+        rate_pitch_pid.flags_reset_filter=true;
+        rate_roll_pid.flags_reset_filter=true;
+        rate_yaw_pid.flags_reset_filter=true;
   end
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
       
@@ -371,9 +384,13 @@ Copter_Plane.roll_target_pilot                     = roll_target_pilot ;
 Copter_Plane.pitch_target_pilot                    = pitch_target_pilot;
 Copter_Plane.arspeed_filt                          = arspeed_filt;
 Copter_Plane.arspeed_temp                          = arspeed_temp;
-Copter_Plane.disable_integrator_pitch              = disable_integrator_pitch;          
-Copter_Plane.disable_integrator_roll               = disable_integrator_roll;
-Copter_Plane.disable_integrator_yaw                = disable_integrator_yaw;
+Copter_Plane.disable_AP_roll_integrator            = disable_AP_roll_integrator;          
+Copter_Plane.disable_AP_pitch_integrator           = disable_AP_pitch_integrator;
+Copter_Plane.disable_AP_yaw_integrator             = disable_AP_yaw_integrator;
+Copter_Plane.disable_AP_rate_roll_gains_D          = disable_AP_rate_roll_gains_D;
+Copter_Plane.disable_AP_rate_pitch_roll_ff         = disable_AP_rate_pitch_roll_ff;
+Copter_Plane.disable_AP_rate_pitch_gains_D         = disable_AP_rate_pitch_gains_D;
+Copter_Plane.disable_AP_rate_yaw_K_FF              = disable_AP_rate_yaw_K_FF;
 
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

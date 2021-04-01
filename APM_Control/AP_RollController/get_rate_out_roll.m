@@ -6,6 +6,7 @@ global aspeed
 global EAS2TAS
 global AP_rate_roll
 global Plane
+global Copter_Plane
 
 airspeed_min         = Plane.airspeed_min;
 gains_P              = AP_rate_roll.gains_P;
@@ -31,6 +32,12 @@ slew_filterg         = AP_rate_roll.slew_filterg;
 slew_rate_amplitude  = AP_rate_roll.slew_rate_amplitude;
 D_gain_modifier      = AP_rate_roll.D_gain_modifier;
 pid_info_Dmod        = AP_rate_roll.pid_info_Dmod;
+disable_AP_rate_roll_gains_D          = Copter_Plane.disable_AP_rate_roll_gains_D;
+
+if(disable_AP_rate_roll_gains_D)
+    gains_D = 0;
+end
+
 	% Calculate equivalent gains so that values for K_P and K_I can be taken across from the old PID law
     % No conversion is required for K_D
 	  ki_rate = gains_I * gains_tau;
@@ -71,6 +78,8 @@ pid_info_Dmod        = AP_rate_roll.pid_info_Dmod;
         end
     else
         pid_info_I = 0;
+        last_pid_info_D = rate_error * gains_D * scaler;
+        slew_filterg = 0;
     end
 	
     % Scale the integration limit

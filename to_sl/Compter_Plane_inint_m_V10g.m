@@ -798,14 +798,18 @@ Copter_Plane.vel_forward_tail_tilt_max              = 2000       ;
 Copter_Plane.vel_forward_integrator                 = 0          ;
 Copter_Plane.arspeed_filt                           = 5          ;
 Copter_Plane.arspeed_temp                           = 0          ;
-Copter_Plane.disable_integrator_pitch               = 0          ;
-Copter_Plane.disable_integrator_roll                = 0          ;
-Copter_Plane.disable_integrator_yaw                 = 0          ;
+Copter_Plane.disable_AP_roll_integrator             = 0          ;
+Copter_Plane.disable_AP_pitch_integrator            = 0          ;
+Copter_Plane.disable_AP_yaw_integrator              = 0          ;
+Copter_Plane.disable_AP_rate_roll_gains_D           = 0;
+Copter_Plane.disable_AP_rate_pitch_roll_ff          = 0;
+Copter_Plane.disable_AP_rate_pitch_gains_D          = 0;
+Copter_Plane.disable_AP_rate_yaw_K_FF               = 0;
+
 
 LOCATION_SCALING_FACTOR                = 0.011131884502145034;
 LOCATION_SCALING_FACTOR_INV            = 89.83204953368922;   
-                                                                             
-
+   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 climb_rate_cms=0;
 slew_yaw=6000;

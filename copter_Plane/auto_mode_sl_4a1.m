@@ -10,9 +10,6 @@ global AC_PosControl
 global AP_Motors
 global AP_L1
 global AP_TECS
-global AP_rate_pitch
-global AP_rate_roll
-global AP_rate_yaw
 global rate_pitch_pid
 global rate_roll_pid
 global rate_yaw_pid
@@ -77,10 +74,16 @@ take_off_land                      = Copter_Plane.take_off_land;
 vel_forward_integrator             = Copter_Plane.vel_forward_integrator;
 k_flap_TakeOff                     = Copter_Plane.k_flap_TakeOff;
 k_flap_Land                        = Copter_Plane.k_flap_Land;
-disable_integrator_pitch              = Copter_Plane.disable_integrator_pitch;          
-disable_integrator_roll               = Copter_Plane.disable_integrator_roll;
-disable_integrator_yaw                = Copter_Plane.disable_integrator_yaw;
+
+disable_AP_roll_integrator            = Copter_Plane.disable_AP_roll_integrator;          
+disable_AP_pitch_integrator           = Copter_Plane.disable_AP_pitch_integrator;
+disable_AP_yaw_integrator             = Copter_Plane.disable_AP_yaw_integrator;
+disable_AP_rate_roll_gains_D          = Copter_Plane.disable_AP_rate_roll_gains_D;
+disable_AP_rate_pitch_roll_ff         = Copter_Plane.disable_AP_rate_pitch_roll_ff;
+disable_AP_rate_pitch_gains_D         = Copter_Plane.disable_AP_rate_pitch_gains_D;
+disable_AP_rate_yaw_K_FF              = Copter_Plane.disable_AP_rate_yaw_K_FF;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 global curr_pos
 global aspeed
@@ -91,21 +94,7 @@ global PathModeOut_sl
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-global roll_ff_pitch_inint
-global K_FF_yaw_inint
 global POSCONTROL_ACC_Z_FILT_HZ_inint
-global POSCONTROL_ACC_Z_I_inint
-global pid_accel_z_reset_filter
-global POSCONTROL_VEL_XY_I_inint
-global pid_vel_xy_reset_filter
-global ATC_RAT_PIT_I_inint
-global rate_pitch_pid_reset_filter
-global ATC_RAT_RLL_I_inint
-global rate_roll_pid_reset_filter
-global ATC_RAT_YAW_I_inint
-global rate_yaw_pid_reset_filter
-global gains_D_pitch_inint
-global gains_D_roll_inint
 
 persistent WP_i
 persistent PathMode
@@ -128,7 +117,6 @@ persistent TakeOffMode_delay_flag
     if isempty(PathMode)
         PathMode = ENUM_FlightTaskMode.NoneFlightTaskMode;
     end
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
   if isempty(Rotor2Fix_delay)
         Rotor2Fix_delay = 0;  
   end
@@ -163,14 +151,14 @@ persistent TakeOffMode_delay_flag
     else
         k_flap=0;
     end
-    if( uavMode==1)%% mode =1,mode=plane , disable plane I,vel_forward_integrator=0;
-        disable_integrator_pitch=0;
-        disable_integrator_roll=0;
-        disable_integrator_yaw=0;
-        AP_rate_pitch.roll_ff=roll_ff_pitch_inint;
-        AP_rate_yaw.K_FF=K_FF_yaw_inint;
-        AP_rate_pitch.gains_D = gains_D_pitch_inint;  
-        AP_rate_roll.gains_D  = gains_D_roll_inint; 
+    if( uavMode==1)%% mode :mode=1 ,Plane;mode=0 , Copter. disable plane I,vel_forward_integrator=0;
+        disable_AP_roll_integrator=false;
+        disable_AP_pitch_integrator=false;
+        disable_AP_yaw_integrator=false;
+        disable_AP_rate_pitch_roll_ff =false;
+        disable_AP_rate_pitch_gains_D =false;
+        disable_AP_rate_yaw_K_FF =false;
+        disable_AP_rate_roll_gains_D =false;            
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         vel_forward_integrator=0;
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -180,13 +168,13 @@ persistent TakeOffMode_delay_flag
         rate_roll_pid.flags_reset_filter=true;
         rate_yaw_pid.flags_reset_filter=true;
     else       
-        disable_integrator_pitch=1;
-        disable_integrator_roll=1;
-        disable_integrator_yaw=1;
-        AP_rate_pitch.roll_ff=0;
-        AP_rate_yaw.K_FF=0;  
-        AP_rate_pitch.gains_D=0;
-        AP_rate_roll.gains_D=0; 
+        disable_AP_roll_integrator=true;
+        disable_AP_pitch_integrator=true;
+        disable_AP_yaw_integrator=true;
+        disable_AP_rate_pitch_roll_ff =true;
+        disable_AP_rate_pitch_gains_D =true;
+        disable_AP_rate_yaw_K_FF =true;
+        disable_AP_rate_roll_gains_D =true;        
     end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         switch PathModeOut_sl.flightTaskMode
@@ -200,7 +188,12 @@ persistent TakeOffMode_delay_flag
                        k_rudder=0; 
                        throttle_in=0.1;
                        throttle_filter=0.1;
-                       pwm_out=[1100 1100 1100 1100];                       
+                       pwm_out=[1100 1100 1100 1100];
+                       AC_PosControl.pid_accel_z.flags_reset_filter=true;
+                       AC_PosControl.pid_vel_xy.flags_reset_filter=true;
+                       rate_pitch_pid.flags_reset_filter=true;
+                       rate_roll_pid.flags_reset_filter=true;
+                       rate_yaw_pid.flags_reset_filter=true;
                        if(TakeOffMode_delay>1)
                            TakeOffMode_delay_flag=1;
                        end
@@ -219,16 +212,11 @@ persistent TakeOffMode_delay_flag
                             curr_pos(1:2)=get_vector_xy_from_origin_NE( current_loc,loc_origin)*100; 
                          end
                          if(curr_alt<100)
-                             AC_PosControl.pid_accel_z.ki=0;
-                             AC_PosControl.pid_vel_xy.ki=0;
-                             rate_pitch_pid.ki=0;
-                             rate_roll_pid.ki=0;
-                             rate_yaw_pid.ki=0;
-                            pid_accel_z_reset_filter=1;
-                            pid_vel_xy_reset_filter=1;
-                            rate_pitch_pid_reset_filter=1;
-                            rate_roll_pid_reset_filter=1;
-                            rate_yaw_pid_reset_filter=1;
+                             AC_PosControl.pid_accel_z.disable_integrator=true;
+                             AC_PosControl.pid_vel_xy.disable_integrator=true;
+                             rate_pitch_pid.disable_integrator=true;
+                             rate_roll_pid.disable_integrator=true;
+                             rate_yaw_pid.disable_integrator=true;
                          end
                          climb_rate_cms=PathModeOut_sl.maxClimbSpeed;
                          pos_target(3)=PathModeOut_sl.heightCmd;                         
@@ -678,7 +666,7 @@ persistent TakeOffMode_delay_flag
                     k_elevator=k_elevator*p_plane_c2p;
                     k_rudder=k_rudder*p_plane_c2p;
                     yaw_in=constrain_value(yaw_in,-yaw_max_c2p,yaw_max_c2p);
-                     AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ_inint;
+                    AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ_inint;
                     AP_MotorsMulticopter_output_4a1();
              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
              case    ENUM_FlightTaskMode.VerticalMove                             
@@ -792,8 +780,12 @@ Copter_Plane.take_off_land                      = take_off_land;
 Copter_Plane.vel_forward_integrator             = vel_forward_integrator;
 Copter_Plane.k_flap_TakeOff                     = k_flap_TakeOff;
 Copter_Plane.k_flap_Land                        = k_flap_Land;
-Copter_Plane.disable_integrator_pitch             = disable_integrator_pitch;          
-Copter_Plane.disable_integrator_roll              = disable_integrator_roll;
-Copter_Plane.disable_integrator_yaw               = disable_integrator_yaw;	
+Copter_Plane.disable_AP_roll_integrator            = disable_AP_roll_integrator;          
+Copter_Plane.disable_AP_pitch_integrator           = disable_AP_pitch_integrator;
+Copter_Plane.disable_AP_yaw_integrator             = disable_AP_yaw_integrator;
+Copter_Plane.disable_AP_rate_roll_gains_D          = disable_AP_rate_roll_gains_D;
+Copter_Plane.disable_AP_rate_pitch_roll_ff         = disable_AP_rate_pitch_roll_ff;
+Copter_Plane.disable_AP_rate_pitch_gains_D         = disable_AP_rate_pitch_gains_D;
+Copter_Plane.disable_AP_rate_yaw_K_FF              = disable_AP_rate_yaw_K_FF;
 end
 

@@ -8,11 +8,7 @@ function  calc_nav_yaw_coordinated( speed_scaler)
   k_rudder                  = SRV_Channel.k_rudder;
   k_aileron                 = SRV_Channel.k_aileron;
   kff_rudder_mix            = Plane.kff_rudder_mix;
-  disable_integrator_yaw    = Copter_Plane.disable_integrator_yaw;
-  
-  
-  
-  
+  disable_AP_yaw_integrator    = Copter_Plane.disable_AP_yaw_integrator;
   
 %      rudder_in = rudder_input();
     % Received an external msg that guides yaw in the last 3 seconds?
@@ -22,7 +18,7 @@ function  calc_nav_yaw_coordinated( speed_scaler)
 %         commanded_rudder = plane.guided_state.forced_rpy_cd.z;
 %       else  
 %         if (control_mode == &mode_stabilize && rudder_in != 0)  
-        commanded_rudder = get_servo_out_yaw(speed_scaler, disable_integrator_yaw);
+        commanded_rudder = get_servo_out_yaw(speed_scaler, disable_AP_yaw_integrator);
 
         % add in rudder mixing from roll
         commanded_rudder =commanded_rudder+ k_aileron * kff_rudder_mix;
@@ -31,7 +27,7 @@ function  calc_nav_yaw_coordinated( speed_scaler)
    SRV_Channel.k_rudder                  = k_rudder;
    SRV_Channel.k_aileron                 = k_aileron;
    Plane.kff_rudder_mix                  = kff_rudder_mix;
-   Copter_Plane.disable_integrator_yaw   = disable_integrator_yaw;
+   Copter_Plane.disable_AP_yaw_integrator   = disable_AP_yaw_integrator;
 
 end
 

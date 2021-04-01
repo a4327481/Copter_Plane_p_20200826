@@ -65,9 +65,14 @@ aspeed_c2p                          = Copter_Plane.aspeed_c2p;
 aspeed_c2ps                         = Copter_Plane.aspeed_c2ps;
 k_throttle_c2p                      = Copter_Plane.k_throttle_c2p;
 pitch_target_p2c                    = Copter_Plane.pitch_target_p2c;
-disable_integrator_pitch              = Copter_Plane.disable_integrator_pitch;          
-disable_integrator_roll               = Copter_Plane.disable_integrator_roll;
-disable_integrator_yaw                = Copter_Plane.disable_integrator_yaw;
+
+disable_AP_roll_integrator            = Copter_Plane.disable_AP_roll_integrator;          
+disable_AP_pitch_integrator           = Copter_Plane.disable_AP_pitch_integrator;
+disable_AP_yaw_integrator             = Copter_Plane.disable_AP_yaw_integrator;
+disable_AP_rate_roll_gains_D          = Copter_Plane.disable_AP_rate_roll_gains_D;
+disable_AP_rate_pitch_roll_ff         = Copter_Plane.disable_AP_rate_pitch_roll_ff;
+disable_AP_rate_pitch_gains_D         = Copter_Plane.disable_AP_rate_pitch_gains_D;
+disable_AP_rate_yaw_K_FF              = Copter_Plane.disable_AP_rate_yaw_K_FF;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global curr_pos
 global aspeed
@@ -116,36 +121,30 @@ persistent Rotor2Fix_delay_flag
   end   
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
        error_pos=8;   
-    if(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.HoverAdjustMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.TakeOffMode||PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.LandMode)
-        AC_PosControl.pid_accel_z.ki=POSCONTROL_ACC_Z_I_inint;
-        AC_PosControl.pid_vel_xy.ki=POSCONTROL_VEL_XY_I_inint;
-        rate_pitch_pid.ki=ATC_RAT_PIT_I_inint;
-        rate_roll_pid.ki=ATC_RAT_RLL_I_inint;
-        rate_yaw_pid.ki=ATC_RAT_YAW_I_inint; 
-    else
-        AC_PosControl.pid_accel_z.ki=0;
-        AC_PosControl.pid_vel_xy.ki=0;
-        rate_pitch_pid.ki=0;
-        rate_roll_pid.ki=0;
-        rate_yaw_pid.ki=0; 
-        pid_accel_z_reset_filter=1;
-        pid_vel_xy_reset_filter=1;
-        rate_pitch_pid_reset_filter=1;
-        rate_roll_pid_reset_filter=1;
-        rate_yaw_pid_reset_filter=1;
-    end
-    if( uavMode==1)%% mode= comper disable plane I
-        disable_integrator_pitch=0;
-        disable_integrator_roll=0;
-        disable_integrator_yaw=0;
-        AP_rate_pitch.roll_ff=roll_ff_pitch_inint;
-        AP_rate_yaw.K_FF=K_FF_yaw_inint;  
-    else
-        disable_integrator_pitch=1;
-        disable_integrator_roll=1;
-        disable_integrator_yaw=1;
-        AP_rate_pitch.roll_ff=0;
-        AP_rate_yaw.K_FF=0;      
+    if( uavMode==1)%% mode :mode=1 ,Plane;mode=0 , Copter. disable plane I,vel_forward_integrator=0;
+        disable_AP_roll_integrator=false;
+        disable_AP_pitch_integrator=false;
+        disable_AP_yaw_integrator=false;
+        disable_AP_rate_pitch_roll_ff =false;
+        disable_AP_rate_pitch_gains_D =false;
+        disable_AP_rate_yaw_K_FF =false;
+        disable_AP_rate_roll_gains_D =false;            
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        vel_forward_integrator=0;
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        AC_PosControl.pid_accel_z.flags_reset_filter=true;
+        AC_PosControl.pid_vel_xy.flags_reset_filter=true;
+        rate_pitch_pid.flags_reset_filter=true;
+        rate_roll_pid.flags_reset_filter=true;
+        rate_yaw_pid.flags_reset_filter=true;
+    else       
+        disable_AP_roll_integrator=true;
+        disable_AP_pitch_integrator=true;
+        disable_AP_yaw_integrator=true;
+        disable_AP_rate_pitch_roll_ff =true;
+        disable_AP_rate_pitch_gains_D =true;
+        disable_AP_rate_yaw_K_FF =true;
+        disable_AP_rate_roll_gains_D =true;        
     end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         switch PathModeOut_sl.flightTaskMode
@@ -525,8 +524,12 @@ Copter_Plane.aspeed_c2p                          = aspeed_c2p;
 Copter_Plane.aspeed_c2ps                         = aspeed_c2ps;
 Copter_Plane.k_throttle_c2p                      = k_throttle_c2p;
 Copter_Plane.pitch_target_p2c                    = pitch_target_p2c;	
-Copter_Plane.disable_integrator_pitch             = disable_integrator_pitch;          
-Copter_Plane.disable_integrator_roll              = disable_integrator_roll;
-Copter_Plane.disable_integrator_yaw               = disable_integrator_yaw;
+Copter_Plane.disable_AP_roll_integrator            = disable_AP_roll_integrator;          
+Copter_Plane.disable_AP_pitch_integrator           = disable_AP_pitch_integrator;
+Copter_Plane.disable_AP_yaw_integrator             = disable_AP_yaw_integrator;
+Copter_Plane.disable_AP_rate_roll_gains_D          = disable_AP_rate_roll_gains_D;
+Copter_Plane.disable_AP_rate_pitch_roll_ff         = disable_AP_rate_pitch_roll_ff;
+Copter_Plane.disable_AP_rate_pitch_gains_D         = disable_AP_rate_pitch_gains_D;
+Copter_Plane.disable_AP_rate_yaw_K_FF              = disable_AP_rate_yaw_K_FF;
 end
 

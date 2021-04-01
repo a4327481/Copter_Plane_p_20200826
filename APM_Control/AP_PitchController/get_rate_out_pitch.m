@@ -8,7 +8,7 @@ global roll
 global pitch
 global AP_rate_pitch
 global Plane
-
+global Copter_Plane
 
  gains_P                  =AP_rate_pitch.gains_P;
  gains_I                  =AP_rate_pitch.gains_I;
@@ -35,6 +35,12 @@ global Plane
  pid_info_Dmod            =AP_rate_pitch.pid_info_Dmod;
  airspeed_min             =Plane.airspeed_min; 
  roll_limit_cd	          =Plane.roll_limit_cd;
+ disable_AP_rate_pitch_gains_D         = Copter_Plane.disable_AP_rate_pitch_gains_D;
+
+ if(disable_AP_rate_pitch_gains_D)
+    gains_D = 0;
+ end
+ 
 	  delta_time    =dt;	
 	% Get body rate vector (radians/sec)
 	% Calculate the pitch rate error (deg/sec) and scale
@@ -78,6 +84,8 @@ global Plane
         
     else
         pid_info_I = 0;
+        last_pid_info_D = rate_error * gains_D * scaler;
+        slew_filterg = 0;
     end
     	
     % Scale the integration limit
@@ -175,6 +183,7 @@ AP_rate_pitch.pid_info_Dmod               = pid_info_Dmod;
  
 Plane.airspeed_min                        = airspeed_min;
 Plane.roll_limit_cd	                      = roll_limit_cd;
+Copter_Plane.disable_AP_rate_pitch_gains_D = disable_AP_rate_pitch_gains_D;
  
 end
 

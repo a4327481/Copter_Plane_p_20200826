@@ -13,8 +13,16 @@ global aspeed
 global HD;
 global AP_rate_pitch
 global Plane
-airspeed_min       = Plane.airspeed_min;
-roll_ff            = AP_rate_pitch.roll_ff;
+global Copter_Plane
+
+disable_AP_rate_pitch_roll_ff         = Copter_Plane.disable_AP_rate_pitch_roll_ff;
+airspeed_min                          = Plane.airspeed_min;
+roll_ff                               = AP_rate_pitch.roll_ff; 
+
+if(disable_AP_rate_pitch_roll_ff)
+    roll_ff            = 0; 
+end
+
 
  	  bank_angle =  roll*HD;
 	% limit bank angle between +- 80 deg if right way up
@@ -40,6 +48,8 @@ roll_ff            = AP_rate_pitch.roll_ff;
     if (inverted)
 		rate_offset = -rate_offset;
     end
-  
+    
+  Copter_Plane.disable_AP_rate_pitch_roll_ff  = disable_AP_rate_pitch_roll_ff;
+  Plane.airspeed_min                          = airspeed_min;
 end
 

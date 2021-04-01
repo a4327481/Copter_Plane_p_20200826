@@ -10,6 +10,7 @@ global EAS2TAS
 global roll
 global AP_rate_yaw
 global Plane
+global Copter_Plane
 
 airspeed_min      = Plane.airspeed_min;  
 K_A               = AP_rate_yaw.K_A;
@@ -25,7 +26,11 @@ last_rate_hp_out  = AP_rate_yaw.last_rate_hp_out;
 last_rate_hp_in   = AP_rate_yaw.last_rate_hp_in;
 integrator        = AP_rate_yaw.integrator; 
 last_out          = AP_rate_yaw.last_out;
+disable_AP_rate_yaw_K_FF              = Copter_Plane.disable_AP_rate_yaw_K_FF;
 
+if(disable_AP_rate_yaw_K_FF)
+    K_FF = 0;
+end
 
     servo_out=0;
     aspd_min=airspeed_min;
