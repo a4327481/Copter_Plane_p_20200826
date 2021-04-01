@@ -811,7 +811,25 @@ Copter_Plane.disable_AP_rate_yaw_K_FF               = 0;
 
 LOCATION_SCALING_FACTOR                = 0.011131884502145034;
 LOCATION_SCALING_FACTOR_INV            = 89.83204953368922;   
-   
+  
+ SINS.accel_x=0;
+ SINS.accel_y=0;
+ SINS.accel_z=0;
+ SINS.gyro_x=0;
+ SINS.gyro_z=0;
+ SINS.pitch=0;
+ SINS.roll=0;
+ SINS.yaw=0;
+ SINS.curr_vel=[0 0 0];
+ SINS.curr_loc=[0 0];
+ SINS.curr_alt =0 ;
+ SINS.aspeed=0;
+ SINS.EAS2TAS=0;
+ SINS.groundspeed_vector=[0 0];
+ SINS.curr_pos=[0 0];
+ SINS.z_accel_meas=0;
+ SINS.rot_body_to_ned=eye(3,3);
+ 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 climb_rate_cms=0;
 slew_yaw=6000;
