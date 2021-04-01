@@ -1,7 +1,6 @@
 function run_V10()
 
 global dt
-
 global Plane 
 global AC_Attitude
 global AC_PosControl
