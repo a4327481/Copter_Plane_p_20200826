@@ -10,9 +10,9 @@ global AC_PosControl
 global AP_Motors
 global AP_L1
 global AP_TECS
-global rate_pitch_pid
-global rate_roll_pid
-global rate_yaw_pid
+global AC_rate_pitch_pid
+global AC_rate_roll_pid
+global AC_rate_yaw_pid
 global SRV_Channel
 global Copter_Plane
 global SINS
@@ -125,9 +125,9 @@ persistent Rotor2Fix_delay_flag
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         AC_PosControl.pid_accel_z.flags_reset_filter=true;
         AC_PosControl.pid_vel_xy.flags_reset_filter=true;
-        rate_pitch_pid.flags_reset_filter=true;
-        rate_roll_pid.flags_reset_filter=true;
-        rate_yaw_pid.flags_reset_filter=true;
+        AC_rate_pitch_pid.flags_reset_filter=true;
+        AC_rate_roll_pid.flags_reset_filter=true;
+        AC_rate_yaw_pid.flags_reset_filter=true;
     else       
         disable_AP_roll_integrator=true;
         disable_AP_pitch_integrator=true;

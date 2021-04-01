@@ -2,9 +2,10 @@ function  output_to_motors()
 global AP_Motors
 
 global dt
-global mode
+global Copter_Plane
 global SRV_Channel 
 
+mode                      = Copter_Plane.mode; 
 pwm_out                   = SRV_Channel.pwm_out;
 tail_tilt                 = SRV_Channel.tail_tilt;
 

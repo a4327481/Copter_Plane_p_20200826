@@ -1,7 +1,6 @@
 function  output_to_motors_4a1()
 
 global dt
-global mode
 global AP_Motors
 global SRV_Channel
 

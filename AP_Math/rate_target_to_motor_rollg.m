@@ -1,29 +1,29 @@
 function output=rate_target_to_motor_rollg( target_in,  measurement,  limit)
- global rate_roll_pid
+ global AC_rate_roll_pid
  global dt
  
- kp                      =rate_roll_pid.kp;
- ki                      =rate_roll_pid.ki;
- kd                      =rate_roll_pid.kd;
- kff                     =rate_roll_pid.kff;
- kimax                   =rate_roll_pid.kimax;
- filt_T_hz               =rate_roll_pid.filt_T_hz;
- filt_E_hz               =rate_roll_pid.filt_E_hz;
- filt_D_hz               =rate_roll_pid.filt_D_hz;
- slew_rate_max           =rate_roll_pid.slew_rate_max;
- slew_rate_tau           =rate_roll_pid.slew_rate_tau;
+ kp                      =AC_rate_roll_pid.kp;
+ ki                      =AC_rate_roll_pid.ki;
+ kd                      =AC_rate_roll_pid.kd;
+ kff                     =AC_rate_roll_pid.kff;
+ kimax                   =AC_rate_roll_pid.kimax;
+ filt_T_hz               =AC_rate_roll_pid.filt_T_hz;
+ filt_E_hz               =AC_rate_roll_pid.filt_E_hz;
+ filt_D_hz               =AC_rate_roll_pid.filt_D_hz;
+ slew_rate_max           =AC_rate_roll_pid.slew_rate_max;
+ slew_rate_tau           =AC_rate_roll_pid.slew_rate_tau;
  
- flags_reset_filter      =rate_roll_pid.flags_reset_filter;
- disable_integrator      =rate_roll_pid.disable_integrator;
- target                  =rate_roll_pid.target;
- error                   =rate_roll_pid.error;
- error_last              =rate_roll_pid.error_last;
- integrator              =rate_roll_pid.integrator;
- derivative              =rate_roll_pid.derivative;
- slew_amplitude          =rate_roll_pid.slew_amplitude;
- slew_filter             =rate_roll_pid.slew_filterg;
- last_sample             =rate_roll_pid.last_sample;
- Dmod                    =rate_roll_pid.Dmod;
+ flags_reset_filter      =AC_rate_roll_pid.flags_reset_filter;
+ disable_integrator      =AC_rate_roll_pid.disable_integrator;
+ target                  =AC_rate_roll_pid.target;
+ error                   =AC_rate_roll_pid.error;
+ error_last              =AC_rate_roll_pid.error_last;
+ integrator              =AC_rate_roll_pid.integrator;
+ derivative              =AC_rate_roll_pid.derivative;
+ slew_amplitude          =AC_rate_roll_pid.slew_amplitude;
+ slew_filter             =AC_rate_roll_pid.slew_filterg;
+ last_sample             =AC_rate_roll_pid.last_sample;
+ Dmod                    =AC_rate_roll_pid.Dmod;
     % don't process inf or NaN
 
     % reset input filter to value received
@@ -97,18 +97,18 @@ function output=rate_target_to_motor_rollg( target_in,  measurement,  limit)
     
     output=P_out + integrator + D_out+kff*target_in;
     
-    rate_roll_pid.flags_reset_filter  = flags_reset_filter;
-    rate_roll_pid.disable_integrator  = disable_integrator;
-    rate_roll_pid.target              = target;
-    rate_roll_pid.error               = error;
-    rate_roll_pid.error_last          = error_last ;
+    AC_rate_roll_pid.flags_reset_filter  = flags_reset_filter;
+    AC_rate_roll_pid.disable_integrator  = disable_integrator;
+    AC_rate_roll_pid.target              = target;
+    AC_rate_roll_pid.error               = error;
+    AC_rate_roll_pid.error_last          = error_last ;
 
-    rate_roll_pid.integrator          = integrator;
-    rate_roll_pid.derivative          = derivative;
-    rate_roll_pid.Dmod                = Dmod;
-    rate_roll_pid.slew_amplitude      = slew_amplitude;
-    rate_roll_pid.slew_filterg        = slew_filter;
-    rate_roll_pid.last_sample         = last_sample;
+    AC_rate_roll_pid.integrator          = integrator;
+    AC_rate_roll_pid.derivative          = derivative;
+    AC_rate_roll_pid.Dmod                = Dmod;
+    AC_rate_roll_pid.slew_amplitude      = slew_amplitude;
+    AC_rate_roll_pid.slew_filterg        = slew_filter;
+    AC_rate_roll_pid.last_sample         = last_sample;
     
  end
 

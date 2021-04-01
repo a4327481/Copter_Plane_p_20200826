@@ -1,9 +1,10 @@
 function  pwm_output=output_to_pwm(  actuator)
  global AP_Motors	
+ global Copter_Plane
  
+armed                          = Copter_Plane.armed;                      
 spool_state                    = AP_Motors.spool_state;
 disarm_disable_pwm             = AP_Motors.disarm_disable_pwm;
-armed                          = AP_Motors.armed;
 pwm_min                        = AP_Motors.pwm_min;
 pwm_max                        = AP_Motors.pwm_max;
 
@@ -23,6 +24,7 @@ AP_Motors.disarm_disable_pwm             = disarm_disable_pwm;
 AP_Motors.armed                          = armed;
 AP_Motors.pwm_min                        = pwm_min;
 AP_Motors.pwm_max                        = pwm_max;
+Copter_Plane.armed                       = armed;                      
 
 end
 

@@ -1,9 +1,10 @@
 function  output_logic()
 
 global dt
-global armed
+global Copter_Plane
 global AP_Motors
 
+armed                                = Copter_Plane.armed;
 disarm_disable_pwm               = AP_Motors.disarm_disable_pwm;
 disarm_safe_timer                = AP_Motors.disarm_safe_timer;
 safe_time                        = AP_Motors.safe_time;

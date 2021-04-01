@@ -1,9 +1,9 @@
 function  update_throttle_filter()
-global armed
+global Copter_Plane
 global dt
 global AP_Motors
 
-
+armed                                  = Copter_Plane.armed;
 throttle_in                            = AP_Motors.throttle_in;
 throttle_cutoff_frequency              = AP_Motors.throttle_cutoff_frequency;
 throttle_filter                        = AP_Motors.throttle_filter;

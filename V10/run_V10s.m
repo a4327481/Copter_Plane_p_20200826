@@ -7,9 +7,9 @@ global AC_Attitude
 global AC_PosControl
 global AP_Motors
 global AP_TECS
-global rate_pitch_pid
-global rate_roll_pid
-global rate_yaw_pid
+global AC_rate_pitch_pid
+global AC_rate_roll_pid
+global AC_rate_yaw_pid
 global SRV_Channel
 global Copter_Plane
 global SINS
@@ -108,9 +108,9 @@ persistent WP_i
         disable_AP_rate_roll_gains_D =true;
         AC_PosControl.pid_accel_z.flags_reset_filter=true;
         AC_PosControl.pid_vel_xy.flags_reset_filter=true;
-        rate_pitch_pid.flags_reset_filter=true;
-        rate_roll_pid.flags_reset_filter=true;
-        rate_yaw_pid.flags_reset_filter=true;
+        AC_rate_pitch_pid.flags_reset_filter=true;
+        AC_rate_roll_pid.flags_reset_filter=true;
+        AC_rate_yaw_pid.flags_reset_filter=true;
   end
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
       
@@ -119,9 +119,9 @@ persistent WP_i
     else
         AC_PosControl.pid_accel_z.disable_integrator=true;
         AC_PosControl.pid_vel_xy.disable_integrator=true;
-        rate_pitch_pid.disable_integrator=true;
-        rate_roll_pid.disable_integrator=true;
-        rate_yaw_pid.disable_integrator=true;
+        AC_rate_pitch_pid.disable_integrator=true;
+        AC_rate_roll_pid.disable_integrator=true;
+        AC_rate_yaw_pid.disable_integrator=true;
     end
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   

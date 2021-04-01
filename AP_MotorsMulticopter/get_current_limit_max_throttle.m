@@ -1,9 +1,10 @@
 function   throttle_thrust_max=get_current_limit_max_throttle()
 
-global armed
+global Copter_Plane
 global dt
 global AP_Motors
 
+armed                                = Copter_Plane.armed;
 throttle_hover                       = AP_Motors.throttle_hover;
 throttle_limit                       = AP_Motors.throttle_limit;
 batt_current_max                     = AP_Motors.batt_current_max;

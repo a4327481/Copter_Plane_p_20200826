@@ -1,6 +1,6 @@
 function load_Curr_sate()
 
-global mode
+global Copter_Plane
 global SINS
 
 
@@ -9,6 +9,7 @@ global PathModeOut_sl
 global Curr_sate
 global algo_dbg_param
 global HD
+ mode  = Copter_Plane.mode;
  accel_x=Curr_sate.accel_x;
  accel_y=Curr_sate.accel_y;
  accel_z=Curr_sate.accel_z;
@@ -20,6 +21,9 @@ global HD
  yaw=Curr_sate.yawd/HD;
  aspeed=Curr_sate.EAS_Algo;
  EAS2TAS=Curr_sate.EAS2TAS_Algo;
+ if(EAS2TAS<0.3)
+     EAS2TAS=0.3;
+ end
  groundspeed_vector=Curr_sate.curVelNED(1:2);
  curr_vel=[Curr_sate.curVelNED(1) Curr_sate.curVelNED(2) -Curr_sate.curVelNED(3)]*100;
  curr_loc=Curr_sate.curLLA(1:2)*1e7;

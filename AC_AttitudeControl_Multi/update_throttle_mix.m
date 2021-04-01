@@ -1,12 +1,12 @@
 function update_throttle_mix()
-global armed
 global HD
 global SINS
 global AP_Motors
 global AC_PosControl
 global AC_Attitude
+global Copter_Plane
 
-
+armed                                     = Copter_Plane.armed;          
 z_accel_meas                              = SINS.z_accel_meas;
 
 vel_z_control_ratio                       = AC_PosControl.vel_z_control_ratio;
