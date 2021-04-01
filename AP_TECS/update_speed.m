@@ -1,10 +1,11 @@
 function  update_speed(load_factor)
  global dt
- global EAS2TAS
- global aspeed
  global AP_TECS
  global Plane
+ global SINS
  
+ aspeed              = SINS.aspeed;
+ EAS2TAS             = SINS.EAS2TAS;
  TAS_dem             = AP_TECS.TAS_dem;
  TASmax              = AP_TECS.TASmax;
  TASmin              = AP_TECS.TASmin;

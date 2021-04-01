@@ -2,15 +2,19 @@ function servo_out=get_servo_out_yaw(  scaler,   disable_integrator)
  
 global dt 
 global HD
-global gyro_z
-global accel_y
 global GRAVITY_MSS
-global aspeed
-global EAS2TAS
-global roll
 global AP_rate_yaw
 global Plane
 global Copter_Plane
+global SINS
+
+gyro_z           =SINS.gyro_z;
+accel_y          =SINS.accel_y;
+aspeed           =SINS.aspeed;
+EAS2TAS          =SINS.EAS2TAS;
+roll             =SINS.roll;
+
+
 
 airspeed_min      = Plane.airspeed_min;  
 K_A               = AP_rate_yaw.K_A;

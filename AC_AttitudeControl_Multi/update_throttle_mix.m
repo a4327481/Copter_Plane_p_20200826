@@ -1,13 +1,18 @@
 function update_throttle_mix()
 global armed
 global HD
-global z_accel_meas
-global vel_z_control_ratio
-global vel_desired
-global attitude_target_euler_angle
-global thrust_error_angle
-
+global SINS
 global AP_Motors
+global AC_PosControl
+global AC_Attitude
+
+
+z_accel_meas                              = SINS.z_accel_meas;
+
+vel_z_control_ratio                       = AC_PosControl.vel_z_control_ratio;
+vel_desired                               = AC_PosControl.vel_desired;
+attitude_target_euler_angle               = AC_Attitude.attitude_target_euler_angle;
+thrust_error_angle                        = AC_Attitude.thrust_error_angle; 
 
 throttle_rpy_mix_desired                  = AP_Motors.throttle_rpy_mix_desired;
 thr_mix_min                               = AP_Motors.thr_mix_min;
@@ -56,6 +61,11 @@ land_accel_ef_filter                      = AP_Motors.land_accel_ef_filter;
          else 
             throttle_rpy_mix_desired = thr_mix_min;
         end
+
+AC_PosControl.vel_z_control_ratio                       = vel_z_control_ratio;
+AC_PosControl.vel_desired                               = vel_desired;
+AC_Attitude.attitude_target_euler_angle                 = attitude_target_euler_angle;
+AC_Attitude.thrust_error_angle                          = thrust_error_angle; 
 
 AP_Motors.throttle_rpy_mix_desired                  = throttle_rpy_mix_desired;
 AP_Motors.thr_mix_min                               = thr_mix_min;

@@ -3,13 +3,15 @@ function  stabilize_roll(  speed_scaler)
 %   previously set nav_roll calculates roll servo_out to try to
 %   stabilize the plane at the given roll
 
- global roll
  global HD
  global Test_w
  global Plane
  global SRV_Channel
  global Copter_Plane
-
+ global SINS
+ 
+ 
+ roll                            =SINS.roll;
  inverted_flight                 = Plane.inverted_flight;
  nav_roll_cd                     = Plane.nav_roll_cd;
  k_aileron                       = SRV_Channel.k_aileron;

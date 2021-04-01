@@ -1,7 +1,9 @@
 function  update_throttle_with_airspeed()
-global rot_body_to_ned
 global dt
 global AP_TECS
+global SINS
+
+ rot_body_to_ned          = SINS.rot_body_to_ned;
  TASmax                   = AP_TECS.TASmax;                
  SKE_dem                  = AP_TECS.SKE_dem;            
  TASmin                   = AP_TECS.TASmin;             

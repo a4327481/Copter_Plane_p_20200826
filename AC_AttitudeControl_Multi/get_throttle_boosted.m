@@ -2,12 +2,13 @@ function     throttle_boosted=get_throttle_boosted(  throttle_in)
 % returns a throttle including compensation for roll/pitch angle
 % throttle value should be 0 ~ 1
 global AP_Motors
+global SINS
 
+ pitch                        = SINS.pitch;
+ roll                         = SINS.roll;
  angle_boost_enabled          = AP_Motors.angle_boost_enabled;
  angle_boost                  = AP_Motors.angle_boost;
  
- global pitch
- global roll
  
     if (~angle_boost_enabled)  
         angle_boost = 0;

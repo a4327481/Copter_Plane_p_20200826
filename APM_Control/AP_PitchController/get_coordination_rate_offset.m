@@ -5,15 +5,19 @@ function [rate_offset, inverted]=get_coordination_rate_offset(  )
 %   
 %   Also returns the inverted flag and the estimated airspeed in m/s for
 %   use by the rest of the pitch controller
-global roll
-global pitch
-global EAS2TAS
+
 global GRAVITY_MSS
-global aspeed
 global HD;
 global AP_rate_pitch
 global Plane
 global Copter_Plane
+global SINS
+
+roll                    =SINS.roll;
+pitch                   =SINS.pitch;
+aspeed                  =SINS.aspeed;
+EAS2TAS                 =SINS.EAS2TAS;
+
 
 disable_AP_rate_pitch_roll_ff         = Copter_Plane.disable_AP_rate_pitch_roll_ff;
 airspeed_min                          = Plane.airspeed_min;

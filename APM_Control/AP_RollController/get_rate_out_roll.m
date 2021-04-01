@@ -1,12 +1,14 @@
 function rate_out=get_rate_out_roll(  desired_rate,   scaler,   disable_integrator)
 global dt
-global gyro_x
 global HD
-global aspeed
-global EAS2TAS
 global AP_rate_roll
 global Plane
 global Copter_Plane
+global SINS
+
+gyro_x               =SINS.gyro_x;
+aspeed               =SINS.aspeed;
+EAS2TAS              =SINS.EAS2TAS;
 
 airspeed_min         = Plane.airspeed_min;
 gains_P              = AP_rate_roll.gains_P;

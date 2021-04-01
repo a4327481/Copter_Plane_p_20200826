@@ -2,12 +2,14 @@ function stabilize_pitch(  speed_scaler)
 %   this is the main pitch stabilization function. It takes the
 %   previously set nav_pitch and calculates servo_out values to try to
 %   stabilize the plane at the given attitude.
-global pitch
 global HD
 global Test_w
 global SRV_Channel
 global Plane
 global Copter_Plane
+global SINS
+
+pitch                      = SINS.pitch;
 nav_pitch_cd               = Plane.nav_pitch_cd;
 kff_throttle_to_pitch      = Plane.kff_throttle_to_pitch;
 k_elevator                 = SRV_Channel.k_elevator;

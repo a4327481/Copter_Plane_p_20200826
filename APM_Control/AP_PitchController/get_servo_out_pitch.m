@@ -1,6 +1,5 @@
 function  servo_out=get_servo_out_pitch(  angle_err,   scaler,   disable_integrator)
 
-global aspeed
 % global desired_rate_pitch
 global AP_rate_pitch
 

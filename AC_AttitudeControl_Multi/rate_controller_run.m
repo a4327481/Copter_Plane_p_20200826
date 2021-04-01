@@ -1,10 +1,13 @@
 function rate_controller_run()
-global gyro_x
-global gyro_y
-global gyro_z
+
 global Test_w
 global AP_Motors
 global AC_Attitude
+global SINS
+gyro_x           =SINS.gyro_x;
+gyro_y           =SINS.gyro_y;
+gyro_z           =SINS.gyro_z;
+
 
  limit_roll                      = AP_Motors.limit_roll;
  limit_pitch                     = AP_Motors.limit_pitch;

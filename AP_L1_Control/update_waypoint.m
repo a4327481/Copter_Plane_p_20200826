@@ -3,8 +3,11 @@ function  update_waypoint(   prev_WP,  next_WP,  dist_min)
 % update L1 control for waypoint navigation
 global dt
 global AP_L1
-global groundspeed_vector
-global curr_loc
+global SINS
+
+groundspeed_vector          = SINS.groundspeed_vector;
+curr_loc                    = SINS.curr_loc;
+
  L1_damping                 = AP_L1.L1_damping;
  L1_period                  = AP_L1.L1_period;
  target_bearing_cd          = AP_L1.target_bearing_cd;

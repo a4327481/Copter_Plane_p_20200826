@@ -1,9 +1,11 @@
 function update_loiter( center_WP,   radius,   loiter_direction)
  
- global yaw
- global curr_loc
- global groundspeed_vector
  global AP_L1
+ global SINS
+ 
+ yaw                          =SINS.yaw; 
+ groundspeed_vector           =SINS.groundspeed_vector;
+ curr_loc                     =SINS.curr_loc;
   L1_period                   = AP_L1.L1_period;
   L1_damping                  = AP_L1.L1_damping;
   L1_dist                     = AP_L1.L1_dist;

@@ -1,7 +1,8 @@
 function  yawo=get_yaw()
- global yaw
  global AP_L1
+ global SINS
  
+ yaw            = SINS.yaw;
  reverse=AP_L1.reverse;
        yawo=yaw;
     if (reverse)  

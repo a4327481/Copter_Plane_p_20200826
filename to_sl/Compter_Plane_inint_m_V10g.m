@@ -368,7 +368,6 @@ AP_rate_yaw.last_out                     = 0;
  AC_PosControl.pid_accel_z.slew_rate_max             = 0;
  AC_PosControl.pid_accel_z.slew_rate_tau             = 0.1;
  
- 
  AC_PosControl.p_pos_xy                                = 1.1;
  AC_PosControl.pid_vel_xy.kp                           = 1.1;
  AC_PosControl.pid_vel_xy.ki                           = 0.15;

@@ -1,10 +1,13 @@
 function run_xy_controller(dt)
-global  curr_pos
-global  curr_vel
+
 global GRAVITY_MSS
 global HD
 global AC_PosControl
 global AP_Motors
+global SINS
+
+curr_pos                            = SINS.curr_pos;
+curr_vel                            = SINS.curr_vel;
 p_pos_xy                            = AC_PosControl.p_pos_xy;
 speed_cms                           = AC_PosControl.speed_cms;
 accel_cms                           = AC_PosControl.accel_cms;

@@ -1,10 +1,10 @@
 function  update_load_factor()
-global aspeed
 global HD
-
 global Plane
 global Copter_Plane
+global SINS
 
+aspeed                         = SINS.aspeed;
 smoothed_airspeed              = Plane.smoothed_airspeed;
 airspeed_min                   = Plane.airspeed_min;
 aerodynamic_load_factor        = Plane.aerodynamic_load_factor;

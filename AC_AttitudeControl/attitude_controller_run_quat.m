@@ -1,9 +1,11 @@
 function attitude_controller_run_quat()
-  global rot_body_to_ned
   global dt  
-  global gyro_z
   global AC_Attitude
-	
+  global SINS
+  
+  gyro_z                                 =SINS.gyro_z;
+  rot_body_to_ned                        =SINS.rot_body_to_ned;
+  
    attitude_target_quat                   = AC_Attitude.attitude_target_quat;
    attitude_target_ang_vel                = AC_Attitude.attitude_target_ang_vel;
    thrust_error_angle                     = AC_Attitude.thrust_error_angle;

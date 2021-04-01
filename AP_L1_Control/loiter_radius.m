@@ -1,9 +1,10 @@
 function   radiuso=loiter_radius(radius)  
 global GRAVITY_MSS
-global EAS2TAS
 global AP_TECS
 global AP_L1
+global SINS
 
+EAS2TAS                    = SINS.EAS2TAS;
 EAS_dem                    = AP_TECS.EAS_dem;
 loiter_bank_limit          = AP_L1.loiter_bank_limit;
     % prevent an insane loiter bank limit

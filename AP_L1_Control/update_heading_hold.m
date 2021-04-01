@@ -1,8 +1,10 @@
 function update_heading_hold( navigation_heading_cd)
 global HD
-global yaw
-global groundspeed_vector
 global AP_L1
+global SINS
+
+ yaw                        = SINS.yaw;
+ groundspeed_vector         = SINS.groundspeed_vector;
  L1_dist                    = AP_L1.L1_dist;
  bearing_error              = AP_L1.bearing_error;
  latAccDem                  = AP_L1.latAccDem;

@@ -1,6 +1,7 @@
 function [ roll_target,    pitch_target]=accel_to_lean_angles(  accel_x_cmss,   accel_y_cmss)  
- global yaw
+ global SINS
  global GRAVITY_MSS
+ yaw                   =SINS.yaw ;
     % get_lean_angles_to_accel - convert roll, pitch lean angles to lat/lon frame accelerations in cm/s/s
 
  

@@ -1,14 +1,17 @@
 function  rate_out=get_rate_out_pitch(  desired_rate,   scaler,   disable_integrator)
 global dt
-global gyro_y
 global HD   
-global aspeed
-global EAS2TAS
-global roll
-global pitch
 global AP_rate_pitch
 global Plane
 global Copter_Plane
+global SINS
+
+gyro_y                   =SINS.gyro_y;
+aspeed                   =SINS.aspeed;
+EAS2TAS                  =SINS.EAS2TAS;
+roll                     =SINS.roll   ;
+pitch                    =SINS.pitch  ;
+
 
  gains_P                  =AP_rate_pitch.gains_P;
  gains_I                  =AP_rate_pitch.gains_I;

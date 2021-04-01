@@ -27,14 +27,14 @@ function update_50hz()
 %       it, otherwise use barometric altitude
 
 global GRAVITY_MSS
-global rot_body_to_ned
-global accel_x
-global curr_vel
+global SINS
 global AP_TECS
-
+ curr_vel           = SINS.curr_vel; 
  climb_rate         = AP_TECS.climb_rate;
  vdot_filter        = AP_TECS.vdot_filter;
  vel_dot            = AP_TECS.vel_dot;
+ rot_body_to_ned    = SINS.rot_body_to_ned;
+ accel_x            = SINS.accel_x;
 % %    Calculate time in seconds since last update
 % % 
 % %     Use inertial nav verical velocity and height if available

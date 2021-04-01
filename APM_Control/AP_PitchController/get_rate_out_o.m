@@ -7,7 +7,8 @@ function  get_rate_out_o(  desired_rate,   scaler)
 %  3) boolean which is true when stabilise mode is active
 %  4) minimum FBW airspeed (metres/sec)
 %  5) maximum FBW airspeed (metres/sec)
-global aspeed
+global SINS
+aspeed          =SINS.aspeed;
       get_rate_out(desired_rate, scaler, 0, aspeed);
  
 end

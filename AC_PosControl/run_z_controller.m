@@ -3,14 +3,17 @@ function run_z_controller()
 %  target altitude should be set with one of these functions: set_alt_target, set_target_to_stopping_point_z, init_takeoff
 %  calculates desired rate in earth-frame z axis and passes to rate controller
 %  vel_up_max, vel_down_max should have already been set before calling this method
-global curr_alt
-global curr_vel
-global z_accel_meas
+
 global dt
 global GRAVITY_MSS
 global AC_PosControl
 global AP_Motors
 global Copter_Plane
+global SINS
+
+curr_alt                     = SINS.curr_alt;
+curr_vel                     = SINS.curr_vel;
+z_accel_meas                 = SINS.z_accel_meas;
 
 p_pos_z                      = AC_PosControl.p_pos_z;
 p_vel_z                      = AC_PosControl.p_vel_z;

@@ -1,21 +1,10 @@
 function load_Curr_sate()
 
 global mode
-global accel_x
-global accel_y
-global accel_z
-global gyro_x
-global gyro_y
-global gyro_z
-global aspeed
-global EAS2TAS
-global groundspeed_vector
-global curr_vel
-global curr_alt
-global curr_loc
-global roll
-global pitch
-global yaw
+global SINS
+
+
+
 global PathModeOut_sl
 global Curr_sate
 global algo_dbg_param
@@ -26,8 +15,8 @@ global HD
  gyro_x=Curr_sate.gyro_x;
  gyro_y=Curr_sate.gyro_y;
  gyro_z=Curr_sate.gyro_z;
- pitch=Curr_sate.pitchd/HD;
  roll=Curr_sate.rolld/HD;
+ pitch=Curr_sate.pitchd/HD;
  yaw=Curr_sate.yawd/HD;
  aspeed=Curr_sate.EAS_Algo;
  EAS2TAS=Curr_sate.EAS2TAS_Algo;
@@ -55,5 +44,20 @@ global HD
     curr_alt                                =Curr_sate.NAV_alt*100;
  end
  
+SINS.accel_x                 = accel_x;
+SINS.accel_y                 = accel_y;
+SINS.accel_z                 = accel_z;
+SINS.gyro_x                  = gyro_x;
+SINS.gyro_y                  = gyro_y;
+SINS.gyro_z                  = gyro_z;
+SINS.roll                    = roll;
+SINS.pitch                   = pitch;
+SINS.yaw                     = yaw;
+SINS.aspeed                  = aspeed;
+SINS.EAS2TAS                 = EAS2TAS;
+SINS.groundspeed_vector      = groundspeed_vector;
+SINS.curr_vel                = curr_vel;
+SINS.curr_alt                = curr_alt;
+SINS.curr_loc                = curr_loc;
 end
 

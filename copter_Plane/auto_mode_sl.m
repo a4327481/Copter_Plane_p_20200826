@@ -2,10 +2,9 @@ function auto_mode_sl()
 %auto flight
 %mode auto
 
-
+global HD
 global dt
-global curr_alt
-global curr_loc
+global PathModeOut_sl
 global Plane 
 global AC_Attitude
 global AC_PosControl
@@ -17,6 +16,7 @@ global rate_roll_pid
 global rate_yaw_pid
 global SRV_Channel
 global Copter_Plane
+global SINS
 aerodynamic_load_factor               = Plane.aerodynamic_load_factor;
 nav_pitch_cd                          = Plane.nav_pitch_cd;
 nav_roll_cd                           = Plane.nav_roll_cd;
@@ -91,13 +91,13 @@ disable_AP_rate_pitch_gains_D         = Copter_Plane.disable_AP_rate_pitch_gains
 disable_AP_rate_yaw_K_FF              = Copter_Plane.disable_AP_rate_yaw_K_FF;
 POSCONTROL_ACC_Z_FILT_HZ_c2p          = Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ_c2p;
 POSCONTROL_ACC_Z_FILT_HZ              = Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ;
-height                                =curr_alt/100;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global HD
-global curr_pos
-global aspeed
-global rot_body_to_ned
-global PathModeOut_sl
+height                                = SINS.curr_alt/100;
+aspeed                                = SINS.aspeed;
+curr_loc                              = SINS.curr_loc; 
+curr_alt                              = SINS.curr_alt;
+rot_body_to_ned                       = SINS.rot_body_to_ned;
+curr_pos                              = SINS.curr_pos;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %mode auto
@@ -828,5 +828,6 @@ Copter_Plane.disable_AP_rate_roll_gains_D          = disable_AP_rate_roll_gains_
 Copter_Plane.disable_AP_rate_pitch_roll_ff         = disable_AP_rate_pitch_roll_ff;
 Copter_Plane.disable_AP_rate_pitch_gains_D         = disable_AP_rate_pitch_gains_D;
 Copter_Plane.disable_AP_rate_yaw_K_FF              = disable_AP_rate_yaw_K_FF;
+SINS.curr_pos                                      = curr_pos;
 end
 

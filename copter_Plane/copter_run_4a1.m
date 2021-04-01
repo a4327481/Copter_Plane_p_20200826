@@ -2,11 +2,13 @@ function  copter_run_4a1()
 %copter run
 
 
-global aspeed
 global AC_PosControl
 global SRV_Channel
 global Plane
 global Copter_Plane
+global SINS
+
+aspeed                                = SINS.aspeed;
 vel_desired                           = AC_PosControl.vel_desired;
 roll_target                           = AC_PosControl.roll_target;
 pitch_target                          = AC_PosControl.pitch_target;

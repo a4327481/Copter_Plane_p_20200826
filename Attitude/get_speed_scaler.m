@@ -1,7 +1,8 @@
 function speed_scaler=get_speed_scaler()
-global aspeed
 global Plane
+global SINS
 
+aspeed                = SINS.aspeed;
 highest_airspeed      = Plane.highest_airspeed;
 scaling_speed         = Plane.scaling_speed;
 airspeed_min          = Plane.airspeed_min;
