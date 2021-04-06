@@ -31,6 +31,10 @@ switch plane_mode
         J=J_V10;
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+rho                                                      = 1;
+gyro                                                     = [0 0 0];
+Euler                                                    = [0 0 0];
+
 %
 dt                                                       = 0.005;
 HD                                                       = 180/pi;
@@ -52,6 +56,17 @@ Curr_sate.pitchd                                         = 0;
 Curr_sate.rolld                                          = 0;
 Curr_sate.yawd                                           = 0;
 Curr_sate.NAV_alt                                        = 0;
+
+Curr_sate.PathModeOut.headingCmd                         = 0;
+Curr_sate.PathModeOut.groundspeedCmd                     = 0;
+Curr_sate.PathModeOut.heightCmd                          = 0;
+Curr_sate.PathModeOut.flightTaskMode                     = ENUM_FlightTaskMode.GroundStandByMode;
+Curr_sate.PathModeOut.flightControlMode                  = ENUM_FlightControlMode.GroundStandByControlMode;
+Curr_sate.PathModeOut.maxClimbSpeed                      = 0;
+Curr_sate.PathModeOut.turnCenterLL                       = [0 0];
+Curr_sate.PathModeOut.prePathPoint_LLA                   = [0 0 0];
+Curr_sate.PathModeOut.curPathPoint_LLA                   = [0 0 0];
+Curr_sate.PathModeOut.rollCmd                            = 0;
 
 SINS.accel_x                                             = 0;
 SINS.accel_y                                             = 0;

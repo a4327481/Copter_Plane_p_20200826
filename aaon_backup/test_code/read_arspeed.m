@@ -1,3 +1,5 @@
+function read_arspeeed()
+
 %read_arspeeed
 %  
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -47,7 +49,8 @@ arspeeed1(j:end)=[];
 temperature1(j:end)=[];
 ADC1(j:end)=[];
 data_ck=[t -arspeeed1 temperature1 ADC1];
-% fid=fopen([PathName,'\\',FileName,'arspeed'],'w');
-% fprintf(fid,'t arspeeed1 temperature1 ADC1\n');
-% fclose(fid);
-% save([PathName,'\\',FileName,'arspeed'],'data_ck','-ascii','-append' )
+fid=fopen([PathName,'\\',FileName,'arspeed'],'w');
+fprintf(fid,'t arspeeed1 temperature1 ADC1\n');
+fclose(fid);
+save([PathName,'\\',FileName,'arspeed'],'data_ck','-ascii','-append' )
+end

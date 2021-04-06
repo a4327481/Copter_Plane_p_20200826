@@ -1803,4 +1803,8 @@ fprintf(fid,head);
 %     end
     fclose(fid); 
 save([filename,'V1000_um482.dat'],'data_ck','-ascii','-append' )
+
+plot(time_radar,radar_Range);
+%  saveas(gcf,[PathName,'\\',FileName(1:end-6),'rader.fig'],'fig') ;
+ saveas(gcf,[filename,'rader.jpg'],'jpg') ;
 end
