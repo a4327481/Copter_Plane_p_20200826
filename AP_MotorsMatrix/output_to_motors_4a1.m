@@ -37,7 +37,7 @@ AP_Motors.thrust_slew_time            = thrust_slew_time;
 AP_Motors.p_tail_tilt                 = p_tail_tilt;     
 AP_Motors.tail_tilt_c2p               = tail_tilt_c2p;
 
-SRV_Channel.pwm_tail                    = pwm_tail;        
+SRV_Channel.pwm_tail                  = pwm_tail;        
 SRV_Channel.tail_tilt                 = tail_tilt;       
 SRV_Channel.k_throttle                = k_throttle;
 SRV_Channel.pwm_out                   = pwm_out;         
