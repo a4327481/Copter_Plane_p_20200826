@@ -1,7 +1,6 @@
 function out = deadzonef(in,dead,in_max)
-%UNTITLED2 此处显示有关此函数的摘要
-%   此处显示详细说明
 
+in=constrain_value(in,-in_max,in_max);
 if(abs(in)<=dead)
     out=0;
 elseif(in<0)

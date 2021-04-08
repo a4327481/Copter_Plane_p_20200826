@@ -67,9 +67,7 @@ input_tc                           = AC_Attitude.input_tc;
         attitude_target_euler_rate = [0.0 , 0.0 , 0.0 ];
         attitude_target_ang_vel = [0.0 , 0.0 , 0.0 ];
     end
-    % Call quaternion attitude controller
-    attitude_controller_run_quat();
-    
+ 
 AC_Attitude.attitude_target_quat               = attitude_target_quat;
 AC_Attitude.attitude_target_euler_angle        = attitude_target_euler_angle;
 AC_Attitude.rate_bf_ff_enabled                 = rate_bf_ff_enabled;
@@ -82,5 +80,7 @@ AC_Attitude.ang_vel_roll_max                   = ang_vel_roll_max;
 AC_Attitude.ang_vel_pitch_max                  = ang_vel_pitch_max;
 AC_Attitude.ang_vel_yaw_max                    = ang_vel_yaw_max;
 AC_Attitude.input_tc                           = input_tc; 
+    % Call quaternion attitude controller
+    attitude_controller_run_quat();
 end
 

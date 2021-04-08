@@ -638,7 +638,7 @@ AP_Motors.throttle_thrust_max                            = 1;
 AP_Motors.throttle_out                                   = 0;
 AP_Motors.thrust_rpyt_out_filt                           = [0 0 0 0];
 AP_Motors.land_accel_ef_filter                           = 0;
-AP_Motors.motor_lost_index                               = 0;
+AP_Motors.motor_lost_index                               = 1;
 
 AP_Motors.limit_roll                                     = false;
 AP_Motors.limit_pitch                                    = false;
