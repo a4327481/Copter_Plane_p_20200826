@@ -21,12 +21,9 @@ pitch_target                          = AC_PosControl.pitch_target;
 target_yaw_rate                       = AC_PosControl.target_yaw_rate;
 pos_target                            = AC_PosControl.pos_target;
 vel_desired                           = AC_PosControl.vel_desired;
-attitude_target_quat                  = AC_Attitude.attitude_target_quat;
 hgt_dem                               = AP_TECS.hgt_dem;
 
 yaw_in                                = AP_Motors.yaw_in;
-throttle_in                           = AP_Motors.throttle_in;
-
 tail_tilt                             = SRV_Channel.tail_tilt;
 k_aileron                             = SRV_Channel.k_aileron;
 k_elevator                            = SRV_Channel.k_elevator;
@@ -133,7 +130,7 @@ switch mode
             k_rudder=0;
             k_throttle=0;
         end
-        set_throttle_out(throttle_in, 1, AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ);
+        set_throttle_outg( true, AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ);
         input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate);
         rate_controller_run();
         AP_MotorsMulticopter_output_4a1();
@@ -247,7 +244,8 @@ switch mode
             vel_desired(3)=0;
             mode_state=7;
             k_throttle=0;
-            attitude_target_quat=from_rotation_matrix(rot_body_to_ned);%20200225
+%             attitude_target_quat=from_rotation_matrix(rot_body_to_ned);%20200225
+           relax_attitude_controllers();
         end
         set_alt_target_from_climb_rate_ff(climb_rate_cms, dt, 0)
         update_z_controller();
@@ -322,7 +320,6 @@ AC_PosControl.pitch_target                        = pitch_target;
 AC_PosControl.target_yaw_rate                     = target_yaw_rate;
 AC_PosControl.pos_target                          = pos_target;
 AC_PosControl.vel_desired                         = vel_desired;
-AC_Attitude.attitude_target_quat                  = attitude_target_quat;
 AP_TECS.hgt_dem                                   = hgt_dem;
 
 AP_Motors.yaw_in                                  = yaw_in;
@@ -366,6 +363,7 @@ Copter_Plane.disable_AP_rate_pitch_roll_ff         = disable_AP_rate_pitch_roll_
 Copter_Plane.disable_AP_rate_pitch_gains_D         = disable_AP_rate_pitch_gains_D;
 Copter_Plane.disable_AP_rate_yaw_K_FF              = disable_AP_rate_yaw_K_FF;
 SINS.curr_pos                                      = curr_pos;
+% AC_Attitude.attitude_target_quat                   = [0.5 0.5 0.5 0.5];
 
 end
 

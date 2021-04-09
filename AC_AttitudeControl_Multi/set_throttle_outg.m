@@ -1,13 +1,13 @@
-function  set_throttle_out(  throttle_ini,   apply_angle_boost,   filter_cutoff)
+function  set_throttle_outg(   apply_angle_boost,   filter_cutoff)
 
 global AP_Motors
 
- throttle_in                        = AP_Motors.throttle_in;
+ throttle_ini                       = AP_Motors.throttle_in;
  angle_boost                        = AP_Motors.angle_boost;
  throttle_avg_max                   = AP_Motors.throttle_avg_max;
  throttle_cutoff_frequency          = AP_Motors.throttle_cutoff_frequency;
  
-     throttle_in = throttle_ini;
+    throttle_in = throttle_ini;
     update_althold_lean_angle_max(throttle_ini);
     throttle_cutoff_frequency=filter_cutoff;
     if (apply_angle_boost)  
