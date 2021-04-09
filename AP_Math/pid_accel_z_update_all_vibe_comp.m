@@ -1,4 +1,4 @@
-function output=pid_accel_z_update_all( target_in,  measurement,  limit)
+function output=pid_accel_z_update_all_vibe_comp( target_in,  measurement,  limit)
 global dt
 global AC_PosControl
 
