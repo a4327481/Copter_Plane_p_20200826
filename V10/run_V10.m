@@ -323,7 +323,6 @@ AC_PosControl.vel_desired                         = vel_desired;
 AP_TECS.hgt_dem                                   = hgt_dem;
 
 AP_Motors.yaw_in                                  = yaw_in;
-AP_Motors.throttle_in                             = throttle_in;
 
 SRV_Channel.tail_tilt                             = tail_tilt;
 SRV_Channel.k_aileron                             = k_aileron;

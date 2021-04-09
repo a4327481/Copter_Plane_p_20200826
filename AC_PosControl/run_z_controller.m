@@ -117,17 +117,17 @@ if (flags_reset_rate_to_accel_z)
 end
 
 % feed forward desired acceleration calculation
-if (dt > 0.0)
-    if (~flags_freeze_ff_z)
-        accel_desired(3) = (vel_target(3) - vel_last(3)) / dt;
-    else
-        % stop the feed forward being calculated during a known discontinuity
-        flags_freeze_ff_z = false;
-    end
-else
-    accel_desired(3) = 0.0;
-end
-
+% if (dt > 0.0)
+%     if (~flags_freeze_ff_z)
+%         accel_desired(3) = (vel_target(3) - vel_last(3)) / dt;
+%     else
+%         % stop the feed forward being calculated during a known discontinuity
+%         flags_freeze_ff_z = false;
+%     end
+% else
+%     accel_desired(3) = 0.0;
+% end
+accel_desired(3) = 0.0;
 % store this iteration's velocities for the next iteration
 vel_last(3) = vel_target(3);
 
