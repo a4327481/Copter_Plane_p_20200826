@@ -171,7 +171,8 @@ if (vibe_comp_enabled)
         pid_accel_z_integrator=pid_accel_z_integrator + dt * thr_per_accelz_cmss * 1000.0 * vel_error(3) * p_vel_z * POSCONTROL_VIBE_COMP_I_GAIN;
         pid_accel_z_integrator=constrain_value(pid_accel_z_integrator,-pid_accel_z_kimax,pid_accel_z_kimax);
     end
-    thr_out = POSCONTROL_VIBE_COMP_P_GAIN * thr_per_accelz_cmss * accel_target(3) + pid_accel_z_integrator * 0.001;
+%     thr_out = POSCONTROL_VIBE_COMP_P_GAIN * thr_per_accelz_cmss * accel_target(3) + pid_accel_z_integrator * 0.001;
+    thr_out = pid_accel_z_update_all_vibe_comp(accel_target(3), (limit_throttle_lower || limit_throttle_upper))*0.001;
 else
     thr_out = pid_accel_z_update_all(accel_target(3), z_accel_meas, (limit_throttle_lower || limit_throttle_upper)) * 0.001;
 end

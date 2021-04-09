@@ -1,4 +1,4 @@
-function output=pid_accel_z_update_all_vibe_comp( target_in,  measurement,  limit)
+function output=pid_accel_z_update_all_vibe_comp(  error_in,   limit)
 global dt
 global AC_PosControl
 
@@ -24,30 +24,34 @@ slew_amplitude          =AC_PosControl.pid_accel_z.slew_amplitude;
 slew_filter             =AC_PosControl.pid_accel_z.slew_filterg;
 last_sample             =AC_PosControl.pid_accel_z.last_sample;
 Dmod                    =AC_PosControl.pid_accel_z.Dmod;
+
+
+
 % don't process inf or NaN
 
+target = 0.0;
+
 % reset input filter to value received
-if (flags_reset_filter)
+if ( flags_reset_filter)
     flags_reset_filter = false;
-    target = target_in;
-    error = target - measurement;
+    error = error_in;
     derivative = 0.0;
     integrator = 0;
     slew_filter=0;
     last_sample=error * kp+derivative * kd;
 else
     error_last = error;
-    target=target + get_filt_alpha(filt_T_hz) * (target_in - target);
-    error =error  + get_filt_alpha(filt_E_hz) * ((target - measurement) - error);
+    error=error + get_filt_alpha(filt_E_hz) * (error_in - error);
+    
+    % calculate and filter derivative
+    if (dt > 0.0)
+         derivative_in = (error - error_last) / dt;
+         derivative =derivative+ get_filt_alpha(filt_D_hz) * (derivative_in - derivative);
+    end
 end
-% calculate and filter derivative
-if (dt > 0.0)
-    derivative = (error - error_last) / dt;
-    derivative=derivative + get_filt_alpha(filt_D_hz) * (derivative - derivative);
-end
+
 % update I term
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-if (ki~=0 && ~disable_integrator )
+if (ki~=0 )
     % Ensure that integrator can only be reduced if the output is saturated
     if (~limit || (((integrator>0) && (error<0)) || ((integrator<0) && (error>0))))
         integrator = integrator + (error * ki) * dt;
@@ -56,12 +60,15 @@ if (ki~=0 && ~disable_integrator )
 else
     integrator = 0.0;
 end
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-P_out = (error * kp);
-D_out = (derivative * kd);
+
+
+
+ P_out = (error * kp);
+ D_out = (derivative * kd);
 
 % calculate slew limit modifier for P+D
-%     Dmodg = AC_PosControl.pid_accel_z_modifier(P_out + D_out, dt);
+% pid_info.Dmod = slew_limiter.modifier(pid_info.P + pid_info.D, dt);
+
 sample=P_out + D_out;
 %   apply filter to sample, returning multiplier between 0 and 1 to keep
 %   output within slew rate
@@ -92,10 +99,10 @@ else
 end
 
 
-P_out=P_out * Dmod;
-D_out=D_out * Dmod;
-
-output=P_out + integrator + D_out+kff*target_in;
+    P_out=P_out * Dmod;
+    D_out=D_out * Dmod;
+    
+    output=P_out + integrator + D_out;
 
 AC_PosControl.pid_accel_z.flags_reset_filter  = flags_reset_filter;
 AC_PosControl.pid_accel_z.disable_integrator  = disable_integrator;
@@ -109,6 +116,5 @@ AC_PosControl.pid_accel_z.Dmod                = Dmod;
 AC_PosControl.pid_accel_z.slew_amplitude      = slew_amplitude;
 AC_PosControl.pid_accel_z.slew_filterg        = slew_filter;
 AC_PosControl.pid_accel_z.last_sample         = last_sample;
-
 end
 

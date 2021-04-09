@@ -42,8 +42,8 @@ else
 end
 % calculate and filter derivative
 if (dt > 0.0)
-    derivative = (error - error_last) / dt;
-    derivative=derivative + get_filt_alpha(filt_D_hz) * (derivative - derivative);
+    derivative_in = (error - error_last) / dt;
+    derivative=derivative + get_filt_alpha(filt_D_hz) * (derivative_in - derivative);
 end
 % update I term
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
