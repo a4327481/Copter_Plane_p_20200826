@@ -44,7 +44,8 @@ kP=p_pos_xy;
         % Constrain _pos_error and target position
         % Constrain the maximum length of _vel_target to the maximum position correction velocity
         % TODO: replace the leash length with a user definable maximum position correction
-        if (limit_vector_length(pos_error(1), pos_error(2), leash))
+        [bool,pos_error(1),pos_error(2)]= limit_vector_length(pos_error(1), pos_error(2), leash);
+        if (bool)
             pos_target(1) = curr_pos(1) + pos_error(1);
             pos_target(2) = curr_pos(2) + pos_error(2);
         end
@@ -117,8 +118,7 @@ kP=p_pos_xy;
 %      angle_max = min(get_althold_lean_angle_max(), get_lean_angle_max_cd());
      angle_max =get_althold_lean_angle_max();
      accel_max = min(GRAVITY_MSS * 100.0 * tan(angle_max * 0.01/HD), POSCONTROL_ACCEL_XY_MAX);
-     limit_accel_xy = limit_vector_length(accel_target(1), accel_target(2), accel_max);
-
+     [limit_accel_xy,accel_target(1),accel_target(2)] = limit_vector_length( accel_target(1),  accel_target(2), accel_max);
     % update angle targets that will be passed to stabilize controller
      [ roll_target, pitch_target]=accel_to_lean_angles(accel_target(1), accel_target(2));
      

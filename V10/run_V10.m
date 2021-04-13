@@ -131,14 +131,18 @@ switch mode
             k_throttle=0;
         end
         set_throttle_outg( true, AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ);
+        roll_target                           = AC_PosControl.roll_target;
+        pitch_target                          = AC_PosControl.pitch_target;
+        target_yaw_rate                       = AC_PosControl.target_yaw_rate;
         input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate);
         rate_controller_run();
         AP_MotorsMulticopter_output_4a1();
     case 2 %copter althold
         if(mode_state~=2)
+            mode_state=2;
+            relax_attitude_controllers();
             pos_target(3) = curr_alt;
             vel_desired(3)=0;
-            mode_state=2;
             k_aileron=0;
             k_elevator=0;
             k_rudder=0;
@@ -146,17 +150,21 @@ switch mode
         end
         set_alt_target_from_climb_rate_ff(climb_rate_cms, dt, 0)
         update_z_controller();
+        roll_target                           = AC_PosControl.roll_target;
+        pitch_target                          = AC_PosControl.pitch_target;
+        target_yaw_rate                       = AC_PosControl.target_yaw_rate;
         input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate);
         rate_controller_run();
         AP_MotorsMulticopter_output_4a1();
     case 3 %copter xyz
         if(mode_state~=3)
+            mode_state=3;
+            relax_attitude_controllers();
             loc_origin=curr_loc;
             curr_pos(1:2)=[0 0];
             pos_target(1:2)=[0 0];
             pos_target(3) = curr_alt;
             vel_desired(3)=0;
-            mode_state=3;
             k_aileron=0;
             k_elevator=0;
             k_rudder=0;
@@ -176,6 +184,9 @@ switch mode
         set_alt_target_from_climb_rate_ff(climb_rate_cms, dt, 0)
         update_vel_controller_xy();
         update_z_controller();
+        roll_target                           = AC_PosControl.roll_target;
+        pitch_target                          = AC_PosControl.pitch_target;
+        target_yaw_rate                       = AC_PosControl.target_yaw_rate;
         input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate+temp_yaw_rate);
         rate_controller_run();
         AP_MotorsMulticopter_output_4a1();
@@ -244,13 +255,14 @@ switch mode
             vel_desired(3)=0;
             mode_state=7;
             k_throttle=0;
-%             attitude_target_quat=from_rotation_matrix(rot_body_to_ned);%20200225
-           relax_attitude_controllers();
+            %             attitude_target_quat=from_rotation_matrix(rot_body_to_ned);%20200225
+            relax_attitude_controllers();
         end
         set_alt_target_from_climb_rate_ff(climb_rate_cms, dt, 0)
         update_z_controller();
-        %          tail_tilt_temp=constrain_value((pwm_tail-pwm_min)/(pwm_max-pwm_min)*-9000,-3000,0);
-        %          pitch_target_temp=pitch_target+p_tilt_pitch_target*tail_tilt_temp;
+        roll_target                           = AC_PosControl.roll_target;
+        pitch_target                          = AC_PosControl.pitch_target;
+        target_yaw_rate                       = AC_PosControl.target_yaw_rate;
         input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate);
         rate_controller_run();
         if(aspeed>aspeed_c2p)

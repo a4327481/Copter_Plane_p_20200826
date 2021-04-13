@@ -33,7 +33,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rho                                                      = 1;
 gyro                                                     = [0 0 0];
-Euler                                                    = [0 0 0];
+Euler                                                    = [20/HD 0/HD 30/HD];
 
 %
 dt                                                       = 0.005;
@@ -75,7 +75,7 @@ SINS.gyro_x                                              = 0;
 SINS.gyro_z                                              = 0;
 SINS.pitch                                               = 0;
 SINS.roll                                                = 0;
-SINS.yaw                                                 = 0;
+SINS.yaw                                                 = 30/HD;
 SINS.curr_vel                                            = [0 0 0];
 SINS.curr_loc                                            = [0 0];
 SINS.curr_alt                                            = 0 ;
@@ -533,12 +533,12 @@ loc.lon=[
     zeros(15,1)
     ];
 
-Copter_Plane.prev_WP                                      = [40,100]*1e7                           ;
-Copter_Plane.next_WP                                      = [40,100.01]*1e7                        ;
+Copter_Plane.prev_WP                                      = [40,100]                           ;
+Copter_Plane.next_WP                                      = [40,100.01]                        ;
 Copter_Plane.dist_min                                     = 50                                     ;
 
-Copter_Plane.center_WP                                    = [40,100]*1e7                           ;
-Copter_Plane.loc_origin                                   = [40,100]*1e7                           ;
+Copter_Plane.center_WP                                    = [40,100]                          ;
+Copter_Plane.loc_origin                                   = [40,100]                          ;
 Copter_Plane.loc                                          = loc                                    ;
 Copter_Plane.L1_radius                                    = 60                                     ;
 Copter_Plane.radius                                       = 80                                     ;
@@ -611,7 +611,6 @@ AP_Motors.lift_max                                       = 1                    
 AP_Motors.spool_desired                                  = DesiredSpoolState.SHUT_DOWN  ;
 AP_Motors.spool_state                                    = SpoolState.SHUT_DOWN         ;
 AP_Motors.angle_boost                                    = 0                            ;
-AP_Motors.althold_lean_angle_max                         = 0                            ;
 
 AP_Motors.roll_in                                        = 0                            ;
 AP_Motors.pitch_in                                       = 0                            ;

@@ -7,7 +7,7 @@ global AP_Motors
  throttle_avg_max                   = AP_Motors.throttle_avg_max;
  throttle_cutoff_frequency          = AP_Motors.throttle_cutoff_frequency;
  
-     throttle_in = throttle_ini;
+    throttle_in = throttle_ini;
     update_althold_lean_angle_max(throttle_ini);
     throttle_cutoff_frequency=filter_cutoff;
     if (apply_angle_boost)  

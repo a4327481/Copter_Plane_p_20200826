@@ -2,9 +2,6 @@ function load_Curr_sate()
 
 global Copter_Plane
 global SINS
-
-
-
 global PathModeOut_sl
 global Curr_sate
 global algo_dbg_param
