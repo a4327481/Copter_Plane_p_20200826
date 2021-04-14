@@ -11,18 +11,9 @@ global AC_rate_yaw_pid
 global SRV_Channel
 global Copter_Plane
 global SINS
+
 aerodynamic_load_factor               = Plane.aerodynamic_load_factor;
-
-
-roll_target                           = AC_PosControl.roll_target;
-pitch_target                          = AC_PosControl.pitch_target;
-target_yaw_rate                       = AC_PosControl.target_yaw_rate;
-pos_target                            = AC_PosControl.pos_target;
-vel_desired                           = AC_PosControl.vel_desired;
 hgt_dem                               = AP_TECS.hgt_dem;
-
-
-
 climb_rate_cms                           = Copter_Plane.climb_rate_cms;
 loc_origin                               = Copter_Plane.loc_origin;
 EAS_dem_cm                               = Copter_Plane.EAS_dem_cm;
@@ -43,29 +34,20 @@ POSCONTROL_ACC_Z_FILT_HZ                 = Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ
 inint_hgt                                = Copter_Plane.inint_hgt;
 aspeed_c2p                               = Copter_Plane.aspeed_c2p;
 mode                                     = Copter_Plane.mode;
-inint                                    = Copter_Plane.inint;
 roll_target_pilot                        = Copter_Plane.roll_target_pilot;
 pitch_target_pilot                       = Copter_Plane.pitch_target_pilot;
 arspeed_filt                             = Copter_Plane.arspeed_filt;
-arspeed_temp                             = Copter_Plane.arspeed_temp;
-disable_AP_roll_integrator            = Copter_Plane.disable_AP_roll_integrator;
-disable_AP_pitch_integrator           = Copter_Plane.disable_AP_pitch_integrator;
-disable_AP_yaw_integrator             = Copter_Plane.disable_AP_yaw_integrator;
-disable_AP_rate_roll_gains_D          = Copter_Plane.disable_AP_rate_roll_gains_D;
-disable_AP_rate_pitch_roll_ff         = Copter_Plane.disable_AP_rate_pitch_roll_ff;
-disable_AP_rate_pitch_gains_D         = Copter_Plane.disable_AP_rate_pitch_gains_D;
-disable_AP_rate_yaw_K_FF              = Copter_Plane.disable_AP_rate_yaw_K_FF;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 height                                = SINS.curr_alt/100;
 aspeed                                = SINS.aspeed;
 yaw                                   = SINS.yaw;
 curr_loc                              = SINS.curr_loc;
-curr_alt                              = SINS.curr_alt;
-rot_body_to_ned                       = SINS.rot_body_to_ned;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% quad _4a1
 persistent mode_state
 persistent WP_i
+persistent arspeed_temp
+persistent inint                                     
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if isempty(mode_state)
     mode_state = 0;
@@ -74,24 +56,30 @@ end
 if isempty(WP_i)
     WP_i = 1;
 end
+
+if isempty(arspeed_temp)
+    arspeed_temp = aspeed;
+end
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if(mode==1||mode==2||mode==3||mode==7)%%disable plane I
-    disable_AP_roll_integrator                 = true;
-    disable_AP_pitch_integrator                = true;
-    disable_AP_yaw_integrator                  = true;
-    disable_AP_rate_pitch_gains_D              = true;
-    disable_AP_rate_roll_gains_D               = true;
-    disable_AP_rate_yaw_K_FF                   = true;
-    disable_AP_rate_pitch_roll_ff              = true;
+    Copter_Plane.disable_AP_roll_integrator                 = true;
+    Copter_Plane.disable_AP_pitch_integrator                = true;
+    Copter_Plane.disable_AP_yaw_integrator                  = true;
+    Copter_Plane.disable_AP_rate_pitch_gains_D              = true;
+    Copter_Plane.disable_AP_rate_roll_gains_D               = true;
+    Copter_Plane.disable_AP_rate_yaw_K_FF                   = true;
+    Copter_Plane.disable_AP_rate_pitch_roll_ff              = true;
 else
-    disable_AP_roll_integrator                 = false;
-    disable_AP_pitch_integrator                = false;
-    disable_AP_yaw_integrator                  = false;
-    disable_AP_rate_pitch_gains_D              = false;
-    disable_AP_rate_roll_gains_D               = false;
-    disable_AP_rate_yaw_K_FF                   = false;
-    disable_AP_rate_pitch_roll_ff              = false;
+    Copter_Plane.disable_AP_roll_integrator                 = false;
+    Copter_Plane.disable_AP_pitch_integrator                = false;
+    Copter_Plane.disable_AP_yaw_integrator                  = false;
+    Copter_Plane.disable_AP_rate_pitch_gains_D              = false;
+    Copter_Plane.disable_AP_rate_roll_gains_D               = false;
+    Copter_Plane.disable_AP_rate_yaw_K_FF                   = false;
+    Copter_Plane.disable_AP_rate_pitch_roll_ff              = false;
 end
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if(mode_state==3||mode_state==9||mode_state==10)
 else
@@ -144,7 +132,7 @@ switch mode
     case 3 %copter xyz
         if(mode_state~=3)
             mode_state=3;
-            loc_origin=curr_loc;
+            Copter_Plane.loc_origin=curr_loc;
             SINS.curr_pos(1:2)=[0 0];
             relax_attitude_controllers();
             init_vel_controller_xyz();
@@ -152,19 +140,19 @@ switch mode
         else
             SINS.curr_pos(1:2)=get_vector_xy_from_origin_NE( curr_loc,loc_origin)*100;
         end
-        vel_desired(1)=pitch_target_pilot/10*cos(yaw)-roll_target_pilot/10*sin(yaw);
-        vel_desired(2)=pitch_target_pilot/10*sin(yaw)+roll_target_pilot/10*cos(yaw); 
-        if( (abs(pitch_target_pilot)>0) || (abs(roll_target_pilot)>0)||(abs(target_yaw_rate)>0))
-            temp_yaw_rate=0;
-        else
-            temp_yaw_rate=get_weathervane_yaw_rate_cds();
-        end
+        AC_PosControl.vel_desired(1)=pitch_target_pilot/10*cos(yaw)-roll_target_pilot/10*sin(yaw);
+        AC_PosControl.vel_desired(2)=pitch_target_pilot/10*sin(yaw)+roll_target_pilot/10*cos(yaw); 
         set_alt_target_from_climb_rate_ff(climb_rate_cms, dt, 0)
         update_vel_controller_xy();
         update_z_controller();
         roll_target                           = AC_PosControl.roll_target;
         pitch_target                          = AC_PosControl.pitch_target;
         target_yaw_rate                       = AC_PosControl.target_yaw_rate;
+        if( (abs(pitch_target_pilot)>0) || (abs(roll_target_pilot)>0)||(abs(target_yaw_rate)>0))
+            temp_yaw_rate=0;
+        else
+            temp_yaw_rate=get_weathervane_yaw_rate_cds();
+        end
         input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate+temp_yaw_rate);
         rate_controller_run();
         AP_MotorsMulticopter_output_4a1();
@@ -179,8 +167,7 @@ switch mode
     case 5 %Plane TECS
         if(mode_state~=5)
             hgt_dem_cm=height*100;
-            hgt_dem=height;
-            inint_hgt=1;
+            AP_TECS_init();
             mode_state=5;
         else
             hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;
@@ -196,8 +183,7 @@ switch mode
     case 6 %Plane L1 waypoint
         if(mode_state~=6)
             hgt_dem_cm=height*100;
-            hgt_dem=height;
-            inint_hgt=1;
+            AP_TECS_init();
             mode_state=6;
         else
             hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;
@@ -217,7 +203,6 @@ switch mode
         end
         update_50hz();
         update_pitch_throttle(  hgt_dem_cm,EAS_dem_cm,aerodynamic_load_factor)
-        %         update_loiter( center_WP,   radius,   loiter_direction)
         update_waypoint( prev_WP,  next_WP,  dist_min)
         calc_nav_pitch();
         calc_nav_roll()
@@ -259,24 +244,21 @@ switch mode
         
     case 8 %Plane L1 loiter
         if(mode_state~=8)
-            hgt_dem_cm=height*100;
-            hgt_dem=height;
-            inint_hgt=1;
-            center_WP=curr_loc;
             mode_state=8;
+            hgt_dem_cm=height*100;
+            AP_TECS_init();
+            center_WP=curr_loc;
         else
             hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;
         end
         update_50hz();
         update_pitch_throttle(  hgt_dem_cm,EAS_dem_cm,aerodynamic_load_factor)
         update_loiter( center_WP,   radius,   loiter_direction)
-        %          update_waypoint( prev_WP,  next_WP,  dist_min)
         calc_nav_pitch();
         calc_nav_roll()
         calc_throttle()
         stabilize()
-        output_to_motors_plane_4a1();
-        
+        output_to_motors_plane_4a1();      
     case 9 %Auto test
         if(mode_state~=9)
             mode_state=9;
@@ -297,12 +279,7 @@ switch mode
 end
 
 
-Plane.aerodynamic_load_factor                     = aerodynamic_load_factor;
-AC_PosControl.pos_target                          = pos_target;
-AC_PosControl.vel_desired                         = vel_desired;
 AP_TECS.hgt_dem                                   = hgt_dem;
-Copter_Plane.climb_rate_cms                       = climb_rate_cms;
-Copter_Plane.loc_origin                           = loc_origin;
 Copter_Plane.EAS_dem_cm                           = EAS_dem_cm;
 Copter_Plane.hgt_dem_cm                           = hgt_dem_cm;
 Copter_Plane.center_WP                            = center_WP;
@@ -313,24 +290,6 @@ Copter_Plane.next_WP                              = next_WP;
 Copter_Plane.dist_min                             = dist_min;
 Copter_Plane.loc                                  = loc;
 Copter_Plane.L1_radius                            = L1_radius;
-Copter_Plane.p_plane_c2p                          = p_plane_c2p;
-Copter_Plane.yaw_max_c2p                          = yaw_max_c2p;
-Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ_c2p         = POSCONTROL_ACC_Z_FILT_HZ_c2p;
 Copter_Plane.inint_hgt                            = inint_hgt;
-Copter_Plane.aspeed_c2p                           = aspeed_c2p;
-Copter_Plane.mode                                 = mode;
-Copter_Plane.inint                                = inint;
-Copter_Plane.roll_target_pilot                    = roll_target_pilot ;
-Copter_Plane.pitch_target_pilot                   = pitch_target_pilot;
-Copter_Plane.arspeed_filt                         = arspeed_filt;
-Copter_Plane.arspeed_temp                         = arspeed_temp;
-Copter_Plane.disable_AP_roll_integrator            = disable_AP_roll_integrator;
-Copter_Plane.disable_AP_pitch_integrator           = disable_AP_pitch_integrator;
-Copter_Plane.disable_AP_yaw_integrator             = disable_AP_yaw_integrator;
-Copter_Plane.disable_AP_rate_roll_gains_D          = disable_AP_rate_roll_gains_D;
-Copter_Plane.disable_AP_rate_pitch_roll_ff         = disable_AP_rate_pitch_roll_ff;
-Copter_Plane.disable_AP_rate_pitch_gains_D         = disable_AP_rate_pitch_gains_D;
-Copter_Plane.disable_AP_rate_yaw_K_FF              = disable_AP_rate_yaw_K_FF;
-
 end
 

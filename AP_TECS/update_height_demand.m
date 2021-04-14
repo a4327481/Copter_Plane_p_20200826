@@ -1,7 +1,6 @@
 function  update_height_demand( )
  global dt
  global AP_TECS
- global Copter_Plane
    hgt_dem                    =AP_TECS.hgt_dem;
    hgt_dem_in_old             =AP_TECS.hgt_dem_in_old;
    maxSinkRate                =AP_TECS.maxSinkRate;
@@ -10,15 +9,7 @@ function  update_height_demand( )
    hgt_dem_adj                =AP_TECS.hgt_dem_adj;
    hgt_dem_adj_last           =AP_TECS.hgt_dem_adj_last;
    hgt_rate_dem               =AP_TECS.hgt_rate_dem;
-   inint_hgt                  = Copter_Plane.inint_hgt;
 
- 
-    if(inint_hgt)
-       hgt_dem_in_old=hgt_dem; 
-       hgt_dem_prev=hgt_dem;
-       hgt_dem_adj_last=hgt_dem;
-       inint_hgt=0;   
-    end
     % Apply 2 point moving average to demanded height
     hgt_dem = 0.5 * (hgt_dem + hgt_dem_in_old);
     hgt_dem_in_old = hgt_dem;
@@ -64,7 +55,6 @@ function  update_height_demand( )
    AP_TECS.hgt_dem_adj                = hgt_dem_adj;
    AP_TECS.hgt_dem_adj_last           = hgt_dem_adj_last;
    AP_TECS.hgt_rate_dem               = hgt_rate_dem;
-   Copter_Plane.inint_hgt             = inint_hgt;
       
 end
 
