@@ -1946,7 +1946,7 @@ fprintf(fid,head);
 fclose(fid); 
 save([filename,'V1000_BMS10.dat'],'data_ck','-ascii','-append' )
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-plot(time_radar,radar_Range);
-%  saveas(gcf,[PathName,'\\',FileName(1:end-6),'rader.fig'],'fig') ;
- saveas(gcf,[filename,'rader.jpg'],'jpg') ;
+% plot(time_radar,radar_Range);
+% %  saveas(gcf,[PathName,'\\',FileName(1:end-6),'rader.fig'],'fig') ;
+%  saveas(gcf,[filename,'rader.jpg'],'jpg') ;
 end

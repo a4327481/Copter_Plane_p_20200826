@@ -33,7 +33,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rho                                                      = 1;
 gyro                                                     = [0 0 0];
-Euler                                                    = [20/HD 0/HD 30/HD];
+Euler                                                    = [0/HD 0/HD 30/HD];
 
 %
 dt                                                       = 0.005;
@@ -532,7 +532,10 @@ loc.lon=[
     100.02*1e7;
     zeros(15,1)
     ];
-
+Curr_sate.wp_in(:,1)   = loc.num;
+Curr_sate.wp_in(:,2)   = loc.lat;
+Curr_sate.wp_in(:,3)   = loc.lon;
+Curr_sate.wp_in(:,4)   = zeros(20,1);
 Copter_Plane.prev_WP                                      = [40,100]                           ;
 Copter_Plane.next_WP                                      = [40,100.01]                        ;
 Copter_Plane.dist_min                                     = 50                                     ;

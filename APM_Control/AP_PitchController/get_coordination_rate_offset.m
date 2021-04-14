@@ -28,7 +28,7 @@ if(disable_AP_rate_pitch_roll_ff)
 end
 
 
- 	  bank_angle =  roll*HD;
+ 	  bank_angle =  roll;
 	% limit bank angle between +- 80 deg if right way up
 	
     if (abs(bank_angle) < radians(90))	 

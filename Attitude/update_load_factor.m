@@ -35,7 +35,7 @@ roll_limit_cd                  = Plane.roll_limit_cd;
     if (max_load_factor <= 1)  
         % our airspeed is below the minimum airspeed. Limit roll to
         % 25 degrees
-%         nav_roll_cd = constrain_value(nav_roll_cd, -2500, 2500);
+        nav_roll_cd = constrain_value(nav_roll_cd, -2500, 2500);
         roll_limit_cd=2500;
 %         roll_limit_cd = min(roll_limit_cd, 2500); %byc xiugai 20191111
     elseif (max_load_factor < aerodynamic_load_factor)  

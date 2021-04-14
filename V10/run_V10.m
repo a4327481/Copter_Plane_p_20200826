@@ -2,7 +2,6 @@ function run_V10()
 
 global dt
 global Plane
-global AC_Attitude
 global AC_PosControl
 global AP_Motors
 global AP_TECS
@@ -13,8 +12,7 @@ global SRV_Channel
 global Copter_Plane
 global SINS
 aerodynamic_load_factor               = Plane.aerodynamic_load_factor;
-nav_pitch_cd                          = Plane.nav_pitch_cd;
-nav_roll_cd                           = Plane.nav_roll_cd;
+
 
 roll_target                           = AC_PosControl.roll_target;
 pitch_target                          = AC_PosControl.pitch_target;
@@ -23,12 +21,7 @@ pos_target                            = AC_PosControl.pos_target;
 vel_desired                           = AC_PosControl.vel_desired;
 hgt_dem                               = AP_TECS.hgt_dem;
 
-yaw_in                                = AP_Motors.yaw_in;
-tail_tilt                             = SRV_Channel.tail_tilt;
-k_aileron                             = SRV_Channel.k_aileron;
-k_elevator                            = SRV_Channel.k_elevator;
-k_rudder                              = SRV_Channel.k_rudder;
-k_throttle                            = SRV_Channel.k_throttle;
+
 
 climb_rate_cms                           = Copter_Plane.climb_rate_cms;
 loc_origin                               = Copter_Plane.loc_origin;
@@ -69,7 +62,6 @@ yaw                                   = SINS.yaw;
 curr_loc                              = SINS.curr_loc;
 curr_alt                              = SINS.curr_alt;
 rot_body_to_ned                       = SINS.rot_body_to_ned;
-curr_pos                              = SINS.curr_pos;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% quad _4a1
 persistent mode_state
@@ -125,10 +117,7 @@ switch mode
         if(mode_state~=1)
             mode_state=1;
             relax_attitude_controllers();
-            k_aileron=0;
-            k_elevator=0;
-            k_rudder=0;
-            k_throttle=0;
+            set_Plane_SRV_to_zero()
         end
         set_throttle_outg( true, AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ);
         roll_target                           = AC_PosControl.roll_target;
@@ -141,12 +130,8 @@ switch mode
         if(mode_state~=2)
             mode_state=2;
             relax_attitude_controllers();
-            pos_target(3) = curr_alt;
-            vel_desired(3)=0;
-            k_aileron=0;
-            k_elevator=0;
-            k_rudder=0;
-            k_throttle=0;
+            init_vel_controller_xyz();
+            set_Plane_SRV_to_zero()
         end
         set_alt_target_from_climb_rate_ff(climb_rate_cms, dt, 0)
         update_z_controller();
@@ -159,23 +144,16 @@ switch mode
     case 3 %copter xyz
         if(mode_state~=3)
             mode_state=3;
-            relax_attitude_controllers();
             loc_origin=curr_loc;
-            curr_pos(1:2)=[0 0];
-            pos_target(1:2)=[0 0];
-            pos_target(3) = curr_alt;
-            vel_desired(3)=0;
-            k_aileron=0;
-            k_elevator=0;
-            k_rudder=0;
-            k_throttle=0;
+            SINS.curr_pos(1:2)=[0 0];
+            relax_attitude_controllers();
+            init_vel_controller_xyz();
+            set_Plane_SRV_to_zero()
         else
-            %             pos_target(1:2)=[0 0];
-            curr_pos(1:2)=get_vector_xy_from_origin_NE( curr_loc,loc_origin)*100;
+            SINS.curr_pos(1:2)=get_vector_xy_from_origin_NE( curr_loc,loc_origin)*100;
         end
         vel_desired(1)=pitch_target_pilot/10*cos(yaw)-roll_target_pilot/10*sin(yaw);
-        vel_desired(2)=pitch_target_pilot/10*sin(yaw)+roll_target_pilot/10*cos(yaw);
-        
+        vel_desired(2)=pitch_target_pilot/10*sin(yaw)+roll_target_pilot/10*cos(yaw); 
         if( (abs(pitch_target_pilot)>0) || (abs(roll_target_pilot)>0)||(abs(target_yaw_rate)>0))
             temp_yaw_rate=0;
         else
@@ -194,7 +172,6 @@ switch mode
         if(mode_state~=4)
             mode_state=4;
         end
-        %         calc_nav_pitch();
         calc_nav_roll()
         calc_throttle()
         stabilize()
@@ -210,8 +187,6 @@ switch mode
         end
         update_50hz();
         update_pitch_throttle(  hgt_dem_cm,EAS_dem_cm,aerodynamic_load_factor)
-        %update_loiter( center_WP,   radius,   loiter_direction)
-        %update_waypoint( prev_WP,  next_WP,  dist_min)
         calc_nav_pitch();
         calc_nav_roll()
         calc_throttle()
@@ -251,12 +226,11 @@ switch mode
         output_to_motors_plane_4a1();
     case 7 %copter plane Manual
         if(mode_state~=7)
-            pos_target(3) = curr_alt;
-            vel_desired(3)=0;
             mode_state=7;
-            k_throttle=0;
-            %             attitude_target_quat=from_rotation_matrix(rot_body_to_ned);%20200225
+            SINS.curr_pos(1:2)=[0 0];
             relax_attitude_controllers();
+            init_vel_controller_xyz();
+            SRV_Channel.k_throttle     = 0;
         end
         set_alt_target_from_climb_rate_ff(climb_rate_cms, dt, 0)
         update_z_controller();
@@ -266,19 +240,19 @@ switch mode
         input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate);
         rate_controller_run();
         if(aspeed>aspeed_c2p)
-            nav_pitch_cd=pitch_target;
-            nav_roll_cd=roll_target;
+            Plane.nav_pitch_cd = pitch_target;
+            Plane.nav_roll_cd = roll_target;
             stabilize()
-            k_aileron=k_aileron*p_plane_c2p;
-            k_elevator=k_elevator*p_plane_c2p;
-            k_rudder=k_rudder*p_plane_c2p;
-            yaw_in=constrain_value(yaw_in,-yaw_max_c2p,yaw_max_c2p);
+            SRV_Channel.k_aileron   = SRV_Channel.k_aileron*p_plane_c2p;
+            SRV_Channel.k_elevator  = SRV_Channel.k_elevator*p_plane_c2p;
+            SRV_Channel.k_rudder    = SRV_Channel.k_rudder*p_plane_c2p;
+            AP_Motors.yaw_in        = constrain_value(AP_Motors.yaw_in,-yaw_max_c2p,yaw_max_c2p);
             AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ_c2p;
         else
             AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ;
-            k_aileron=0;
-            k_elevator=0;
-            k_rudder=0;
+            SRV_Channel.k_aileron   = 0;
+            SRV_Channel.k_elevator  = 0;
+            SRV_Channel.k_rudder    = 0;
         end
         calc_throttle();
         AP_MotorsMulticopter_output_4a1();
@@ -324,25 +298,9 @@ end
 
 
 Plane.aerodynamic_load_factor                     = aerodynamic_load_factor;
-Plane.nav_pitch_cd                                = nav_pitch_cd;
-Plane.nav_roll_cd                                 = nav_roll_cd;
-
-AC_PosControl.roll_target                         = roll_target;
-AC_PosControl.pitch_target                        = pitch_target;
-AC_PosControl.target_yaw_rate                     = target_yaw_rate;
 AC_PosControl.pos_target                          = pos_target;
 AC_PosControl.vel_desired                         = vel_desired;
 AP_TECS.hgt_dem                                   = hgt_dem;
-
-AP_Motors.yaw_in                                  = yaw_in;
-
-SRV_Channel.tail_tilt                             = tail_tilt;
-SRV_Channel.k_aileron                             = k_aileron;
-SRV_Channel.k_elevator                            = k_elevator;
-SRV_Channel.k_rudder                              = k_rudder;
-SRV_Channel.k_throttle                            = k_throttle;
-
-
 Copter_Plane.climb_rate_cms                       = climb_rate_cms;
 Copter_Plane.loc_origin                           = loc_origin;
 Copter_Plane.EAS_dem_cm                           = EAS_dem_cm;
@@ -373,8 +331,6 @@ Copter_Plane.disable_AP_rate_roll_gains_D          = disable_AP_rate_roll_gains_
 Copter_Plane.disable_AP_rate_pitch_roll_ff         = disable_AP_rate_pitch_roll_ff;
 Copter_Plane.disable_AP_rate_pitch_gains_D         = disable_AP_rate_pitch_gains_D;
 Copter_Plane.disable_AP_rate_yaw_K_FF              = disable_AP_rate_yaw_K_FF;
-SINS.curr_pos                                      = curr_pos;
-% AC_Attitude.attitude_target_quat                   = [0.5 0.5 0.5 0.5];
 
 end
 

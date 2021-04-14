@@ -1,7 +1,6 @@
 function  calc_nav_roll()
 
  global Plane
- nav_roll_cd    = Plane.nav_roll_cd;
  roll_limit_cd  = Plane.roll_limit_cd;
       commanded_roll = nav_roll_cd1();
 
@@ -12,11 +11,9 @@ function  calc_nav_roll()
 %             commanded_roll = plane.guided_state.forced_rpy_cd.x;
 %     end
 
-    nav_roll_cd = constrain_value(commanded_roll, -roll_limit_cd, roll_limit_cd);
+    Plane.nav_roll_cd = constrain_value(commanded_roll, -roll_limit_cd, roll_limit_cd);
     update_load_factor();
  
- Plane.nav_roll_cd       = nav_roll_cd;
- Plane.roll_limit_cd     = roll_limit_cd;
     
 end
 
