@@ -4,7 +4,6 @@ global dt
 global Plane
 global AC_PosControl
 global AP_Motors
-global AP_TECS
 global AC_rate_pitch_pid
 global AC_rate_roll_pid
 global AC_rate_yaw_pid
@@ -12,8 +11,7 @@ global SRV_Channel
 global Copter_Plane
 global SINS
 
-aerodynamic_load_factor               = Plane.aerodynamic_load_factor;
-hgt_dem                               = AP_TECS.hgt_dem;
+aerodynamic_load_factor                  = Plane.aerodynamic_load_factor;
 climb_rate_cms                           = Copter_Plane.climb_rate_cms;
 loc_origin                               = Copter_Plane.loc_origin;
 EAS_dem_cm                               = Copter_Plane.EAS_dem_cm;
@@ -31,7 +29,6 @@ yaw_max_c2p                              = Copter_Plane.yaw_max_c2p;
 POSCONTROL_ACC_Z_FILT_HZ_c2p             = Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ_c2p;
 POSCONTROL_ACC_Z_FILT_HZ                 = Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ;
 
-inint_hgt                                = Copter_Plane.inint_hgt;
 aspeed_c2p                               = Copter_Plane.aspeed_c2p;
 mode                                     = Copter_Plane.mode;
 roll_target_pilot                        = Copter_Plane.roll_target_pilot;
@@ -105,7 +102,7 @@ switch mode
         if(mode_state~=1)
             mode_state=1;
             relax_attitude_controllers();
-            set_Plane_SRV_to_zero()
+            set_Plane_SRV_to_zero();
         end
         set_throttle_outg( true, AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ);
         roll_target                           = AC_PosControl.roll_target;
@@ -119,7 +116,7 @@ switch mode
             mode_state=2;
             relax_attitude_controllers();
             init_vel_controller_xyz();
-            set_Plane_SRV_to_zero()
+            set_Plane_SRV_to_zero();
         end
         set_alt_target_from_climb_rate_ff(climb_rate_cms, dt, 0)
         update_z_controller();
@@ -136,7 +133,7 @@ switch mode
             SINS.curr_pos(1:2)=[0 0];
             relax_attitude_controllers();
             init_vel_controller_xyz();
-            set_Plane_SRV_to_zero()
+            set_Plane_SRV_to_zero();
         else
             SINS.curr_pos(1:2)=get_vector_xy_from_origin_NE( curr_loc,loc_origin)*100;
         end
@@ -167,12 +164,14 @@ switch mode
     case 5 %Plane TECS
         if(mode_state~=5)
             hgt_dem_cm=height*100;
+            Copter_Plane.hgt_dem_cm = hgt_dem_cm;
             AP_TECS_init();
             mode_state=5;
         else
             hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;
         end
         update_50hz();
+        
         update_pitch_throttle(  hgt_dem_cm,EAS_dem_cm,aerodynamic_load_factor)
         calc_nav_pitch();
         calc_nav_roll()
@@ -183,6 +182,7 @@ switch mode
     case 6 %Plane L1 waypoint
         if(mode_state~=6)
             hgt_dem_cm=height*100;
+            Copter_Plane.hgt_dem_cm = hgt_dem_cm;
             AP_TECS_init();
             mode_state=6;
         else
@@ -240,12 +240,12 @@ switch mode
             SRV_Channel.k_rudder    = 0;
         end
         calc_throttle();
-        AP_MotorsMulticopter_output_4a1();
-        
+        AP_MotorsMulticopter_output_4a1();      
     case 8 %Plane L1 loiter
         if(mode_state~=8)
             mode_state=8;
             hgt_dem_cm=height*100;
+            Copter_Plane.hgt_dem_cm = hgt_dem_cm;
             AP_TECS_init();
             center_WP=curr_loc;
         else
@@ -277,19 +277,15 @@ switch mode
         %         rate_controller_run();
         %         AP_MotorsMulticopter_output();
 end
-
-
-AP_TECS.hgt_dem                                   = hgt_dem;
 Copter_Plane.EAS_dem_cm                           = EAS_dem_cm;
 Copter_Plane.hgt_dem_cm                           = hgt_dem_cm;
-Copter_Plane.center_WP                            = center_WP;
+Copter_Plane.dist_min                             = dist_min;
 Copter_Plane.radius                               = radius;
 Copter_Plane.loiter_direction                     = loiter_direction;
+Copter_Plane.center_WP                            = center_WP;
 Copter_Plane.prev_WP                              = prev_WP;
 Copter_Plane.next_WP                              = next_WP;
-Copter_Plane.dist_min                             = dist_min;
 Copter_Plane.loc                                  = loc;
 Copter_Plane.L1_radius                            = L1_radius;
-Copter_Plane.inint_hgt                            = inint_hgt;
 end
 

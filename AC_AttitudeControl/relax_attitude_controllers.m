@@ -6,6 +6,7 @@ global AC_Attitude
 global AC_rate_roll_pid
 global AC_rate_pitch_pid
 global AC_rate_yaw_pid
+global AC_PosControl
 gyro_x                          = SINS.gyro_x;
 gyro_y                          = SINS.gyro_y;
 gyro_z                          = SINS.gyro_z;
@@ -44,7 +45,7 @@ AC_Attitude.attitude_target_ang_vel         = attitude_target_ang_vel;
 AC_Attitude.attitude_target_euler_rate      = attitude_target_euler_rate;
 AC_Attitude.rate_target_ang_vel             = rate_target_ang_vel;
 AC_Attitude.thrust_error_angle              = thrust_error_angle;
-
+AC_PosControl.target_yaw_rate               = 0;
 
 end
 
