@@ -32,9 +32,9 @@ switch plane_mode
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rho                                                      = 1;
-gyro                                                     = [0 0 0];
-Euler                                                    = [0/HD 0/HD 30/HD];
-
+gyro                                                     = [20/HD -20/HD 0];
+Euler                                                    = [5/HD 5/HD 30/HD];
+velocity                                                 = [0 0 0];
 %
 dt                                                       = 0.005;
 HD                                                       = 180/pi;
@@ -43,20 +43,27 @@ LOCATION_SCALING_FACTOR                                  = 0.011131884502145034;
 LOCATION_SCALING_FACTOR_INV                              = 89.83204953368922;
 plane_mode                                               = ENUM_plane_mode.V10;
 
+SRV_Channel.k_rudder                                     = 0;
+SRV_Channel.k_aileron                                    = 0;
+SRV_Channel.k_elevator                                   = 0;
+SRV_Channel.k_throttle                                   = 0;
+SRV_Channel.k_flap                                       = 0;
+SRV_Channel.tail_tilt                                    = 0;
+SRV_Channel.pwm_tail                                     = 1000;
+SRV_Channel.pwm_out                                      = [1000 1000 1000 1000]+0.0*1000;
+AP_Motors.throttle_in                                    = 0.0                            ;
+AP_Motors.throttle_filter                                = 0.0                            ;
+
+
 Curr_sate.accel_x                                        = 0;
 Curr_sate.accel_y                                        = 0;
 Curr_sate.accel_z                                        = 0;
-Curr_sate.gyro_x                                         = 0;
-Curr_sate.gyro_y                                         = 0;
-Curr_sate.gyro_z                                         = 0;
+[SINS.gyro_x ,SINS.gyro_y ,SINS.gyro_z]                  = deal(gyro(1),gyro(2),gyro(3));
+[Curr_sate.rolld ,Curr_sate.pitchd ,Curr_sate.yawd]      = deal(Euler(1)*HD ,Euler(2)*HD ,Euler(3)*HD);
 Curr_sate.EAS_Algo                                       = 0;
 Curr_sate.EAS2TAS_Algo                                   = 1;
 Curr_sate.curLLA                                         = [0 0 0];
-Curr_sate.pitchd                                         = 0;
-Curr_sate.rolld                                          = 0;
-Curr_sate.yawd                                           = 0;
 Curr_sate.NAV_alt                                        = 0;
-
 Curr_sate.PathModeOut.headingCmd                         = 0;
 Curr_sate.PathModeOut.groundspeedCmd                     = 0;
 Curr_sate.PathModeOut.heightCmd                          = 0;
@@ -71,11 +78,8 @@ Curr_sate.PathModeOut.rollCmd                            = 0;
 SINS.accel_x                                             = 0;
 SINS.accel_y                                             = 0;
 SINS.accel_z                                             = 0;
-SINS.gyro_x                                              = 0;
-SINS.gyro_z                                              = 0;
-SINS.pitch                                               = 0;
-SINS.roll                                                = 0;
-SINS.yaw                                                 = 30/HD;
+[SINS.gyro_x ,SINS.gyro_y ,SINS.gyro_z]                  = deal(0,0,0);
+[SINS.roll ,SINS.pitch ,SINS.yaw]                        = deal(0,0,0);
 SINS.curr_vel                                            = [0 0 0];
 SINS.curr_loc                                            = [0 0];
 SINS.curr_alt                                            = 0 ;
@@ -85,8 +89,6 @@ SINS.groundspeed_vector                                  = [0 0];
 SINS.curr_pos                                            = [0 0];
 SINS.z_accel_meas                                        = 0;
 SINS.rot_body_to_ned                                     = eye(3,3);
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 PathModeOut_sl.headingCmd                                = 10000;
 PathModeOut_sl.groundspeedCmd                            = 0;
@@ -618,7 +620,7 @@ AP_Motors.angle_boost                                    = 0                    
 AP_Motors.roll_in                                        = 0                            ;
 AP_Motors.pitch_in                                       = 0                            ;
 AP_Motors.yaw_in                                         = 0                            ;
-AP_Motors.throttle_in                                    = 0                            ;
+
 AP_Motors.roll_factor                                    = [0 0 0 0]                            ;
 AP_Motors.pitch_factor                                   = [0 0 0 0]                            ;
 AP_Motors.yaw_factor                                     = [0 0 0 0]                            ;
@@ -631,7 +633,6 @@ AP_Motors.thrust_balanced                                = 0;
 AP_Motors.disarm_safe_timer                              = 0;
 AP_Motors.spin_up_ratio                                  = 0;
 AP_Motors.throttle_cutoff_frequency                      = 1;
-AP_Motors.throttle_filter                                = 0;
 AP_Motors.throttle_limit                                 = 1;
 AP_Motors.throttle_avg_max                               = 0;
 AP_Motors.throttle_rpy_mix                               = 0;
@@ -657,11 +658,4 @@ AP_Motors.AC_ATTITUDE_CONTROL_MAX                        = 5;
 AP_Motors.AC_ATTITUDE_CONTROL_ANGLE_LIMIT_THROTTLE_MAX   = 0.8;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-SRV_Channel.k_rudder                                     = 0;
-SRV_Channel.k_aileron                                    = 0;
-SRV_Channel.k_elevator                                   = 0;
-SRV_Channel.k_throttle                                   = 0;
-SRV_Channel.k_flap                                       = 0;
-SRV_Channel.tail_tilt                                    = 0;
-SRV_Channel.pwm_tail                                     = 1000;
-SRV_Channel.pwm_out                                      = [1000 1000 1000 1000];
+

@@ -57,7 +57,9 @@ end
 if isempty(arspeed_temp)
     arspeed_temp = aspeed;
 end
-
+if isempty(inint)
+    inint = 1;
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if(mode==1||mode==2||mode==3||mode==7)%%disable plane I
     Copter_Plane.disable_AP_roll_integrator                 = true;
@@ -80,11 +82,11 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if(mode_state==3||mode_state==9||mode_state==10)
 else
-    AC_PosControl.pid_accel_z.disable_integrator=true;
-    AC_PosControl.pid_vel_xy.disable_integrator=true;
-    AC_rate_pitch_pid.disable_integrator=true;
-    AC_rate_roll_pid.disable_integrator=true;
-    AC_rate_yaw_pid.disable_integrator=true;
+    AC_PosControl.pid_accel_z.disable_integrator  = false;
+    AC_PosControl.pid_vel_xy.disable_integrator   = false;
+    AC_rate_pitch_pid.disable_integrator          = false;
+    AC_rate_roll_pid.disable_integrator           = false;
+    AC_rate_yaw_pid.disable_integrator            = false; 
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

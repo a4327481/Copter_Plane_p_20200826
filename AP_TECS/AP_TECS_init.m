@@ -13,5 +13,5 @@ function  AP_TECS_init()
         AP_TECS.hgt_dem_adj       = Copter_Plane.hgt_dem_cm*0.01;
         AP_TECS.hgt_dem_prev      = Copter_Plane.hgt_dem_cm*0.01;
         AP_TECS.hgt_dem_in_old    = Copter_Plane.hgt_dem_cm*0.01;
-        AP_TECS.TAS_dem_adj       = AP_TECS.EAS_dem * AP_TECS.EAS2TAS;
+        AP_TECS.TAS_dem_adj       = AP_TECS.EAS_dem * SINS.EAS2TAS;
        end

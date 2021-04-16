@@ -93,7 +93,7 @@ kP=p_pos_xy;
 %     % acceleration to correct for velocity error and scale PID output to compensate for optical flow measurement induced EKF noise
 %     accel_target.x = (vel_xy_p.x + vel_xy_i.x + vel_xy_d.x) * ekfNavVelGainScaler;
 %     accel_target.y = (vel_xy_p.y + vel_xy_i.y + vel_xy_d.y) * ekfNavVelGainScaler;
-   accel_target(1:2) = pid_accel_xy_update_all(vel_target(1:2),vehicle_horiz_vel(1:2),(~limit_accel_xy && ~limit_throttle_upper));
+   accel_target(1:2) = pid_accel_xy_update_all(vel_target(1:2),vehicle_horiz_vel(1:2),(limit_accel_xy ||limit_throttle_upper));
     % reset accel to current desired acceleration
     if (flags_reset_accel_to_lean_xy)  
         accel_target_filter(1:2)=accel_target(1:2);
