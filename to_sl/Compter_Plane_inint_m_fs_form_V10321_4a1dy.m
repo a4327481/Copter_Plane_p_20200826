@@ -116,7 +116,7 @@ pianzhuanjiao();
  POSCONTROL_SPEED                       = 300                        ;
  POSCONTROL_ACCEL_XY                    = 100                        ;
  POSCONTROL_ACCEL_Z                     = 100                        ;
- thr_out_min_inint                      = 0.35                        ;       
+ thr_out_min_inint                      = 0.38                       ;       
  pitch_target_p2c                       = 500                        ;
  k_throttle_c2p                         = 0.4                        ;
  throttle_off_rate                      = 0.03                       ;
@@ -132,7 +132,7 @@ pianzhuanjiao();
  thr_out_min_c2p                        = 0.5                        ;   
  heading_hold                           = 0                          ;
  k_flap_TakeOff                         = -3500                      ;
- k_flap_Land                            = 4000                       ;
+ k_flap_Land                            = 4400                       ;
  p_flap_plane                           = 0                            ;
  
     k_flap=0;
