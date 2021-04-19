@@ -129,6 +129,8 @@ global integTHR_state
 global k_flap
 global k_flap_TakeOff
 global k_flap_Land
+global heading_hold
+global HD
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     if isempty(uavMode)
         uavMode = 0;
