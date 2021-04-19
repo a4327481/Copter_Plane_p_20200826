@@ -597,7 +597,7 @@ global k_flap_Land
 
   
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
-            case    ENUM_FlightTaskMode.PathFollowMode               
+            case    {ENUM_FlightTaskMode.PathFollowMode,ENUM_FlightTaskMode.InterestPointMode }
                 if(PathMode~=ENUM_FlightTaskMode.PathFollowMode)
                      PathMode=ENUM_FlightTaskMode.PathFollowMode;
                      uavMode=1;
@@ -609,14 +609,24 @@ global k_flap_Land
                      hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;
                  elseif (PathModeOut_sl.heightCmd-hgt_dem_cm)<-error_pos
                      climb_rate_cms=-PathModeOut_sl.maxClimbSpeed;
-                     hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;                
+                     hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;
                  else
                      climb_rate_cms=0;
                      hgt_dem_cm=PathModeOut_sl.heightCmd;
-                 end                    
+                 end
+                 
+                 if( PathModeOut_sl.flightControlMode==ENUM_FlightControlMode.CircleHoverMode)
+                     center_WP=PathModeOut_sl.turnCenterLL(1:2);
+                     update_loiter( center_WP,   radius,   loiter_direction)
+                 else
                      prev_WP=PathModeOut_sl.prePathPoint_LLA(1:2);
-                     next_WP=PathModeOut_sl.curPathPoint_LLA(1:2);        
-                    update_waypoint( prev_WP,  next_WP,  dist_min)
+                     next_WP=PathModeOut_sl.curPathPoint_LLA(1:2);
+                     if(heading_hold)
+                         update_heading_hold(PathModeOut_sl.headingCmd*HD*100)
+                     else
+                         update_waypoint( prev_WP,  next_WP,  dist_min)
+                     end
+                 end
                     plane_run_4a1();
        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%             
             case    ENUM_FlightTaskMode.GoHomeMode 
