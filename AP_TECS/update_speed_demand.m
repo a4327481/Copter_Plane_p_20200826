@@ -9,7 +9,6 @@ STEdot_max                  = AP_TECS.STEdot_max;
 STEdot_min                  = AP_TECS.STEdot_min;
 TAS_state                   = AP_TECS.TAS_state;
 TAS_dem_adj                 = AP_TECS.TAS_dem_adj;
-TAS_rate_dem                = AP_TECS.TAS_rate_dem;
 
 
     % Set the airspeed demand to the minimum value if an underspeed condition exists

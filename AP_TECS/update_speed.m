@@ -6,9 +6,6 @@ function  update_speed(load_factor)
  
  aspeed              = SINS.aspeed;
  EAS2TAS             = SINS.EAS2TAS;
- TAS_dem             = AP_TECS.TAS_dem;
- TASmax              = AP_TECS.TASmax;
- TASmin              = AP_TECS.TASmin;
  EAS_dem             = AP_TECS.EAS_dem;
  TAS_state           = AP_TECS.TAS_state;
  spdCompFiltOmega    = AP_TECS.spdCompFiltOmega;

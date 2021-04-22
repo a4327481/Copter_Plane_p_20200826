@@ -3,8 +3,6 @@ function  update_STE_rate_lim( )
  global GRAVITY_MSS
  global AP_TECS
  
- STEdot_max              = AP_TECS.STEdot_max;     
- STEdot_min              = AP_TECS.STEdot_min;
  maxClimbRate            = AP_TECS.maxClimbRate;
  minSinkRate             = AP_TECS.minSinkRate;
  
@@ -15,8 +13,6 @@ function  update_STE_rate_lim( )
 	
  AP_TECS.STEdot_max              = STEdot_max;     
  AP_TECS.STEdot_min              = STEdot_min;
- AP_TECS.maxClimbRate            = maxClimbRate;
- AP_TECS.minSinkRate             = minSinkRate;
  
 end
 

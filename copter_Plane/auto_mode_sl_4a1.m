@@ -128,8 +128,8 @@ else
     Copter_Plane.disable_AP_rate_roll_gains_D         = true;
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-switch PathModeOut_sl.flightTaskMode
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+switch PathModeOut_sl.flightTaskMode    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     case    ENUM_FlightTaskMode.TakeOffMode
         if((PathMode==ENUM_FlightTaskMode.GroundStandByMode)&&(TakeOffMode_delay_flag==0))
             TakeOffMode_delay=TakeOffMode_delay+dt;
@@ -176,7 +176,7 @@ switch PathModeOut_sl.flightTaskMode
                 copter_run_4a1();
             end
         end
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     case    ENUM_FlightTaskMode.LandMode
         if(PathMode~=ENUM_FlightTaskMode.LandMode)
             PathMode=ENUM_FlightTaskMode.LandMode;
@@ -197,7 +197,7 @@ switch PathModeOut_sl.flightTaskMode
         else
             copter_run_4a1();
         end
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     case    ENUM_FlightTaskMode.HoverAdjustMode
         if(PathMode~=ENUM_FlightTaskMode.HoverAdjustMode)
             PathMode=ENUM_FlightTaskMode.HoverAdjustMode;
@@ -214,7 +214,7 @@ switch PathModeOut_sl.flightTaskMode
         climb_rate_cms=PathModeOut_sl.maxClimbSpeed;
         set_alt_target_from_climb_rate_ffg(PathModeOut_sl.heightCmd,climb_rate_cms, dt, 0);
         copter_run_4a1();
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     case    ENUM_FlightTaskMode.HoverUpMode
         if(PathMode~=ENUM_FlightTaskMode.HoverUpMode)
             PathMode=ENUM_FlightTaskMode.HoverUpMode;
@@ -238,10 +238,10 @@ switch PathModeOut_sl.flightTaskMode
         center_WP=PathModeOut_sl.turnCenterLL(1:2);
         update_loiter( center_WP,   radius,   loiter_direction)
         plane_run_4a1();
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     case    ENUM_FlightTaskMode.HoverDownMode
-        if(PathMode~=ENUM_FlightTaskMode.HoverUpMode)
-            PathMode=ENUM_FlightTaskMode.HoverUpMode;
+        if(PathMode~=ENUM_FlightTaskMode.HoverDownMode)
+            PathMode=ENUM_FlightTaskMode.HoverDownMode;
             uavMode=1;
             hgt_dem_cm=height*100;
             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
@@ -273,7 +273,7 @@ switch PathModeOut_sl.flightTaskMode
             Copter_Plane.hgt_dem_cm      = hgt_dem_cm;
             plane_run_4a1();
         end
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     case    ENUM_FlightTaskMode.CalibBeforePath
         if(PathMode~=ENUM_FlightTaskMode.CalibBeforePath)
             PathMode=ENUM_FlightTaskMode.CalibBeforePath;
@@ -304,8 +304,8 @@ switch PathModeOut_sl.flightTaskMode
         plane_run_4a1();
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     case    ENUM_FlightTaskMode.AirStandByMode
-        if(PathMode~=ENUM_FlightTaskMode.HoverUpMode)
-            PathMode=ENUM_FlightTaskMode.HoverUpMode;
+        if(PathMode~=ENUM_FlightTaskMode.AirStandByMode)
+            PathMode=ENUM_FlightTaskMode.AirStandByMode;
             uavMode=1;
             hgt_dem_cm=height*100;
             Copter_Plane.hgt_dem_cm = hgt_dem_cm;

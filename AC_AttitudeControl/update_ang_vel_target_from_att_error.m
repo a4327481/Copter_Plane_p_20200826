@@ -19,7 +19,7 @@ function rate_target_ang_velo = update_ang_vel_target_from_att_error(attitude_er
     attitude_error_rot_vec_rad.y=attitude_error_rot_vec_radin(2);
     attitude_error_rot_vec_rad.z=attitude_error_rot_vec_radin(3);
     if (use_sqrt_controller) 
-        rate_target_ang_vel.x = sqrt_controller(attitude_error_rot_vec_rad.x, p_angle_roll, constrain_value(accel_roll_max * 0.01 / 2.0, AC_ATTITUDE_ACCEL_RP_CONTROLLER_MIN_RADSS, AC_ATTITUDE_ACCEL_RP_CONTROLLER_MAX_RADSS), dt);
+        rate_target_ang_vel.x = sqrt_controller(attitude_error_rot_vec_rad.x, p_angle_roll, constrain_value(radians(accel_roll_max * 0.01) / 2.0, AC_ATTITUDE_ACCEL_RP_CONTROLLER_MIN_RADSS, AC_ATTITUDE_ACCEL_RP_CONTROLLER_MAX_RADSS), dt);
      else 
         rate_target_ang_vel.x = p_angle_roll * attitude_error_rot_vec_rad.x;
     end
@@ -27,7 +27,7 @@ function rate_target_ang_velo = update_ang_vel_target_from_att_error(attitude_er
 
      %Compute the pitch angular velocity demand from the pitch angle error
     if (use_sqrt_controller) 
-        rate_target_ang_vel.y = sqrt_controller(attitude_error_rot_vec_rad.y, p_angle_pitch, constrain_value(accel_pitch_max*0.01/ 2.0, AC_ATTITUDE_ACCEL_RP_CONTROLLER_MIN_RADSS, AC_ATTITUDE_ACCEL_RP_CONTROLLER_MAX_RADSS), dt);
+        rate_target_ang_vel.y = sqrt_controller(attitude_error_rot_vec_rad.y, p_angle_pitch, constrain_value(radians(accel_pitch_max*0.01)/ 2.0, AC_ATTITUDE_ACCEL_RP_CONTROLLER_MIN_RADSS, AC_ATTITUDE_ACCEL_RP_CONTROLLER_MAX_RADSS), dt);
      else 
         rate_target_ang_vel.y = p_angle_pitch * attitude_error_rot_vec_rad.y;
     end
@@ -35,7 +35,7 @@ function rate_target_ang_velo = update_ang_vel_target_from_att_error(attitude_er
 
 %      Compute the yaw angular velocity demand from the yaw angle error
     if (use_sqrt_controller) 
-        rate_target_ang_vel.z = sqrt_controller(attitude_error_rot_vec_rad.z, p_angle_yaw, constrain_value(accel_yaw_max*0.01 / 2.0, AC_ATTITUDE_ACCEL_Y_CONTROLLER_MIN_RADSS, AC_ATTITUDE_ACCEL_Y_CONTROLLER_MAX_RADSS), dt);
+        rate_target_ang_vel.z = sqrt_controller(attitude_error_rot_vec_rad.z, p_angle_yaw, constrain_value(radians(accel_yaw_max*0.01) / 2.0, AC_ATTITUDE_ACCEL_Y_CONTROLLER_MIN_RADSS, AC_ATTITUDE_ACCEL_Y_CONTROLLER_MAX_RADSS), dt);
      else 
         rate_target_ang_vel.z = p_angle_yaw * attitude_error_rot_vec_rad.z;
     end

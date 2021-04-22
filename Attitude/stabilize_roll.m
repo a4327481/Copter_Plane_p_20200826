@@ -14,7 +14,6 @@ function  stabilize_roll(  speed_scaler)
  roll                            =SINS.roll;
  inverted_flight                 = Plane.inverted_flight;
  nav_roll_cd                     = Plane.nav_roll_cd;
- k_aileron                       = SRV_Channel.k_aileron;
  disable_AP_roll_integrator         = Copter_Plane.disable_AP_roll_integrator;
  
     if (inverted_flight)  

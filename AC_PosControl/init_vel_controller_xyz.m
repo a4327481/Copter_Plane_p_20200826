@@ -20,8 +20,8 @@ AC_PosControl.pitch_target            =  SINS.pitch*HD*100;
     AC_PosControl.pos_target(1:2)                                = SINS.curr_pos(1:2);
     AC_PosControl.pos_target(3)                                  = SINS.curr_alt;
     % move current vehicle velocity into feed forward velocity
-    AC_PosControl.vel_desired                                    = SINS.curr_vel;
- 
+    AC_PosControl.vel_target                                    = SINS.curr_vel;
+    AC_PosControl.vel_desired                                    = [0 0 0];
     % set vehicle acceleration to zero
     AC_PosControl.accel_desired(1:2)                             = [0 0];
     % initialise ekf reset handlers
