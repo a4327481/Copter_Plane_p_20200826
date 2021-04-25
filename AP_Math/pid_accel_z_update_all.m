@@ -39,11 +39,12 @@ else
     error_last = error;
     target=target + get_filt_alpha(filt_T_hz) * (target_in - target);
     error =error  + get_filt_alpha(filt_E_hz) * ((target - measurement) - error);
-end
-% calculate and filter derivative
-if (dt > 0.0)
-    derivative_in = (error - error_last) / dt;
-    derivative=derivative + get_filt_alpha(filt_D_hz) * (derivative_in - derivative);
+    
+    % calculate and filter derivative
+    if (dt > 0.0)
+        derivative_in = (error - error_last) / dt;
+        derivative=derivative + get_filt_alpha(filt_D_hz) * (derivative_in - derivative);
+    end
 end
 % update I term
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

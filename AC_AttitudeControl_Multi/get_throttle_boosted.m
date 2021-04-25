@@ -19,8 +19,8 @@ global SINS
     % inverted_factor is 1 for tilt angles below 60 degrees
     % inverted_factor reduces from 1 to 0 for tilt angles between 60 and 90 degrees
     cos_tilt = cos(pitch) * cos(roll);
-    inverted_factor = constrain_value(2.0 * cos_tilt, 0.0, 1.0);
-    boost_factor = 1.0 / constrain_value(cos_tilt, 0.5, 1.0);
+    inverted_factor = constrain_value( cos_tilt/0.83, 0.83, 1.0);
+    boost_factor = 1.0 / constrain_value(cos_tilt, 0.83, 1.0);
     
      throttle_out = throttle_in * inverted_factor * boost_factor;
     %%%%g 20200426  add

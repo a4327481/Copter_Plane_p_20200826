@@ -7,7 +7,6 @@ function calc_leash_length_xy()
 speed_cms         =AC_PosControl.speed_cms;
 accel_cms         =AC_PosControl.accel_cms;
 p_pos_xy          =AC_PosControl.p_pos_xy;
-leash             = AC_PosControl.leash;
 %     leash = calc_leash_length(POSCONTROL_SPEED, POSCONTROL_ACCEL_XY,POSCONTROL_POS_XY_P);
 %     if ( recalc_leash_xy)  
 %             leash = calc_leash_length(POSCONTROL_SPEED, POSCONTROL_ACCEL_XY,POSCONTROL_POS_XY_P);

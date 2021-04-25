@@ -43,7 +43,6 @@ vel_last                     = AC_PosControl.vel_last;
 accel_desired               = AC_PosControl.accel_desired;
 pid_accel_z_integrator       = AC_PosControl.pid_accel_z.integrator;
 vel_z_control_ratio          = AC_PosControl.vel_z_control_ratio;
-thr_out_min                   = AC_PosControl.thr_out_min;
 
 limit_pos_up                 = AC_PosControl.limit_pos_up;
 limit_pos_down               = AC_PosControl.limit_pos_down;
@@ -60,6 +59,7 @@ limit_throttle_upper            = AP_Motors.limit_throttle_upper;
 throttle_hover                  = AP_Motors.throttle_hover;
 
 take_off_land                   = Copter_Plane.take_off_land;
+thr_out_min                     = Copter_Plane.thr_out_min;
 
 % clear position limit flags
 limit_pos_up = false;
@@ -167,11 +167,13 @@ if (vibe_comp_enabled)
     thr_per_accelz_cmss = throttle_hover / (GRAVITY_MSS * 100.0);
     % during vibration compensation use feed forward with manually calculated gain
     % ToDo: clear pid_info P, I and D terms for logging
-    if (~(limit_throttle_lower || limit_throttle_upper) || (((pid_accel_z_integrator>0) && (vel_error(3)<0)) || ((pid_accel_z_integrator<0) && (vel_error(3)>0))))
-        pid_accel_z_integrator=pid_accel_z_integrator + dt * thr_per_accelz_cmss * 1000.0 * vel_error(3) * p_vel_z * POSCONTROL_VIBE_COMP_I_GAIN;
-        pid_accel_z_integrator=constrain_value(pid_accel_z_integrator,-pid_accel_z_kimax,pid_accel_z_kimax);
-    end
+%     if (~(limit_throttle_lower || limit_throttle_upper) || (((pid_accel_z_integrator>0) && (vel_error(3)<0)) || ((pid_accel_z_integrator<0) && (vel_error(3)>0))))
+%         pid_accel_z_integrator=pid_accel_z_integrator + dt * thr_per_accelz_cmss * 1000.0 * vel_error(3) * p_vel_z * POSCONTROL_VIBE_COMP_I_GAIN;
+%         pid_accel_z_integrator=constrain_value(pid_accel_z_integrator,-pid_accel_z_kimax,pid_accel_z_kimax);
+%     end
 %     thr_out = POSCONTROL_VIBE_COMP_P_GAIN * thr_per_accelz_cmss * accel_target(3) + pid_accel_z_integrator * 0.001;
+%     AC_PosControl.pid_accel_z.integrator       = pid_accel_z_integrator;
+ 
     thr_out = pid_accel_z_update_all_vibe_comp(accel_target(3), (limit_throttle_lower || limit_throttle_upper))*0.001;
 else
     thr_out = pid_accel_z_update_all(accel_target(3), z_accel_meas, (limit_throttle_lower || limit_throttle_upper)) * 0.001;
@@ -201,7 +203,6 @@ AC_PosControl.vel_error                    = vel_error;
 AC_PosControl.vel_error_filter             = vel_error_filter;
 AC_PosControl.vel_last                     = vel_last;
 AC_PosControl.accel_desired                = accel_desired;
-AC_PosControl.pid_accel_z.integrator       = pid_accel_z_integrator;
 AC_PosControl.vel_z_control_ratio          = vel_z_control_ratio;
 
 AC_PosControl.limit_pos_up                 = limit_pos_up;
@@ -214,6 +215,5 @@ AP_Motors.limit_throttle_upper            = limit_throttle_upper;
 AP_Motors.throttle_hover                  = throttle_hover;
 
 Copter_Plane.take_off_land                     = take_off_land;
-Copter_Plane.thr_out_min                       = thr_out_min;
 end
 

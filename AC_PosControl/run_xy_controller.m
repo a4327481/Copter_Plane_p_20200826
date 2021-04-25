@@ -9,7 +9,6 @@ global SINS
 curr_pos                            = SINS.curr_pos;
 curr_vel                            = SINS.curr_vel;
 p_pos_xy                            = AC_PosControl.p_pos_xy;
-speed_cms                           = AC_PosControl.speed_cms;
 accel_cms                           = AC_PosControl.accel_cms;
 leash                               = AC_PosControl.leash;
 accel_xy_filt_hz                    = AC_PosControl.accel_xy_filt_hz;
@@ -27,8 +26,6 @@ vel_desired                         = AC_PosControl.vel_desired;
 vel_target                          = AC_PosControl.vel_target;
 accel_desired                       = AC_PosControl.accel_desired;
 limit_accel_xy                      = AC_PosControl.limit_accel_xy;
-roll_target                         = AC_PosControl.roll_target;
-pitch_target                        = AC_PosControl.pitch_target;
 limit_throttle_upper                = AP_Motors.limit_throttle_upper; 
 
 kP=p_pos_xy;
