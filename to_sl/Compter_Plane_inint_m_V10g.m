@@ -163,13 +163,13 @@ AC_PosControl.p_pos_z                                    = 1;
 AC_PosControl.p_vel_z                                    = 1;
 AC_PosControl.pid_accel_z.kp                             = 0.9 ;%POSCONTROL_ACC_Z_P
 AC_PosControl.pid_accel_z.ki                             = 0.18;%POSCONTROL_ACC_Z_I
-AC_PosControl.pid_accel_z.kd                             = 0.3 ;%POSCONTROL_ACC_Z_D
+AC_PosControl.pid_accel_z.kd                             = 0.08 ;%POSCONTROL_ACC_Z_D
 AC_PosControl.pid_accel_z.kff                            = 0  ;
 AC_PosControl.pid_accel_z.kimax                          = 200; %POSCONTROL_ACC_Z_IMAX
 AC_PosControl.pid_accel_z.filt_T_hz                      = 20;
 AC_PosControl.pid_accel_z.filt_E_hz                      = 4;   %POSCONTROL_ACC_Z_FILT_HZ
 AC_PosControl.pid_accel_z.filt_D_hz                      = 20;
-AC_PosControl.pid_accel_z.slew_rate_max                  = 0;
+AC_PosControl.pid_accel_z.slew_rate_max                  = 2000;
 AC_PosControl.pid_accel_z.slew_rate_tau                  = 0.1;
 
 AC_PosControl.p_pos_xy                                   = 1.1;
@@ -476,7 +476,9 @@ AC_PosControl.pid_accel_z.derivative                     = 0;
 AC_PosControl.pid_accel_z.slew_amplitude                 = 0;
 AC_PosControl.pid_accel_z.slew_filterg                   = 0;
 AC_PosControl.pid_accel_z.last_sample                    = 0;
-AC_PosControl.pid_accel_z.Dmod                           = 0;
+AC_PosControl.pid_accel_z.pid_info_P                     = 0;
+AC_PosControl.pid_accel_z.pid_info_D                     = 0;
+AC_PosControl.pid_accel_z.Dmod                           = 1;
 
 AP_rate_roll.last_out                                    = 0;
 AP_rate_roll.pid_info_target                             = 0;

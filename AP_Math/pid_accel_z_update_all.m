@@ -24,6 +24,8 @@ slew_amplitude          =AC_PosControl.pid_accel_z.slew_amplitude;
 slew_filter             =AC_PosControl.pid_accel_z.slew_filterg;
 last_sample             =AC_PosControl.pid_accel_z.last_sample;
 Dmod                    =AC_PosControl.pid_accel_z.Dmod;
+pid_info_P                   =AC_PosControl.pid_accel_z.pid_info_P;
+pid_info_D                   =AC_PosControl.pid_accel_z.pid_info_D;
 % don't process inf or NaN
 
 % reset input filter to value received
@@ -63,7 +65,7 @@ D_out = (derivative * kd);
 
 % calculate slew limit modifier for P+D
 %     Dmodg = AC_PosControl.pid_accel_z_modifier(P_out + D_out, dt);
-sample=P_out + D_out;
+sample=(P_out + D_out);
 %   apply filter to sample, returning multiplier between 0 and 1 to keep
 %   output within slew rate
 
@@ -87,8 +89,7 @@ else
     
     % Calculate the gain adjustment
     mod = slew_rate_max / max(slew_amplitude, slew_rate_max);
-    last_sample = mod * sample;
-    
+    last_sample = sample;
     Dmod= mod;
 end
 
@@ -106,6 +107,8 @@ AC_PosControl.pid_accel_z.error_last          = error_last ;
 
 AC_PosControl.pid_accel_z.integrator          = integrator;
 AC_PosControl.pid_accel_z.derivative          = derivative;
+AC_PosControl.pid_accel_z.pid_info_P                     = P_out;
+AC_PosControl.pid_accel_z.pid_info_D                     = D_out;
 AC_PosControl.pid_accel_z.Dmod                = Dmod;
 AC_PosControl.pid_accel_z.slew_amplitude      = slew_amplitude;
 AC_PosControl.pid_accel_z.slew_filterg        = slew_filter;
