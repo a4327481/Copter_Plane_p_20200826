@@ -340,7 +340,7 @@ AC_PosControl.leash                                      = 100;%POSCONTROL_LEASH
 AC_PosControl.leash_down_z                               = 100;%POSCONTROL_LEASH_LENGTH_MIN
 AC_PosControl.leash_up_z                                 = 100;%POSCONTROL_LEASH_LENGTH_MIN
 AC_PosControl.accel_xy_filt_hz                           = 10;%POSCONTROL_ACCEL_FILTER_HZ
-AC_PosControl.vibe_comp_enabled                          = 0;
+AC_PosControl.vibe_comp_enabled                          = 1;
 AC_PosControl.accel_last_z_cms                           = 0;%
 
 AC_PosControl.POSCONTROL_VEL_ERROR_CUTOFF_FREQ           = 1.5;
@@ -387,7 +387,7 @@ AC_rate_roll_pid.derivative                              = 0;
 AC_rate_roll_pid.slew_amplitude                          = 0;
 AC_rate_roll_pid.slew_filterg                            = 0;
 AC_rate_roll_pid.last_sample                             = 0;
-AC_rate_roll_pid.Dmod                                    = 0;
+AC_rate_roll_pid.Dmod                                    = 1;
 
 AC_rate_pitch_pid.flags_reset_filter                     = 1;
 AC_rate_pitch_pid.disable_integrator                     = 0;
@@ -399,7 +399,7 @@ AC_rate_pitch_pid.derivative                             = 0;
 AC_rate_pitch_pid.slew_amplitude                         = 0;
 AC_rate_pitch_pid.slew_filterg                           = 0;
 AC_rate_pitch_pid.last_sample                            = 0;
-AC_rate_pitch_pid.Dmod                                   = 0;
+AC_rate_pitch_pid.Dmod                                   = 1;
 
 AC_rate_yaw_pid.flags_reset_filter                       = 1;
 AC_rate_yaw_pid.disable_integrator                       = 0;
@@ -411,7 +411,7 @@ AC_rate_yaw_pid.derivative                               = 0;
 AC_rate_yaw_pid.slew_amplitude                           = 0;
 AC_rate_yaw_pid.slew_filterg                             = 0;
 AC_rate_yaw_pid.last_sample                              = 0;
-AC_rate_yaw_pid.Dmod                                     = 0;
+AC_rate_yaw_pid.Dmod                                     = 1;
 
 AC_Attitude.thrust_error_angle                           = 0;
 AC_Attitude.rate_target_ang_vel                          = [0 0 0];
