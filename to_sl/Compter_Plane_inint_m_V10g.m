@@ -662,4 +662,24 @@ AP_Motors.limit_throttle_upper                           = false;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+SlewLimiter.pos_event_stored               = false                ;
+SlewLimiter.neg_event_stored               = false                ;
+SlewLimiter.pos_event_index                = 1                 ;
+SlewLimiter.neg_event_index                = 1                 ;
+SlewLimiter.pos_event_ms                   = [0 0]                    ;
+SlewLimiter.neg_event_ms                   = [0 0]                    ;
+SlewLimiter.max_pos_slew_rate              = 0               ;
+SlewLimiter.max_neg_slew_rate              = 0               ;
+SlewLimiter.modifier_slew_rate             = 0              ;
+SlewLimiter.output_slew_rate               = 0                ;
+SlewLimiter.last_sample                    = 0                     ;
+SlewLimiter.slew_filter                    = 0                     ;
+SlewLimiter.N_EVENTS                       = 2                        ;
+SlewLimiter.max_pos_slew_event_ms          = 0           ;
+SlewLimiter.max_neg_slew_event_ms          = 0           ;
+SlewLimiter.MODIFIER_GAIN                  = 1.5                   ;
+SlewLimiter.WINDOW_MS                      = 100                       ;
+SlewLimiter.DERIVATIVE_CUTOFF_FREQ         = 25          ;
+SlewLimiter.slew_rate_max                  = 3000                   ;
+SlewLimiter.slew_rate_tau                  = 0.3                   ;
 
