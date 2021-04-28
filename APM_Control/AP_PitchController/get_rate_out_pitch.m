@@ -73,7 +73,7 @@ pitch                    =SINS.pitch  ;
         end
         ki_rate = k_I * gains_tau;
         %only integrate if gain and time step are positive and airspeed above min value.
-        if (dt > 0 && aspeed > 0.5*airspeed_min)
+        if (dt > 0 && aspeed > (airspeed_min-2))
             integrator_delta = rate_error * ki_rate * delta_time * scaler;
             if (last_out < -45)
                 % prevent the integrator from increasing if surface defln demand is above the upper limit

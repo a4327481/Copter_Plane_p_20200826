@@ -5,7 +5,6 @@ function run_z_controller()
 %  vel_up_max, vel_down_max should have already been set before calling this method
 
 global dt
-global GRAVITY_MSS
 global AC_PosControl
 global AP_Motors
 global Copter_Plane
@@ -17,7 +16,6 @@ z_accel_meas                 = SINS.z_accel_meas;
 
 p_pos_z                      = AC_PosControl.p_pos_z;
 p_vel_z                      = AC_PosControl.p_vel_z;
-pid_accel_z_kimax            = AC_PosControl.pid_accel_z.kimax;
 speed_down_cms               = AC_PosControl.speed_down_cms;
 speed_up_cms                 = AC_PosControl.speed_up_cms;
 accel_z_cms                  = AC_PosControl.accel_z_cms;
@@ -41,16 +39,8 @@ vel_error_filter             = AC_PosControl.vel_error_filter;
 vel_error                    = AC_PosControl.vel_error;
 vel_last                     = AC_PosControl.vel_last;
 accel_desired               = AC_PosControl.accel_desired;
-pid_accel_z_integrator       = AC_PosControl.pid_accel_z.integrator;
 vel_z_control_ratio          = AC_PosControl.vel_z_control_ratio;
 
-limit_pos_up                 = AC_PosControl.limit_pos_up;
-limit_pos_down               = AC_PosControl.limit_pos_down;
-limit_vel_up                 = AC_PosControl.limit_vel_up;
-limit_vel_down               = AC_PosControl.limit_vel_down;
-
-POSCONTROL_VIBE_COMP_I_GAIN        = AC_PosControl.POSCONTROL_VIBE_COMP_I_GAIN;
-POSCONTROL_VIBE_COMP_P_GAIN        = AC_PosControl.POSCONTROL_VIBE_COMP_P_GAIN;
 POSCONTROL_THROTTLE_CUTOFF_FREQ    = AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ;
 POSCONTROL_VEL_ERROR_CUTOFF_FREQ   = AC_PosControl.POSCONTROL_VEL_ERROR_CUTOFF_FREQ;
 
@@ -97,11 +87,6 @@ if (vel_target(3) > speed_up_cms)
     limit_vel_up = true;
 end
 
-
-% add feed forward component
-%     if (flags_use_desvel_ff_z)
-%         vel_target(3)=vel_target(3)+ vel_desired(3);
-%     end
 if(take_off_land)
     vel_target(3) =vel_desired(3);
 else
@@ -116,17 +101,6 @@ if (flags_reset_rate_to_accel_z)
     vel_last(3) = vel_target(3);
 end
 
-% feed forward desired acceleration calculation
-% if (dt > 0.0)
-%     if (~flags_freeze_ff_z)
-%         accel_desired(3) = (vel_target(3) - vel_last(3)) / dt;
-%     else
-%         % stop the feed forward being calculated during a known discontinuity
-%         flags_freeze_ff_z = false;
-%     end
-% else
-%     accel_desired(3) = 0.0;
-% end
 accel_desired(3) = 0.0;
 % store this iteration's velocities for the next iteration
 vel_last(3) = vel_target(3);
@@ -150,33 +124,14 @@ accel_target(3) = p_vel_z*vel_error(3);
 accel_target(3) =accel_target(3)+accel_desired(3);
 
 
-% the following section calculates a desired throttle needed to achieve the acceleration target
-%       z_accel_meas;         % actual acceleration
-
-% Calculate Earth Frame Z acceleration
-%     z_accel_meas = -(_ahrs.get_accel_ef_blended().z + GRAVITY_MSS) * 100.0f;
-
-% ensure imax is always large enough to overpower hover throttle
-%     if (throttle_hover * 1000.0 > pid_accel_z_kimax)
-%         pid_accel_z_kimax=throttle_hover * 1000.0;
-%     end
-
 if (vibe_comp_enabled)
     flags_freeze_ff_z = true;
     accel_desired(3) = 0.0;
-    thr_per_accelz_cmss = throttle_hover / (GRAVITY_MSS * 100.0);
-    % during vibration compensation use feed forward with manually calculated gain
-    % ToDo: clear pid_info P, I and D terms for logging
-%     if (~(limit_throttle_lower || limit_throttle_upper) || (((pid_accel_z_integrator>0) && (vel_error(3)<0)) || ((pid_accel_z_integrator<0) && (vel_error(3)>0))))
-%         pid_accel_z_integrator=pid_accel_z_integrator + dt * thr_per_accelz_cmss * 1000.0 * vel_error(3) * p_vel_z * POSCONTROL_VIBE_COMP_I_GAIN;
-%         pid_accel_z_integrator=constrain_value(pid_accel_z_integrator,-pid_accel_z_kimax,pid_accel_z_kimax);
-%     end
-%     thr_out = POSCONTROL_VIBE_COMP_P_GAIN * thr_per_accelz_cmss * accel_target(3) + pid_accel_z_integrator * 0.001;
-%     AC_PosControl.pid_accel_z.integrator       = pid_accel_z_integrator;
- 
-    thr_out = pid_accel_z_update_all_vibe_comp(accel_target(3), (limit_throttle_lower || limit_throttle_upper))*0.001;
+    [thr_out,AC_PosControl] = AC_PID_update_error(accel_target(3), (limit_throttle_lower || limit_throttle_upper),AC_PosControl);
+    thr_out                 = thr_out*0.001;
 else
-    thr_out = pid_accel_z_update_all(accel_target(3), z_accel_meas, (limit_throttle_lower || limit_throttle_upper)) * 0.001;
+    [thr_out,AC_PosControl] = AC_PID_update_all(accel_target(3), z_accel_meas, (limit_throttle_lower || limit_throttle_upper),AC_PosControl) ;
+     thr_out =(AC_PosControl.kff*accel_target(3)+thr_out)*0.001;
 end
 thr_out =thr_out+ throttle_hover;
 thr_out=constrain_value(thr_out,thr_out_min,1);
