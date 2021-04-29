@@ -31,9 +31,11 @@ POSCONTROL_ACC_Z_FILT_HZ_c2p             = Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ
 POSCONTROL_ACC_Z_FILT_HZ                 = Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ;
 aspeed_c2p                               = Copter_Plane.aspeed_c2p;
 Mode                                     = Copter_Plane.Mode;
+State                                    = Copter_Plane.State;
 roll_target_pilot                        = Copter_Plane.roll_target_pilot;
 pitch_target_pilot                       = Copter_Plane.pitch_target_pilot;
 arspeed_filt                             = Copter_Plane.arspeed_filt;
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 height                                = SINS.curr_alt/100;
 aspeed                                = SINS.aspeed;
@@ -74,7 +76,7 @@ if(inint)
     end   
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-if(Mode==ENUM_Mode.Copter_STABILIZE||Mode==ENUM_Mode.Copter_ALT_HOLD||Mode==ENUM_Mode.Copter_POS_HOLD||Mode==ENUM_Mode.Copter_Plane_MANUAL)%%disable plane I
+if(State == ENUM_State.Copter)%%disable plane I
     Copter_Plane.disable_AP_roll_integrator                 = true;
     Copter_Plane.disable_AP_pitch_integrator                = true;
     Copter_Plane.disable_AP_yaw_integrator                  = true;
@@ -106,10 +108,10 @@ updata_cl();
 arspeed_temp=arspeed_temp+(aspeed-arspeed_temp)* get_filt_alpha(arspeed_filt);
 aspeed=arspeed_temp;
 switch Mode
-    
     case ENUM_Mode.Copter_STABILIZE %copter Stabilize
         if(Mode_State~=ENUM_Mode.Copter_STABILIZE)
             Mode_State=ENUM_Mode.Copter_STABILIZE;
+            Copter_Plane.State = ENUM_State.Copter;
             relax_attitude_controllers();
             set_Plane_SRV_to_zero();
         end
@@ -123,6 +125,7 @@ switch Mode
     case ENUM_Mode.Copter_ALT_HOLD %copter althold
         if(Mode_State~=ENUM_Mode.Copter_ALT_HOLD)
             Mode_State=ENUM_Mode.Copter_ALT_HOLD;
+            Copter_Plane.State = ENUM_State.Copter;
             relax_attitude_controllers();
             init_vel_controller_xyz();
             set_Plane_SRV_to_zero();
@@ -138,6 +141,7 @@ switch Mode
     case ENUM_Mode.Copter_POS_HOLD %copter xyz
         if(Mode_State~=ENUM_Mode.Copter_POS_HOLD)
             Mode_State=ENUM_Mode.Copter_POS_HOLD;
+            Copter_Plane.State = ENUM_State.Copter;
             Copter_Plane.loc_origin=curr_loc;
             SINS.curr_pos(1:2)=[0 0];
             relax_attitude_controllers();
@@ -165,6 +169,7 @@ switch Mode
     case ENUM_Mode.Plane_STABILIZE %Plane Stabilize
         if(Mode_State~=ENUM_Mode.Plane_STABILIZE)
             Mode_State=ENUM_Mode.Plane_STABILIZE;
+            Copter_Plane.State = ENUM_State.Plane;
         end
         calc_nav_roll()
         calc_throttle()
@@ -172,7 +177,8 @@ switch Mode
         output_to_motors_plane_4a1();
     case ENUM_Mode.Plane_TECS %Plane TECS
         if(Mode_State~=ENUM_Mode.Plane_TECS)
-            Mode_State=ENUM_Mode.Plane_TECS;                      
+            Mode_State=ENUM_Mode.Plane_TECS;
+            Copter_Plane.State = ENUM_State.Plane;
             hgt_dem_cm=height*100;
             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
             AP_TECS_init();
@@ -190,6 +196,7 @@ switch Mode
     case ENUM_Mode.Plane_L1_WAYPOINT %Plane L1 waypoint
         if(Mode_State~=ENUM_Mode.Plane_L1_WAYPOINT)
             Mode_State=ENUM_Mode.Plane_L1_WAYPOINT;
+            Copter_Plane.State = ENUM_State.Plane;
             hgt_dem_cm=height*100;
             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
             AP_TECS_init();
@@ -218,6 +225,7 @@ switch Mode
     case ENUM_Mode.Copter_Plane_MANUAL %copter plane Manual
         if(Mode_State~=ENUM_Mode.Copter_Plane_MANUAL)
             Mode_State=ENUM_Mode.Copter_Plane_MANUAL;
+            Copter_Plane.State = ENUM_State.Copter;
             SINS.curr_pos(1:2)=[0 0];
             relax_attitude_controllers();
             init_vel_controller_xyz();
@@ -250,6 +258,7 @@ switch Mode
     case ENUM_Mode.Plane_L1_LOITER %Plane L1 loiter
         if(Mode_State~=ENUM_Mode.Plane_L1_LOITER)
             Mode_State=ENUM_Mode.Plane_L1_LOITER;
+            Copter_Plane.State = ENUM_State.Plane;
             hgt_dem_cm=height*100;
             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
             AP_TECS_init();

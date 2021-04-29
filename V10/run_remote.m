@@ -1,7 +1,4 @@
 function  run_remote()
-
-
-
 global algo_remote_ct_st
 global AP_Motors
 global AC_PosControl
@@ -55,23 +52,23 @@ dead=0.05;
             pitch_target_pilot=-algo_remote_ct_st.pitch*5000;
             target_yaw_rate=algo_remote_ct_st.yaw*20000;          
             climb_rate_cms = deadzonef(algo_remote_ct_st.throttle-0.5,dead,0.5)*800;            
-        case 4
+        case ENUM_Mode.Plane_STABILIZE
             latAccDem=algo_remote_ct_st.roll*9.8;
             nav_pitch_cd=algo_remote_ct_st.pitch*2000;
             throttle_dem=algo_remote_ct_st.throttle;
-        case 5
+        case ENUM_Mode.Plane_TECS
             latAccDem=algo_remote_ct_st.roll*9.8;
             climb_rate_cms=algo_remote_ct_st.pitch*600;
-        case 6
+        case ENUM_Mode.Plane_L1_WAYPOINT
             climb_rate_cms=algo_remote_ct_st.pitch*600;
-        case 7
+        case ENUM_Mode.Copter_Plane_MANUAL
             roll_target=algo_remote_ct_st.roll*4500;
             pitch_target=algo_remote_ct_st.pitch*4500;
             target_yaw_rate=algo_remote_ct_st.yaw*20000;
             climb_rate_cms = deadzonef(algo_remote_ct_st.throttle-0.5,dead,0.5)*800;                      
             tail_tilt=algo_remote_ct_st.tail_anglein;
             pwm_tail=algo_remote_ct_st.tail_throttle_pwm;
-        case 8
+        case ENUM_Mode.Plane_L1_LOITER
             climb_rate_cms=algo_remote_ct_st.pitch*600;
     end
     

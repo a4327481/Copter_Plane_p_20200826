@@ -1,6 +1,5 @@
 classdef ENUM_AutoModeType < Simulink.IntEnumType
-    %UNTITLED 此处显示有关此类的摘要
-    %   此处显示详细说明
+
     enumeration
         NotAutoMode (0),
         AutoProfile (1),      
