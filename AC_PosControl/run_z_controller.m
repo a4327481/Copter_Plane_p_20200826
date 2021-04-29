@@ -127,11 +127,11 @@ accel_target(3) =accel_target(3)+accel_desired(3);
 if (vibe_comp_enabled)
     flags_freeze_ff_z = true;
     accel_desired(3) = 0.0;
-    [thr_out,AC_PosControl] = AC_PID_update_error(accel_target(3), (limit_throttle_lower || limit_throttle_upper),AC_PosControl);
+    [thr_out,AC_PosControl.pid_accel_z] = AC_PID_update_error(accel_target(3), (limit_throttle_lower || limit_throttle_upper),AC_PosControl.pid_accel_z);
     thr_out                 = thr_out*0.001;
 else
-    [thr_out,AC_PosControl] = AC_PID_update_all(accel_target(3), z_accel_meas, (limit_throttle_lower || limit_throttle_upper),AC_PosControl) ;
-     thr_out =(AC_PosControl.kff*accel_target(3)+thr_out)*0.001;
+    [thr_out,AC_PosControl.pid_accel_z] = AC_PID_update_all(accel_target(3), z_accel_meas, (limit_throttle_lower || limit_throttle_upper),AC_PosControl.pid_accel_z) ;
+     thr_out =(AC_PosControl.pid_accel_z.kff*accel_target(3)+thr_out)*0.001;
 end
 thr_out =thr_out+ throttle_hover;
 thr_out=constrain_value(thr_out,thr_out_min,1);

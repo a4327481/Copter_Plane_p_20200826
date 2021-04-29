@@ -6,6 +6,8 @@ global Copter_Plane
 global SRV_Channel 
 
 mode                      = Copter_Plane.mode; 
+p_tail_tilt               = Copter_Plane.p_tail_tilt;
+tail_tilt_c2p             = Copter_Plane.tail_tilt_c2p;
 pwm_out                   = SRV_Channel.pwm_out;
 tail_tilt                 = SRV_Channel.tail_tilt;
 
@@ -13,8 +15,7 @@ thrust_rpyt_out           = AP_Motors.thrust_rpyt_out;
 pwm_max                   = AP_Motors.pwm_max;
 pwm_min                   = AP_Motors.pwm_min;
 thrust_slew_time          = AP_Motors.thrust_slew_time;
-p_tail_tilt               = AP_Motors.p_tail_tilt;
-tail_tilt_c2p             = AP_Motors.tail_tilt_c2p;
+
 
 
     % convert output to PWM and send to each motor
@@ -40,8 +41,6 @@ AP_Motors.thrust_rpyt_out           = thrust_rpyt_out;
 AP_Motors.pwm_max                   = pwm_max;
 AP_Motors.pwm_min                   = pwm_min;
 AP_Motors.thrust_slew_time          = thrust_slew_time;
-AP_Motors.p_tail_tilt               = p_tail_tilt;
-AP_Motors.tail_tilt_c2p             = tail_tilt_c2p;
 
 SRV_Channel.pwm_out                  = pwm_out;
 SRV_Channel.tail_tilt                 = tail_tilt;

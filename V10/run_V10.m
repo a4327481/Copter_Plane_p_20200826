@@ -10,6 +10,7 @@ global AC_rate_yaw_pid
 global SRV_Channel
 global Copter_Plane
 global SINS
+global plane_mode
 
 aerodynamic_load_factor                  = Plane.aerodynamic_load_factor;
 climb_rate_cms                           = Copter_Plane.climb_rate_cms;
@@ -28,7 +29,6 @@ p_plane_c2p                              = Copter_Plane.p_plane_c2p;
 yaw_max_c2p                              = Copter_Plane.yaw_max_c2p;
 POSCONTROL_ACC_Z_FILT_HZ_c2p             = Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ_c2p;
 POSCONTROL_ACC_Z_FILT_HZ                 = Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ;
-
 aspeed_c2p                               = Copter_Plane.aspeed_c2p;
 mode                                     = Copter_Plane.mode;
 roll_target_pilot                        = Copter_Plane.roll_target_pilot;
@@ -39,8 +39,7 @@ height                                = SINS.curr_alt/100;
 aspeed                                = SINS.aspeed;
 yaw                                   = SINS.yaw;
 curr_loc                              = SINS.curr_loc;
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% quad _4a1
+%%%%%%%%%%%%%%%%% quad _4a1
 persistent mode_state
 persistent WP_i
 persistent arspeed_temp
@@ -60,6 +59,20 @@ end
 if isempty(inint)
     inint = 1;
 end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+if(inint)
+    switch plane_mode
+        case {ENUM_plane_mode.V10 ,ENUM_plane_mode.V10_1}
+            setup_motors_4a1() ;
+            inint=0;
+        case ENUM_plane_mode.V10s
+            setup_motors() ;
+            inint=0;
+        otherwise
+            setup_motors_4a1() ;
+            inint=0;
+    end   
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if(mode==1||mode==2||mode==3||mode==7)%%disable plane I
     Copter_Plane.disable_AP_roll_integrator                 = true;
@@ -78,7 +91,6 @@ else
     Copter_Plane.disable_AP_rate_yaw_K_FF                   = false;
     Copter_Plane.disable_AP_rate_pitch_roll_ff              = false;
 end
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if(mode_state==3||mode_state==9||mode_state==10)
 else
@@ -87,12 +99,6 @@ else
     AC_rate_pitch_pid.disable_integrator          = false;
     AC_rate_roll_pid.disable_integrator           = false;
     AC_rate_yaw_pid.disable_integrator            = false; 
-end
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-if(inint)
-    setup_motors_4a1() ;
-    inint=0;
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% mode 1 :copter Stabilize,2:copter althold ,3:copter poshold,4:Plane Stabilize 5:Plane TECS; 6：Plane L1
@@ -190,8 +196,6 @@ switch mode
         else
             hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;
         end
-        %         prev_WP=loc(WP_i,2:3);
-        %         next_WP=loc(WP_i+1,2:3);
         prev_WP=[loc.lat(WP_i) loc.lon(WP_i)];
         next_WP=[loc.lat(WP_i+1) loc.lon(WP_i+1)];
         AB = get_distance_NE(next_WP,curr_loc);
@@ -273,11 +277,6 @@ switch mode
         auto_mode_sl_4a1();
     otherwise
         mode_state=mode;
-        %copter Stabilize
-        %         set_throttle_out(throttle_in, 1, POSCONTROL_THROTTLE_CUTOFF_FREQ);
-        %         input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate);
-        %         rate_controller_run();
-        %         AP_MotorsMulticopter_output();
 end
 Copter_Plane.EAS_dem_cm                           = EAS_dem_cm;
 Copter_Plane.hgt_dem_cm                           = hgt_dem_cm;

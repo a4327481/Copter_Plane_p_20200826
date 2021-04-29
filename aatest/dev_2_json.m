@@ -27,7 +27,7 @@ opts = setvaropts(opts, ["name", "Var"], "WhitespaceRule", "preserve");
 opts = setvaropts(opts, ["name", "Var"], "EmptyFieldRule", "auto");
 
 % 导入数据
-datadev1 = readtable("D:\matlab_code\Copter_Plane_p_20200826\aatest\data_devg2.m", opts);
+datadev1 = readtable("D:\matlab_code\Copter_Plane_p_20200826\aatest\data_devg3.m", opts);
 
 %% 转换为输出类型
 datadev1 = table2cell(datadev1);
@@ -38,11 +38,13 @@ datadev1(numIdx) = cellfun(@(x) {str2double(x)}, datadev1(numIdx));
 clear opts
 len=size(datadev1,1);
 out=[];
+lenj=zeros(len,1);
 for i=1:len
 %     out.ParamDriver{1, i}.index     =i;
 %     out.ParamDriver{1, i}.nameFull  =datadev1{i, 1}  ;
     out.ParamDriver{1, i}.n      =datadev1{i, 3}  ;
     out.ParamDriver{1, i}.v     =datadev1{i, 2}  ;
+    lenj(i)                     =length(datadev1{i, 3});
 end
 savejson('',out,'ParamDriver.json');
 out=[];
@@ -53,3 +55,4 @@ for i=1:len
 %     out.ParamDriver{1, i}.value     =datadev1{i, 2}  ;
 end
 savejson('',out,'ParamDriver_Full.json');
+plot(lenj)

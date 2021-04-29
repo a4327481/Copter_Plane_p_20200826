@@ -1,28 +1,28 @@
-function output=AC_PID_update_error(  error_in, limit,AC_PID)
+function [output ,AC_PID] =AC_PID_update_error(  error_in, limit,AC_PID)
 global dt
 
-kp                      =AC_PID.pid_accel_z.kp;
-ki                      =AC_PID.pid_accel_z.ki;
-kd                      =AC_PID.pid_accel_z.kd;
-kff                     =AC_PID.pid_accel_z.kff;
-kimax                   =AC_PID.pid_accel_z.kimax;
-filt_T_hz               =AC_PID.pid_accel_z.filt_T_hz;
-filt_E_hz               =AC_PID.pid_accel_z.filt_E_hz;
-filt_D_hz               =AC_PID.pid_accel_z.filt_D_hz;
-slew_rate_max           =AC_PID.pid_accel_z.slew_rate_max;
-slew_rate_tau           =AC_PID.pid_accel_z.slew_rate_tau;
+kp                      =AC_PID.kp;
+ki                      =AC_PID.ki;
+kd                      =AC_PID.kd;
+kff                     =AC_PID.kff;
+kimax                   =AC_PID.kimax;
+filt_T_hz               =AC_PID.filt_T_hz;
+filt_E_hz               =AC_PID.filt_E_hz;
+filt_D_hz               =AC_PID.filt_D_hz;
+slew_rate_max           =AC_PID.slew_rate_max;
+slew_rate_tau           =AC_PID.slew_rate_tau;
 
-flags_reset_filter      =AC_PID.pid_accel_z.flags_reset_filter;
-disable_integrator      =AC_PID.pid_accel_z.disable_integrator;
-target                  =AC_PID.pid_accel_z.target;
-error                   =AC_PID.pid_accel_z.error;
-error_last              =AC_PID.pid_accel_z.error_last;
-integrator              =AC_PID.pid_accel_z.integrator;
-derivative              =AC_PID.pid_accel_z.derivative;
-slew_amplitude          =AC_PID.pid_accel_z.slew_amplitude;
-slew_filter             =AC_PID.pid_accel_z.slew_filterg;
-last_sample             =AC_PID.pid_accel_z.last_sample;
-Dmod                    =AC_PID.pid_accel_z.Dmod;
+flags_reset_filter      =AC_PID.flags_reset_filter;
+disable_integrator      =AC_PID.disable_integrator;
+target                  =AC_PID.target;
+error                   =AC_PID.error;
+error_last              =AC_PID.error_last;
+integrator              =AC_PID.integrator;
+derivative              =AC_PID.derivative;
+slew_amplitude          =AC_PID.slew_amplitude;
+slew_filter             =AC_PID.slew_filterg;
+last_sample             =AC_PID.last_sample;
+Dmod                    =AC_PID.Dmod;
 
 
 
@@ -103,17 +103,17 @@ end
     
     output=P_out + integrator + D_out;
 
-AC_PID.pid_accel_z.flags_reset_filter  = flags_reset_filter;
-AC_PID.pid_accel_z.disable_integrator  = disable_integrator;
-AC_PID.pid_accel_z.target              = target;
-AC_PID.pid_accel_z.error               = error;
-AC_PID.pid_accel_z.error_last          = error_last ;
+AC_PID.flags_reset_filter  = flags_reset_filter;
+AC_PID.disable_integrator  = disable_integrator;
+AC_PID.target              = target;
+AC_PID.error               = error;
+AC_PID.error_last          = error_last ;
 
-AC_PID.pid_accel_z.integrator          = integrator;
-AC_PID.pid_accel_z.derivative          = derivative;
-AC_PID.pid_accel_z.Dmod                = Dmod;
-AC_PID.pid_accel_z.slew_amplitude      = slew_amplitude;
-AC_PID.pid_accel_z.slew_filterg        = slew_filter;
-AC_PID.pid_accel_z.last_sample         = last_sample;
+AC_PID.integrator          = integrator;
+AC_PID.derivative          = derivative;
+AC_PID.Dmod                = Dmod;
+AC_PID.slew_amplitude      = slew_amplitude;
+AC_PID.slew_filterg        = slew_filter;
+AC_PID.last_sample         = last_sample;
 end
 
