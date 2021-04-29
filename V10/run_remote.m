@@ -21,36 +21,36 @@ throttle_dem                          = AP_TECS.throttle_dem;
 tail_tilt                             = SRV_Channel.tail_tilt; 
 pwm_tail                              = SRV_Channel.pwm_tail;
 
-mode                                  = Copter_Plane.mode;
+Mode                                  = Copter_Plane.Mode;
 climb_rate_cms                        = Copter_Plane.climb_rate_cms;
 roll_target_pilot                     = Copter_Plane.roll_target_pilot;
 pitch_target_pilot                    = Copter_Plane.pitch_target_pilot;
 
 dead=0.05;
-            if(algo_remote_ct_st.isRemoteConnected||algo_remote_ct_st.mode==9||algo_remote_ct_st.mode==10)
-                mode=algo_remote_ct_st.mode;
+            if(algo_remote_ct_st.isRemoteConnected||algo_remote_ct_st.Mode==ENUM_Mode.AUTO_TEST||algo_remote_ct_st.Mode==ENUM_Mode.AUTO)
+                Mode=algo_remote_ct_st.Mode;
             else
-                if(algo_remote_ct_st.mode==1||algo_remote_ct_st.mode==2||algo_remote_ct_st.mode==3||algo_remote_ct_st.mode==7)
-                    mode=3;
-                elseif((algo_remote_ct_st.mode==0||algo_remote_ct_st.mode==4||algo_remote_ct_st.mode==5||algo_remote_ct_st.mode==6||algo_remote_ct_st.mode==8))
-                    mode=8;
+                if(algo_remote_ct_st.Mode==ENUM_Mode.Copter_STABILIZE||algo_remote_ct_st.Mode==ENUM_Mode.Copter_ALT_HOLD||algo_remote_ct_st.Mode==ENUM_Mode.Copter_POS_HOLD||algo_remote_ct_st.Mode==ENUM_Mode.Copter_Plane_MANUAL)
+                    Mode=ENUM_Mode.Copter_POS_HOLD;
+                elseif((algo_remote_ct_st.Mode==ENUM_Mode.MANUAL||algo_remote_ct_st.Mode==ENUM_Mode.Plane_STABILIZE||algo_remote_ct_st.Mode==ENUM_Mode.Plane_TECS||algo_remote_ct_st.Mode==ENUM_Mode.Plane_L1_WAYPOINT||algo_remote_ct_st.Mode==ENUM_Mode.Plane_L1_LOITER))
+                    Mode=ENUM_Mode.Plane_L1_LOITER;
                 end               
             end
             algo_remote_ct_st.roll = deadzonef(algo_remote_ct_st.roll,dead,1);
             algo_remote_ct_st.pitch = deadzonef(algo_remote_ct_st.pitch,dead,1);
             algo_remote_ct_st.yaw = deadzonef(algo_remote_ct_st.yaw,dead,1);   
-    switch mode
-        case 1
+    switch Mode
+        case ENUM_Mode.Copter_STABILIZE
             roll_target=algo_remote_ct_st.roll*4500;
             pitch_target=algo_remote_ct_st.pitch*4500;
             target_yaw_rate=algo_remote_ct_st.yaw*20000;
             throttle_in=algo_remote_ct_st.throttle;              
-        case 2
+        case ENUM_Mode.Copter_ALT_HOLD
             roll_target=algo_remote_ct_st.roll*4500;
             pitch_target=algo_remote_ct_st.pitch*4500;
             target_yaw_rate=algo_remote_ct_st.yaw*20000;
             climb_rate_cms = deadzonef(algo_remote_ct_st.throttle-0.5,dead,0.5)*800;            
-        case 3
+        case ENUM_Mode.Copter_POS_HOLD
             roll_target_pilot=algo_remote_ct_st.roll*5000;
             pitch_target_pilot=-algo_remote_ct_st.pitch*5000;
             target_yaw_rate=algo_remote_ct_st.yaw*20000;          
@@ -84,7 +84,7 @@ AP_L1.latAccDem                                     = latAccDem;
 AP_TECS.throttle_dem                                = throttle_dem;       
 SRV_Channel.tail_tilt                               = tail_tilt; 
 SRV_Channel.pwm_tail                                = pwm_tail;
-Copter_Plane.mode                                   = mode;
+Copter_Plane.Mode                                   = Mode;
 Copter_Plane.climb_rate_cms                         = climb_rate_cms;
 Copter_Plane.roll_target_pilot                      = roll_target_pilot;
 Copter_Plane.pitch_target_pilot                     = pitch_target_pilot;	

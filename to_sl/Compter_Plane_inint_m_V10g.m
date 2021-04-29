@@ -40,7 +40,7 @@ position                                                 = [0 0 -100];
 dt                                                       = 0.005;
 HD                                                       = 180/pi;
 GRAVITY_MSS                                              = 9.80665;
-LOCATION_SCALING_FACTOR                                  = 0.011131884502145034;% 1e-7*地球半径/HD
+LOCATION_SCALING_FACTOR                                  = 0.011131884502145034;% 1e-7*鍦扮悆鍗婂緞/HD
 LOCATION_SCALING_FACTOR_INV                              = 89.83204953368922;
 plane_mode                                               = ENUM_plane_mode.V10;
 
@@ -106,7 +106,7 @@ PathModeOut_sl.prePathPoint_LLA                          = [0 0 0];
 PathModeOut_sl.curPathPoint_LLA                          = [0 0 0];
 
 algo_remote_ct_st.isRemoteConnected                      = 1;
-algo_remote_ct_st.mode                                   = 0;
+algo_remote_ct_st.Mode                                   = 0;
 algo_remote_ct_st.roll                                   = 0;
 algo_remote_ct_st.pitch                                  = 0;
 algo_remote_ct_st.yaw                                    = 0;
@@ -120,7 +120,7 @@ algo_dbg_param.heightCmd                                 = 0;
 algo_dbg_param.flightTaskMode                            = ENUM_FlightTaskMode.Rotor2Fix_Mode;
 algo_dbg_param.maxClimbSpeed                             = 0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%控制参数
+%鎺у埗鍙傛暟
 AC_rate_roll_pid.kp                                      = 0.2    ;%ATC_RAT_RLL_P
 AC_rate_roll_pid.ki                                      = 0.1    ;%ATC_RAT_RLL_I
 AC_rate_roll_pid.kd                                      = 0      ;%ATC_RAT_RLL_D
@@ -301,7 +301,7 @@ AP_Motors.angle_limit_tc                                 = 1                    
 AP_Motors.angle_boost_enabled                            = 1                            ;
 AP_Motors.air_density_ratio                              = 1                            ;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%设置参数
+%璁剧疆鍙傛暟
 AC_Attitude.use_sqrt_controller                          = 1;
 AC_Attitude.rate_bf_ff_enabled                           = 1;
 AC_Attitude.accel_roll_max                               = 72000;
@@ -364,7 +364,7 @@ SINS.curr_pos                                            = [0 0];
 SINS.z_accel_meas                                        = 0;
 SINS.rot_body_to_ned                                     = eye(3,3);
 
-%中间变量
+%涓棿鍙橀噺
 AC_rate_roll_pid.flags_reset_filter                      = 1;
 AC_rate_roll_pid.disable_integrator                      = 0;
 AC_rate_roll_pid.target                                  = 0;
@@ -586,7 +586,7 @@ Copter_Plane.loc                                          = loc                 
 Copter_Plane.inint                                       = 1            ;
 Copter_Plane.inint_hgt                                    = 0                                      ;
 Copter_Plane.armed                                       = 1            ;
-Copter_Plane.mode                                        = 0            ;
+Copter_Plane.Mode                                        = 0            ;
 Copter_Plane.hgt_dem_cm                                  = 0            ;
 Copter_Plane.roll_target_pilot                           = 0            ;
 Copter_Plane.pitch_target_pilot                          = 0            ;

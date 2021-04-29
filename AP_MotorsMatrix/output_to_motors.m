@@ -5,7 +5,7 @@ global dt
 global Copter_Plane
 global SRV_Channel 
 
-mode                      = Copter_Plane.mode; 
+Mode                      = Copter_Plane.Mode; 
 p_tail_tilt               = Copter_Plane.p_tail_tilt;
 tail_tilt_c2p             = Copter_Plane.tail_tilt_c2p;
 pwm_out                   = SRV_Channel.pwm_out;
@@ -22,7 +22,7 @@ thrust_slew_time          = AP_Motors.thrust_slew_time;
     thrust_dt=(pwm_max-pwm_min)*dt/thrust_slew_time;
     
 
-switch(mode)
+switch(Mode)
    case {1,2,3}
        tail_tilt=0;       
    case {4,5,6}

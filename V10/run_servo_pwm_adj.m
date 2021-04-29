@@ -6,14 +6,14 @@ global Test_w
 global SRV_Channel
 global Copter_Plane
 
-mode            = Copter_Plane.mode;
+Mode            = Copter_Plane.Mode;
 k_rudder        = SRV_Channel.k_rudder;
 
-if(mode==4||mode==5||mode==6||mode==8)
+if(Mode==4||Mode==5||Mode==6||Mode==8)
     k_rudder=constrain_value(algo_remote_ct_st.yaw*4500+k_rudder,-4500,4500);
 end
 
-if(mode ==7)
+if(Mode ==7)
     SRV_Channel.tail_tilt=algo_remote_ct_st.tail_anglein;
     SRV_Channel.pwm_tail=algo_remote_ct_st.tail_throttle_pwm;
 end

@@ -5,7 +5,7 @@
     Test_w.n=5;
     Test_w.Amp=0.15;
     Test_w.offset=0.0;
-    Test_w.mode=ENUM_Test_mode.step_w;
+    Test_w.Mode=ENUM_Test_mode.step_w;
     Test_w.channel=ENUM_Test_channel.throttle_in_t;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     Test_w.roll_target=0;

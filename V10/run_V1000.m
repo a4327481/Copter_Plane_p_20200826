@@ -52,8 +52,8 @@ POSCONTROL_ACC_Z_FILT_HZ_c2p          = Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ_c2
 POSCONTROL_ACC_Z_FILT_HZ              = Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ;
 inint_hgt                             = Copter_Plane.inint_hgt;
 aspeed_c2p                            = Copter_Plane.aspeed_c2p;
-mode                                  = Copter_Plane.mode;
-inint                                 = Copter_Plane.inint;
+Mode                                  = Copter_Plane.Mode;
+
 roll_target_pilot                     = Copter_Plane.roll_target_pilot;
 pitch_target_pilot                    = Copter_Plane.pitch_target_pilot;
 arspeed_filt                          = Copter_Plane.arspeed_filt;
@@ -92,7 +92,7 @@ persistent WP_i
            
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
-  if(mode==1||mode==2||mode==3||mode==7)%%disable plane I
+  if(Mode==1||Mode==2||Mode==3||Mode==7)%%disable plane I
         disable_AP_roll_integrator=false;
         disable_AP_pitch_integrator=false;
         disable_AP_yaw_integrator=false;
@@ -126,7 +126,7 @@ persistent WP_i
         AC_rate_yaw_pid.disable_integrator=true;
     end
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  
+  inint=0;
     if(inint)
     setup_motors() ;
     inint=0;
@@ -139,7 +139,7 @@ persistent WP_i
   aspeed=arspeed_temp;
   
 
-switch mode
+switch Mode
     case 1 %copter Stabilize
         if(mode_state~=1)
             attitude_target_quat=from_rotation_matrix(rot_body_to_ned);%20200225  
@@ -317,7 +317,7 @@ switch mode
         end
          auto_mode_sl();  
     otherwise
-        mode_state=mode;
+        mode_state=0;
         %copter Stabilize
 %         set_throttle_out(throttle_in, 1, POSCONTROL_THROTTLE_CUTOFF_FREQ);
 %         input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate);
@@ -363,8 +363,7 @@ Copter_Plane.yaw_max_c2p                           = yaw_max_c2p;
 Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ_c2p          = POSCONTROL_ACC_Z_FILT_HZ_c2p;
 Copter_Plane.inint_hgt                             = inint_hgt;
 Copter_Plane.aspeed_c2p                            = aspeed_c2p;
-Copter_Plane.mode                                  = mode;
-Copter_Plane.inint                                 = inint;
+Copter_Plane.Mode                                  = Mode;
 Copter_Plane.roll_target_pilot                     = roll_target_pilot ;
 Copter_Plane.pitch_target_pilot                    = pitch_target_pilot;
 Copter_Plane.arspeed_filt                          = arspeed_filt;

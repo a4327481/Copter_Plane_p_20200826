@@ -6,7 +6,7 @@ global PathModeOut_sl
 global Curr_sate
 global algo_dbg_param
 global HD
- mode  = Copter_Plane.mode;
+ Mode  = Copter_Plane.Mode;
  accel_x=Curr_sate.accel_x;
  accel_y=Curr_sate.accel_y;
  accel_z=Curr_sate.accel_z;
@@ -24,7 +24,7 @@ global HD
  groundspeed_vector=Curr_sate.curVelNED(1:2);
  curr_vel=[Curr_sate.curVelNED(1) Curr_sate.curVelNED(2) -Curr_sate.curVelNED(3)]*100;
  curr_loc=Curr_sate.curLLA(1:2)*1e7;
- if(mode==10)
+ if(Mode==10)
     PathModeOut_sl.headingCmd               =Curr_sate.PathModeOut.headingCmd;
     PathModeOut_sl.groundspeedCmd           =Curr_sate.PathModeOut.groundspeedCmd;
     PathModeOut_sl.heightCmd                =Curr_sate.PathModeOut.heightCmd*100;

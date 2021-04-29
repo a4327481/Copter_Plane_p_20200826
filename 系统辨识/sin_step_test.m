@@ -1,7 +1,7 @@
 function sin_step_test()
 %正弦和阶跃信号测试
 global Test_w
-        switch Test_w.mode
+        switch Test_w.Mode
             case ENUM_Test_mode.step_w
                 step_w();
             case ENUM_Test_mode.sin_w
