@@ -44,7 +44,6 @@ global HD
     PathModeOut_sl.maxClimbSpeed            =algo_dbg_param.maxClimbSpeed;  
     curr_alt                                =Curr_sate.NAV_alt*100;
  end
- 
 SINS.accel_x                 = accel_x;
 SINS.accel_y                 = accel_y;
 SINS.accel_z                 = accel_z;
@@ -60,5 +59,7 @@ SINS.groundspeed_vector      = groundspeed_vector;
 SINS.curr_vel                = curr_vel;
 SINS.curr_alt                = curr_alt;
 SINS.curr_loc                = curr_loc;
+ updata_cl();
+
 end
 

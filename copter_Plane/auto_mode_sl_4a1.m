@@ -40,8 +40,6 @@ aspeed                                = SINS.aspeed;
 curr_loc                              = SINS.curr_loc;
 curr_alt                              = SINS.curr_alt;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 persistent WP_i
 persistent PathMode
 persistent Rotor2Fix_delay
@@ -51,7 +49,6 @@ persistent Fix2Rotor_delay_flag
 persistent TakeOffMode_delay
 persistent TakeOffMode_delay_flag
 persistent Land_throttle_in
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 if isempty(WP_i)
@@ -125,16 +122,16 @@ else
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 switch PathModeOut_sl.flightTaskMode    
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     case    ENUM_FlightTaskMode.TakeOffMode
         if((PathMode==ENUM_FlightTaskMode.GroundStandByMode)&&(TakeOffMode_delay_flag==0))
+            Copter_Plane.State=ENUM_State.Copter;
             TakeOffMode_delay=TakeOffMode_delay+dt;
             relax_attitude_controllers();
             init_vel_controller_xyz();
             set_Plane_SRV_to_zero();
             rate_controller_run();
             set_throttle_out( 0.1,false, AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ);
-            AP_MotorsMulticopter_output_4a1();
+            AP_Motors_output();
             if(TakeOffMode_delay>1)
                 TakeOffMode_delay_flag=1;
             end
