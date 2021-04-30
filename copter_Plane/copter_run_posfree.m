@@ -13,7 +13,7 @@ tail_tilt                             = SRV_Channel.tail_tilt;
 k_aileron                             = SRV_Channel.k_aileron;
 k_elevator                            = SRV_Channel.k_elevator;
 k_rudder                              = SRV_Channel.k_rudder;
-
+  
          update_z_controller();
          roll_target=0;
          pitch_target=0;
@@ -24,8 +24,8 @@ k_rudder                              = SRV_Channel.k_rudder;
          k_aileron=0;
          k_elevator=0;
          k_rudder=0;
-         AP_MotorsMulticopter_output();
-  
+         AP_Motors_output();
+		 
 AC_PosControl.roll_target                           = roll_target;
 AC_PosControl.pitch_target                          = pitch_target;
 AC_PosControl.target_yaw_rate                       = target_yaw_rate;
@@ -33,7 +33,9 @@ AC_PosControl.target_yaw_rate                       = target_yaw_rate;
 SRV_Channel.tail_tilt                               = tail_tilt; 
 SRV_Channel.k_aileron                               = k_aileron;
 SRV_Channel.k_elevator                              = k_elevator;
-SRV_Channel.k_rudder                                = k_rudder;
-  
+SRV_Channel.k_rudder                                = k_rudder;		 
+		 
+		 
+                
 end
 

@@ -340,6 +340,7 @@ AC_PosControl.POSCONTROL_OVERSPEED_GAIN_Z                = 2;%
 AC_PosControl.POSCONTROL_JERK_RATIO                      = 1.0;%
 AC_PosControl.POSCONTROL_ACCELERATION_MIN                = 50.0;% minimum horizontal acceleration in cm/s/s - used for sanity checking acceleration in leash length calculation
 AC_PosControl.POSCONTROL_LEASH_LENGTH_MIN                = 100.0;%minimum leash lengths in cm
+AC_PosControl.thr_out_min                                = 0;
 
 AP_Motors.LAND_CHECK_ANGLE_ERROR_DEG                     = 30;% maximum angle error to be considered landing
 AP_Motors.LAND_CHECK_LARGE_ANGLE_CD                      = 15;% maximum angle target to be considered landing

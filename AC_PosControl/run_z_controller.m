@@ -38,7 +38,7 @@ vel_error_filter             = AC_PosControl.vel_error_filter;
 
 vel_error                    = AC_PosControl.vel_error;
 vel_last                     = AC_PosControl.vel_last;
-accel_desired               = AC_PosControl.accel_desired;
+accel_desired                = AC_PosControl.accel_desired;
 vel_z_control_ratio          = AC_PosControl.vel_z_control_ratio;
 
 POSCONTROL_THROTTLE_CUTOFF_FREQ    = AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ;

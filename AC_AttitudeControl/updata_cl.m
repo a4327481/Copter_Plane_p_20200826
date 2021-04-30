@@ -1,6 +1,7 @@
 function updata_cl()
 global GRAVITY_MSS
 global SINS
+global Copter_Plane
 accel_x                                  = SINS.accel_x;
 accel_y                                  = SINS.accel_y;
 accel_z                                  = SINS.accel_z;
