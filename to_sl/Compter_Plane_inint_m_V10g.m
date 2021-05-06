@@ -613,8 +613,8 @@ AP_Motors.batt_voltage                                   = 0                    
 AP_Motors.batt_voltage_resting_estimate                  = 0                            ;
 AP_Motors.batt_voltage_filt                              = 0                            ;
 AP_Motors.lift_max                                       = 1                            ;
-AP_Motors.spool_desired                                  = DesiredSpoolState.SHUT_DOWN  ;
-AP_Motors.spool_state                                    = SpoolState.SHUT_DOWN         ;
+AP_Motors.spool_desired                                  = SpoolState.GROUND_IDLE  ;
+AP_Motors.spool_state                                    = SpoolState.GROUND_IDLE         ;
 AP_Motors.angle_boost                                    = 0                            ;
 
 AP_Motors.roll_in                                        = 0                            ;

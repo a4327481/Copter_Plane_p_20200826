@@ -39,7 +39,7 @@ thrust_balanced                  = AP_Motors.thrust_balanced;
 
     % force desired and current spool mode if disarmed or not interlocked
     if (~armed) 
-        spool_desired = DesiredSpoolState.SHUT_DOWN;
+        spool_desired = SpoolState.SHUT_DOWN;
         spool_state = SpoolState.SHUT_DOWN;
     end
     
@@ -62,7 +62,7 @@ thrust_balanced                  = AP_Motors.thrust_balanced;
             limit_throttle_upper = true;
             
             % make sure the motors are spooling in the correct direction
-            if (spool_desired ~= DesiredSpoolState.SHUT_DOWN && disarm_safe_timer >= safe_time)
+            if (spool_desired ~= SpoolState.SHUT_DOWN && disarm_safe_timer >= safe_time)
                 spool_state = SpoolState.GROUND_IDLE;
             end
                 % set and increment ramp variables
@@ -87,21 +87,21 @@ thrust_balanced                  = AP_Motors.thrust_balanced;
             % set and increment ramp variables
             spool_step = dt / (spool_up_time );
             switch (spool_desired)
-                case DesiredSpoolState.SHUT_DOWN
+                case SpoolState.SHUT_DOWN
                     spin_up_ratio=spin_up_ratio - spool_step;
                     % constrain ramp value and update mode
                     if (spin_up_ratio <= 0.0)
                         spin_up_ratio = 0.0;
                         spool_state = SpoolState.SHUT_DOWN;     
                     end
-                case DesiredSpoolState.THROTTLE_UNLIMITED
+                case SpoolState.THROTTLE_UNLIMITED
                     spin_up_ratio=spin_up_ratio + spool_step;
                     % constrain ramp value and update mode
                     if (spin_up_ratio >= 1.0)
                         spin_up_ratio = 1.0;
                         spool_state = SpoolState.SPOOLING_UP;
                     end
-                case DesiredSpoolState.GROUND_IDLE
+                case SpoolState.GROUND_IDLE
                     spin_up_armed_ratio = 0.0;
                     if (spin_min > 0.0)
                         spin_up_armed_ratio = spin_arm / spin_min;
@@ -126,7 +126,7 @@ thrust_balanced                  = AP_Motors.thrust_balanced;
         limit_throttle_upper = false;
 
         % make sure the motors are spooling in the correct direction
-        if (spool_desired ~=DesiredSpoolState.THROTTLE_UNLIMITED) 
+        if (spool_desired ~=SpoolState.THROTTLE_UNLIMITED) 
             spool_state = SpoolState.SPOOLING_DOWN;
 %             return;
         end
@@ -155,7 +155,7 @@ thrust_balanced                  = AP_Motors.thrust_balanced;
         limit_throttle_upper = false;
 
         % make sure the motors are spooling in the correct direction
-        if (spool_desired ~= DesiredSpoolState.THROTTLE_UNLIMITED) 
+        if (spool_desired ~= SpoolState.THROTTLE_UNLIMITED) 
             spool_state = SpoolState.SPOOLING_DOWN;
 %             return;
         end
@@ -180,7 +180,7 @@ thrust_balanced                  = AP_Motors.thrust_balanced;
         limit_throttle_upper = false;
 
         % make sure the motors are spooling in the correct direction
-        if (spool_desired == DesiredSpoolState.THROTTLE_UNLIMITED) 
+        if (spool_desired == SpoolState.THROTTLE_UNLIMITED) 
             spool_state = SpoolState.SPOOLING_UP;
 %             return;
         end
