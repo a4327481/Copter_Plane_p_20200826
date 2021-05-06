@@ -144,9 +144,9 @@ switch PathModeOut_sl.flightTaskMode
         if((PathMode==ENUM_FlightTaskMode.GroundStandByMode)&&(TakeOffMode_delay_flag==0))
             Copter_Plane.State=ENUM_State.Copter;
             TakeOffMode_delay=TakeOffMode_delay+dt;
-            relax_attitude_controllers();
             init_vel_controller_xyz();
             set_Plane_SRV_to_zero();
+            relax_attitude_controllers();
             rate_controller_run();
             set_throttle_out( 0.1,false, AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ);
             AP_Motors_output();
@@ -267,7 +267,6 @@ switch PathModeOut_sl.flightTaskMode
             AP_TECS.spdWeight=2;
             hgt_dem_cm=height*100;
             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
-            AP_TECS_init();
             plane_run();
         else
             if (PathModeOut_sl.heightCmd-hgt_dem_cm)>error_pos
@@ -303,6 +302,8 @@ switch PathModeOut_sl.flightTaskMode
             climb_rate_cms=0;
             hgt_dem_cm=PathModeOut_sl.heightCmd;
         end
+        Copter_Plane.hgt_dem_cm = hgt_dem_cm;
+        Copter_Plane.climb_rate_cms  = climb_rate_cms;
         center_WP=PathModeOut_sl.turnCenterLL(1:2);
         if(PathModeOut_sl.rollCmd>=0)
             Copter_Plane.loiter_direction=1;
@@ -310,8 +311,6 @@ switch PathModeOut_sl.flightTaskMode
             Copter_Plane.loiter_direction=-1;
         end
         update_loiter( center_WP,   radius,   loiter_direction)
-        Copter_Plane.hgt_dem_cm = hgt_dem_cm;
-        Copter_Plane.climb_rate_cms  = climb_rate_cms;
         plane_run();
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     case    ENUM_FlightTaskMode.AirStandByMode
@@ -407,7 +406,7 @@ switch PathModeOut_sl.flightTaskMode
                             AC_PosControl.pitch_target=0;
                         end
                         roll_target      = 0;
-                        pitch_target_temp=AC_PosControl.pitch_target+p_tilt_pitch_target*-3000;
+                        pitch_target_temp=p_tilt_pitch_target*-3000;
                         target_yaw_rate  = 0;
                         input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target_temp,   target_yaw_rate);
                         rate_controller_run();
@@ -427,7 +426,7 @@ switch PathModeOut_sl.flightTaskMode
                             AC_PosControl.pitch_target=0;
                         end
                         roll_target       = 0;
-                        pitch_target_temp = AC_PosControl.pitch_target+p_tilt_pitch_target*-3000;
+                        pitch_target_temp = p_tilt_pitch_target*-3000;
                         target_yaw_rate   = 0;
                         input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target_temp,   target_yaw_rate);
                         rate_controller_run();
