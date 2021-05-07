@@ -5,6 +5,7 @@ pianzhuanjiao
 quad_tail_4a1=0;
 plane_mode=ENUM_plane_mode.V10;
 
+systime=0;
 m_kg_V1000=5;
 Jx=186222*1e-6;
 Jy=164400*1e-6;
@@ -145,7 +146,7 @@ POSCONTROL_THROTTLE_CUTOFF_FREQ_p2c=0.2;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     mode=0;
     mode_state=0;
-    ts=0;
+    ts=2700;
     dt=0.005;
     thrust_slew_time=0.3;%%%%%%%%%%%%%%%%油门时间
     throttle_slewrate=100;%%%%%%%%%%%%%%%%TECS 油门变化率

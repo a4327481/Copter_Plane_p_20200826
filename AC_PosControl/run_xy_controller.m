@@ -29,6 +29,7 @@ global accel_desired
 
 global leash
 global POSCONTROL_ACCEL_XY
+global POSCONTROL_ACCEL_XY_P
 global curr_vel
 
 
@@ -62,7 +63,7 @@ global pitch_target
    pos_target(1) = curr_pos(1) + pos_error(1);
    pos_target(2) = curr_pos(2) + pos_error(2);
   end   
-  vel_target = sqrt_controller_pos(pos_error, kP, POSCONTROL_ACCEL_XY);
+  vel_target = sqrt_controller_pos(pos_error, kP*((POSCONTROL_ACCEL_XY_P-0.5)/0.5*0.15+0.85), POSCONTROL_ACCEL_XY*POSCONTROL_ACCEL_XY_P);
  end
 
  % add velocity feed-forward

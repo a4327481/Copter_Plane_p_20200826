@@ -14,12 +14,17 @@ global nav_pitch_cd
 global nav_roll_cd
 global p_plane_cp
 global k_throttle
+global disable_forward_throttle
          if( (abs(vel_desired(1))>0) || (abs(vel_desired(2))>0)||(abs(target_yaw_rate)>0))
              temp_yaw_rate=0;
          else
              temp_yaw_rate=get_weathervane_yaw_rate_cds();
          end   
-         vel_forward_pct_out = forward_throttle_pct_4a1();%%tail xiu zheng
+         if(disable_forward_throttle)
+             vel_forward_pct_out = forward_throttle_pct_4a1x();%%tail xiu zheng
+         else
+             vel_forward_pct_out = forward_throttle_pct_4a1();%%tail xiu zheng
+         end
          update_vel_controller_xy();
          update_z_controller();
          input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate+temp_yaw_rate);

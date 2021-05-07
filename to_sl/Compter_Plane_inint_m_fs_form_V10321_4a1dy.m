@@ -11,7 +11,7 @@ pianzhuanjiao();
     gains_rmax_roll=0;   
     thrust_slew_time=0.3;%%%%%%%%%%%%%%%%油门时间
     throttle_slewrate=100;%%%%%%%%%%%%%%%%TECS 油门变化率
-    yaw_rate_max=50;
+    yaw_rate_max=100;
     plane_mode=ENUM_plane_mode.V10;
     pwm_tail=1000;
     vel_forward_integrator=0;
@@ -85,16 +85,16 @@ pianzhuanjiao();
  POSCONTROL_VEL_XY_IMAX                 = 1000                       ;
  POSCONTROL_VEL_XY_FILT_HZ              = 2                          ;
  POSCONTROL_VEL_XY_FILT_D_HZ            = 5                          ;
- L1_period                              = 15                         ;
+ L1_period                              = 17                         ;
  L1_damping                             = 0.75                       ;
- L1_xtrack_i_gain                       = 0                          ;
+ L1_xtrack_i_gain                       = 0.1                        ;
  p_tail_tilt                            = 3                          ;
  p_tilt_pitch_target                    = 0.4                        ;
  aspeed_c2p                             = 8                          ;
  p_plane_c2p                            = 0.6                        ;
  yaw_max_c2p                            = 0.1                        ;
  weathervane_min_roll                   = 4                          ;
- weathervane_gain                       = 1.2                        ;
+ weathervane_gain                       = 0.7                        ;
  POSCONTROL_ACC_Z_FILT_HZ_c2p           = 0.2                        ;
  kff_rudder_mix                         = 1.2                        ;
  radius                                 = 80                         ;
@@ -132,9 +132,11 @@ pianzhuanjiao();
  thr_out_min_c2p                        = 0.5                        ;   
  heading_hold                           = 0                          ;
  k_flap_TakeOff                         = -3500                      ;
- k_flap_Land                            = 4400                       ;
+ k_flap_Land                            = 4300                       ;
  p_flap_plane                           = 0                            ;
  
+    disable_forward_throttle=false;
+    POSCONTROL_ACCEL_XY_P   =1;
     k_flap=0;
     thr_out_min=0;
     take_off_land=0;                        
@@ -269,7 +271,7 @@ algo_dbg_param.maxClimbSpeed=0;
     throttle_min=0;
     throttle_max=100; 
     pitch_limit_min_cd=-1500;
-    pitch_limit_max_cd=2000;
+    pitch_limit_max_cd=1500;
     pitch_max_limit=90;
     roll_limit_cd=2500;
 
@@ -467,7 +469,7 @@ use_sqrt_controller=1;
  motors_limit_throttle_upper=0;
  reset_accel_to_lean_xy=1;
  accel_xy_input=[0 0];
- accel_xy_angle_max=2000;%%dai cha
+ accel_xy_angle_max=1500;%%dai cha
 
  recalc_leash_xy=1;
  reset_desired_vel_to_pos=1;
