@@ -55,4 +55,7 @@ for i=1:len
 %     out.ParamDriver{1, i}.value     =datadev1{i, 2}  ;
 end
 savejson('',out,'ParamDriver_Full.json');
+[C,ia,ic] = unique(datadev1(:,3),'stable');
+hold on
+plot(ia-ic(1:length(ia)))
 plot(lenj)

@@ -232,13 +232,13 @@ Copter_Plane.pitch_target_c2p                            = 0      ;%PITCH_TAR_C2
 Copter_Plane.tail_tilt_c2p                               = -2800  ;%TAIL_TILT_C2P
 Copter_Plane.k_throttle_c2p                              = 0.4    ;%K_THR_C2P 
 Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ_c2p                = 0.2    ;%PSC_ACCZ_FIL_C2P
-Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ                    = 4      ;%ARSPD_CP
-Copter_Plane.thr_out_min_c2p                             = 0.5    ;%ARSPD_C2P
-Copter_Plane.yaw_max_c2p                                 = 0.1    ;%ARSPD_C2PS
-Copter_Plane.p_tilt_pitch_target                         = 0.4    ;%P_PLANE_C2P
-Copter_Plane.tail_tilt_p2c                               = -1300  ;%P_PLANE_CP
-Copter_Plane.p_plane_p2c                                 = 1      ;%P_KE_C2P
-Copter_Plane.pitch_target_p2c                            = 500    ;%PITCH_TAR_C2P
+Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ                    = 4      ;%PSC_ACCZ_FIL
+Copter_Plane.thr_out_min_c2p                             = 0.5    ;%THR_OUT_MIN_C2P
+Copter_Plane.yaw_max_c2p                                 = 0.1    ;%YAW_MAX_C2P
+Copter_Plane.p_tilt_pitch_target                         = 0.4    ;%P_TILT_PIT_TAR
+Copter_Plane.tail_tilt_p2c                               = -1300  ;%TAIL_TILT_P2C
+Copter_Plane.p_plane_p2c                                 = 1      ;%P_PLANE_P2C
+Copter_Plane.pitch_target_p2c                            = 500    ;%PITCH_TAR_P2C
 Copter_Plane.POSCONTROL_THROTTLE_CUTOFF_FREQ_p2c         = 0.05   ;%PSC_ACCZ_FLTP2C
 Copter_Plane.POSCONTROL_THROTTLE_CUTOFF_FREQ             = 3      ;%PSC_ACCZ_FLT
 Copter_Plane.Fix2Rotor_delay_s                           = 0.8    ;%P2C_DELAY_S
@@ -263,7 +263,15 @@ Copter_Plane.vel_forward_tail_tilt_max                   = 2000   ;%VFWD_MAX_TAI
 Copter_Plane.arspeed_filt                                = 5      ;%ARSPD_FILT    
 AP_Motors.current_tilt                                   = 0      ;%CURR_TILT
 AP_Motors.throttle_hover                                 = 0.5    ;%THST_HOVER    
-
+Test_w.start                                             = 0      ;%TEST_W_START     
+Test_w.ws                                                = 0.2    ;%TEST_W_WS
+Test_w.we                                                = 1      ;%TEST_W_WE
+Test_w.dw                                                = 0.2    ;%TEST_W_DW
+Test_w.n                                                 = 5      ;%TEST_W_N
+Test_w.Amp                                               = 0.15   ;%TEST_W_AMP
+Test_w.offset                                            = 0.0    ;%TEST_W_OFFEST
+Test_w.Mode                                              = ENUM_Test_mode.step_w;%TEST_W_MODE
+Test_w.channel                                           = ENUM_Test_channel.throttle_in_t;%TEST_W_CHANNEL
 
 AC_rate_roll_pid.slew_rate_tau                           = 0.1    ;%ATC_RAT_RLL_STAU
 AC_rate_pitch_pid.slew_rate_tau                          = 0.1    ;%ATC_RAT_PIT_STAU
@@ -281,6 +289,7 @@ AP_TECS.spdWeight                                        = 0.9    ;%TECS_SPDWEIG
 Copter_Plane.dist_min                                    = 50     ;%DIST_MIN                                 
 Copter_Plane.L1_radius                                   = 60     ;%L1_RADIUS                                 
 AP_L1.loiter_bank_limit                                  = 0      ;%NAVL1_LIM_BANK
+
 
 AP_Motors.Kx                                             = 0                            ;
 AP_Motors.thrust_slew_time                               = 0.3                          ;
@@ -604,8 +613,6 @@ Copter_Plane.disable_AP_rate_roll_gains_D                 = 0                   
 Copter_Plane.disable_AP_rate_pitch_roll_ff                = 0                                       ;
 Copter_Plane.disable_AP_rate_pitch_gains_D                = 0                                       ;
 Copter_Plane.disable_AP_rate_yaw_K_FF                     = 0                                       ;
-
-
 
 AP_Motors.batt_current                                   = 0                            ;
 AP_Motors.batt_resistance                                = 0                            ;

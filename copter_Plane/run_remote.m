@@ -36,8 +36,6 @@ end
 algo_remote_ct_st.roll    = deadzonef(algo_remote_ct_st.roll,dead,1);
 algo_remote_ct_st.pitch   = deadzonef(algo_remote_ct_st.pitch,dead,1);
 algo_remote_ct_st.yaw     = deadzonef(algo_remote_ct_st.yaw,dead,1);
-algo_remote_ct_st.flap    = deadzonef(algo_remote_ct_st.flap,dead,1);
-SRV_Channel.k_flap        = algo_remote_ct_st.flap*4500;   
 switch Mode
     case ENUM_Mode.Copter_STABILIZE
         roll_target=algo_remote_ct_st.roll*4500;
