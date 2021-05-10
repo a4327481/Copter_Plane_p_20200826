@@ -37,7 +37,7 @@ Euler                                                    = [5/HD 5/HD 30/HD];
 velocity                                                 = [0 0 0];
 position                                                 = [0 0 -100];
 %
-dt                                                       = 0.005;
+dt                                                       = 0.012;
 HD                                                       = 180/pi;
 GRAVITY_MSS                                              = 9.80665;
 LOCATION_SCALING_FACTOR                                  = 0.011131884502145034;% 1e-7*地球半径/HD
