@@ -1,18 +1,18 @@
 %V1000 to txt  
 % Display surf plot of the currently selected data.
 %mat 格式转换为画图
-global PathName
-if PathName~=0
-    cd(PathName);
-    [FileName,PathName,~] = uigetfile([PathName,'\\*.*']); % 读取雷达数据
-else
-    [FileName,PathName,~] = uigetfile('*.*'); % 读取雷达数据
-end
-if FileName==0
-    return;
-end
-
-V10Log = V10_decode_auto([PathName,'\\',FileName]);
+% global PathName
+% if PathName~=0
+%     cd(PathName);
+%     [FileName,PathName,~] = uigetfile([PathName,'\\*.*']); % 读取雷达数据
+% else
+%     [FileName,PathName,~] = uigetfile('*.*'); % 读取雷达数据
+% end
+% if FileName==0
+%     return;
+% end
+out_filePath=data_read_V10();
+V10Log = V10_decode_auto(out_filePath);
 % time_algo=V10Log.ALD1.algo_time*1e-6;
 parserData = fieldnames(V10Log);
 for i = 1:length(parserData)
@@ -35,10 +35,10 @@ for i = 1:length(parserData)
     head=[head ,'\n'];
     data_ck=data(1:1:end,:);
     data_ck(:,1)=data_ck(:,1)/1e6;
-    fid=fopen([PathName,'\\',FileName,parserData{i},'.dat'],'w');
+    fid=fopen([out_filePath(1:end-4),parserData{i},'.dat'],'w');
     fprintf(fid,head);
     fclose(fid);
-    save([PathName,'\\',FileName,parserData{i},'.dat'],'data_ck','-ascii','-append' )
+    save([out_filePath(1:end-4),parserData{i},'.dat'],'data_ck','-ascii','-append' )
 
 % 	fprintf('output:		%s\n',parserData{i});
 % 	assignin('base',parserData{i},V10Log.(parserData{i}));

@@ -1,4 +1,4 @@
-%data_read_V10
+function out_filePath=data_read_V10()
 global PathName
 if PathName~=0
     cd(PathName);
@@ -11,17 +11,6 @@ if FileName==0
 end
 filePath=[PathName,'\\',FileName];
 %%%%%%%%%%%%%生成协议%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% N=1e8;
-% u=0;
-% temp_N=N;
-% fileID = fopen(filePath);
-% while (temp_N==N)
-%     [C ,temp_N]= fread(fileID,N,'uint8');
-%     u=u+1;
-% end
-%     fclose(fileID);
-% L=(u-1)*N+temp_N;
-
 HEAD1='A3';
 HEAD2='95';
 MsgType ='80';
@@ -56,7 +45,9 @@ while(i<=N)
         temp_label=string(char(temp_Lables1));
         temp_label=(strsplit(temp_label,','))';
         temp_label=cellstr(temp_label);
-        assignin('base',[char(temp_Name1),'_label'],[{'LineNo'};temp_label])
+        temp=[{'LineNo'};temp_label];
+        eval([char(temp_Name1),'_label=temp;'])
+%         assignin('base',[char(temp_Name1),'_label'],[{'LineNo'};temp_label])
         Name_len(j)=0;
         Name_len_k(j)=1;
         j=j+1;
@@ -102,16 +93,17 @@ temp_C=[];
 fclose(fileID);
 
 len=length(Name);
+temp_data=cell(len,1);
 for i=1:len
     if(Name_len(i))
-        assignin('base',[char(Name(i)),'_temp'],uint8(zeros(Name_len(i),MsgLen(i)-3)))
-        assignin('base',[char(Name(i))],(zeros(Name_len(i),Format_len(i)+1)))
-        
+        eval([char(Name(i)),'=zeros(Name_len(i),Format_len(i)+1);'])
+%         assignin('base',[char(Name(i))],(zeros(Name_len(i),Format_len(i)+1)))
+        temp_data{i}=uint8(zeros(Name_len(i),MsgLen(i)-3));    
     end 
 end
 %%%%%%%%%%%%%%处理数据，存储至分配空间%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 k=1;
-N=1e7;
+N=1e8;
 temp_N=N;
 u=1;
 fileID = fopen(filePath);
@@ -127,8 +119,7 @@ while (temp_N==N)
             temp_MsgID=find(MsgID==temp_C(i+2),1);
             if(temp_MsgID)
                 temp_MsgLen=MsgLen(temp_MsgID);
-                temp_Name=Name_temp(temp_MsgID);
-                evalin('base',[temp_Name{1,1},'(Name_len_k(temp_MsgID),:)=temp_C(i+3:i+temp_MsgLen-1);'])        
+                temp_data{temp_MsgID,1}(Name_len_k(temp_MsgID),:)=temp_C(i+3:i+temp_MsgLen-1)';
                 Name_len_k(temp_MsgID)=Name_len_k(temp_MsgID)+1;               
                 i=i+temp_MsgLen;
                 k=i;
@@ -153,15 +144,13 @@ for i=1:len
     if(Name_len(i))
         jlen=1;
         for j=1:Format_len(i)
-            temp_data=[char(Name_temp(i)),'(:,jlen:jlen+Format_leni(i,j)-1)'''];
-            evalin('base',[Name{i,1},'(:,j+1)=typecast(reshape(',temp_data,',1,[]),Format_type(i,j));'])
+            data_read=(temp_data{i,1}(:,jlen:jlen+Format_leni(i,j)-1))';
+            eval([Name{i,1},'(:,j+1)=typecast(reshape(data_read,1,[]),Format_type(i,j));'])
+%             evalin('base',[Name{i,1},'(:,j+1)=typecast(reshape(data_read,1,[]),Format_type(i,j));'])
             jlen=jlen+Format_leni(i,j)
         end
-%         eval(['clear ',char(Name(i)),'_temp' ]);
         save([filePath(1:end-4),'.mat'],Name(i),'-append');
         save([filePath(1:end-4),'.mat'],[char(Name(i)),'_label'],'-append');   
-%         assignin('base',[char(Name(i)),'_temp'],[])              
     end 
 end
-clear;
-
+out_filePath=[filePath(1:end-4),'.mat'];
