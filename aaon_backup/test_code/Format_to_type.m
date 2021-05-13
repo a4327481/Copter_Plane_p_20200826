@@ -49,8 +49,8 @@ switch in
     case 'Q'
         out='uint64';
         len=8;
-        otherwise
-         out='int8';
+    otherwise
+        out='int8';
 end
 
 end

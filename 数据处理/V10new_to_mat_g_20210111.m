@@ -21,8 +21,10 @@ for i = 1:length(parserData)
     
     data = [];
     for j=1:length(V10Log_parserData_i)
-        data=[ data V10Log_parserData.(V10Log_parserData_i{j,1})];
+        temp_data=V10Log_parserData.(V10Log_parserData_i{j,1});
+        data=[ data temp_data];
     end
+    
     head=[V10Log_parserData_i{1}];
     for j=2:length(V10Log_parserData_i)
         len=size(V10Log_parserData.(V10Log_parserData_i{j,1}),2);

@@ -1,10 +1,10 @@
 function V10Log = V10_decode_auto(logFile)
-% example: V10Log = V10_decode_auto('log_9.bin-2048462.mat')
+% example: V10Log = V10_decode_auto('2021-05-09 14-20-29.bin-6626251.mat')
 % computer name: LAPTOP-KCGKQN65
-% generate date: 23-Apr-2021
+% generate date: 12-May-2021
 % Matlab version: 9.10.0.1602886 (R2021a)
 % protocol file: V10_v20210416_11.txt
-% data file: log_9.bin-2048462.mat
+% data file: 2021-05-09 14-20-29.bin-6626251.mat
 % logFile: .mat log file
 load(logFile);
 %% ARP1
@@ -409,12 +409,12 @@ V10Log.ALD8.sl_maxClimbSpeed = ALD8(:,5);              %   4. | clmspd   | sl_ma
 V10Log.ALD8.sl_flightTaskMode = ALD8(:,6);             %   5. | fmode    | sl_flightTaskMode              | [F]   | [12:12]    | 
 V10Log.ALD8.Sum = ALD8(:,7);                           %   6. | Sm       | Sum                            | [F]   | [12:12]    | 
 %% ALL1
-% V10Log.IN_MAVLINK.TimeUS = ALL1(:,2);                  %   1. | Tim      | TimeUS                         | [U32] | [12:12]    | 
-% V10Log.IN_MAVLINK.mavlink_msg_groundHomeLLA(:,1) = ALL1(:,3); %   2. | LLA0     | mavlink_msg_groundHomeLLA[0]   | [F]   | [12:12]    | 
-% V10Log.IN_MAVLINK.mavlink_msg_groundHomeLLA(:,2) = ALL1(:,4); %   3. | LLA1     | mavlink_msg_groundHomeLLA[1]   | [F]   | [12:12]    | 
-% V10Log.IN_MAVLINK.mavlink_msg_groundHomeLLA(:,3) = ALL1(:,5); %   4. | LLA2     | mavlink_msg_groundHomeLLA[2]   | [F]   | [12:12]    | 
-% V10Log.IN_MAVLINK.Sum = ALL1(:,6);                     %   5. | Sm       | Sum                            | [U8]  | [12:12]    | 
-% %% ALL2
+V10Log.IN_MAVLINK.TimeUS = ALL1(:,2);                  %   1. | Tim      | TimeUS                         | [U32] | [12:12]    | 
+V10Log.IN_MAVLINK.mavlink_msg_groundHomeLLA(:,1) = ALL1(:,3); %   2. | LLA0     | mavlink_msg_groundHomeLLA[0]   | [F]   | [12:12]    | 
+V10Log.IN_MAVLINK.mavlink_msg_groundHomeLLA(:,2) = ALL1(:,4); %   3. | LLA1     | mavlink_msg_groundHomeLLA[1]   | [F]   | [12:12]    | 
+V10Log.IN_MAVLINK.mavlink_msg_groundHomeLLA(:,3) = ALL1(:,5); %   4. | LLA2     | mavlink_msg_groundHomeLLA[2]   | [F]   | [12:12]    | 
+V10Log.IN_MAVLINK.Sum = ALL1(:,6);                     %   5. | Sm       | Sum                            | [U8]  | [12:12]    | 
+%% ALL2
 % V10Log.IN_MAVLINK.mavlink_msg_command_battery_data.TimeUS = ALL2(:,2); %   1. | Tim      | TimeUS                         | [U32] | [12:12]    | 
 % V10Log.IN_MAVLINK.mavlink_msg_command_battery_data.fullCapacity = ALL2(:,3); %   2. | cap      | fullCapacity                   | [U16] | [12:12]    | 
 % V10Log.IN_MAVLINK.mavlink_msg_command_battery_data.lifePercent = ALL2(:,4); %   3. | life     | lifePercent                    | [U8]  | [12:12]    | 
