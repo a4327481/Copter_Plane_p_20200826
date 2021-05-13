@@ -37,7 +37,7 @@ Euler                                                    = [5/HD 5/HD 30/HD];
 velocity                                                 = [0 0 0];
 position                                                 = [0 0 -100];
 %
-ts                                                       =880;
+ts                                                       =0;
 dt                                                       = 0.012;
 HD                                                       = 180/pi;
 GRAVITY_MSS                                              = 9.80665;

@@ -172,7 +172,8 @@ switch PathModeOut_sl.flightTaskMode
                 AC_rate_roll_pid.disable_integrator=true;
                 AC_rate_yaw_pid.disable_integrator=true;
             end
-            climb_rate_cms=PathModeOut_sl.maxClimbSpeed;
+            climb_rate_cms = PathModeOut_sl.maxClimbSpeed;
+            AC_PosControl.pos_target(3)  = PathModeOut_sl.heightCmd; 
             if(PathModeOut_sl.flightControlMode==ENUM_FlightControlMode.RotorGoUpDownBySpeed)
                 Copter_Plane.take_off_land=1;
                 set_alt_target_from_climb_rate_ffg1(climb_rate_cms, dt, 0,1);

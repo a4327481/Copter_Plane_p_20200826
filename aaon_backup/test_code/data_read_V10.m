@@ -27,8 +27,7 @@ while(i<=N)
         MsgLen(j,1)=double(C(i+4));
         temp_Format=C(i+9:i+24)';
         temp_Lables=C(i+25:i+88)';
-        temp_Name  =char(C(i+5:i+8))';
-        
+        temp_Name  =char(C(i+5:i+8))';       
         temp_Name1=temp_Name(temp_Name~=0);
         Name(j,1)=string(char(temp_Name1));
         Name_temp(j,1)=string([char(temp_Name1),'_temp']);
