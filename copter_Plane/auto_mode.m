@@ -17,7 +17,6 @@ global SRV_Channel
 global Copter_Plane
 global SINS
 
-hgt_dem_cm                         = Copter_Plane.hgt_dem_cm;
 radius                             = Copter_Plane.radius;
 loiter_direction                   = Copter_Plane.loiter_direction;
 p_tilt_pitch_target                = Copter_Plane.p_tilt_pitch_target;
@@ -68,7 +67,7 @@ if isempty(Rotor2Fix_delay)
     Rotor2Fix_delay = 0;
 end
 if isempty(Rotor2Fix_delay_flag)
-    Rotor2Fix_delay_flag = 0;
+    Rotor2Fix_delay_flag = false;
 end
 
 if isempty(Fix2Rotor_delay)
@@ -173,7 +172,8 @@ switch PathModeOut_sl.flightTaskMode
                 AC_rate_yaw_pid.disable_integrator=true;
             end
             climb_rate_cms = PathModeOut_sl.maxClimbSpeed;
-            AC_PosControl.pos_target(3)  = PathModeOut_sl.heightCmd; 
+            Copter_Plane.climb_rate_cms = climb_rate_cms;
+            AC_PosControl.pos_target(3)  = PathModeOut_sl.heightCmd;
             if(PathModeOut_sl.flightControlMode==ENUM_FlightControlMode.RotorGoUpDownBySpeed)
                 Copter_Plane.take_off_land=1;
                 set_alt_target_from_climb_rate_ffg1(climb_rate_cms, dt, 0,1);
@@ -203,6 +203,7 @@ switch PathModeOut_sl.flightTaskMode
             SINS.curr_pos(1:2)=get_vector_xy_from_origin_NE( curr_loc,loc_origin)*100;
         end
         climb_rate_cms=PathModeOut_sl.maxClimbSpeed;
+        Copter_Plane.climb_rate_cms = climb_rate_cms;
         set_alt_target_from_climb_rate_ffg1(climb_rate_cms, dt, 0,-1);
         if(PathModeOut_sl.flightControlMode==ENUM_FlightControlMode.RotorGoUpDownWithHorizonPosFree)
             copter_run_posfree();
@@ -224,6 +225,7 @@ switch PathModeOut_sl.flightTaskMode
             SINS.curr_pos(1:2)=get_vector_xy_from_origin_NE( curr_loc,loc_origin)*100;
         end
         climb_rate_cms=PathModeOut_sl.maxClimbSpeed;
+        Copter_Plane.climb_rate_cms = climb_rate_cms;
         set_alt_target_from_climb_rate_ffg(PathModeOut_sl.heightCmd,climb_rate_cms, dt, 0);
         copter_run();
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -235,6 +237,7 @@ switch PathModeOut_sl.flightTaskMode
             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
             AP_TECS_init();
         end
+        hgt_dem_cm = Copter_Plane.hgt_dem_cm;
         if (PathModeOut_sl.heightCmd-hgt_dem_cm)>error_pos
             climb_rate_cms=PathModeOut_sl.maxClimbSpeed;
             hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;
@@ -270,6 +273,7 @@ switch PathModeOut_sl.flightTaskMode
             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
             plane_run();
         else
+            hgt_dem_cm = Copter_Plane.hgt_dem_cm;
             if (PathModeOut_sl.heightCmd-hgt_dem_cm)>error_pos
                 climb_rate_cms=PathModeOut_sl.maxClimbSpeed;
                 hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;
@@ -293,6 +297,7 @@ switch PathModeOut_sl.flightTaskMode
             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
             AP_TECS_init();
         end
+        hgt_dem_cm = Copter_Plane.hgt_dem_cm;
         if (PathModeOut_sl.heightCmd-hgt_dem_cm)>error_pos
             climb_rate_cms=PathModeOut_sl.maxClimbSpeed;
             hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;
@@ -322,6 +327,7 @@ switch PathModeOut_sl.flightTaskMode
             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
             AP_TECS_init();
         end
+        hgt_dem_cm = Copter_Plane.hgt_dem_cm;
         if (PathModeOut_sl.heightCmd-hgt_dem_cm)>error_pos
             climb_rate_cms=PathModeOut_sl.maxClimbSpeed;
             hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;
@@ -350,12 +356,12 @@ switch PathModeOut_sl.flightTaskMode
                     SINS.curr_pos(1:2)=[0 0];
                     init_vel_controller_xyz();
                     relax_attitude_controllers();
-                    Rotor2Fix_delay_flag=0;
+                    Rotor2Fix_delay_flag=false;
                     Rotor2Fix_delay=0;
                 end
-                if(Copter_Plane.State==ENUM_State.Plane)
-                    if(Rotor2Fix_delay_flag)
-                        Rotor2Fix_delay_flag=1;
+                if(Rotor2Fix_delay_flag)
+                    if(Copter_Plane.State==ENUM_State.Plane)
+                        Rotor2Fix_delay_flag=true;
                         update_50hz();
                         Plane.nav_roll_cd=0;
                         Plane.nav_pitch_cd=pitch_target_c2p;
@@ -381,7 +387,7 @@ switch PathModeOut_sl.flightTaskMode
                         set_throttle_out( 0,false, AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ);
                         AP_Motors_output();
                         if(AP_Motors.throttle_filter<0.1)
-                            Rotor2Fix_delay_flag=1;
+                            Copter_Plane.State=ENUM_State.Plane;
                         end
                     end
                 else
@@ -401,7 +407,7 @@ switch PathModeOut_sl.flightTaskMode
                         Plane.nav_roll_cd=roll_target;
                         stabilize()
                         AP_Motors_output();
-                        Copter_Plane.State=ENUM_State.Plane;
+                        Rotor2Fix_delay_flag=true;
                     elseif(aspeed>aspeed_c2p)
                         if(AC_PosControl.pitch_target>0)
                             AC_PosControl.pitch_target=0;
@@ -450,7 +456,7 @@ switch PathModeOut_sl.flightTaskMode
                     SINS.curr_pos(1:2)=[0 0];
                     init_vel_controller_xyz();
                     relax_attitude_controllers();
-                    Rotor2Fix_delay_flag=0;
+                    Rotor2Fix_delay_flag=false;
                     Rotor2Fix_delay=0;
                 end
                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -458,9 +464,9 @@ switch PathModeOut_sl.flightTaskMode
                 tail_error=constrain_value(tail_error,-tail_tilt_rate*dt,tail_tilt_rate*dt);
                 SRV_Channel.tail_tilt=SRV_Channel.tail_tilt+tail_error;
                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                if(Copter_Plane.State==ENUM_State.Plane)
-                    if(Rotor2Fix_delay_flag)
-                        Rotor2Fix_delay_flag=1;
+                if(Rotor2Fix_delay_flag)
+                    if(Copter_Plane.State==ENUM_State.Plane)
+                        Rotor2Fix_delay_flag=true;
                         update_50hz();
                         Plane.nav_roll_cd=0;
                         Plane.nav_pitch_cd=pitch_target_c2p;
@@ -490,7 +496,7 @@ switch PathModeOut_sl.flightTaskMode
                             SRV_Channel.tail_tilt=-9556;
                             Rotor2Fix_delay=Rotor2Fix_delay+dt;
                             if(Rotor2Fix_delay>0.2)
-                                Rotor2Fix_delay_flag=1;
+                                Copter_Plane.State=ENUM_State.Plane;
                             end
                         end
                     end
@@ -509,7 +515,7 @@ switch PathModeOut_sl.flightTaskMode
                         Plane.nav_roll_cd=roll_target;
                         stabilize()
                         AP_Motors_output();
-                        Copter_Plane.State=ENUM_State.Plane;
+                        Rotor2Fix_delay_flag=true;
                     elseif(aspeed>aspeed_c2p)
                         tail_tilt_temp=constrain_value(SRV_Channel.tail_tilt,-3000,700);
                         if(AC_PosControl.pitch_target>0)
@@ -684,6 +690,7 @@ switch PathModeOut_sl.flightTaskMode
             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
             AP_TECS_init();
         end
+        hgt_dem_cm = Copter_Plane.hgt_dem_cm;
         if (PathModeOut_sl.heightCmd-hgt_dem_cm)>error_pos
             climb_rate_cms=PathModeOut_sl.maxClimbSpeed;
             hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;
@@ -707,7 +714,7 @@ switch PathModeOut_sl.flightTaskMode
             else
                 update_waypoint( prev_WP,  next_WP,  dist_min)
             end
-        end 
+        end
         plane_run();
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     case    ENUM_FlightTaskMode.GoHomeMode
@@ -723,6 +730,7 @@ switch PathModeOut_sl.flightTaskMode
         end
         switch Copter_Plane.State
             case ENUM_State.Plane
+                hgt_dem_cm = Copter_Plane.hgt_dem_cm;
                 if (PathModeOut_sl.heightCmd-hgt_dem_cm)>error_pos
                     climb_rate_cms=PathModeOut_sl.maxClimbSpeed;
                     hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;
@@ -823,6 +831,7 @@ switch PathModeOut_sl.flightTaskMode
         end
         switch Copter_Plane.State
             case ENUM_State.Plane
+                hgt_dem_cm = Copter_Plane.hgt_dem_cm;
                 if (PathModeOut_sl.heightCmd-hgt_dem_cm)>error_pos
                     climb_rate_cms=PathModeOut_sl.maxClimbSpeed;
                     hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;

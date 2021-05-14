@@ -16,7 +16,6 @@ aerodynamic_load_factor                  = Plane.aerodynamic_load_factor;
 climb_rate_cms                           = Copter_Plane.climb_rate_cms;
 loc_origin                               = Copter_Plane.loc_origin;
 EAS_dem_cm                               = Copter_Plane.EAS_dem_cm;
-hgt_dem_cm                               = Copter_Plane.hgt_dem_cm;
 center_WP                                = Copter_Plane.center_WP;
 radius                                   = Copter_Plane.radius;
 loiter_direction                         = Copter_Plane.loiter_direction;
@@ -156,7 +155,9 @@ switch Copter_Plane.Mode
             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
             AP_TECS_init();
         else
+            hgt_dem_cm=Copter_Plane.hgt_dem_cm;
             hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;
+            Copter_Plane.hgt_dem_cm = hgt_dem_cm;
         end
         update_50hz();      
         update_pitch_throttle(  hgt_dem_cm,EAS_dem_cm,aerodynamic_load_factor)
@@ -174,7 +175,9 @@ switch Copter_Plane.Mode
             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
             AP_TECS_init();
         else
+            hgt_dem_cm=Copter_Plane.hgt_dem_cm;
             hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;
+            Copter_Plane.hgt_dem_cm = hgt_dem_cm;
         end
         prev_WP=[loc.lat(WP_i) loc.lon(WP_i)];
         next_WP=[loc.lat(WP_i+1) loc.lon(WP_i+1)];
@@ -246,7 +249,9 @@ switch Copter_Plane.Mode
             AP_TECS_init();
             center_WP=curr_loc;
         else
+            hgt_dem_cm=Copter_Plane.hgt_dem_cm;
             hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;
+            Copter_Plane.hgt_dem_cm = hgt_dem_cm;
         end
         update_50hz();
         update_pitch_throttle(  hgt_dem_cm,EAS_dem_cm,aerodynamic_load_factor)
@@ -269,7 +274,6 @@ switch Copter_Plane.Mode
     otherwise
         Mode_State=Copter_Plane.Mode;
 end
-Copter_Plane.hgt_dem_cm                           = hgt_dem_cm;
 Copter_Plane.center_WP                            = center_WP;
 Copter_Plane.prev_WP                              = prev_WP;
 Copter_Plane.next_WP                              = next_WP;
