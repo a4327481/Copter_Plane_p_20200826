@@ -128,6 +128,12 @@ if( Copter_Plane.State==ENUM_State.Plane)%% disable plane I,vel_forward_integrat
     AC_rate_pitch_pid.flags_reset_filter              = true;
     AC_rate_roll_pid.flags_reset_filter               = true;
     AC_rate_yaw_pid.flags_reset_filter                = true;
+    
+    AC_PosControl.pid_accel_z.disable_integrator      = true;
+    AC_PosControl.pid_vel_xy.disable_integrator       = true;
+    AC_rate_pitch_pid.disable_integrator              = true;
+    AC_rate_roll_pid.disable_integrator               = true;
+    AC_rate_yaw_pid.disable_integrator                = true;
 else
     Copter_Plane.disable_AP_roll_integrator           = true;
     Copter_Plane.disable_AP_pitch_integrator          = true;
@@ -136,6 +142,12 @@ else
     Copter_Plane.disable_AP_rate_pitch_gains_D        = true;
     Copter_Plane.disable_AP_rate_yaw_K_FF             = true;
     Copter_Plane.disable_AP_rate_roll_gains_D         = true;
+    
+    AC_PosControl.pid_accel_z.disable_integrator      = false;
+    AC_PosControl.pid_vel_xy.disable_integrator       = false;
+    AC_rate_pitch_pid.disable_integrator              = false;
+    AC_rate_roll_pid.disable_integrator               = false;
+    AC_rate_yaw_pid.disable_integrator                = false;
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 switch PathModeOut_sl.flightTaskMode
@@ -217,7 +229,8 @@ switch PathModeOut_sl.flightTaskMode
             Copter_Plane.State=ENUM_State.Copter;
             loc_origin=PathModeOut_sl.turnCenterLL(1:2);
             SINS.curr_pos(1:2)=get_vector_xy_from_origin_NE( curr_loc,loc_origin)*100;
-            init_vel_controller_xyz();
+            %             init_vel_controller_xyz();
+            AC_PosControl.pos_target(3)                                  = SINS.curr_alt;
             relax_attitude_controllers();
         else
             AC_PosControl.pos_target(1:2)=[0 0];

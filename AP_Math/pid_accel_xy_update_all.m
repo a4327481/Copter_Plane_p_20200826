@@ -76,8 +76,6 @@ D_out = (derivative * kd);
 output=P_out + integrator + D_out+kff*target_in;
 
 AC_PosControl.pid_vel_xy.flags_reset_filter  = flags_reset_filter;
-AC_PosControl.pid_vel_xy.disable_integrator  = disable_integrator;
-
 AC_PosControl.pid_vel_xy.target              = target;
 AC_PosControl.pid_vel_xy.error               = error;
 AC_PosControl.pid_vel_xy.error_last          = error_last ;

@@ -15,7 +15,7 @@ roll_target                    = AC_PosControl.roll_target;
  
      roll = roll_target / 100.0;
     if (abs(roll) < weathervane_min_roll)  
-        weathervane_last_output = 0;
+        Copter_Plane.weathervane_last_output = 0;
         weathervane_yaw_rate_cds=0;
         return ;
     end
