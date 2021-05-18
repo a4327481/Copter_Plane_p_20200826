@@ -34,9 +34,9 @@ rate_target_ang_vel = [gyro_x gyro_y gyro_z];
 thrust_error_angle = 0.0;
 
 % Reset the PID filters
-% AC_rate_roll_pid.flags_reset_filter=true;
-% AC_rate_pitch_pid.flags_reset_filter=true;
-% AC_rate_yaw_pid.flags_reset_filter=true;
+AC_rate_roll_pid.flags_reset_filter=true;
+AC_rate_pitch_pid.flags_reset_filter=true;
+AC_rate_yaw_pid.flags_reset_filter=true;
 
 AC_Attitude.attitude_target_quat            = attitude_target_quat;
 AC_Attitude.attitude_target_euler_angle     = attitude_target_euler_angle;

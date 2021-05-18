@@ -1,4 +1,4 @@
-t=180:247;
+t=315:330;
 global HD
 global LOCATION_SCALING_FACTOR
 len=length(t);
