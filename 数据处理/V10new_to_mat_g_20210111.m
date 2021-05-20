@@ -44,4 +44,4 @@ for i = 1:length(parserData)
 % 	assignin('base',parserData{i},V10Log.(parserData{i}));
 end
 
-
+plot(ALD1(1:end-1,3)/1e4,diff(ALD1(:,3))/10)

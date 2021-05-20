@@ -16,9 +16,6 @@ aerodynamic_load_factor               = Plane.aerodynamic_load_factor;
         stabilize()
         AP_Motors_output();
 
-Copter_Plane.hgt_dem_cm                            = hgt_dem_cm;
-Copter_Plane.EAS_dem_cm                            = EAS_dem_cm;       
-Plane.aerodynamic_load_factor                      = aerodynamic_load_factor;
        
 end
 

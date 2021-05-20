@@ -187,38 +187,44 @@ ecs_imv5(j5:end)=[];
 ecs_ppm5(j5:end)=[];
 a=487+3-0.7+1;
 % t1=1:j1-1*0.05;
+if (~isempty(t1))
 data_ck=[(t1-t1(1))*1e5+a state1 ecs_rpm1 ecs_imv1 ecs_ppm1];
 fid=fopen([PathName,'\\',FileName(1:end-4),'_servo1.dat'],'w');
 fprintf(fid,'t state ecs_rpm ecs_imv ecs_ppm\n');
 fclose(fid);
 save([PathName,'\\',FileName(1:end-4),'_servo1.dat'],'data_ck','-ascii','-append' )
-
+end
 % t2=1:j2-1*0.05;
+if (~isempty(t2))
 data_ck=[(t2-t2(1))*1e5+a state2 ecs_rpm2 ecs_imv2 ecs_ppm2];
 fid=fopen([PathName,'\\',FileName(1:end-4),'_servo2.dat'],'w');
 fprintf(fid,'t state ecs_rpm ecs_imv ecs_ppm\n');
 fclose(fid);
 save([PathName,'\\',FileName(1:end-4),'_servo2.dat'],'data_ck','-ascii','-append' )
+end
 
 % t3=1:j3-1*0.05;
+if (~isempty(t3))
 data_ck=[(t3-t3(1))*1e5+a state3 ecs_rpm3 ecs_imv3 ecs_ppm3];
 fid=fopen([PathName,'\\',FileName(1:end-4),'_servo3.dat'],'w');
 fprintf(fid,'t state ecs_rpm ecs_imv ecs_ppm\n');
 fclose(fid);
 save([PathName,'\\',FileName(1:end-4),'_servo3.dat'],'data_ck','-ascii','-append' )
-
+end
 % t4=1:j4-1*0.05;
+if (~isempty(t4))
 data_ck=[(t4-t4(1))*1e5+a state4 ecs_rpm4 ecs_imv4 ecs_ppm4];
 fid=fopen([PathName,'\\',FileName(1:end-4),'_servo4.dat'],'w');
 fprintf(fid,'t state ecs_rpm ecs_imv ecs_ppm\n');
 fclose(fid);
 save([PathName,'\\',FileName(1:end-4),'_servo4.dat'],'data_ck','-ascii','-append' )
-
+end
 % t5=1:j5-1*0.05;
+if (~isempty(t5))
 data_ck=[(t5-t5(1))*1e5+a state5 ecs_rpm5 ecs_imv5 ecs_ppm5];
 fid=fopen([PathName,'\\',FileName(1:end-4),'_servo5.dat'],'w');
 fprintf(fid,'t state ecs_rpm ecs_imv ecs_ppm\n');
 fclose(fid);
 save([PathName,'\\',FileName(1:end-4),'_servo5.dat'],'data_ck','-ascii','-append' )
-
+end
 end

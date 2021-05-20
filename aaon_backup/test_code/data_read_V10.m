@@ -26,7 +26,7 @@ C=uint8(C);
 i=1;
 j=1;
 k=1;
-while(i<=N)
+while(i<=N-100)
     if((C(i)==hex2dec(HEAD1))&&(C(i+1)==hex2dec(HEAD2))&&(C(i+2)==hex2dec(MsgType))&&(C(i+3)>hex2dec('80')))
         MsgID(j,1)=C(i+3);
         MsgLen(j,1)=double(C(i+4));

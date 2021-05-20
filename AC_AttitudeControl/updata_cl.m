@@ -21,8 +21,8 @@ end
  accel_ef=rot_body_to_ned*[accel_x accel_y accel_z]';
  z_accel_meas= -(accel_ef(3)+GRAVITY_MSS)*100;
  
- arspeed_temp=arspeed_temp+(aspeed-arspeed_temp)* get_filt_alpha(arspeed_filt);
- aspeed=arspeed_temp;
+%  arspeed_temp=arspeed_temp+(aspeed-arspeed_temp)* get_filt_alpha(arspeed_filt);
+%  aspeed=arspeed_temp;
  
 SINS.aspeed                              = aspeed;
 SINS.rot_body_to_ned                     = rot_body_to_ned;
