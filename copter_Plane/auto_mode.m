@@ -304,7 +304,7 @@ switch PathModeOut_sl.flightTaskMode
             Copter_Plane.State=ENUM_State.Plane;
             hgt_dem_cm=height*100;
             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
-            AP_TECS_init();
+            AP_TECS_init_p2p();
         end
         hgt_dem_cm = Copter_Plane.hgt_dem_cm;
         if (PathModeOut_sl.heightCmd-hgt_dem_cm)>error_pos
@@ -334,7 +334,7 @@ switch PathModeOut_sl.flightTaskMode
             Copter_Plane.State=ENUM_State.Plane;
             hgt_dem_cm=height*100;
             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
-            AP_TECS_init();
+            AP_TECS_init_p2p();
         end
         hgt_dem_cm = Copter_Plane.hgt_dem_cm;
         if (PathModeOut_sl.heightCmd-hgt_dem_cm)>error_pos
@@ -572,7 +572,7 @@ switch PathModeOut_sl.flightTaskMode
                 end
         end
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    case    ENUM_FlightTaskMode.Fix2Rotor_Mode
+    case    {ENUM_FlightTaskMode.Fix2Rotor_Mode,ENUM_FlightTaskMode.StallRecovery}
         switch plane_mode
             case {ENUM_plane_mode.V10 ,ENUM_plane_mode.V10_1,ENUM_plane_mode.V10s}
                 if(PathMode~=ENUM_FlightTaskMode.Fix2Rotor_Mode)
@@ -737,7 +737,7 @@ switch PathModeOut_sl.flightTaskMode
             Copter_Plane.center_WP=curr_loc;
             hgt_dem_cm=height*100;
             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
-            AP_TECS_init();
+            AP_TECS_init_p2p();
             SINS.curr_pos(1:2)=[0 0];
             init_vel_controller_xyz_c2c();
             relax_attitude_controllers_c2c();
@@ -755,7 +755,7 @@ switch PathModeOut_sl.flightTaskMode
                     climb_rate_cms=0;
                     hgt_dem_cm=PathModeOut_sl.heightCmd;
                 end
-                prev_WP=Copter_Plane.center_WP;
+                prev_WP=PathModeOut_sl.prePathPoint_LLA(1:2);
                 next_WP=PathModeOut_sl.curPathPoint_LLA(1:2);
                 if(Copter_Plane.heading_hold||(PathModeOut_sl.flightControlMode==ENUM_FlightControlMode.HeadingTrackMode))
                     update_heading_hold(PathModeOut_sl.headingCmd*HD*100);
@@ -780,9 +780,8 @@ switch PathModeOut_sl.flightTaskMode
                     AC_PosControl.pos_target(3)=PathModeOut_sl.heightCmd;
                 end
                 Copter_Plane.climb_rate_cms  = climb_rate_cms;
-                
                 copter_run();
-                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         end
     case    ENUM_FlightTaskMode.GroundStandByMode
         if(PathMode~=ENUM_FlightTaskMode.GroundStandByMode)
@@ -805,39 +804,14 @@ switch PathModeOut_sl.flightTaskMode
         target_yaw_rate=0;
         input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate);
         rate_controller_run();
-        AP_Motors_output();
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    case    ENUM_FlightTaskMode.StallRecovery
-        if(PathMode~=ENUM_FlightTaskMode.StallRecovery)
-            PathMode=ENUM_FlightTaskMode.StallRecovery;
-            Copter_Plane.State=ENUM_State.Copter;
-            SINS.curr_pos(1:2)=[0 0];
-            init_vel_controller_xyz();
-            relax_attitude_controllers();
-        end
-        update_z_controller();
-        roll_target     = 0 ;
-        pitch_target    = pitch_target_p2c;
-        target_yaw_rate = 0 ;
-        input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate);
-        rate_controller_run();
-        Plane.nav_pitch_cd=pitch_target;
-        Plane.nav_roll_cd=roll_target;
-        stabilize()
-        SRV_Channel.k_aileron  = SRV_Channel.k_aileron*p_plane_c2p;
-        SRV_Channel.k_elevator = SRV_Channel.k_elevator*p_plane_c2p;
-        SRV_Channel.k_rudder   = SRV_Channel.k_rudder*p_plane_c2p;
-        SRV_Channel.k_throttle = 0;
-        AP_Motors.yaw_in=constrain_value(AP_Motors.yaw_in,-yaw_max_c2p,yaw_max_c2p);
-        AC_PosControl.pid_accel_z.filt_E_hz=POSCONTROL_ACC_Z_FILT_HZ;
-        AP_Motors_output();
+        AP_Motors_output();  
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     case    ENUM_FlightTaskMode.VerticalMove
         if(PathMode~=ENUM_FlightTaskMode.VerticalMove)
             PathMode=ENUM_FlightTaskMode.VerticalMove;
             hgt_dem_cm=height*100;
             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
-            AP_TECS_init();
+            AP_TECS_init_p2p();
             SINS.curr_pos(1:2)=[0 0];
             init_vel_controller_xyz();
             relax_attitude_controllers();

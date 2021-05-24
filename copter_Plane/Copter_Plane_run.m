@@ -69,12 +69,17 @@ else
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if(Copter_Plane.Mode==ENUM_Mode.Copter_POS_HOLD||Copter_Plane.Mode==ENUM_Mode.AUTO_TEST||Copter_Plane.Mode==ENUM_Mode.AUTO)
-else
     AC_PosControl.pid_accel_z.disable_integrator  = false;
     AC_PosControl.pid_vel_xy.disable_integrator   = false;
     AC_rate_pitch_pid.disable_integrator          = false;
     AC_rate_roll_pid.disable_integrator           = false;
-    AC_rate_yaw_pid.disable_integrator            = false; 
+    AC_rate_yaw_pid.disable_integrator            = false;
+else
+    AC_PosControl.pid_accel_z.disable_integrator  = true;
+    AC_PosControl.pid_vel_xy.disable_integrator   = true;
+    AC_rate_pitch_pid.disable_integrator          = true;
+    AC_rate_roll_pid.disable_integrator           = true;
+    AC_rate_yaw_pid.disable_integrator            = true; 
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% mode 1 :copter Stabilize,2:copter althold ,3:copter poshold,4:Plane Stabilize 5:Plane TECS; 6：Plane L1
@@ -84,7 +89,7 @@ switch Copter_Plane.Mode
         if(Mode_State~=ENUM_Mode.Copter_STABILIZE)
             Mode_State=ENUM_Mode.Copter_STABILIZE;
             Copter_Plane.State = ENUM_State.Copter;
-            relax_attitude_controllers();
+            relax_attitude_controllers_c2c();
             set_Plane_SRV_to_zero();
         end
         set_throttle_outg( true, AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ);
@@ -98,8 +103,8 @@ switch Copter_Plane.Mode
         if(Mode_State~=ENUM_Mode.Copter_ALT_HOLD)
             Mode_State=ENUM_Mode.Copter_ALT_HOLD;
             Copter_Plane.State = ENUM_State.Copter;
-            relax_attitude_controllers();
-            init_vel_controller_xyz();
+            relax_attitude_controllers_c2c();
+            init_vel_controller_xyz_c2c();
             set_Plane_SRV_to_zero();
         end
         set_alt_target_from_climb_rate_ff(climb_rate_cms, dt, 0)
@@ -116,8 +121,8 @@ switch Copter_Plane.Mode
             Copter_Plane.State = ENUM_State.Copter;
             Copter_Plane.loc_origin=curr_loc;
             SINS.curr_pos(1:2)=[0 0];
-            relax_attitude_controllers();
-            init_vel_controller_xyz();
+            relax_attitude_controllers_c2c();
+            init_vel_controller_xyz_c2c();
             set_Plane_SRV_to_zero();
         else
             SINS.curr_pos(1:2)=get_vector_xy_from_origin_NE( curr_loc,loc_origin)*100;
@@ -202,9 +207,9 @@ switch Copter_Plane.Mode
         if(Mode_State~=ENUM_Mode.Copter_Plane_MANUAL)
             Mode_State=ENUM_Mode.Copter_Plane_MANUAL;
             Copter_Plane.State = ENUM_State.Copter;
-            SINS.curr_pos(1:2)=[0 0];
-            relax_attitude_controllers();
-            init_vel_controller_xyz();
+%             SINS.curr_pos(1:2)=[0 0];
+            relax_attitude_controllers_c2c();
+            init_vel_controller_xyz_c2c();
             SRV_Channel.k_throttle     = 0;
         end
         set_alt_target_from_climb_rate_ff(climb_rate_cms, dt, 0)
