@@ -11,7 +11,7 @@
 % if FileName==0
 %     return;
 % end
- out_filePath=data_read_V10();
+out_filePath=data_read_V10();
 V10Log = V10_decode_auto(out_filePath);
  time_algo=V10Log.BUS_CTRL.TimeUS*1e-4;
 parserData = fieldnames(V10Log);
