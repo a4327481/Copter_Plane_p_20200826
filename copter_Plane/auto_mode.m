@@ -371,17 +371,22 @@ switch PathModeOut_sl.flightTaskMode
                 if(Rotor2Fix_delay_flag)
                     if(Copter_Plane.State==ENUM_State.Plane)
                         Rotor2Fix_delay_flag=true;
-                        update_50hz();
                         Plane.nav_roll_cd=0;
-                        Plane.nav_pitch_cd=pitch_target_c2p;
-                        SRV_Channel.k_throttle=AP_TECS.throttle_cruise * 0.01+k_throttle_c2p;
-                        stabilize()
+                        update_50hz();
+                        hgt_dem_cm                            = Copter_Plane.hgt_dem_cm;
+                        EAS_dem_cm                            = Copter_Plane.EAS_dem_cm;
+                        aerodynamic_load_factor               = Plane.aerodynamic_load_factor;
+                        update_pitch_throttle( hgt_dem_cm,EAS_dem_cm,aerodynamic_load_factor);
+                        calc_nav_pitch();
+                        calc_throttle();
+                        stabilize();
                         AP_Motors_output();
                     else
-                        hgt_dem_cm=height*100;
-                        Copter_Plane.hgt_dem_cm = hgt_dem_cm;
-                        AP_TECS_init();
+%                         hgt_dem_cm=height*100;
+%                         Copter_Plane.hgt_dem_cm = hgt_dem_cm;
+                         AP_TECS_init();
                         SRV_Channel.k_throttle=AP_TECS.throttle_cruise * 0.01+k_throttle_c2p;
+                        update_speed( Plane.aerodynamic_load_factor)
                         roll_target =  0;
                         pitch_target = 0/HD;
                         target_yaw_rate =0 ;
