@@ -13,9 +13,6 @@ if(inint)
         case {ENUM_plane_mode.V10s,ENUM_plane_mode.V1000}
             setup_motors() ;
             inint=0;
-        otherwise
-            setup_motors_4a1() ;
-            inint=0;
     end
 end
 end

@@ -50,7 +50,7 @@ if isempty(Mode_State)
     Mode_State = ENUM_Mode.MANUAL;
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-if(Copter_Plane.State == ENUM_State.Copter)%%disable plane I
+if(Copter_Plane.State == ENUM_State.E_Copter)%%disable plane I
     Copter_Plane.disable_AP_roll_integrator                 = true;
     Copter_Plane.disable_AP_pitch_integrator                = true;
     Copter_Plane.disable_AP_yaw_integrator                  = true;
@@ -79,7 +79,7 @@ else
     AC_PosControl.pid_vel_xy.disable_integrator   = true;
     AC_rate_pitch_pid.disable_integrator          = true;
     AC_rate_roll_pid.disable_integrator           = true;
-    AC_rate_yaw_pid.disable_integrator            = true; 
+    AC_rate_yaw_pid.disable_integrator            = true;
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% mode 1 :copter Stabilize,2:copter althold ,3:copter poshold,4:Plane Stabilize 5:Plane TECS; 6：Plane L1
@@ -88,7 +88,7 @@ switch Copter_Plane.Mode
     case ENUM_Mode.Copter_STABILIZE %copter Stabilize
         if(Mode_State~=ENUM_Mode.Copter_STABILIZE)
             Mode_State=ENUM_Mode.Copter_STABILIZE;
-            Copter_Plane.State = ENUM_State.Copter;
+            Copter_Plane.State = ENUM_State.E_Copter;
             relax_attitude_controllers_c2c();
             set_Plane_SRV_to_zero();
         end
@@ -102,7 +102,7 @@ switch Copter_Plane.Mode
     case ENUM_Mode.Copter_ALT_HOLD %copter althold
         if(Mode_State~=ENUM_Mode.Copter_ALT_HOLD)
             Mode_State=ENUM_Mode.Copter_ALT_HOLD;
-            Copter_Plane.State = ENUM_State.Copter;
+            Copter_Plane.State = ENUM_State.E_Copter;
             relax_attitude_controllers_c2c();
             init_vel_controller_xyz_c2c();
             set_Plane_SRV_to_zero();
@@ -118,7 +118,7 @@ switch Copter_Plane.Mode
     case ENUM_Mode.Copter_POS_HOLD %copter xyz
         if(Mode_State~=ENUM_Mode.Copter_POS_HOLD)
             Mode_State=ENUM_Mode.Copter_POS_HOLD;
-            Copter_Plane.State = ENUM_State.Copter;
+            Copter_Plane.State = ENUM_State.E_Copter;
             Copter_Plane.loc_origin=curr_loc;
             SINS.curr_pos(1:2)=[0 0];
             relax_attitude_controllers_c2c();
@@ -128,7 +128,7 @@ switch Copter_Plane.Mode
             SINS.curr_pos(1:2)=get_vector_xy_from_origin_NE( curr_loc,loc_origin)*100;
         end
         AC_PosControl.vel_desired(1)=pitch_target_pilot/10*cos(yaw)-roll_target_pilot/10*sin(yaw);
-        AC_PosControl.vel_desired(2)=pitch_target_pilot/10*sin(yaw)+roll_target_pilot/10*cos(yaw); 
+        AC_PosControl.vel_desired(2)=pitch_target_pilot/10*sin(yaw)+roll_target_pilot/10*cos(yaw);
         set_alt_target_from_climb_rate_ff(climb_rate_cms, dt, 0)
         update_vel_controller_xy();
         update_z_controller();
@@ -146,7 +146,7 @@ switch Copter_Plane.Mode
     case ENUM_Mode.Plane_STABILIZE %Plane Stabilize
         if(Mode_State~=ENUM_Mode.Plane_STABILIZE)
             Mode_State=ENUM_Mode.Plane_STABILIZE;
-            Copter_Plane.State = ENUM_State.Plane;
+            Copter_Plane.State = ENUM_State.E_Plane;
         end
         calc_nav_roll()
         calc_throttle()
@@ -155,7 +155,7 @@ switch Copter_Plane.Mode
     case ENUM_Mode.Plane_TECS %Plane TECS
         if(Mode_State~=ENUM_Mode.Plane_TECS)
             Mode_State=ENUM_Mode.Plane_TECS;
-            Copter_Plane.State = ENUM_State.Plane;
+            Copter_Plane.State = ENUM_State.E_Plane;
             hgt_dem_cm=height*100;
             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
             AP_TECS_init();
@@ -164,7 +164,7 @@ switch Copter_Plane.Mode
             hgt_dem_cm=hgt_dem_cm+dt*climb_rate_cms;
             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
         end
-        update_50hz();      
+        update_50hz();
         update_pitch_throttle(  hgt_dem_cm,EAS_dem_cm,aerodynamic_load_factor)
         calc_nav_pitch();
         calc_nav_roll()
@@ -175,7 +175,7 @@ switch Copter_Plane.Mode
     case ENUM_Mode.Plane_L1_WAYPOINT %Plane L1 waypoint
         if(Mode_State~=ENUM_Mode.Plane_L1_WAYPOINT)
             Mode_State=ENUM_Mode.Plane_L1_WAYPOINT;
-            Copter_Plane.State = ENUM_State.Plane;
+            Copter_Plane.State = ENUM_State.E_Plane;
             hgt_dem_cm=height*100;
             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
             AP_TECS_init();
@@ -206,8 +206,8 @@ switch Copter_Plane.Mode
     case ENUM_Mode.Copter_Plane_MANUAL %copter plane Manual
         if(Mode_State~=ENUM_Mode.Copter_Plane_MANUAL)
             Mode_State=ENUM_Mode.Copter_Plane_MANUAL;
-            Copter_Plane.State = ENUM_State.Copter;
-%             SINS.curr_pos(1:2)=[0 0];
+            Copter_Plane.State = ENUM_State.E_Copter;
+            %             SINS.curr_pos(1:2)=[0 0];
             relax_attitude_controllers_c2c();
             init_vel_controller_xyz_c2c();
             SRV_Channel.k_throttle     = 0;
@@ -219,13 +219,11 @@ switch Copter_Plane.Mode
         target_yaw_rate                       = AC_PosControl.target_yaw_rate;
         switch plane_mode
             case {ENUM_plane_mode.V10 ,ENUM_plane_mode.V10_1,ENUM_plane_mode.V10s}
-                input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate);                
+                input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate);
             case {ENUM_plane_mode.V1000}
                 tail_tilt_temp=constrain_value(tail_tilt,-3000,700);
                 pitch_target_temp=pitch_target+p_tilt_pitch_target*tail_tilt_temp;
                 input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target_temp,   target_yaw_rate);
-            otherwise
-                input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate);
         end
         rate_controller_run();
         if(aspeed>aspeed_c2p)
@@ -244,11 +242,11 @@ switch Copter_Plane.Mode
             SRV_Channel.k_rudder    = 0;
         end
         calc_throttle();
-        AP_Motors_output();      
+        AP_Motors_output();
     case ENUM_Mode.Plane_L1_LOITER %Plane L1 loiter
         if(Mode_State~=ENUM_Mode.Plane_L1_LOITER)
             Mode_State=ENUM_Mode.Plane_L1_LOITER;
-            Copter_Plane.State = ENUM_State.Plane;
+            Copter_Plane.State = ENUM_State.E_Plane;
             hgt_dem_cm=height*100;
             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
             AP_TECS_init();
@@ -265,7 +263,7 @@ switch Copter_Plane.Mode
         calc_nav_roll()
         calc_throttle()
         stabilize()
-        AP_Motors_output();      
+        AP_Motors_output();
     case ENUM_Mode.AUTO_TEST %Auto test
         if(Mode_State~=ENUM_Mode.AUTO_TEST)
             Mode_State=ENUM_Mode.AUTO_TEST;
