@@ -3,7 +3,7 @@ load IOBusInfo_byc_20200903.mat
 load IOBusInfo_V1000.mat
 mode_data();
 sin_step_INIT();
-plane_mode=ENUM_plane_mode.V1000;
+plane_mode=ENUM_plane_mode.V10;
 m_kg_V1000=5;
 Jx=186222*1e-6;
 Jy=164400*1e-6;
