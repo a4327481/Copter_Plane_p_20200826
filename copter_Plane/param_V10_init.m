@@ -1,4 +1,4 @@
-function V10_data_init()
+function param_V10_init()
 %控制参数 V10
 global AC_rate_roll_pid
 global AC_rate_pitch_pid

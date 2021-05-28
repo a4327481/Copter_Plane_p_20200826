@@ -1,4 +1,4 @@
-function V1000_data_init()
+function param_V1000_init()
 %控制参数 V1000
 global AC_rate_roll_pid
 global AC_rate_pitch_pid
@@ -45,8 +45,7 @@ global Test_w
         AC_Attitude.p_angle_roll                                 = 3      ;%ATC_ANG_RLL_P
         AC_Attitude.p_angle_pitch                                = 3      ;%ATC_ANG_PIT_P
         AC_Attitude.p_angle_yaw                                  = 3      ;%ATC_ANG_YAW_P
-        AC_Attitude.input_tc                                     = 0.3    ;%ATC_ANG_LIM_TC
-                 
+        AC_Attitude.input_tc                                     = 0.3    ;%ATC_ANG_LIM_TC               
         AC_PosControl.p_pos_z                                    = 1      ;%PSC_POSZ_P
         AC_PosControl.p_vel_z                                    = 1      ;%PSC_VELZ_P
         AC_PosControl.pid_accel_z.kp                             = 0.9    ;%PSC_ACCZ_P
@@ -57,10 +56,7 @@ global Test_w
         AC_PosControl.pid_accel_z.filt_T_hz                      = 20     ;%PSC_ACCZ_FLTT
         AC_PosControl.pid_accel_z.filt_E_hz                      = 4      ;%PSC_ACCZ_FLTE
         AC_PosControl.pid_accel_z.filt_D_hz                      = 20     ;%PSC_ACCZ_FLTD
-        AC_PosControl.pid_accel_z.slew_rate_max                  = 0      ;%PSC_ACCZ_SMAX
-        
-        
-         
+        AC_PosControl.pid_accel_z.slew_rate_max                  = 0      ;%PSC_ACCZ_SMAX     
         AC_PosControl.p_pos_xy                                   = 1.1    ;%PSC_POSXY_P
         AC_PosControl.pid_vel_xy.kp                              = 1.1    ;%PSC_VELXY_P
         AC_PosControl.pid_vel_xy.ki                              = 0.1    ;%PSC_VELXY_I
@@ -93,8 +89,7 @@ global Test_w
         AP_rate_pitch.gains_FF                                   = 0      ;%PTCH2SRV_FF
         AP_rate_pitch.gains_imax                                 = 3000   ;%PTCH2SRV_IMAX
         AP_rate_pitch.roll_ff                                    = 0.85   ;%PTCH2SRV_RLL
-        AP_rate_pitch.slew_rate_max                              = 0      ;%PTCH2SRV_SMAX
-             
+        AP_rate_pitch.slew_rate_max                              = 0      ;%PTCH2SRV_SMAX        
         AP_rate_yaw.K_A                                          = 0.00   ;%YAW2SRV_SLIP
         AP_rate_yaw.K_I                                          = 0.05   ;%YAW2SRV_INT
         AP_rate_yaw.K_D                                          = 0.25   ;%YAW2SRV_DAMP
@@ -113,15 +108,13 @@ global Test_w
         AP_TECS.p_ff_throttle                                    = 0.5    ;%TECS_P_FF_THR
         AP_L1.L1_damping                                         = 0.75   ;%NAVL1_DAMPING
         AP_L1.L1_period                                          = 17     ;%NAVL1_PERIOD
-        AP_L1.L1_xtrack_i_gain                                   = 0.0    ;%NAVL1_XTRACK_I
-        
+        AP_L1.L1_xtrack_i_gain                                   = 0.0    ;%NAVL1_XTRACK_I    
         Plane.airspeed_max                                       =  23    ;%ARSPD_MAX
         Plane.airspeed_min                                       =  15    ;%ARSPD_MIN
         Plane.kff_rudder_mix                                     =  0.5   ;%KFF_RDDRMIX
         Plane.scaling_speed                                      =  17    ;%SCALING_SPEED
         Plane.pitch_limit_max_cd                                 = 2000   ;%LIM_PITCH_MAX
-        Plane.pitch_limit_min_cd                                 = -1500  ;%LIM_PITCH_MIN
-        
+        Plane.pitch_limit_min_cd                                 = -1500  ;%LIM_PITCH_MIN   
         Copter_Plane.aspeed_cp                                   = 30     ;%ARSPD_CP
         Copter_Plane.aspeed_c2p                                  = 8      ;%ARSPD_C2P
         Copter_Plane.aspeed_c2ps                                 = 17     ;%ARSPD_C2PS
@@ -161,9 +154,7 @@ global Test_w
         Copter_Plane.vel_forward_gain                            = 0.8    ;%VFWD_GAIN
         Copter_Plane.vel_forward_min_pitch                       = -4     ;%VFWD_MIN_PIT
         Copter_Plane.vel_forward_tail_tilt_max                   = 2000   ;%VFWD_MAX_TAIL
-        Copter_Plane.arspeed_filt                                = 5      ;%ARSPD_FILT
-                
-        
+        Copter_Plane.arspeed_filt                                = 5      ;%ARSPD_FILT    
         AP_Motors.current_tilt                                   = 0.35   ;%CURR_TILT
         AP_Motors.throttle_hover                                 = 0.6    ;%THST_HOVER
         Test_w.start                                             = 0      ;%TEST_W_START
@@ -174,8 +165,7 @@ global Test_w
         Test_w.Amp                                               = 0.15   ;%TEST_W_AMP
         Test_w.offset                                            = 0.0    ;%TEST_W_OFFEST
         Test_w.Mode                                              = ENUM_Test_mode.step_w;%TEST_W_MODE
-        Test_w.channel                                           = ENUM_Test_channel.throttle_in_t;%TEST_W_CHANNEL
-        
+        Test_w.channel                                           = ENUM_Test_channel.throttle_in_t;%TEST_W_CHANNEL 
         AC_rate_roll_pid.slew_rate_tau                           = 0.1    ;%ATC_RAT_RLL_STAU
         AC_rate_pitch_pid.slew_rate_tau                          = 0.1    ;%ATC_RAT_PIT_STAU
         AC_rate_yaw_pid.slew_rate_tau                            = 0.1    ;%ATC_RAT_YAW_STAU
@@ -191,8 +181,7 @@ global Test_w
         AP_TECS.spdWeight                                        = 0.9    ;%TECS_SPDWEIGHT
         Copter_Plane.dist_min                                    = 50     ;%DIST_MIN
         Copter_Plane.L1_radius                                   = 60     ;%L1_RADIUS
-        AP_L1.loiter_bank_limit                                  = 0      ;%NAVL1_LIM_BANK
-        
+        AP_L1.loiter_bank_limit                                  = 0      ;%NAVL1_LIM_BANK     
         AP_Motors.Kx                                             = 0                            ;
         AP_Motors.thrust_slew_time                               = 0.3                          ;
         AP_Motors.thr_mix_min                                    = 0.1                          ;

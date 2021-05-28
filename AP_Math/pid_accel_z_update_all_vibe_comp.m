@@ -51,7 +51,7 @@ else
 end
 
 % update I term
-if (ki~=0 )
+if (ki~=0 && ~disable_integrator )
     % Ensure that integrator can only be reduced if the output is saturated
     if (~limit || (((integrator>0) && (error<0)) || ((integrator<0) && (error>0))))
         integrator = integrator + (error * ki) * dt;

@@ -149,6 +149,8 @@ else
     AC_rate_roll_pid.disable_integrator               = false;
     AC_rate_yaw_pid.disable_integrator                = false;
 end
+AC_PosControl.pid_accel_z.filt_E_hz             = Copter_Plane.POSCONTROL_ACC_Z_FILT_HZ;
+AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ   = Copter_Plane.POSCONTROL_THROTTLE_CUTOFF_FREQ;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 switch PathModeOut_sl.flightTaskMode
     case    ENUM_FlightTaskMode.TakeOffMode
@@ -673,12 +675,6 @@ switch PathModeOut_sl.flightTaskMode
                     tail_error=-SRV_Channel.tail_tilt;
                     tail_error=constrain_value(tail_error,-Copter_Plane.tail_tilt_rate*dt,Copter_Plane.tail_tilt_rate*dt);
                     SRV_Channel.tail_tilt=SRV_Channel.tail_tilt+tail_error;
-                    update_z_controller();
-                    roll_target  = AC_PosControl.roll_target;
-                    pitch_target = AC_PosControl.pitch_target;
-                    target_yaw_rate = 0;
-                    input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate);
-                    rate_controller_run();
                     if(aspeed>aspeed_c2p)
                         Plane.nav_pitch_cd  = AC_PosControl.pitch_target;
                         Plane.nav_roll_cd   = AC_PosControl.roll_target;
@@ -696,6 +692,12 @@ switch PathModeOut_sl.flightTaskMode
                         set_Plane_SRV_to_zero();
                         AP_Motors_output();
                     end
+                    update_z_controller();
+                    roll_target  = AC_PosControl.roll_target;
+                    pitch_target = AC_PosControl.pitch_target;
+                    target_yaw_rate = 0;
+                    input_euler_angle_roll_pitch_euler_rate_yaw(  roll_target,   pitch_target,   target_yaw_rate);
+                    rate_controller_run();
                 end
                 
         end

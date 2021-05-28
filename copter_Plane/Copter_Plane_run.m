@@ -80,6 +80,12 @@ else
     AC_rate_pitch_pid.disable_integrator          = true;
     AC_rate_roll_pid.disable_integrator           = true;
     AC_rate_yaw_pid.disable_integrator            = true;
+    
+    AC_PosControl.pid_accel_z.flags_reset_filter      = true;
+    AC_PosControl.pid_vel_xy.flags_reset_filter       = true;
+    AC_rate_pitch_pid.flags_reset_filter              = true;
+    AC_rate_roll_pid.flags_reset_filter               = true;
+    AC_rate_yaw_pid.flags_reset_filter                = true;
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% mode 1 :copter Stabilize,2:copter althold ,3:copter poshold,4:Plane Stabilize 5:Plane TECS; 6：Plane L1
