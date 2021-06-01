@@ -31,15 +31,17 @@ switch plane_mode
         J=J_V10;
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ts                                                       =0;
+dt                                                       = 0.012;
+HD                                                       = 180/pi;
+
 rho                                                      = 1;
 gyro                                                     = [00/HD -200/HD 0];
 Euler                                                    = [5/HD 5/HD 30/HD];
 velocity                                                 = [0 0 0];
 position                                                 = [0 0 -100];
 %
-ts                                                       =0;
-dt                                                       = 0.012;
-HD                                                       = 180/pi;
+
 GRAVITY_MSS                                              = 9.80665;
 LOCATION_SCALING_FACTOR                                  = 0.011131884502145034;% 1e-7*地球半径/HD
 LOCATION_SCALING_FACTOR_INV                              = 89.83204953368922;
