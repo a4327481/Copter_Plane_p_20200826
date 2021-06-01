@@ -9,6 +9,7 @@ global SINS
 curr_pos                            = SINS.curr_pos;
 curr_vel                            = SINS.curr_vel;
 p_pos_xy                            = AC_PosControl.p_pos_xy;
+pid_vel_xy_p_wind                   = AC_PosControl.pid_vel_xy_p_wind;
 accel_cms                           = AC_PosControl.accel_cms;
 leash                               = AC_PosControl.leash;
 accel_xy_filt_hz                    = AC_PosControl.accel_xy_filt_hz;
@@ -47,8 +48,8 @@ kP=p_pos_xy;
             pos_target(2) = curr_pos(2) + pos_error(2);
         end
         
-        vel_target = sqrt_controller_pos(pos_error, kP, accel_cms);
-        
+        vel_target = sqrt_controller_pos(pos_error, kP*((pid_vel_xy_p_wind-0.5)/0.5*0.15+0.85), accel_cms*pid_vel_xy_p_wind);
+
     end
     % add velocity feed-forward
     vel_target(1) =vel_target(1) + vel_desired(1);

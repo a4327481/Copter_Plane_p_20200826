@@ -131,6 +131,7 @@ Copter_Plane.radius                                      = 80     ;%RADIUS
 Copter_Plane.loiter_direction                            = 1      ;%LOITER_DIR
 Copter_Plane.k_flap_TakeOff                              = -3500  ;%K_FLAP_TAKEOFF
 Copter_Plane.k_flap_Land                                 = 4300   ;%K_FLAP_LAND
+Copter_Plane.k_flap                                      = 0      ;%K_FLAP
 Copter_Plane.thr_out_min                                 = 0.38    ;%THR_OUT_MIN
 Copter_Plane.throttle_ground                             = 0.41   ;%THR_GROUND
 Copter_Plane.throttle_off_rate                           = 0.03   ;%THR_OFF_RATE

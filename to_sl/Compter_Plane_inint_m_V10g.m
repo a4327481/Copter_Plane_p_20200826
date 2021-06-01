@@ -222,6 +222,7 @@ AC_PosControl.pid_vel_xy.error                           = [0 0];
 AC_PosControl.pid_vel_xy.error_last                      = [0 0];
 AC_PosControl.pid_vel_xy.integrator                      = [0 0];
 AC_PosControl.pid_vel_xy.derivative                      = [0 0];
+AC_PosControl.pid_vel_xy_p_wind                          = 1;                            
 %  AC_PosControl.pid_vel_xy.slew_amplitude                = [0 0];
 %  AC_PosControl.pid_vel_xy.slew_filterg                  = [0 0];
 %  AC_PosControl.pid_vel_xy.last_sample                   = [0 0];
@@ -366,6 +367,7 @@ Copter_Plane.pitch_target_pilot                          = 0            ;
 Copter_Plane.climb_rate_cms                              = 0            ;
 Copter_Plane.take_off_land                                = 0                                      ;
 Copter_Plane.weathervane_last_output                      = 0                                      ;
+
 Copter_Plane.vel_forward_integrator                       = 0                                       ;
 Copter_Plane.arspeed_temp                                 = 0                                       ;
 Copter_Plane.disable_AP_roll_integrator                   = 0                                       ;
@@ -375,6 +377,8 @@ Copter_Plane.disable_AP_rate_roll_gains_D                 = 0                   
 Copter_Plane.disable_AP_rate_pitch_roll_ff                = 0                                       ;
 Copter_Plane.disable_AP_rate_pitch_gains_D                = 0                                       ;
 Copter_Plane.disable_AP_rate_yaw_K_FF                     = 0                                       ;
+Copter_Plane.disable_forward_throttle                     = false                                   ; 
+
 
 AP_Motors.batt_current                                   = 0                            ;
 AP_Motors.batt_resistance                                = 0                            ;

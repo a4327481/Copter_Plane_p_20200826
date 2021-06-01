@@ -38,8 +38,13 @@ throttle_ground                    = Copter_Plane.throttle_ground;
 throttle_off_rate                  = Copter_Plane.throttle_off_rate;
 k_flap_TakeOff                     = Copter_Plane.k_flap_TakeOff;
 k_flap_Land                        = Copter_Plane.k_flap_Land;
+k_flap                             = Copter_Plane.k_flap;
 Fix2Rotor_delay_s                  = Copter_Plane.Fix2Rotor_delay_s;
 heading_hold                       = Copter_Plane.heading_hold;
+thr_out_min                        = Copter_Plane.thr_out_min;
+throttle_filter                    = AP_Motors.throttle_filter;
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 height                                = SINS.curr_alt/100;
 aspeed                                = SINS.aspeed;
@@ -99,7 +104,7 @@ if(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.TakeOffMode)
 elseif(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.LandMode)
     SRV_Channel.k_flap=k_flap_Land;
 else
-    SRV_Channel.k_flap=0;
+    SRV_Channel.k_flap=k_flap;
 end
 if(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.Rotor2Fix_Mode)
     AC_PosControl.thr_out_min=Copter_Plane.thr_out_min_c2p;
@@ -110,7 +115,14 @@ end
 if(PathModeOut_sl.flightTaskMode~=ENUM_FlightTaskMode.Fix2Rotor_Mode)
     AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ=Copter_Plane.POSCONTROL_THROTTLE_CUTOFF_FREQ;
 end
-
+if(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.LandMode)
+    Copter_Plane.disable_forward_throttle=true;
+    AC_PosControl.pid_vel_xy_p_wind=(throttle_filter-thr_out_min-0.1)/0.1*dt/5 + AC_PosControl.pid_vel_xy_p_wind;
+    AC_PosControl.pid_vel_xy_p_wind=constrain_value(AC_PosControl.pid_vel_xy_p_wind,0.5,1);
+else
+   Copter_Plane. disable_forward_throttle=false;
+    AC_PosControl.pid_vel_xy_p_wind=1;
+end
 
 if( Copter_Plane.State==ENUM_State.E_Plane)%% disable plane I,vel_forward_integrator=0;
     Copter_Plane.disable_AP_roll_integrator           = false;
@@ -245,9 +257,9 @@ switch PathModeOut_sl.flightTaskMode
         if(PathMode~=ENUM_FlightTaskMode.HoverUpMode)
             PathMode=ENUM_FlightTaskMode.HoverUpMode;
             Copter_Plane.State=ENUM_State.E_Plane;
-%             hgt_dem_cm=height*100;
-%             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
-%             AP_TECS_init_p2p();
+            hgt_dem_cm=height*100;
+            Copter_Plane.hgt_dem_cm = hgt_dem_cm;
+            AP_TECS_init_p2p();
         end
         hgt_dem_cm = Copter_Plane.hgt_dem_cm;
         if (PathModeOut_sl.heightCmd-hgt_dem_cm)>error_pos

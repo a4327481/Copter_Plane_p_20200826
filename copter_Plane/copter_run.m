@@ -20,7 +20,7 @@ k_rudder                              = SRV_Channel.k_rudder;
 k_throttle                            = SRV_Channel.k_throttle;
 p_plane_cp                            = Copter_Plane.p_plane_cp;
 aspeed_cp                             = Copter_Plane.aspeed_cp;
-
+disable_forward_throttle              = Copter_Plane.disable_forward_throttle;
 
 if( (abs(vel_desired(1))>0) || (abs(vel_desired(2))>0)||(abs(target_yaw_rate)>0))
     temp_yaw_rate=0;
@@ -29,7 +29,12 @@ else
 end
 switch plane_mode
     case {ENUM_plane_mode.V10 ,ENUM_plane_mode.V10_1,ENUM_plane_mode.V10s}
-        vel_forward_pct_out = forward_throttle_pct_4a1();%%tail xiu zheng
+        if(disable_forward_throttle)
+            vel_forward_pct_out = forward_throttle_pct_4a1x();%%tail xiu zheng
+        else
+            vel_forward_pct_out = forward_throttle_pct_4a1();%%tail xiu zheng
+        end
+        
         k_throttle=vel_forward_pct_out;
     case ENUM_plane_mode.V1000
         vel_forward_pct_out = forward_throttle_pctg();%%tail xiu zheng  
