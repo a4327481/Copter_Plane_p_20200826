@@ -2,14 +2,16 @@
 
 out_filePath=data_read_V10();
 V10Log = V10_decode_auto(out_filePath);
-time_algo=V10Log.BUS_CTRL.TimeUS*1e-4;
+% time_algo=V10Log.BUS_CTRL.TimeUS*1e-4;
 parserData = fieldnames(V10Log);
 for i = 1:length(parserData)
     V10Log_parserData=V10Log.(parserData{i});
     V10Log_parserData_i=fieldnames(V10Log_parserData);
-    V10Log_parserData=alignDimension(V10Log_parserData);
+    V10Log_parserData=alignDimension_min(V10Log_parserData);
+    
     if(strcmp(parserData{i,1},'BUS_CTRL'))
-        for j=1:length(V10Log_parserData_i)
+         assignin('base',['time_algo'],V10Log_parserData.(V10Log_parserData_i{1,1})*1e-4)
+        for j=2:length(V10Log_parserData_i)
             len=size(V10Log_parserData.(V10Log_parserData_i{j,1}),2);
             if(len<=1)
                 assignin('base',['algo_',V10Log_parserData_i{j}],V10Log_parserData.(V10Log_parserData_i{j,1}))
@@ -21,7 +23,7 @@ for i = 1:length(parserData)
         end
     end 
     
-    if(strcmp(parserData{i,1},'IMF1'))
+    if(strcmp(parserData{i,1},'IMU1_Driver'))
         assignin('base',['time_imuf'],V10Log_parserData.(V10Log_parserData_i{1,1})*1e-4)
         for j=2:length(V10Log_parserData_i)
             assignin('base',[V10Log_parserData_i{j},'_f'],V10Log_parserData.(V10Log_parserData_i{j,1}))
@@ -55,7 +57,7 @@ for i = 1:length(parserData)
         end
     end
     
-    if(strcmp(parserData{i,1},['ARP1']))
+    if(strcmp(parserData{i,1},['AirSpeed2Wing']))
         assignin('base',['time_arspeed'],V10Log_parserData.(V10Log_parserData_i{1,1})*1e-4)
         for j=2:length(V10Log_parserData_i)
             len=size(V10Log_parserData.(V10Log_parserData_i{j,1}),2);
@@ -69,7 +71,7 @@ for i = 1:length(parserData)
         end
     end
     
-    if(strcmp(parserData{i,1},['ALGO_STATE']))
+    if(strcmp(parserData{i,1},['ALGO_DRIVER_STATE']))
         assignin('base',['time_state'],V10Log_parserData.(V10Log_parserData_i{1,1})*1e-4)
         for j=2:length(V10Log_parserData_i)
             len=size(V10Log_parserData.(V10Log_parserData_i{j,1}),2);
@@ -98,7 +100,7 @@ for i = 1:length(parserData)
     end
     
     
-    if(strcmp(parserData{i,1},['GPS']))
+    if(strcmp(parserData{i,1},['GPS_Raw']))
         assignin('base',['time_gps'],V10Log_parserData.(V10Log_parserData_i{1,1})*1e-4)
         for j=2:length(V10Log_parserData_i)
             len=size(V10Log_parserData.(V10Log_parserData_i{j,1}),2);

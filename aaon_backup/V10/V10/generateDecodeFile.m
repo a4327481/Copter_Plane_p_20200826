@@ -52,9 +52,11 @@ DataParser.oldLabel = '_label';
 DataParser.sepflag = '|';
 DataParser.flagStruct = '@@';
 %% 载入数据
-DataParser.logName = uigetfile('*.mat','选择.mat数据');
+% DataParser.logName = uigetfile('*.mat','选择.mat数据');
+[DataParser.logName,PathName,~] = uigetfile('*.mat','选择.mat数据');
 fprintf('数据文件: %s\n',DataParser.logName);
-load(DataParser.logName);
+% load(DataParser.logName);
+load([PathName,'\\',DataParser.logName]);
 % load('log_105.bin-459717.mat');
 %% 获取数据变量和label变量名称
 fprintf('数据完整性检查\n');

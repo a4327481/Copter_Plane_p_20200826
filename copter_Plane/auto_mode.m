@@ -347,9 +347,9 @@ switch PathModeOut_sl.flightTaskMode
         if(PathMode~=ENUM_FlightTaskMode.AirStandByMode)
             PathMode=ENUM_FlightTaskMode.AirStandByMode;
             Copter_Plane.State=ENUM_State.E_Plane;
-%             hgt_dem_cm=height*100;
-%             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
-%             AP_TECS_init_p2p();
+            hgt_dem_cm=height*100;
+            Copter_Plane.hgt_dem_cm = hgt_dem_cm;
+            AP_TECS_init_p2p();
         end
         hgt_dem_cm = Copter_Plane.hgt_dem_cm;
         if (PathModeOut_sl.heightCmd-hgt_dem_cm)>error_pos
@@ -719,8 +719,8 @@ switch PathModeOut_sl.flightTaskMode
         if(PathMode~=ENUM_FlightTaskMode.PathFollowMode)
             PathMode=ENUM_FlightTaskMode.PathFollowMode;
             Copter_Plane.State=ENUM_State.E_Plane;
-%             hgt_dem_cm=height*100;
-%             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
+            hgt_dem_cm=height*100;
+            Copter_Plane.hgt_dem_cm = hgt_dem_cm;
             AP_TECS_init_p2p();
         end
         hgt_dem_cm = Copter_Plane.hgt_dem_cm;
@@ -828,8 +828,8 @@ switch PathModeOut_sl.flightTaskMode
     case    ENUM_FlightTaskMode.VerticalMove
         if(PathMode~=ENUM_FlightTaskMode.VerticalMove)
             PathMode=ENUM_FlightTaskMode.VerticalMove;
-%             hgt_dem_cm=height*100;
-%             Copter_Plane.hgt_dem_cm = hgt_dem_cm;
+            hgt_dem_cm=height*100;
+            Copter_Plane.hgt_dem_cm = hgt_dem_cm;
             AP_TECS_init_p2p();
             SINS.curr_pos(1:2)=[0 0];
             init_vel_controller_xyz();
