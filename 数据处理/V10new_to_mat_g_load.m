@@ -139,31 +139,24 @@ algo_yaw=algo_yaw*HD;
 algo_curr_vel_0=algo_curr_vel_0/100;
 algo_curr_vel_1=algo_curr_vel_1/100;
 algo_curr_vel_2=algo_curr_vel_2/100;
-
 algo_pos_target_0=algo_pos_target_0/100;
 algo_pos_target_1=algo_pos_target_1/100;
 algo_pos_target_2=algo_pos_target_2/100;
-
 algo_attitude_target_euler_angle_0=algo_attitude_target_euler_angle_0*HD;
 algo_attitude_target_euler_angle_1=algo_attitude_target_euler_angle_1*HD;
 algo_attitude_target_euler_angle_2=algo_attitude_target_euler_angle_2*HD;
-
 algo_rate_target_ang_vel_0=algo_rate_target_ang_vel_0*HD;
 algo_rate_target_ang_vel_1=algo_rate_target_ang_vel_1*HD;
 algo_rate_target_ang_vel_2=algo_rate_target_ang_vel_2*HD;
-
 algo_roll_in=algo_roll_in*10;
 algo_pitch_in=algo_pitch_in*10;
 algo_yaw_in=algo_yaw_in*10;
-
 algo_throttle_filter=algo_throttle_filter*10;
 algo_pitch_dem=algo_pitch_dem*HD;
-
 algo_k_rudder=algo_k_rudder/100;
 algo_k_aileron=algo_k_aileron/100;
 algo_k_elevator=algo_k_elevator/100;
 algo_k_throttle=algo_k_throttle*10;
-
 algo_curr_alt=algo_curr_alt/100;
 
 
