@@ -1846,12 +1846,12 @@ save([PathName,'\\',FileName,'V1000_arspeed.dat'],'data_ck','-ascii','-append' )
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 data_9 = [];
 for i=1:length(data_sl_att_txt)
-        data_9(:,i)=eval(data_sl_att_txt{i,1}); 
-        end
-        head=[data_sl_att_txt{1}];
-        for i=2:length(data_sl_att_txt)
-         head=[head ,' ',data_sl_att_txt{i}];
-        end 
+    data_9(:,i)=eval(data_sl_att_txt{i,1});
+end
+head=[data_sl_att_txt{1}];
+for i=2:length(data_sl_att_txt)
+    head=[head ,' ',data_sl_att_txt{i}];
+end
         head=[head ,'\n'];
 data_ck=data_9(:,1:i);
 fid=fopen([PathName,'\\',FileName,'V1000_sl_att_txt.dat'],'w');

@@ -38,7 +38,7 @@ HD                                                       = 180/pi;
 rho                                                      = 1;
 gyro                                                     = [00/HD -200/HD 0];
 Euler                                                    = [5/HD 5/HD 30/HD];
-velocity                                                 = [0 0 0];
+velocity                                                 = [0.1 0.1 0.1];
 position                                                 = [0 0 -100];
 %
 

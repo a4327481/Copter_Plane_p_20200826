@@ -158,6 +158,7 @@ algo_k_aileron=algo_k_aileron/100;
 algo_k_elevator=algo_k_elevator/100;
 algo_k_throttle=algo_k_throttle*10;
 algo_curr_alt=algo_curr_alt/100;
-
+algo_current_loc_0=V10Log.BUS_CTRL.current_loc(:,1);
+algo_current_loc_1=V10Log.BUS_CTRL.current_loc(:,2);
 
 

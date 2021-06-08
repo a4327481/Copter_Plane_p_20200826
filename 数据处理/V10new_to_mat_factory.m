@@ -36,6 +36,10 @@ end
 
 %% NRA
 try
+    i=find(V10Log.Radar.Time_100us(1:end-1)==V10Log.Radar.Time_100us(2:end));
+V10Log.Radar.Time_100us(i) =[];
+V10Log.Radar.Range(i)=[];
+V10Log.Radar.Flag(i)=[];
 factory.Radar_Range = interp1( V10Log.Radar.Time_100us , V10Log.Radar.Range, factory.time,'previous');
 factory.Radar_Flag  = interp1( V10Log.Radar.Time_100us , V10Log.Radar.Flag,  factory.time,'previous');
 %NRA 共存储下列数据，按需求插值。
@@ -218,9 +222,9 @@ end
 
 %% ECS1
 try
-factory.ECS1.ecs_rpm1  = interp1( V10Log.ECS1.Time_100us,  V10Log.ECS1.ecs_rpm(:,1),  factory.time,'previous');
-factory.ECS1.ecs_rpm2  = interp1( V10Log.ECS1.Time_100us,  V10Log.ECS1.ecs_rpm(:,2),  factory.time,'previous');
-factory.ECS1.ecs_rpm3  = interp1( V10Log.ECS1.Time_100us,  V10Log.ECS1.ecs_rpm(:,3),  factory.time,'previous');
+factory.ECS1_ecs_rpm1  = interp1( V10Log.ECS1.Time_100us,  V10Log.ECS1.ecs_rpm(:,1),  factory.time,'previous');
+factory.ECS1_ecs_rpm2  = interp1( V10Log.ECS1.Time_100us,  V10Log.ECS1.ecs_rpm(:,2),  factory.time,'previous');
+factory.ECS1_ecs_rpm3  = interp1( V10Log.ECS1.Time_100us,  V10Log.ECS1.ecs_rpm(:,3),  factory.time,'previous');
 %ECS1 共存储下列数据，按需求插值。
 % state[0]   
 % state[1]   
@@ -240,8 +244,8 @@ end
 
 %% ECS2
 try
-factory.ECS2.ecs_rpm4  = interp1( V10Log.ECS2.Time_100us,  V10Log.ECS2.ecs_rpm(:,1),  factory.time,'previous');
-factory.ECS2.ecs_rpm5  = interp1( V10Log.ECS2.Time_100us,  V10Log.ECS2.ecs_rpm(:,2),  factory.time,'previous');
+factory.ECS2_ecs_rpm4  = interp1( V10Log.ECS2.Time_100us,  V10Log.ECS2.ecs_rpm(:,1),  factory.time,'previous');
+factory.ECS2_ecs_rpm5  = interp1( V10Log.ECS2.Time_100us,  V10Log.ECS2.ecs_rpm(:,2),  factory.time,'previous');
 %ECS2 共存储下列数据，按需求插值。
 % state[0]     
 % state[1]     
@@ -295,8 +299,8 @@ end
 try
 factory.AirSpeed1Head_indicated_airspeed  = interp1( V10Log.AirSpeed1Head.Time_100us,     V10Log.AirSpeed1Head.indicated_airspeed,     factory.time,'previous');
 factory.AirSpeed1Head_true_airspeed       = interp1( V10Log.AirSpeed1Head.Time_100us,     V10Log.AirSpeed1Head.true_airspeed,          factory.time,'previous');
-factory.V10Log.AirSpeed1Head.err1         = interp1( V10Log.AirSpeed1Head.Time_100us,     V10Log.AirSpeed1Head.I2C_AirRetryCount_0(:,1),          factory.time,'previous');
-factory.V10Log.AirSpeed1Head.err2         = interp1( V10Log.AirSpeed1Head.Time_100us,     V10Log.AirSpeed1Head.I2C_AirRetryCount_0(:,2),          factory.time,'previous');
+factory.AirSpeed1Head_err1                = interp1( V10Log.AirSpeed1Head.Time_100us,     V10Log.AirSpeed1Head.I2C_AirRetryCount_0(:,1),          factory.time,'previous');
+factory.AirSpeed1Head_err2                = interp1( V10Log.AirSpeed1Head.Time_100us,     V10Log.AirSpeed1Head.I2C_AirRetryCount_0(:,2),          factory.time,'previous');
 
 %ARP1 共存储下列数据，按需求插值。
 % air_temp               
@@ -315,8 +319,8 @@ end
 try
 factory.AirSpeed2Wing_indicated_airspeed  = interp1( V10Log.AirSpeed2Wing.Time_100us,     V10Log.AirSpeed2Wing.indicated_airspeed,     factory.time,'previous');
 factory.AirSpeed2Wing_true_airspeed       = interp1( V10Log.AirSpeed2Wing.Time_100us,     V10Log.AirSpeed2Wing.true_airspeed,          factory.time,'previous');
-factory.V10Log.AirSpeed2Wing.err1         = interp1( V10Log.AirSpeed2Wing.Time_100us,     V10Log.AirSpeed2Wing.I2C_AirRetryCount_1(:,1),          factory.time,'previous');
-factory.V10Log.AirSpeed2Wing.err2         = interp1( V10Log.AirSpeed2Wing.Time_100us,     V10Log.AirSpeed2Wing.I2C_AirRetryCount_1(:,2),          factory.time,'previous');
+factory.AirSpeed2Wing_err1         = interp1( V10Log.AirSpeed2Wing.Time_100us,     V10Log.AirSpeed2Wing.I2C_AirRetryCount_1(:,1),          factory.time,'previous');
+factory.AirSpeed2Wing_err2         = interp1( V10Log.AirSpeed2Wing.Time_100us,     V10Log.AirSpeed2Wing.I2C_AirRetryCount_1(:,2),          factory.time,'previous');
 
 %ARP2 共存储下列数据，按需求插值。
 % air_temp               
@@ -563,3 +567,27 @@ factory.Battery10_Average_Current  = interp1( V10Log.Battery10.Time_100us,  V10L
 catch ME
 	disp(ME.message);
 end
+%时间转换为秒
+factory.time=factory.time*1e-4;
+%输出为元胞数组
+parserData = fieldnames(factory);
+for i = 1:length(parserData)
+	assignin('base',parserData{i},factory.(parserData{i}));
+end
+factory=[];
+%数据存储在 parserData中
+parserData
+% data_9=[];
+% for i=1:length(parserData)
+%     data_9(:,i)=eval(parserData{i,1});
+% end
+% head=[parserData{1}];
+% for i=2:length(parserData)
+%     head=[head ,' ',parserData{i}];
+% end
+%         head=[head ,'\n'];
+% data_ck=data_9(:,1:i);
+% fid=fopen([out_filePath(1:end-4),'_factory','.dat'],'w');
+% fprintf(fid,head);
+% fclose(fid);
+% save([out_filePath(1:end-4),'_factory','.dat'],'data_ck','-ascii','-append' )
