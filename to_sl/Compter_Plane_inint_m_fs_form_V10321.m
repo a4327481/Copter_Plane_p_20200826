@@ -139,7 +139,8 @@ m_kg=5;
  k_flap_TakeOff                         = -3500                        ;
  k_flap_Land                            = 2000                         ;
  p_flap_plane                           = 0                            ;
- 
+    disable_forward_throttle=false;
+    POSCONTROL_ACCEL_XY_P   =1;
     k_flap=0;
     thr_out_min=0;
     take_off_land=0;                        

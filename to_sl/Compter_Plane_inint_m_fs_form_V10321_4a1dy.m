@@ -135,6 +135,8 @@ pianzhuanjiao();
  k_flap_Land                            = 4300                       ;
  p_flap_plane                           = 0                            ;
  
+    airspeed_max_land                  =26;
+    airspeed_max_norm                  =28;
     disable_forward_throttle=false;
     POSCONTROL_ACCEL_XY_P   =1;
     k_flap=0;

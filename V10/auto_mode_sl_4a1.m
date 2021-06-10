@@ -134,6 +134,9 @@ global HD
 global disable_forward_throttle
 global POSCONTROL_ACCEL_XY_P
 global thr_out_min
+global airspeed_max
+global airspeed_max_norm
+global airspeed_max_land
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     if isempty(uavMode)
         uavMode = 0;
@@ -203,12 +206,17 @@ global thr_out_min
         disable_forward_throttle=true;
         POSCONTROL_ACCEL_XY_P=(throttle_filter-thr_out_min-0.1)/0.1*dt/5 + POSCONTROL_ACCEL_XY_P;
         POSCONTROL_ACCEL_XY_P=constrain_value(POSCONTROL_ACCEL_XY_P,0.5,1);
+        
     else
         disable_forward_throttle=false;
         POSCONTROL_ACCEL_XY_P=1;
+        
     end
-    
-    
+    if(PathModeOut_sl.flightTaskMode==ENUM_FlightTaskMode.HoverDownMode)      
+        airspeed_max=airspeed_max_land;
+    else
+        airspeed_max=airspeed_max_norm;
+    end
     if( uavMode==1)%% mode =1,mode=plane , disable plane I,vel_forward_integrator=0;
         disable_integrator_pitch=0;
         disable_integrator_roll=0;
