@@ -49,7 +49,7 @@ pianzhuanjiao();
  gains_P_pitch                          = 1.2                        ;
  gains_D_pitch_inint                    = 0.35                       ;
  gains_I_pitch                          = 0.02                       ;
- roll_ff_pitch_inint                    = 0.85                       ;
+ roll_ff_pitch_inint                    = 0.80                       ;
  gains_imax_pitch                       = 3000                       ;
  gains_tau_roll                         = 0.5                        ;
  gains_P_roll                           = 1.27                       ;
@@ -273,7 +273,7 @@ algo_dbg_param.maxClimbSpeed=0;
     throttle_min=0;
     throttle_max=100; 
     pitch_limit_min_cd=-1500;
-    pitch_limit_max_cd=1500;
+    pitch_limit_max_cd=1200;
     pitch_max_limit=90;
     roll_limit_cd=2500;
 
