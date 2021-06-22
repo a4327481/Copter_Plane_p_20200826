@@ -17,7 +17,7 @@ AC_ATTITUDE_CONTROL_MAX          = AP_Motors.AC_ATTITUDE_CONTROL_MAX;
         % reduce more slowly (from 0.9 to 0.1 in 1.6 seconds)
         throttle_rpy_mix=throttle_rpy_mix - min(0.5 * dt, throttle_rpy_mix - throttle_rpy_mix_desired);
     end
-    throttle_rpy_mix = constrain_value(throttle_rpy_mix, 0.1, AC_ATTITUDE_CONTROL_MAX);
+    throttle_rpy_mix = constrain_value(throttle_rpy_mix, 0.0, AC_ATTITUDE_CONTROL_MAX);
  
 AP_Motors.throttle_rpy_mix                 = throttle_rpy_mix;
 AP_Motors.throttle_rpy_mix_desired         = throttle_rpy_mix_desired;

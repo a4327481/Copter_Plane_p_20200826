@@ -21,7 +21,6 @@ else
 end
 AP_Motors.spool_state                    = spool_state;
 AP_Motors.disarm_disable_pwm             = disarm_disable_pwm;
-AP_Motors.armed                          = armed;
 AP_Motors.pwm_min                        = pwm_min;
 AP_Motors.pwm_max                        = pwm_max;
 Copter_Plane.armed                       = armed;                      

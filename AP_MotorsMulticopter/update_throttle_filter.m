@@ -4,10 +4,10 @@ global dt
 global AP_Motors
 
 armed                                  = Copter_Plane.armed;
-throttle_in                            = AP_Motors.throttle_in;
 throttle_cutoff_frequency              = AP_Motors.throttle_cutoff_frequency;
-throttle_filter                        = AP_Motors.throttle_filter;
 thrust_slew_time                       = AP_Motors.thrust_slew_time;
+throttle_in                            = AP_Motors.throttle_in;
+throttle_filter                        = AP_Motors.throttle_filter;
 
 if (armed)
     throttle_filter_temp=throttle_filter;
@@ -23,10 +23,7 @@ else
     throttle_filter=0;
 end
 
-AP_Motors.throttle_in                            = throttle_in;
-AP_Motors.throttle_cutoff_frequency              = throttle_cutoff_frequency;
 AP_Motors.throttle_filter                        = throttle_filter;
-AP_Motors.thrust_slew_time                       = thrust_slew_time;
 
 
 end

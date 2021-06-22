@@ -113,6 +113,10 @@ fp=fopen([PathName,'\\',FileName],'r');
         temp = reshape([data(find(mod(Count,8)==0),207:208)'],1,[]);
         lose_connectgs_cntms= double(typecast(uint8(temp),'uint16')')/1*1.0000000000;
 
+        
+        temp = reshape([data(find(mod(Count,8)==4),255:256)'],1,[]);
+        ALGO_DRIVER=double(typecast(uint8(temp),'uint16')')/1*1.0000000000;
+        
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %IMU
         temp=reshape([data(:,3:6)'],1,[]);

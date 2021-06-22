@@ -5,7 +5,9 @@ global AP_Motors
 roll_factor                 = AP_Motors.roll_factor; 
 pitch_factor                = AP_Motors.pitch_factor;
 yaw_factor                  = AP_Motors.yaw_factor;
-
+roll_fac =0;
+pitch_fac=0;
+yaw_fac=0;
     % find maximum roll, pitch and yaw factors
     for i=1:4  
             if (roll_fac < abs(roll_factor(i)))  

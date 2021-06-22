@@ -6,12 +6,7 @@ init_setup_motors();
 switch plane_mode
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%===================%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     case {ENUM_plane_mode.V10 ,ENUM_plane_mode.V10_1,ENUM_plane_mode.V10s}
-        switch Copter_Plane.State
-            case ENUM_State.E_Copter
-                AP_MotorsMulticopter_output_4a1();
-            case ENUM_State.E_Plane
-                output_to_motors_plane_4a1();
-        end
+        AP_MotorsMulticopter_output_4a1();
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%===================%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     case ENUM_plane_mode.V1000
         switch Copter_Plane.State

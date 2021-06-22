@@ -66,7 +66,7 @@ if isempty(WP_i)
     WP_i = 1;
 end
 if isempty(PathMode)
-    PathMode = ENUM_FlightTaskMode.NoneFlightTaskMode;
+    PathMode = ENUM_FlightTaskMode.GroundStandByMode;
 end
 if isempty(Rotor2Fix_delay)
     Rotor2Fix_delay = 0;
@@ -173,7 +173,7 @@ switch PathModeOut_sl.flightTaskMode
             set_Plane_SRV_to_zero();
             relax_attitude_controllers();
             rate_controller_run();
-            set_throttle_out( 0.1,false, AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ);
+            set_throttle_out( 0,false, AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ);
             AP_Motors_output();
             if(TakeOffMode_delay>1)
                 TakeOffMode_delay_flag=1;
@@ -816,7 +816,7 @@ switch PathModeOut_sl.flightTaskMode
         throttle_in_error=-Land_throttle_in;
         throttle_in_error=constrain_value(throttle_in_error,-throttle_off_rate*dt,throttle_off_rate*dt);
         Land_throttle_in=Land_throttle_in+throttle_in_error;
-        Land_throttle_in=max(Land_throttle_in,0.1);
+%         Land_throttle_in=max(Land_throttle_in,0.1);
         set_throttle_out(Land_throttle_in, 0, AC_PosControl.POSCONTROL_THROTTLE_CUTOFF_FREQ);
         roll_target=0;
         pitch_target=0;

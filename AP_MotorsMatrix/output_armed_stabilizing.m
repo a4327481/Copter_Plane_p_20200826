@@ -23,15 +23,9 @@ function output_armed_stabilizing()
  pitch_factor                    = AP_Motors.pitch_factor;
  yaw_factor                      = AP_Motors.yaw_factor; 
  yaw_headroom                    = AP_Motors.yaw_headroom;
- limit_roll                      = AP_Motors.limit_roll;
- limit_pitch                     = AP_Motors.limit_pitch;
- limit_yaw                       = AP_Motors.limit_yaw;
- limit_throttle_lower            = AP_Motors.limit_throttle_lower;
- limit_throttle_upper            = AP_Motors.limit_throttle_upper;
  current_tilt                    = AP_Motors.current_tilt;
  throttle_thrust_max             = AP_Motors.throttle_thrust_max;
  thrust_boost                    = AP_Motors.thrust_boost;
- throttle_out                    = AP_Motors.throttle_out;
  motor_lost_index                = AP_Motors.motor_lost_index;
  
  rpy_scale=1;
@@ -134,30 +128,29 @@ function output_armed_stabilizing()
         if (thrust_rpyt_out(motor_lost_index) > rp_high)
             rp_high = thrust_boost_ratio * rp_high + (1.0 - thrust_boost_ratio) * thrust_rpyt_out(motor_lost_index);
         end
-    end
-    % Check the maximum yaw control that can be used on this channel
-    % Exclude any lost motors if thrust boost is enabled
-    if (yaw_factor(motor_lost_index)~=0)
-        if ((yaw_thrust * yaw_factor(motor_lost_index))>0)
-            yaw_allowed = thrust_boost_ratio * yaw_allowed + (1.0 - thrust_boost_ratio) * min(yaw_allowed, abs(max(1.0 - (throttle_thrust_best_rpy + thrust_rpyt_out(motor_lost_index)), 0.0)/yaw_factor(motor_lost_index)));
-        else
-            yaw_allowed = thrust_boost_ratio * yaw_allowed + (1.0 - thrust_boost_ratio) * min(yaw_allowed, abs(max(throttle_thrust_best_rpy + thrust_rpyt_out(motor_lost_index), 0.0)/yaw_factor(motor_lost_index)));
+        
+        % Check the maximum yaw control that can be used on this channel
+        % Exclude any lost motors if thrust boost is enabled
+        if (yaw_factor(motor_lost_index)~=0)
+            if ((yaw_thrust * yaw_factor(motor_lost_index))>0)
+                yaw_allowed = thrust_boost_ratio * yaw_allowed + (1.0 - thrust_boost_ratio) * min(yaw_allowed, abs(max(1.0 - (throttle_thrust_best_rpy + thrust_rpyt_out(motor_lost_index)), 0.0)/yaw_factor(motor_lost_index)));
+            else
+                yaw_allowed = thrust_boost_ratio * yaw_allowed + (1.0 - thrust_boost_ratio) * min(yaw_allowed, abs(max(throttle_thrust_best_rpy + thrust_rpyt_out(motor_lost_index), 0.0)/yaw_factor(motor_lost_index)));
+            end
         end
     end
-      
-    
     if (abs(yaw_thrust) > yaw_allowed)
         % not all commanded yaw can be used
         yaw_thrust = constrain_value(yaw_thrust, -yaw_allowed, yaw_allowed);
         limit_yaw = true;
     end
 
-    % check for roll and pitch saturation
-    if (rp_high-rp_low > 1.0 || throttle_avg_maxi < -rp_low)
-        % Full range is being used by roll and pitch.
-            limit_roll  = true;
-            limit_pitch = true;
-    end
+%     % check for roll and pitch saturation
+%     if (rp_high-rp_low > 1.0 || throttle_avg_maxi < -rp_low)
+%         % Full range is being used by roll and pitch.
+%             limit_roll  = true;
+%             limit_pitch = true;
+%     end
     
     
     % add yaw control to thrust outputs
@@ -226,7 +219,8 @@ function output_armed_stabilizing()
     end
      thrust_rpyt_out([2 4])=thrust_rpyt_out([2 4])*cos(current_tilt);
 
-    % determine throttle thrust for harmonic notch
+%     determine throttle thrust for harmonic notch
+%     compensation_gain can never be zero
      throttle_thrust_best_plus_adj = throttle_thrust_best_rpy + thr_adj;
     % compensation_gain can never be zero
     throttle_out = throttle_thrust_best_plus_adj / compensation_gain;

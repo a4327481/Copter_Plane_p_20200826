@@ -13,8 +13,6 @@ vel_z_control_ratio                       = AC_PosControl.vel_z_control_ratio;
 vel_desired                               = AC_PosControl.vel_desired;
 attitude_target_euler_angle               = AC_Attitude.attitude_target_euler_angle;
 thrust_error_angle                        = AC_Attitude.thrust_error_angle; 
-
-throttle_rpy_mix_desired                  = AP_Motors.throttle_rpy_mix_desired;
 thr_mix_min                               = AP_Motors.thr_mix_min;
 LAND_CHECK_LARGE_ANGLE_CD                 = AP_Motors.LAND_CHECK_LARGE_ANGLE_CD;
 LAND_CHECK_ANGLE_ERROR_DEG                = AP_Motors.LAND_CHECK_ANGLE_ERROR_DEG;
@@ -23,7 +21,7 @@ land_accel_ef_filter                      = AP_Motors.land_accel_ef_filter;
  
      % if disarmed or landed prioritise throttle
     if (~armed) 
-        throttle_rpy_mix_desired = thr_mix_min;
+        AP_Motors.throttle_rpy_mix_desired = thr_mix_min;
         return;
     end
     
@@ -59,20 +57,10 @@ land_accel_ef_filter                      = AP_Motors.land_accel_ef_filter;
         if ((large_angle_request && ~landing) || large_angle_error || accel_moving || descent_not_demanded) 
             set_throttle_mix_max(constrain_value(vel_z_control_ratio, 0.0, 1.0));
          else 
-            throttle_rpy_mix_desired = thr_mix_min;
+            AP_Motors.throttle_rpy_mix_desired = thr_mix_min;
         end
 
-AC_PosControl.vel_z_control_ratio                       = vel_z_control_ratio;
-AC_PosControl.vel_desired                               = vel_desired;
-AC_Attitude.attitude_target_euler_angle                 = attitude_target_euler_angle;
-AC_Attitude.thrust_error_angle                          = thrust_error_angle; 
-
-AP_Motors.throttle_rpy_mix_desired                  = throttle_rpy_mix_desired;
-AP_Motors.thr_mix_min                               = thr_mix_min;
-AP_Motors.LAND_CHECK_LARGE_ANGLE_CD                 = LAND_CHECK_LARGE_ANGLE_CD;
-AP_Motors.LAND_CHECK_ANGLE_ERROR_DEG                = LAND_CHECK_ANGLE_ERROR_DEG;
-AP_Motors.LAND_CHECK_ACCEL_MOVING                   = LAND_CHECK_ACCEL_MOVING;
-AP_Motors.land_accel_ef_filter                      = land_accel_ef_filter;   
+AP_Motors.land_accel_ef_filter                          = land_accel_ef_filter;   
  
 end
 

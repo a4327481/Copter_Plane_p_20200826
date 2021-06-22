@@ -146,7 +146,7 @@ global Test_w
         Copter_Plane.k_flap_TakeOff                              = -3500  ;%K_FLAP_TAKEOFF
         Copter_Plane.k_flap_Land                                 = 4300   ;%K_FLAP_LAND
         Copter_Plane.k_flap                                      = 0      ;%K_FLAP
-        Copter_Plane.thr_out_min                                 = 0.38    ;%THR_OUT_MIN
+        Copter_Plane.thr_out_min                                 = 0.38   ;%THR_OUT_MIN
         Copter_Plane.throttle_ground                             = 0.41   ;%THR_GROUND
         Copter_Plane.throttle_off_rate                           = 0.03   ;%THR_OFF_RATE
         Copter_Plane.weathervane_gain                            = 0.7    ;%WVANE_GAIN
@@ -187,7 +187,7 @@ global Test_w
         
         AP_Motors.Kx                                             = 0                            ;
         AP_Motors.thrust_slew_time                               = 0.3                          ;
-        AP_Motors.thr_mix_min                                    = 0.1                          ;
+        AP_Motors.thr_mix_min                                    = 0.0                          ;
         AP_Motors.thr_mix_max                                    = 0.5                          ;
         AP_Motors.yaw_headroom                                   = 0                            ;
         AP_Motors.thrust_curve_expo                              = 0.25                         ;
@@ -197,7 +197,7 @@ global Test_w
         AP_Motors.batt_current_max                               = 0                            ;
         AP_Motors.pwm_max                                        = 2000                         ;
         AP_Motors.pwm_min                                        = 1000                         ;
-        AP_Motors.spin_min                                       = 0.15                         ;
+        AP_Motors.spin_min                                       = 0.1                          ;
         AP_Motors.spin_arm                                       = 0.1                          ;
         AP_Motors.batt_current_time_constant                     = 5                            ;
         AP_Motors.disarm_disable_pwm                             = 1                            ;
